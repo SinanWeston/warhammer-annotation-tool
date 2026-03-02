@@ -5,18 +5,34 @@ A web-based tool for manually annotating bounding boxes on Warhammer 40K miniatu
 ## Overview
 
 This tool helps you create high-quality training data for custom YOLO models by providing an intuitive interface to:
-- Draw model bounding boxes (outer boxes around entire miniatures)
-- Draw base bounding boxes (inner boxes around the miniature's base/stand)
+- Draw model bounding boxes around miniatures
+- Use AI-assisted annotation (model pre-suggests boxes, you accept/reject/redraw)
 - Track annotation progress across 18,000+ images
-- Export to YOLOv8-pose format for training
+- Monitor annotation quality via a dedicated dashboard
+- Prioritize annotation order using active learning (lowest model confidence first)
+- Export to YOLO format for training
 
 ## Features
 
-### Hierarchical Bounding Boxes
-- **Model Bbox**: Outer box capturing the entire miniature (body, weapons, antennae, etc.)
-- **Base Bbox**: Inner box capturing just the miniature's base/stand
-- Both boxes exported as YOLOv8-pose keypoints for training
-- **Auto-Constrain**: Base bboxes automatically constrained to stay inside model boxes
+### Model-Assisted Annotation
+- **AI Predictions**: Click "Get AI Suggestions" to have the trained YOLO model detect miniatures
+- **Validation Workflow**: Accept correct boxes, reject false positives, redraw wrong ones
+- **Training Feedback**: Rejected/redrawn predictions stored for hard negative mining
+- **Accept All**: Bulk-accept when all predictions look good
+
+### Quality Dashboard
+- **Boxes Per Image**: Distribution chart with min/max/avg/median stats
+- **Box Sizes by Faction**: Table with color-coding for struggling factions
+- **Annotation Speed**: Daily annotation throughput chart
+- **Outlier Detection**: Flags tiny boxes (<1% area), huge boxes (>90% area), crowded images (20+ boxes)
+- **Cached Stats**: 60-second TTL, auto-invalidated on annotation save
+
+### Active Learning
+- **Batch Inference**: Score unannotated images by model confidence (loads YOLO model once)
+- **Confidence Prioritization**: Serve lowest-confidence images first for maximum annotation value
+- **Faction Filtering**: Focus batch inference on struggling factions (Death Guard, AdMech, etc.)
+- **Progress Tracking**: Real-time progress bar while batch inference runs
+- **Toggle in UI**: "Prioritize by confidence" checkbox with confidence badge per image
 
 ### Quality Validation
 - **Real-time Validation**: Checks annotations before saving (out of bounds, too small, overlaps)
@@ -61,10 +77,12 @@ The app will be available at `http://localhost:5173`
 
 1. **Navigate to the app** - Open `http://localhost:5173` in your browser
 2. **Click "Start Annotating"** - Loads the first unannotated image
-3. **Draw model boxes** - Use "📦 Model" mode, click and drag to draw boxes around miniatures
-4. **Draw base boxes** - Select a model box, switch to "⭕ Base" mode, draw the base inside
-5. **Save and continue** - Click "Save & Next" to save annotations and load the next image
-6. **Repeat** - Continue until all 18,088 images are annotated
+3. **Get AI suggestions** - Click "Get AI Suggestions" to have the model pre-detect miniatures
+4. **Validate predictions** - Accept correct boxes, reject false positives, redraw wrong ones
+5. **Draw additional boxes** - Manually draw any miniatures the AI missed
+6. **Save and continue** - Click "Save & Next" to save annotations and load the next image
+7. **Use Dashboard** - Click "Dashboard" nav button to view quality stats and run active learning
+8. **Enable prioritization** - Toggle "Prioritize by confidence" to annotate high-value images first
 
 ### Keyboard Shortcuts
 
@@ -121,13 +139,22 @@ After setup completes, follow the displayed instructions to start training.
 
 ## API Endpoints
 
+### Annotation
 - `GET /api/annotate/images` - Get all images with annotation status
-- `GET /api/annotate/next` - Get next unannotated image
+- `GET /api/annotate/next` - Get next unannotated image (`?prioritize=true` for confidence-based ordering)
 - `GET /api/annotate/image/:imageId` - Get image data as base64
 - `POST /api/annotate/save` - Save annotation (with validation)
 - `GET /api/annotate/progress` - Get annotation progress stats
+- `GET /api/annotate/predict/:imageId` - Get AI predictions for an image
 - `POST /api/annotate/validate-export` - Validate all annotations before export
 - `POST /api/annotate/export` - Export to YOLO format (with pre-export validation)
+
+### Dashboard
+- `GET /api/dashboard/stats` - Get annotation quality statistics (cached 60s)
+
+### Active Learning
+- `POST /api/active-learning/start-batch` - Start background batch inference (`{ factions?, limit? }`)
+- `GET /api/active-learning/status` - Get batch progress and total scored images
 
 ## Development
 

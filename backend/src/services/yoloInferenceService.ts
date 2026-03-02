@@ -24,7 +24,8 @@ export interface PredictionResult {
 }
 
 // Path to the trained model
-const MODEL_PATH = path.join(__dirname, '../../../runs/yolo11_colab_best.pt')
+// Run 2: YOLO11x, 593 images, 15 classes, best epoch 83, mAP50 39.9%
+const MODEL_PATH = path.join(__dirname, '../../../runs/yolo11x_run2_best.pt')
 const PYTHON_ENV = path.join(__dirname, '../../../yolo_env/bin/python3')
 
 /**
@@ -100,6 +101,121 @@ print(json.dumps(predictions))
       }
     })
   })
+}
+
+// Canonical 30-faction color map (keys match canonical faction list)
+const FACTION_COLORS: Record<string, string> = {
+  // Imperium
+  'space_marines':      '#3b82f6',
+  'blood_angels':       '#dc2626',
+  'dark_angels':        '#15803d',
+  'space_wolves':       '#7dd3fc',
+  'black_templars':     '#a8a29e',
+  'deathwatch':         '#475569',
+  'grey_knights':       '#94a3b8',
+  'adeptus_mechanicus': '#ef4444',
+  'astra_militarum':    '#84cc16',
+  'adeptus_custodes':   '#f59e0b',
+  'adepta_sororitas':   '#fb7185',
+  'imperial_knights':   '#d97706',
+  'imperial_agents':    '#6366f1',
+  // Chaos
+  'chaos_space_marines': '#991b1b',
+  'death_guard':         '#65a30d',
+  'thousand_sons':       '#2563eb',
+  'world_eaters':        '#7f1d1d',
+  'emperors_children':   '#c026d3',
+  'chaos_daemons':       '#9333ea',
+  'chaos_knights':       '#78716c',
+  // Xenos
+  'orks':               '#22c55e',
+  'craftworld_aeldari': '#a855f7',
+  'drukhari':           '#9d174d',
+  'harlequins':         '#f97316',
+  'ynnari':             '#e879f9',
+  'tau_empire':         '#0ea5e9',
+  'tyranids':           '#a16207',
+  'genestealer_cults':  '#4c1d95',
+  'necrons':            '#22d3ee',
+  'leagues_of_votann':  '#92400e',
+}
+
+// Maps run-2 model output class names → canonical faction keys.
+// Run 2 classes: adeptus_mechanicus, chaos_knights, chaos_space_marines, custodes,
+//   death_guard, deathwatch, eldar, genestealer_cult, grey_knights, imperial_guard,
+//   necrons, orks, space_marines, thousand_sons, tyranids
+const MODEL_CLASS_ALIASES: Record<string, string> = {
+  'eldar':            'craftworld_aeldari',
+  'imperial_guard':   'astra_militarum',
+  'custodes':         'adeptus_custodes',
+  'genestealer_cult': 'genestealer_cults',
+}
+
+export interface ConsumerDetection {
+  faction: string
+  confidence: number
+  bbox: { x: number; y: number; width: number; height: number }
+}
+
+export interface FactionSummary {
+  faction: string
+  count: number
+  avgConfidence: number
+  color: string
+}
+
+export interface DetectionResult {
+  imageWidth: number
+  imageHeight: number
+  detections: ConsumerDetection[]
+  summary: FactionSummary[]
+  totalDetected: number
+  inferenceTimeMs: number
+}
+
+/**
+ * Run YOLO inference and return consumer-friendly grouped results
+ */
+export async function detectAndSummarize(imagePath: string): Promise<DetectionResult> {
+  const sharp = await import('sharp')
+  const metadata = await sharp.default(imagePath).metadata()
+  const imageWidth = metadata.width || 0
+  const imageHeight = metadata.height || 0
+
+  const result = await predictBoxes(imagePath, 'detect')
+
+  const detections: ConsumerDetection[] = result.predictions.map(p => ({
+    // Remap old model class names to canonical faction keys
+    faction: MODEL_CLASS_ALIASES[p.classLabel] ?? p.classLabel,
+    confidence: p.confidence,
+    bbox: { x: p.x, y: p.y, width: p.width, height: p.height }
+  }))
+
+  // Group by faction
+  const factionMap = new Map<string, ConsumerDetection[]>()
+  for (const det of detections) {
+    const existing = factionMap.get(det.faction) || []
+    existing.push(det)
+    factionMap.set(det.faction, existing)
+  }
+
+  const summary: FactionSummary[] = Array.from(factionMap.entries())
+    .map(([faction, dets]) => ({
+      faction,
+      count: dets.length,
+      avgConfidence: dets.reduce((sum, d) => sum + d.confidence, 0) / dets.length,
+      color: FACTION_COLORS[faction] || '#60a5fa'
+    }))
+    .sort((a, b) => b.count - a.count)
+
+  return {
+    imageWidth,
+    imageHeight,
+    detections,
+    summary,
+    totalDetected: detections.length,
+    inferenceTimeMs: result.inferenceTime
+  }
 }
 
 /**

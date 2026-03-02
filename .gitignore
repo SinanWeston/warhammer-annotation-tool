@@ -85,4 +85,9 @@ reference_gallery/
 har_files/*.har
 
 # Environment backups
+.env.backup*training_results*.zip
+BATTLE_SCANNER_IMPROVEMENT_PLAN.md.pdf
+ANNOTATION_TOOLCHAIN_IMPROVEMENT_PLAN.md
+backend/backend/
+*.env.backup*
 .env.backup*

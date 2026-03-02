@@ -1,0 +1,28 @@
+plugins = []
+headers = []
+redirects = []
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/home/sinan/Active/Projects/photoanalyzer/annotator-mobile/dist"
+publishOrigin = "config"
+commandOrigin = "config"
+base = "/home/sinan/Active/Projects/photoanalyzer/annotator-mobile"
+command = "npm run build"
+
+[build.environment]
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]

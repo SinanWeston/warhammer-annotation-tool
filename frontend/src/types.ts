@@ -15,7 +15,8 @@ export interface BboxAnnotation {
   }
   // AI prediction fields
   confidence?: number  // AI confidence score (0-1)
-  isPrediction?: boolean  // True if this is an AI prediction
+  isPrediction?: boolean  // True if this is an AI prediction (pending validation)
+  isAccepted?: boolean   // True if user marked this prediction as correct (stays on canvas, turns green)
   validated?: boolean  // True if user has validated this prediction
   // Validation tracking for training data
   validationAction?: 'accepted' | 'rejected' | 'redrawn'  // What action user took

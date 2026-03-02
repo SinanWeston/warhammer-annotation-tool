@@ -12,14 +12,21 @@
     "test": "npm run test:frontend && npm run test:backend",
     "test:frontend": "cd frontend && npm test",
     "test:backend": "cd backend && npm test",
+    "dev:consumer": "cd consumer && npm run dev",
+    "build:consumer": "cd consumer && npm run build",
+    "dev:annotator-mobile": "cd annotator-mobile && npm run dev",
+    "build:annotator-mobile": "cd annotator-mobile && npm run build",
     "start": "npm run start:backend",
-    "start:backend": "cd backend && npm start"
+    "start:backend": "cd backend && npm start",
+    "sync:mobile": "node scripts/import-mobile-annotations.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.0"
   },
   "workspaces": [
     "frontend",
-    "backend"
+    "backend",
+    "consumer",
+    "annotator-mobile"
   ]
 }

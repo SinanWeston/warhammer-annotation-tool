@@ -4,21 +4,34 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project Overview
 
-**Warhammer 40K Dataset Annotation Tool** - A web application for manually annotating bounding boxes on miniature images to create training datasets for YOLO object detection.
+**Warhammer 40K Dataset Annotation Tool + Consumer Scanner** - A monorepo containing:
+1. **Annotation Tool** (`frontend/`): Desktop web app for annotating bounding boxes on miniature images to create YOLO training datasets
+2. **Mobile Annotator** (`annotator-mobile/`): Touch-first offline PWA for annotating on iPhone/iPad — imports image batches via zip, works fully offline, syncs annotations back over WiFi
+3. **Battle Scanner** (`consumer/`): Consumer-facing PWA that uses the trained model to identify and count miniatures by faction from photos
+4. **Backend** (`backend/`): Express API serving all three frontends — annotation storage, YOLO export, image batch export, mobile sync
 
-**Purpose**: Create high-quality training data for a custom YOLO model by annotating 18,088 Warhammer 40K miniature images.
+**Purpose**: Create high-quality training data for a custom YOLO model by annotating 18,088 Warhammer 40K miniature images, and provide a consumer app for real-time miniature detection.
 
 ## Development Commands
 
 ### Running Development Environment
 
 ```bash
-# Start both frontend and backend concurrently
+# Start desktop frontend + backend concurrently
 npm run dev
 
 # Start individually
-npm run dev:frontend  # Vite dev server on port 5173
-npm run dev:backend   # Express server on port 3001
+npm run dev:frontend           # Vite dev server on port 5173
+npm run dev:backend            # Express server on port 3001
+npm run dev:consumer           # Consumer PWA on port 5174
+npm run dev:annotator-mobile   # Mobile annotator PWA on port 5175 (--host for LAN access)
+```
+
+**Mobile annotator typical workflow** — run backend + annotator-mobile together:
+```bash
+npm run dev:backend &
+npm run dev:annotator-mobile
+# Access from iPhone at http://<your-lan-ip>:5175
 ```
 
 ### Building
@@ -34,20 +47,68 @@ npm run build:backend   # TypeScript compilation → backend/dist/
 
 ## Architecture Overview
 
-This is a **monorepo** with npm workspaces (`frontend/` and `backend/`).
+This is a **monorepo** with npm workspaces (`frontend/`, `backend/`, and `consumer/`).
 
 ### Frontend (React 18 + TypeScript)
-- **App.tsx** - Main application shell
-- **AnnotationInterface.tsx** - Main annotation UI with progress tracking
+- **App.tsx** - Main application shell with Annotation/Dashboard navigation
+- **AnnotationInterface.tsx** - Main annotation UI with progress tracking and AI-assisted workflow
 - **BboxAnnotator.tsx** - Canvas-based bbox drawing with zoom/pan/undo
+- **QualityDashboard.tsx** - Quality stats dashboard with active learning controls
 - **QualityIssuesModal.tsx** - Validation errors/warnings display
-- **types.ts** - TypeScript interfaces
+- **types.ts** - TypeScript interfaces (annotation types)
+- **types/dashboard.ts** - TypeScript interfaces (dashboard + active learning types)
+
+### Mobile Annotator PWA (React 18 + TypeScript — `annotator-mobile/`)
+Offline-first touch annotation tool for iOS/Android. Imports batches of images via zip, stores in IndexedDB, annotates with drag-to-draw bboxes, syncs back over WiFi.
+
+- **App.tsx** - State-based routing (home → annotate)
+- **pages/HomePage.tsx** - Stats dashboard, zip import, sync controls, storage management
+- **pages/AnnotatePage.tsx** - Main annotation loop: load image → draw bboxes → confirm → save & next
+- **components/TouchCanvas.tsx** - Canvas renderer with touch draw (drag), pinch-zoom, pan. Renders image + bboxes + AI predictions + pending preview
+- **components/BottomToolbar.tsx** - Faction selector chips, undo/skip/save buttons, progress bar
+- **components/PredictionCards.tsx** - Horizontal card strip for AI predictions — accept/reject each
+- **components/SyncStatus.tsx** - Online/offline indicator + pending sync count
+- **lib/db.ts** - IndexedDB via `idb` — stores images (blobs) and annotations. Key exports: `saveImage()`, `getNextUnannotated()`, `saveAnnotation()`, `getPendingSync()`, `markSynced()`, `getStats()`, `clearSyncedImages()`
+- **lib/zip.ts** - `importZip(file, onProgress)` — extracts images + manifest.json + predictions.json from zip into IndexedDB
+- **lib/sync.ts** - `syncAnnotations(onProgress)` — chunked POST to backend (batches of 25), `downloadBatch()`, `onOnlineStatusChange()`
+- **lib/id.ts** - `generateId()` — safe UUID generator that works on HTTP (crypto.getRandomValues fallback for insecure origins)
+- **types.ts** - `MobileBbox`, `MobileAnnotation`, `StoredImage`, `PredictionBox`, `SyncResult`
+
+**Key architecture decisions:**
+- IndexedDB for offline storage (~1GB iOS Safari limit, batches of 500-1000 images)
+- `touch-action: none` canvas with native touch events (NOT pointer events — iOS Safari breaks `setPointerCapture`)
+- Confirm/cancel buttons live OUTSIDE canvas container (iOS Safari doesn't route touches to overlaid buttons)
+- `crypto.getRandomValues()` fallback for `crypto.randomUUID()` (HTTPS-only API, fails on LAN HTTP)
+- Coordinates stored in resized dimensions (max 1200px from export), backend scales back to original on sync
+
+### Consumer PWA (React 18 + TypeScript — `consumer/`)
+- **App.tsx** - State-based routing (scan → results)
+- **ScanPage.tsx** - Camera capture + photo upload flow
+- **ResultsPage.tsx** - Detection results with bbox overlay on canvas
+- **CameraCapture.tsx** - getUserMedia camera with front/rear switching
+- **PhotoUpload.tsx** - Drag-and-drop / file picker with preview
+- **ScanAnimation.tsx** - Loading overlay during inference
+- **ArmySummary.tsx** - Total count + faction badges
+- **ResultsCard.tsx** - Per-faction expandable card with confidence bars
+- **Header.tsx** - "BATTLE SCANNER" branding
+- **types/detection.ts** - DetectionResult, Detection, FactionSummary types
+- PWA via `vite-plugin-pwa` (service worker, manifest, offline caching)
+- Calls `POST /api/detect` on the backend
 
 ### Backend (Node.js + Express + TypeScript)
-- **index.ts** - Express server with annotation endpoints
+- **index.ts** - Express server with annotation, dashboard, and active learning endpoints
 - **annotationService.ts** - Handles loading/saving annotations, validation, and YOLO export
+- **dashboardStatsService.ts** - Computes annotation quality stats, cached with 60s TTL
+- **activeLearningService.ts** - Manages confidence scores, batch inference, prioritized ordering
+- **yoloInferenceService.ts** - Single-image YOLO inference for AI-assisted annotation
+- **batchYoloInference.py** - Python script for bulk YOLO inference (loads model once)
 - **middleware/** - Request ID and error handling
 - **utils/logger.ts** - Winston logger
+
+### Backend Mobile API Endpoints
+- **`POST /api/mobile/export-batch`** — Exports a zip of images (resized to max 1200px) + manifest.json + predictions.json. Params: `faction`, `limit` (default 500), `includePredictions`
+- **`POST /api/mobile/sync`** — Receives annotations from mobile. Returns structured `{ synced, skipped, syncedIds, skippedIds, failedIds, errors }`. Scales bbox coords back to original image dimensions via sharp
+- **`GET /api/mobile/status`** — Returns annotated imageId set + progress stats for dedup
 
 ### Scripts (Python)
 - **validate_yolo_dataset.py** - YOLO dataset validator (directory structure, labels, coordinates)
@@ -63,6 +124,8 @@ This is a **monorepo** with npm workspaces (`frontend/` and `backend/`).
 **Input**: 18,088 images in `backend/training_data/{faction}/{source}/`
 **Output**: Annotations in `backend/training_data_annotations/` as JSON
 **Export**: YOLOv8-pose format in `backend/yolo_dataset/`
+**Confidence Scores**: `backend/confidence_scores.json` (per-image YOLO confidence data for active learning)
+**Trained Model**: `runs/yolo11_colab_best.pt` (used for inference and batch scoring)
 
 ## Key Features
 
@@ -331,12 +394,26 @@ tail -f backend/logs/error.log
 11. **Handle missing bases** - Omit keypoints entirely (5 values, not 17 with zeros)
 12. **Validate before export** - Run `validateAllAnnotations()` before YOLO export
 
+## iOS Safari / Mobile PWA Gotchas
+
+These hard-won lessons apply to `annotator-mobile/` and `consumer/`:
+
+1. **`crypto.randomUUID()` requires HTTPS** — fails silently on `http://192.168.x.x`. Always use `generateId()` from `lib/id.ts` which falls back to `crypto.getRandomValues()`
+2. **Buttons over canvas don't receive touches** — iOS Safari routes touch events to the canvas underneath when it has `touch-action: none`. Move interactive buttons outside the canvas container entirely
+3. **`setPointerCapture` + `preventDefault()` breaks `pointerup`** — use native touch events with `{ passive: false }` instead of pointer events
+4. **IndexedDB limit ~1GB on iOS Safari** — OS can evict under storage pressure. Batch imports to 500-1000 images
+5. **`overscroll-behavior: none`** on body prevents pull-to-refresh interfering with canvas gestures
+6. **Safe area insets** — use `env(safe-area-inset-bottom)` on bottom toolbars for iPhone notch/home indicator
+7. **Touch targets** — minimum 44px height for all tappable elements (Apple HIG)
+
 ## Important Notes
 
-- This tool is for **annotation only** - no AI analysis/detection features
+- This tool handles **annotation + AI-assisted labeling + active learning**
 - The 18k images are already collected
-- Focus is on speed and accuracy of manual annotation
-- YOLO training happens after all annotations are complete
+- A trained YOLO model (63.2% mAP50) is integrated for AI-assisted annotation
+- Active learning pipeline prioritizes images the model is least confident about
+- Quality Dashboard provides visibility into annotation stats and outliers
+- YOLO training happens iteratively as more annotations are added
 
 ## Key Technical Decisions
 

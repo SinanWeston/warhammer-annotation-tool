@@ -1,14 +1,55 @@
 # Project Status
 
-**Last Updated**: February 8, 2026
-**Version**: 6.0 (First YOLO Model Trained)
-**Status**: Model Training Phase - First iteration complete, optimizing
+**Last Updated**: February 15, 2026
+**Version**: 7.0 (Quality Dashboard + Active Learning)
+**Status**: Active Learning Phase - Dashboard live, confidence-based prioritization ready
 
 ---
 
 ## Recent Changes (Factual Log)
 
-### February 8, 2026 - First YOLO Model Trained! 🎉
+### February 15, 2026 - Quality Dashboard + Active Learning Pipeline
+
+**Goal**: Add visibility into annotation quality and prioritize annotation order using model confidence
+
+**Achievements**:
+
+1. **Quality Dashboard (new view)**
+   - Nav bar with Annotation/Dashboard toggle in App.tsx
+   - Boxes per image distribution (min/max/avg/median + bar chart)
+   - Box sizes by faction table (color-coded for struggling factions)
+   - Annotation speed chart (annotations per day)
+   - Outlier detection: tiny boxes (<1% area), huge boxes (>90% area), crowded images (20+ boxes)
+   - Stats cached in memory with 60s TTL, invalidated on annotation save
+
+2. **Active Learning Pipeline**
+   - `batchYoloInference.py` — loads YOLO model once, processes image list, outputs JSON lines
+   - `activeLearningService.ts` — manages confidence scores, spawns batch Python process, writes scores atomically
+   - "Start Batch Inference" UI in dashboard with faction filter, limit input, and progress bar
+   - `GET /api/annotate/next?prioritize=true` — serves lowest-confidence images first
+   - "Prioritize by confidence" toggle in annotation interface with confidence badge
+
+3. **New Files Created**
+   - `backend/src/services/dashboardStatsService.ts` — stats computation + caching
+   - `backend/src/services/activeLearningService.ts` — confidence scoring + prioritization
+   - `backend/src/services/batchYoloInference.py` — batch YOLO inference script
+   - `frontend/src/components/QualityDashboard.tsx` — dashboard UI (5 card sections)
+   - `frontend/src/types/dashboard.ts` — TypeScript interfaces
+
+4. **Modified Files**
+   - `backend/src/index.ts` — 3 new endpoints (dashboard stats, batch start, AL status), prioritize query param
+   - `backend/src/services/annotationService.ts` — cache invalidation callback, prioritize param on getNextImage
+   - `frontend/src/App.tsx` — state-based navigation with nav buttons
+   - `frontend/src/components/AnnotationInterface.tsx` — prioritize toggle + confidence badge
+
+**New API Endpoints**:
+- `GET /api/dashboard/stats` — annotation quality statistics
+- `POST /api/active-learning/start-batch` — start background batch inference
+- `GET /api/active-learning/status` — batch progress + total scored images
+
+---
+
+### February 8, 2026 - First YOLO Model Trained!
 
 **Goal**: Train a YOLO model to detect Warhammer 40K miniatures using annotated dataset
 
@@ -116,23 +157,34 @@
 ### ✅ Annotation System (Complete)
 
 - 18,088 total images collected
-- 492 images annotated (220 with boxes, 272 skipped)
-- 8 factions with 60 images each
+- 707 images annotated (with model-assisted workflow)
+- 8 factions, 110 per-faction limit
 - Model-only bboxes (simplified from hierarchical)
 - YOLO format export working
+- AI-assisted annotation (predict + accept/reject/redraw)
 
 ### ✅ First YOLO Model (Complete)
 
 - YOLOv8n trained on 280 images
 - 63.2% mAP50 overall
 - Best factions: Custodes (97%), Grey Knights (96%)
-- Needs improvement: Death Guard, Adeptus Mechanicus
+- Needs improvement: Death Guard (3.4%), Adeptus Mechanicus (25.6%)
 
-### 🔄 Model Optimization (In Progress)
+### ✅ Quality Dashboard (Complete)
 
-- YOLO11x training script ready
-- Google Colab notebook available
-- Target: 75-85% mAP50 with larger model
+- Boxes per image stats + distribution chart
+- Box sizes by faction table
+- Annotation speed timeline
+- Outlier detection (tiny/huge/crowded)
+- Cached stats with 60s TTL
+
+### ✅ Active Learning Pipeline (Complete)
+
+- Batch YOLO inference (loads model once, processes in bulk)
+- Confidence scores persisted to `confidence_scores.json`
+- Lowest-confidence-first annotation ordering
+- Dashboard controls with progress bar
+- Prioritize toggle in annotation interface
 
 ---
 
@@ -192,11 +244,20 @@ python3 -c "from ultralytics import YOLO; m = YOLO('runs/warhammer_detector/weig
 
 ## Next Milestones
 
-1. **Train YOLO11x on Colab** - Higher accuracy model
-2. **Semi-supervised learning** - Use model to pre-label remaining images
-3. **Annotate more data** - Focus on underperforming factions
-4. **Integrate into annotation tool** - "Suggest boxes" feature
+1. **Run batch inference on all unannotated images** — Score ~17k images with confidence levels via Dashboard
+2. **Annotate high-value images** — Use active learning to focus on images the model struggles with (Death Guard, AdMech)
+3. **Train YOLO11x on Colab** — Larger model on expanded dataset for higher accuracy
+4. **Iterate** — Re-score, re-annotate worst performers, retrain (active learning loop)
+
+## Future Improvements
+
+- **Per-faction confidence breakdowns** in dashboard (which factions have lowest avg confidence?)
+- **Auto-suggest struggling factions** when starting batch inference
+- **Annotation time tracking** (time per image, not just per day)
+- **Export confidence-weighted sampling** (oversample low-confidence factions in training split)
+- **Model comparison dashboard** (compare mAP across training iterations)
+- **Keyboard shortcut for prioritize toggle** in annotation view
 
 ---
 
-**The first YOLO model is trained and working! 🚀**
+**Quality dashboard and active learning pipeline are live! Focus annotation effort where it matters most.**

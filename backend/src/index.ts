@@ -19,6 +19,13 @@ import { addRequestId } from './middleware/requestId'
 import { errorHandler, notFoundHandler } from './middleware/errorHandler'
 import logger, { createRequestLogger } from './utils/logger'
 import { annotationService } from './services/annotationService'
+import { dashboardStatsService } from './services/dashboardStatsService'
+import { activeLearningService } from './services/activeLearningService'
+
+// Wire up cache invalidation
+annotationService.onAnnotationSaved = () => {
+  dashboardStatsService.invalidateCache()
+}
 
 const app = express()
 const port = process.env.PORT || 3001
@@ -88,9 +95,11 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
   const log = createRequestLogger(requestId)
 
   try {
-    log.info(`📷 Get next unannotated image`)
+    const prioritize = req.query.prioritize === 'true'
+    const faction = req.query.faction as string | undefined
+    log.info(`📷 Get next unannotated image (prioritize: ${prioritize}, faction: ${faction || 'all'})`)
 
-    const image = await annotationService.getNextImage()
+    const image = await annotationService.getNextImage(prioritize, faction)
 
     if (!image) {
       log.info(`✅ No more images to annotate`)
@@ -274,6 +283,74 @@ app.get('/api/annotate/progress', async (req: Request, res: Response, next: Next
 })
 
 /**
+ * POST /api/annotate/flag
+ *
+ * Flag an image as unusable (permanently skip)
+ */
+app.post('/api/annotate/flag', express.json(), async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { imageId, reason } = req.body
+
+    if (!imageId) {
+      res.status(400).json({ success: false, error: { message: 'imageId is required' } })
+      return
+    }
+
+    await annotationService.flagImage(imageId, reason)
+    log.info(`🚫 Flagged image ${imageId} as unusable`)
+
+    res.json({ success: true, data: { imageId, flagged: true }, requestId })
+  } catch (error: any) {
+    log.error(`🔴 Failed to flag image: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
+ * GET /api/annotate/flagged-count
+ *
+ * Get count of flagged images
+ */
+app.get('/api/annotate/flagged-count', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const counts = await annotationService.getFlaggedCount()
+    res.json({ success: true, data: counts, requestId })
+  } catch (error: any) {
+    log.error(`🔴 Failed to get flagged count: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
+ * GET /api/annotate/sample/:faction
+ *
+ * Get random annotated sample images for consistency audit
+ */
+app.get('/api/annotate/sample/:faction', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { faction } = req.params
+    const count = parseInt(req.query.count as string) || 9
+
+    log.info(`🔍 Get ${count} sample images for ${faction}`)
+    const samples = await annotationService.getSampleImages(faction, count)
+
+    res.json({ success: true, data: { samples }, requestId })
+  } catch (error: any) {
+    log.error(`🔴 Failed to get samples: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
  * POST /api/annotate/validate-export
  *
  * Validate all annotations before export
@@ -346,9 +423,9 @@ app.post('/api/annotate/export', async (req: Request, res: Response, next: NextF
       log.warn(`⚠️  Export proceeding with ${validationResult.totalWarnings} warnings`)
     }
 
-    const { outputDir = 'backend/yolo_dataset', trainSplit = 0.8 } = req.body
+    const { outputDir = 'backend/yolo_dataset', trainSplit = 0.8, balanced = false, balancedCap } = req.body
 
-    const result = await annotationService.exportToYOLO(outputDir, trainSplit)
+    const result = await annotationService.exportToYOLO(outputDir, trainSplit, { balanced, balancedCap })
 
     log.info(`✅ Exported ${result.trainImages + result.valImages} annotations`)
 
@@ -371,10 +448,272 @@ app.post('/api/annotate/export', async (req: Request, res: Response, next: NextF
 })
 
 // ═══════════════════════════════════════════════════════════
+// MOBILE ANNOTATOR ENDPOINTS
+// ═══════════════════════════════════════════════════════════
+
+import archiver from 'archiver'
+
+/**
+ * POST /api/mobile/export-batch
+ *
+ * Export a batch of images as a zip for mobile offline annotation.
+ * Resizes images to max 1200px to save phone storage.
+ */
+app.post('/api/mobile/export-batch', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { faction, limit = 500, includePredictions = false } = req.body || {}
+    log.info(`📱 Export batch for mobile (faction: ${faction || 'all'}, limit: ${limit})`)
+
+    const sharp = await import('sharp')
+
+    // Get unannotated images
+    let images = await annotationService.getImageList(false)
+    if (faction) {
+      images = images.filter(img => img.faction === faction)
+    }
+    images = images.slice(0, limit)
+
+    if (images.length === 0) {
+      return res.json({ success: true, data: { message: 'No images to export', count: 0 }, requestId })
+    }
+
+    // Build manifest
+    const manifest: Array<{
+      imageId: string
+      faction: string
+      filename: string
+      width: number
+      height: number
+    }> = []
+
+    const predictionsMap: Record<string, any[]> = {}
+
+    // Set up zip stream
+    res.setHeader('Content-Type', 'application/zip')
+    res.setHeader('Content-Disposition', `attachment; filename="batch-${faction || 'all'}-${images.length}.zip"`)
+
+    const archive = archiver('zip', { zlib: { level: 5 } })
+    archive.pipe(res)
+
+    for (const img of images) {
+      try {
+        // Resize to max 1200px
+        const resized = await sharp.default(img.imagePath)
+          .resize(1200, 1200, { fit: 'inside', withoutEnlargement: true })
+          .jpeg({ quality: 85 })
+          .toBuffer()
+
+        const metadata = await sharp.default(resized).metadata()
+        const ext = 'jpg'
+        const filename = `images/${img.imageId}.${ext}`
+
+        archive.append(resized, { name: filename })
+
+        manifest.push({
+          imageId: img.imageId,
+          faction: img.faction,
+          filename,
+          width: metadata.width || 0,
+          height: metadata.height || 0
+        })
+
+        // Optionally include predictions
+        if (includePredictions) {
+          try {
+            const { predictBoxes, isModelAvailable } = await import('./services/yoloInferenceService')
+            if (await isModelAvailable()) {
+              const result = await predictBoxes(img.imagePath, img.imageId)
+              if (result.predictions.length > 0) {
+                predictionsMap[img.imageId] = result.predictions.map(p => ({
+                  x: Math.round(p.x * (metadata.width || 1)),
+                  y: Math.round(p.y * (metadata.height || 1)),
+                  width: Math.round(p.width * (metadata.width || 1)),
+                  height: Math.round(p.height * (metadata.height || 1)),
+                  classLabel: p.classLabel,
+                  confidence: p.confidence
+                }))
+              }
+            }
+          } catch {
+            // Predictions unavailable, skip
+          }
+        }
+      } catch (err) {
+        log.warn(`⚠️  Skipped ${img.imageId}: ${err instanceof Error ? err.message : 'unknown error'}`)
+      }
+    }
+
+    archive.append(JSON.stringify({ images: manifest, exportedAt: new Date().toISOString() }, null, 2), { name: 'manifest.json' })
+
+    if (includePredictions && Object.keys(predictionsMap).length > 0) {
+      archive.append(JSON.stringify(predictionsMap, null, 2), { name: 'predictions.json' })
+    }
+
+    await archive.finalize()
+    log.info(`✅ Exported batch: ${manifest.length} images`)
+  } catch (error: any) {
+    log.error(`🔴 Failed to export batch: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
+ * POST /api/mobile/sync
+ *
+ * Receive annotations from the mobile annotator.
+ * Converts mobile format to backend ImageAnnotation format.
+ */
+app.post('/api/mobile/sync', express.json({ limit: '10mb' }), async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { annotations } = req.body
+    if (!Array.isArray(annotations)) {
+      return res.status(400).json({ success: false, error: { code: 'INVALID_REQUEST', message: 'annotations must be an array' }, requestId })
+    }
+
+    log.info(`📱 Sync ${annotations.length} annotations from mobile`)
+
+    // Get all images for path lookup
+    const allImages = await annotationService.getImageList(true)
+    const imageMap = new Map(allImages.map(img => [img.imageId, img]))
+
+    const syncedIds: string[] = []
+    const skippedIds: string[] = []
+    const failedIds: string[] = []
+    const errors: string[] = []
+
+    for (const mobileAnn of annotations) {
+      const imageId = mobileAnn.imageId
+
+      // Skip annotations the user explicitly skipped (no bboxes, marked as skipped)
+      if (mobileAnn.skipped && (!mobileAnn.bboxes || mobileAnn.bboxes.length === 0)) {
+        syncedIds.push(imageId)
+        continue
+      }
+
+      const image = imageMap.get(imageId)
+      if (!image) {
+        errors.push(`Image not found: ${imageId}`)
+        failedIds.push(imageId)
+        continue
+      }
+
+      // Skip if already annotated on backend
+      const existing = await annotationService.getAnnotation(imageId)
+      if (existing) {
+        skippedIds.push(imageId)
+        continue
+      }
+
+      // Get actual image dimensions (original, pre-resize)
+      let origWidth = 0
+      let origHeight = 0
+      try {
+        const sharp = await import('sharp')
+        const metadata = await sharp.default(image.imagePath).metadata()
+        origWidth = metadata.width || 0
+        origHeight = metadata.height || 0
+      } catch {
+        errors.push(`Could not read dimensions for ${imageId}`)
+        failedIds.push(imageId)
+        continue
+      }
+
+      // Mobile bboxes are in resized-image coords (max 1200px).
+      // Scale them back to original image coords.
+      const mobileWidth = mobileAnn.imageWidth || origWidth
+      const mobileHeight = mobileAnn.imageHeight || origHeight
+      const scaleX = origWidth / mobileWidth
+      const scaleY = origHeight / mobileHeight
+
+      // Convert mobile annotation to backend format
+      const backendAnnotation = {
+        imageId,
+        imagePath: image.imagePath,
+        faction: image.faction,
+        source: image.source,
+        width: origWidth,
+        height: origHeight,
+        annotations: (mobileAnn.bboxes || []).map((bbox: any) => ({
+          id: bbox.id,
+          modelBbox: {
+            x: Math.round(bbox.x * scaleX),
+            y: Math.round(bbox.y * scaleY),
+            width: Math.round(bbox.width * scaleX),
+            height: Math.round(bbox.height * scaleY)
+          },
+          classLabel: bbox.classLabel,
+          confidence: bbox.confidence,
+          validationAction: bbox.fromPrediction ? 'accepted' : undefined,
+          originalPrediction: bbox.fromPrediction
+        })),
+        annotatedAt: mobileAnn.updatedAt,
+        annotatedBy: 'mobile-annotator'
+      }
+
+      try {
+        await annotationService.saveAnnotation(backendAnnotation as any)
+        syncedIds.push(imageId)
+      } catch (saveErr: any) {
+        errors.push(`Failed to save ${imageId}: ${saveErr.message}`)
+        failedIds.push(imageId)
+      }
+    }
+
+    log.info(`✅ Mobile sync: ${syncedIds.length} synced, ${skippedIds.length} skipped, ${failedIds.length} failed`)
+
+    res.json({
+      success: true,
+      data: { synced: syncedIds.length, skipped: skippedIds.length, syncedIds, skippedIds, failedIds, errors },
+      requestId
+    })
+  } catch (error: any) {
+    log.error(`🔴 Failed to sync: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
+ * GET /api/mobile/status
+ *
+ * Returns annotated image IDs and progress for the mobile app.
+ */
+app.get('/api/mobile/status', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const allImages = await annotationService.getImageList(true)
+    const annotatedIds = allImages.filter(img => img.isAnnotated).map(img => img.imageId)
+    const progress = await annotationService.getProgress()
+
+    res.json({
+      success: true,
+      data: {
+        annotatedIds,
+        progress
+      },
+      requestId
+    })
+  } catch (error: any) {
+    log.error(`🔴 Failed to get mobile status: ${error.message}`)
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
 // YOLO INFERENCE ENDPOINT
 // ═══════════════════════════════════════════════════════════
 
-import { predictBoxes, isModelAvailable } from './services/yoloInferenceService'
+import { predictBoxes, isModelAvailable, detectAndSummarize } from './services/yoloInferenceService'
+import multer from 'multer'
+
+const upload = multer({ dest: '/tmp/battlescanner-uploads/', limits: { fileSize: 20 * 1024 * 1024 } })
 
 /**
  * GET /api/annotate/predict/:imageId
@@ -431,6 +770,223 @@ app.get('/api/annotate/predict/:imageId', async (req: Request, res: Response, ne
     })
   } catch (error: any) {
     log.error(`🔴 Prediction failed: ${error.message}`)
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
+// CONSUMER DETECTION ENDPOINT
+// ═══════════════════════════════════════════════════════════
+
+/**
+ * POST /api/detect
+ *
+ * Consumer endpoint: upload an image, get detected miniatures grouped by faction
+ */
+app.post('/api/detect', upload.single('image'), async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    log.info(`🔍 Consumer detection request`)
+
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'NO_IMAGE', message: 'No image uploaded' },
+        requestId
+      })
+    }
+
+    const modelReady = await isModelAvailable()
+    if (!modelReady) {
+      return res.status(503).json({
+        success: false,
+        error: { code: 'MODEL_NOT_AVAILABLE', message: 'Detection model is not available' },
+        requestId
+      })
+    }
+
+    // Rename file with proper extension so YOLO recognizes it as an image
+    const fsPromises = await import('fs/promises')
+    const ext = path.extname(req.file.originalname) || '.jpg'
+    const imagePath = req.file.path + ext
+    await fsPromises.rename(req.file.path, imagePath)
+
+    const result = await detectAndSummarize(imagePath)
+
+    log.info(`✅ Detected ${result.totalDetected} miniatures in ${result.inferenceTimeMs}ms`)
+
+    // Clean up uploaded file
+    await fsPromises.unlink(imagePath).catch(() => {})
+
+    res.json({
+      success: true,
+      data: result,
+      requestId
+    })
+  } catch (error: any) {
+    log.error(`🔴 Detection failed: ${error.message}`)
+    // Clean up on error — try both with and without extension
+    if (req.file) {
+      const fsP = await import('fs/promises')
+      const ext2 = path.extname(req.file.originalname) || '.jpg'
+      await fsP.unlink(req.file.path + ext2).catch(() => {})
+      await fsP.unlink(req.file.path).catch(() => {})
+    }
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
+// DASHBOARD ENDPOINT
+// ═══════════════════════════════════════════════════════════
+
+/**
+ * GET /api/dashboard/stats
+ *
+ * Get annotation quality dashboard statistics
+ */
+app.get('/api/dashboard/stats', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    log.info(`📊 Get dashboard stats`)
+
+    const stats = await dashboardStatsService.getStats()
+
+    log.info(`✅ Dashboard stats: ${stats.totalAnnotations} annotations, ${stats.totalBoxes} boxes`)
+
+    res.json({
+      success: true,
+      data: stats,
+      requestId
+    })
+  } catch (error: any) {
+    log.error(`🔴 Failed to get dashboard stats: ${error.message}`)
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
+// ACTIVE LEARNING ENDPOINTS
+// ═══════════════════════════════════════════════════════════
+
+/**
+ * POST /api/active-learning/start-batch
+ *
+ * Start background batch inference to score unannotated images
+ */
+app.post('/api/active-learning/start-batch', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { factions, limit } = req.body || {}
+    log.info(`🤖 Start batch inference (factions: ${factions || 'all'}, limit: ${limit || 'all'})`)
+
+    // Get unannotated images
+    let images = await annotationService.getImageList(false)
+
+    // Filter by factions if specified
+    if (factions && Array.isArray(factions) && factions.length > 0) {
+      images = images.filter(img => factions.includes(img.faction))
+    }
+
+    if (images.length === 0) {
+      return res.json({
+        success: true,
+        data: { message: 'No unannotated images to process' },
+        requestId
+      })
+    }
+
+    activeLearningService.startBatchInference(images, limit)
+
+    res.json({
+      success: true,
+      data: { message: `Started batch inference on ${Math.min(images.length, limit || images.length)} images` },
+      requestId
+    })
+  } catch (error: any) {
+    log.error(`🔴 Failed to start batch inference: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
+ * GET /api/active-learning/status
+ *
+ * Get batch inference progress and total scored images
+ */
+app.get('/api/active-learning/status', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const progress = activeLearningService.getBatchProgress()
+    const totalScored = activeLearningService.getTotalScored()
+
+    res.json({
+      success: true,
+      data: {
+        ...progress,
+        totalScored
+      },
+      requestId
+    })
+  } catch (error: any) {
+    log.error(`🔴 Failed to get active learning status: ${error.message}`)
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
+// HEALTH CHECK
+// ═══════════════════════════════════════════════════════════
+
+app.get('/api/health', async (_req: Request, res: Response) => {
+  const modelLoaded = await isModelAvailable()
+  res.json({ status: 'ok', modelLoaded })
+})
+
+// ═══════════════════════════════════════════════════════════
+// CONSUMER FEEDBACK ENDPOINT
+// ═══════════════════════════════════════════════════════════
+
+app.post('/api/consumer/feedback', express.json(), async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { feedback } = req.body
+    if (!Array.isArray(feedback) || feedback.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: { code: 'INVALID_REQUEST', message: 'feedback must be a non-empty array' },
+        requestId
+      })
+    }
+
+    log.info(`📝 Consumer feedback: ${feedback.length} items`)
+
+    // Ensure output directory exists
+    const feedbackDir = path.join(process.cwd(), 'consumer_feedback')
+    await fs.mkdir(feedbackDir, { recursive: true })
+
+    // Write feedback to JSON file with timestamp
+    const filename = `feedback-${Date.now()}.json`
+    await fs.writeFile(
+      path.join(feedbackDir, filename),
+      JSON.stringify({ feedback, receivedAt: new Date().toISOString() }, null, 2)
+    )
+
+    log.info(`✅ Saved consumer feedback to ${filename}`)
+
+    res.json({ success: true, data: { saved: feedback.length }, requestId })
+  } catch (error: any) {
+    log.error(`🔴 Failed to save feedback: ${error.message}`)
     next(error)
   }
 })

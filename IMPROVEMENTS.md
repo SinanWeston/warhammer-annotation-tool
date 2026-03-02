@@ -16,10 +16,13 @@ This tool has **one job**: create clean, correct training data for YOLOv8-pose m
 - Training pipeline setup (environment, configs, testing)
 
 **Out of scope:**
-- Analytics dashboards (interesting, but not core mission)
 - Bulk gallery/management (defer until annotation complete)
 - Templates (high risk of systematic errors)
 - Any feature that doesn't directly serve annotation speed or data correctness
+
+**Previously deferred, now implemented (Feb 2026):**
+- ~~Analytics dashboards~~ — Quality Dashboard implemented with box stats, faction sizes, speed, outliers
+- Active Learning pipeline — confidence-based annotation prioritization
 
 ---
 
@@ -1882,15 +1885,19 @@ Execute in this order:
 These are **not** being implemented in this phase:
 
 ### Deferred Features
-- **Analytics dashboards** - Interesting but not core mission
 - **Bulk gallery mode** - High complexity, defer until annotation complete
 - **Templates** - Risk of systematic errors
-- **Timing analytics** - Nice-to-have, not essential
-- **Faction difficulty analysis** - After annotation complete
+- **Model comparison dashboard** - Compare mAP across training iterations
+- **Export confidence-weighted sampling** - Oversample low-confidence factions in training split
 
-### Why Deferred
+### Previously Deferred, Now Implemented
+- ~~**Analytics dashboards**~~ - **Implemented Feb 15, 2026** as Quality Dashboard
+- ~~**Faction difficulty analysis**~~ - **Implemented** via box sizes by faction + outlier detection
+- ~~**Timing analytics**~~ - **Implemented** as annotation speed (per day) chart
+- ~~**Active learning / prioritization**~~ - **Implemented** via batch YOLO inference + confidence scoring
+
+### Why Some Remain Deferred
 These features either:
-- Don't directly serve annotation speed or data correctness
 - Have high implementation cost relative to benefit
 - Risk introducing subtle bugs that poison the dataset
 - Can be added later without affecting core workflow

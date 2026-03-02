@@ -79,6 +79,7 @@ export interface AnnotationProgress {
 export class AnnotationService {
   private trainingDataPath: string
   private annotationsPath: string
+  public onAnnotationSaved: (() => void) | null = null
 
   constructor() {
     this.trainingDataPath = path.join(__dirname, '../../training_data')
@@ -99,8 +100,19 @@ export class AnnotationService {
     }
   }
 
-  // Limit per faction for training - increased to 110 (original 60 + 50 more)
-  private perFactionLimit: number = 110
+  // Per-faction image caps — target 400 annotations per faction
+  private factionLimits: Record<string, number> = {
+    default: 400,
+  }
+
+  private getFactionLimit(faction: string): number {
+    return this.factionLimits[faction] ?? this.factionLimits.default
+  }
+
+  // Kept for progress calculation
+  private get perFactionLimit(): number {
+    return this.factionLimits.default
+  }
 
   /**
    * Get list of all images available for annotation
@@ -147,12 +159,17 @@ export class AnnotationService {
 
             for (const file of files) {
               // Stop if we've hit the limit for this faction
-              if (factionCounts[faction] >= this.perFactionLimit) break
+              if (factionCounts[faction] >= this.getFactionLimit(faction)) break
 
               if (!file.match(/\.(jpg|jpeg|png|gif|webp)$/i)) continue
 
               const imagePath = path.join(sourcePath, file)
               const imageId = this.getImageId(imagePath)
+
+              // Skip flagged images entirely
+              const isFlagged = await this.isImageFlagged(imageId)
+              if (isFlagged) continue
+
               const isAnnotated = await this.isImageAnnotated(imageId)
 
               // Count ALL images toward limit (not just filtered ones)
@@ -186,16 +203,33 @@ export class AnnotationService {
 
   /**
    * Get next unannotated image
+   * When prioritize=true, delegates to active learning service for confidence-based ordering
    * Returns null if all images are annotated
    */
-  async getNextImage(): Promise<{
+  async getNextImage(prioritize: boolean = false, faction?: string): Promise<{
     imageId: string
     imagePath: string
     faction: string
     source: 'reddit' | 'dakkadakka'
+    confidenceScore?: number
   } | null> {
-    const images = await this.getImageList(false)
-    return images.length > 0 ? images[0] : null
+    let images = await this.getImageList(false)
+    if (faction) {
+      images = images.filter(img => img.faction === faction)
+    }
+    if (images.length === 0) return null
+
+    if (prioritize) {
+      try {
+        const { activeLearningService } = await import('./activeLearningService')
+        const prioritized = activeLearningService.getNextPrioritizedImage(images)
+        if (prioritized) return prioritized
+      } catch {
+        // Fall through to default behavior
+      }
+    }
+
+    return images[0]
   }
 
   /**
@@ -406,6 +440,11 @@ export class AnnotationService {
       const redrawnCount = annotation.redrawnPredictions?.length || 0
       const aiAccepted = annotation.annotations.filter(a => a.originalPrediction).length
       logger.info(`✅ Saved annotation for ${annotation.imageId} (${annotation.annotations.length} boxes, ${aiAccepted} AI-accepted, ${rejectedCount} rejected, ${redrawnCount} redrawn)`)
+
+      // Invalidate dashboard cache
+      if (this.onAnnotationSaved) {
+        this.onAnnotationSaved()
+      }
     } catch (error) {
       logger.error('Error saving annotation:', error)
       throw error
@@ -441,6 +480,63 @@ export class AnnotationService {
   }
 
   /**
+   * Check if an image is flagged as unusable
+   */
+  async isImageFlagged(imageId: string): Promise<boolean> {
+    const flagPath = path.join(this.annotationsPath, `${imageId}.skip.json`)
+    try {
+      await fs.access(flagPath)
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  /**
+   * Flag an image as unusable (permanently skip it)
+   */
+  async flagImage(imageId: string, reason?: string): Promise<void> {
+    const flagPath = path.join(this.annotationsPath, `${imageId}.skip.json`)
+    const flagData = {
+      imageId,
+      flaggedAt: new Date().toISOString(),
+      reason: reason || 'unusable'
+    }
+    await fs.writeFile(flagPath, JSON.stringify(flagData, null, 2))
+    logger.info(`🚫 Flagged image ${imageId} as unusable`)
+  }
+
+  /**
+   * Get count of flagged images (total and per faction)
+   */
+  async getFlaggedCount(): Promise<{ total: number; byFaction: Record<string, number> }> {
+    const byFaction: Record<string, number> = {}
+    let total = 0
+    try {
+      const files = await fs.readdir(this.annotationsPath)
+      for (const file of files) {
+        if (!file.endsWith('.skip.json')) continue
+        total++
+        // Extract faction from the imageId (format: faction_source_filename)
+        const imageId = file.replace('.skip.json', '')
+        const parts = imageId.split('_')
+        // Faction can be multi-word (e.g. chaos_space_marines_reddit_img1)
+        // We need to find the source separator (reddit or dakkadakka)
+        const redditIdx = parts.indexOf('reddit')
+        const dakkaIdx = parts.indexOf('dakkadakka')
+        const sepIdx = redditIdx >= 0 ? redditIdx : dakkaIdx
+        if (sepIdx > 0) {
+          const faction = parts.slice(0, sepIdx).join('_')
+          byFaction[faction] = (byFaction[faction] || 0) + 1
+        }
+      }
+    } catch {
+      // annotations dir doesn't exist yet
+    }
+    return { total, byFaction }
+  }
+
+  /**
    * Get annotation progress statistics
    * Shows progress toward the per-faction limit (110 per faction)
    */
@@ -460,9 +556,10 @@ export class AnnotationService {
       }
     }
 
-    // Calculate total target (110 per faction × number of factions)
-    const numFactions = Object.keys(byFaction).length
-    const totalTarget = numFactions * this.perFactionLimit
+    // Calculate total target using per-faction caps
+    const totalTarget = Object.keys(byFaction).reduce(
+      (sum, faction) => sum + this.getFactionLimit(faction), 0
+    )
 
     return {
       totalImages: totalTarget,  // Show target, not raw count
@@ -489,10 +586,51 @@ export class AnnotationService {
   }
 
   /**
+   * Get random annotated sample images for a faction (for consistency audit)
+   */
+  async getSampleImages(faction: string, count: number = 9): Promise<Array<{
+    imageId: string
+    imageBase64: string
+    width: number
+    height: number
+    annotations: BboxAnnotationData[]
+  }>> {
+    const images = await this.getImageList(true)
+    const annotated = images.filter(img => img.faction === faction && img.isAnnotated)
+
+    // Shuffle and take N
+    const shuffled = [...annotated].sort(() => Math.random() - 0.5).slice(0, count)
+    const results = []
+
+    for (const img of shuffled) {
+      try {
+        const annotation = await this.getAnnotation(img.imageId)
+        if (!annotation || annotation.annotations.length === 0) continue
+
+        const imageBuffer = await fs.readFile(img.imagePath)
+        const sharpModule = await import('sharp')
+        const metadata = await sharpModule.default(img.imagePath).metadata()
+
+        results.push({
+          imageId: img.imageId,
+          imageBase64: `data:image/jpeg;base64,${imageBuffer.toString('base64')}`,
+          width: metadata.width || 0,
+          height: metadata.height || 0,
+          annotations: annotation.annotations
+        })
+      } catch {
+        continue
+      }
+    }
+
+    return results
+  }
+
+  /**
    * Export annotations to YOLO format
    * Creates train/val split and converts to YOLO-pose format
    */
-  async exportToYOLO(outputPath: string, trainSplit: number = 0.8): Promise<{
+  async exportToYOLO(outputPath: string, trainSplit: number = 0.8, options?: { balanced?: boolean; balancedCap?: number }): Promise<{
     trainImages: number
     valImages: number
     classesFile: string
@@ -520,7 +658,7 @@ export class AnnotationService {
 
     // Collect all unique classes
     const classesSet = new Set<string>()
-    const annotations: Array<{ image: typeof annotatedImages[0]; annotation: ImageAnnotation }> = []
+    let annotations: Array<{ image: typeof annotatedImages[0]; annotation: ImageAnnotation }> = []
 
     for (const img of annotatedImages) {
       const annotation = await this.getAnnotation(img.imageId)
@@ -529,6 +667,29 @@ export class AnnotationService {
         annotations.push({ image: img, annotation })
         annotation.annotations.forEach(ann => classesSet.add(ann.classLabel))
       }
+    }
+
+    // Balanced export: cap each faction at the minimum faction count (or custom cap)
+    if (options?.balanced) {
+      const byFaction = new Map<string, typeof annotations>()
+      for (const entry of annotations) {
+        const faction = entry.image.faction
+        const existing = byFaction.get(faction) || []
+        existing.push(entry)
+        byFaction.set(faction, existing)
+      }
+
+      const minCount = options.balancedCap || Math.min(...Array.from(byFaction.values()).map(v => v.length))
+      logger.info(`⚖️  Balanced export: capping each faction at ${minCount} images`)
+
+      const balanced: typeof annotations = []
+      for (const [faction, entries] of byFaction) {
+        const shuffled = [...entries].sort(() => Math.random() - 0.5)
+        const capped = shuffled.slice(0, minCount)
+        balanced.push(...capped)
+        logger.info(`   ${faction}: ${capped.length}/${entries.length}`)
+      }
+      annotations = balanced
     }
 
     logger.info(`📊 Exporting ${annotations.length} images with annotations (excluded ${annotatedImages.length - annotations.length} skipped/empty)`)

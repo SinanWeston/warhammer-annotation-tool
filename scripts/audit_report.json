@@ -1,0 +1,1291 @@
+{
+  "summary": {
+    "total_audited": 200,
+    "total_correct": 87,
+    "total_mismatches": 100,
+    "confidence_threshold": 0.25
+  },
+  "per_faction": {
+    "imperial_guard": {
+      "total_audited": 200,
+      "correct": 87,
+      "mismatches": 100,
+      "no_detection": 13,
+      "mismatch_rate": 53.5
+    }
+  },
+  "mismatches": [
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/106jqub_27f8cf130953.jpg",
+      "filename": "106jqub_27f8cf130953.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.993,
+      "num_detections": 4,
+      "all_predictions": [
+        "chaos_space_marines (71%)",
+        "chaos_space_marines (47%)",
+        "chaos_space_marines (41%)",
+        "chaos_space_marines (40%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/109e6ld_a0f1a8dc6abb.jpg",
+      "filename": "109e6ld_a0f1a8dc6abb.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 16.642,
+      "num_detections": 36,
+      "all_predictions": [
+        "chaos_space_marines (69%)",
+        "chaos_space_marines (66%)",
+        "chaos_space_marines (64%)",
+        "chaos_space_marines (64%)",
+        "chaos_space_marines (62%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10gzgd5_16f48e703abf.jpg",
+      "filename": "10gzgd5_16f48e703abf.jpg",
+      "expected": "imperial_guard",
+      "predicted": "eldar",
+      "confidence_sum": 1.383,
+      "num_detections": 5,
+      "all_predictions": [
+        "eldar (56%)",
+        "imperial_guard (38%)",
+        "eldar (31%)",
+        "eldar (26%)",
+        "eldar (25%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10h2fll_4bb0afed8a48.jpg",
+      "filename": "10h2fll_4bb0afed8a48.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 3.068,
+      "num_detections": 13,
+      "all_predictions": [
+        "death_guard (58%)",
+        "chaos_space_marines (58%)",
+        "death_guard (54%)",
+        "chaos_space_marines (54%)",
+        "chaos_space_marines (41%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10jq2ud_48ab3180c3a9.jpg",
+      "filename": "10jq2ud_48ab3180c3a9.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.891,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (89%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10xqksd_401fe66b586d.jpg",
+      "filename": "10xqksd_401fe66b586d.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.923,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (92%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10xqksd_5fa9d419daf1.jpg",
+      "filename": "10xqksd_5fa9d419daf1.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.706,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (71%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10xqksd_83fd0b06a278.jpg",
+      "filename": "10xqksd_83fd0b06a278.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.687,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (69%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10xqksd_c672275b095d.jpg",
+      "filename": "10xqksd_c672275b095d.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.562,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (56%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/10xqksd_e8dc04c2962a.jpg",
+      "filename": "10xqksd_e8dc04c2962a.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.874,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (87%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/112avmz_90dc8bfbb390.jpg",
+      "filename": "112avmz_90dc8bfbb390.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.413,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (41%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_06657a4c2869.jpg",
+      "filename": "11i4mhp_06657a4c2869.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.667,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (67%)",
+        "imperial_guard (37%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_1ff830fb1665.jpg",
+      "filename": "11i4mhp_1ff830fb1665.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.252,
+      "num_detections": 3,
+      "all_predictions": [
+        "chaos_space_marines (80%)",
+        "chaos_space_marines (45%)",
+        "imperial_guard (28%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_25fc00787988.jpg",
+      "filename": "11i4mhp_25fc00787988.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.552,
+      "num_detections": 3,
+      "all_predictions": [
+        "chaos_space_marines (73%)",
+        "chaos_space_marines (54%)",
+        "chaos_space_marines (28%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_44a18457af05.jpg",
+      "filename": "11i4mhp_44a18457af05.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.537,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (54%)",
+        "imperial_guard (34%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_9a2d5aae8562.jpg",
+      "filename": "11i4mhp_9a2d5aae8562.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.953,
+      "num_detections": 3,
+      "all_predictions": [
+        "chaos_space_marines (76%)",
+        "chaos_space_marines (68%)",
+        "chaos_space_marines (51%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_9b477052ef2c.jpg",
+      "filename": "11i4mhp_9b477052ef2c.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.839,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (84%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_a4f67a9abb97.jpg",
+      "filename": "11i4mhp_a4f67a9abb97.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 2.139,
+      "num_detections": 3,
+      "all_predictions": [
+        "chaos_space_marines (74%)",
+        "chaos_space_marines (73%)",
+        "chaos_space_marines (67%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_bb0b84f1037e.jpg",
+      "filename": "11i4mhp_bb0b84f1037e.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.39,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (39%)",
+        "imperial_guard (29%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_dfd1418f25cd.jpg",
+      "filename": "11i4mhp_dfd1418f25cd.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 2.224,
+      "num_detections": 4,
+      "all_predictions": [
+        "chaos_space_marines (73%)",
+        "chaos_space_marines (60%)",
+        "chaos_space_marines (51%)",
+        "chaos_space_marines (39%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_e73ff376e542.jpg",
+      "filename": "11i4mhp_e73ff376e542.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.289,
+      "num_detections": 3,
+      "all_predictions": [
+        "chaos_space_marines (83%)",
+        "imperial_guard (53%)",
+        "chaos_space_marines (46%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11i4mhp_fe8aa7eaa315.jpg",
+      "filename": "11i4mhp_fe8aa7eaa315.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.573,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (32%)",
+        "chaos_space_marines (26%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11rvjix_909e8d5d6b5b.jpg",
+      "filename": "11rvjix_909e8d5d6b5b.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.614,
+      "num_detections": 3,
+      "all_predictions": [
+        "custodes (34%)",
+        "chaos_space_marines (31%)",
+        "custodes (28%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11tqyis_c20d46e7f814.jpg",
+      "filename": "11tqyis_c20d46e7f814.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 2.632,
+      "num_detections": 9,
+      "all_predictions": [
+        "custodes (85%)",
+        "custodes (72%)",
+        "imperial_guard (53%)",
+        "death_guard (51%)",
+        "imperial_guard (44%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11xla42_2f9aa0f65608.jpg",
+      "filename": "11xla42_2f9aa0f65608.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.393,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (39%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11z25d9_28263c55f25c.jpg",
+      "filename": "11z25d9_28263c55f25c.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 2.773,
+      "num_detections": 5,
+      "all_predictions": [
+        "death_guard (89%)",
+        "death_guard (83%)",
+        "death_guard (66%)",
+        "death_guard (39%)",
+        "imperial_guard (26%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11z25d9_2c392c6fd96f.jpg",
+      "filename": "11z25d9_2c392c6fd96f.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 2.613,
+      "num_detections": 6,
+      "all_predictions": [
+        "death_guard (76%)",
+        "death_guard (69%)",
+        "death_guard (58%)",
+        "imperial_guard (48%)",
+        "death_guard (30%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11z25d9_8440382f5d5c.jpg",
+      "filename": "11z25d9_8440382f5d5c.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.57,
+      "num_detections": 4,
+      "all_predictions": [
+        "chaos_space_marines (37%)",
+        "death_guard (30%)",
+        "imperial_guard (29%)",
+        "death_guard (27%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11z25d9_bf8ac5193495.jpg",
+      "filename": "11z25d9_bf8ac5193495.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 4.536,
+      "num_detections": 11,
+      "all_predictions": [
+        "death_guard (82%)",
+        "death_guard (74%)",
+        "death_guard (74%)",
+        "imperial_guard (59%)",
+        "death_guard (53%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11ztcer_ecaacab90cbc.jpg",
+      "filename": "11ztcer_ecaacab90cbc.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.297,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (30%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/122f21r_4522d8aab793.jpg",
+      "filename": "122f21r_4522d8aab793.jpg",
+      "expected": "imperial_guard",
+      "predicted": "adeptus_mechanicus",
+      "confidence_sum": 0.41,
+      "num_detections": 1,
+      "all_predictions": [
+        "adeptus_mechanicus (41%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12fouwo_1c5512305f35.jpg",
+      "filename": "12fouwo_1c5512305f35.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 6.198,
+      "num_detections": 13,
+      "all_predictions": [
+        "death_guard (85%)",
+        "death_guard (79%)",
+        "death_guard (74%)",
+        "death_guard (57%)",
+        "death_guard (51%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12fouwo_22997160154f.jpg",
+      "filename": "12fouwo_22997160154f.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 2.943,
+      "num_detections": 7,
+      "all_predictions": [
+        "death_guard (64%)",
+        "death_guard (61%)",
+        "death_guard (55%)",
+        "death_guard (51%)",
+        "imperial_guard (48%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12fouwo_dfa98263edf9.jpg",
+      "filename": "12fouwo_dfa98263edf9.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 4.838,
+      "num_detections": 10,
+      "all_predictions": [
+        "death_guard (78%)",
+        "death_guard (72%)",
+        "death_guard (69%)",
+        "death_guard (61%)",
+        "death_guard (54%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_dec3606097f3.jpg",
+      "filename": "12gas6q_dec3606097f3.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 2.651,
+      "num_detections": 5,
+      "all_predictions": [
+        "death_guard (81%)",
+        "death_guard (79%)",
+        "imperial_guard (67%)",
+        "death_guard (66%)",
+        "death_guard (39%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_e2afd66dbaec.jpg",
+      "filename": "12gas6q_e2afd66dbaec.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 6.045,
+      "num_detections": 13,
+      "all_predictions": [
+        "death_guard (83%)",
+        "death_guard (82%)",
+        "death_guard (81%)",
+        "death_guard (76%)",
+        "death_guard (75%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gda5x_1447a2ebdf3b.jpg",
+      "filename": "12gda5x_1447a2ebdf3b.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.622,
+      "num_detections": 2,
+      "all_predictions": [
+        "death_guard (62%)",
+        "genestealer_cult (35%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gda5x_80b34569786f.jpg",
+      "filename": "12gda5x_80b34569786f.jpg",
+      "expected": "imperial_guard",
+      "predicted": "genestealer_cult",
+      "confidence_sum": 0.8,
+      "num_detections": 2,
+      "all_predictions": [
+        "genestealer_cult (80%)",
+        "death_guard (46%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gda5x_d8e4e09c8ae0.jpg",
+      "filename": "12gda5x_d8e4e09c8ae0.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.751,
+      "num_detections": 2,
+      "all_predictions": [
+        "death_guard (75%)",
+        "genestealer_cult (72%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12hsf07_a6231a6c228b.jpg",
+      "filename": "12hsf07_a6231a6c228b.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.367,
+      "num_detections": 4,
+      "all_predictions": [
+        "chaos_space_marines (43%)",
+        "chaos_space_marines (35%)",
+        "chaos_space_marines (31%)",
+        "chaos_space_marines (28%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12hsf07_db8b03a5d108.jpg",
+      "filename": "12hsf07_db8b03a5d108.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.37,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (37%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12iero5_5f9ecd15596a.jpg",
+      "filename": "12iero5_5f9ecd15596a.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.686,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (69%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12m9yum_d39342945fae.jpg",
+      "filename": "12m9yum_d39342945fae.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 8.61,
+      "num_detections": 19,
+      "all_predictions": [
+        "custodes (88%)",
+        "custodes (85%)",
+        "custodes (79%)",
+        "custodes (79%)",
+        "custodes (75%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_043340ddacb6.jpg",
+      "filename": "12oiugo_043340ddacb6.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.375,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (38%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_24f1f5300750.jpg",
+      "filename": "12oiugo_24f1f5300750.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.497,
+      "num_detections": 2,
+      "all_predictions": [
+        "custodes (50%)",
+        "chaos_space_marines (36%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_27940c2d7515.jpg",
+      "filename": "12oiugo_27940c2d7515.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.768,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (77%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_3c02a854bbd6.jpg",
+      "filename": "12oiugo_3c02a854bbd6.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 2.771,
+      "num_detections": 10,
+      "all_predictions": [
+        "custodes (66%)",
+        "custodes (58%)",
+        "imperial_guard (45%)",
+        "custodes (45%)",
+        "adeptus_mechanicus (42%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_6dc7fd9c36ea.jpg",
+      "filename": "12oiugo_6dc7fd9c36ea.jpg",
+      "expected": "imperial_guard",
+      "predicted": "adeptus_mechanicus",
+      "confidence_sum": 0.513,
+      "num_detections": 2,
+      "all_predictions": [
+        "adeptus_mechanicus (51%)",
+        "death_guard (41%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_9a879d1528d2.jpg",
+      "filename": "12oiugo_9a879d1528d2.jpg",
+      "expected": "imperial_guard",
+      "predicted": "genestealer_cult",
+      "confidence_sum": 0.611,
+      "num_detections": 1,
+      "all_predictions": [
+        "genestealer_cult (61%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_c5209d60aae5.jpg",
+      "filename": "12oiugo_c5209d60aae5.jpg",
+      "expected": "imperial_guard",
+      "predicted": "genestealer_cult",
+      "confidence_sum": 0.468,
+      "num_detections": 1,
+      "all_predictions": [
+        "genestealer_cult (47%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12oiugo_f2afa0d44df1.jpg",
+      "filename": "12oiugo_f2afa0d44df1.jpg",
+      "expected": "imperial_guard",
+      "predicted": "genestealer_cult",
+      "confidence_sum": 0.345,
+      "num_detections": 1,
+      "all_predictions": [
+        "genestealer_cult (34%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12sgmqp_6d9651147648.jpg",
+      "filename": "12sgmqp_6d9651147648.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.694,
+      "num_detections": 2,
+      "all_predictions": [
+        "custodes (40%)",
+        "custodes (29%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12wzqkz_3c07452cf30c.png",
+      "filename": "12wzqkz_3c07452cf30c.png",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 1.327,
+      "num_detections": 4,
+      "all_predictions": [
+        "chaos_space_marines (41%)",
+        "chaos_space_marines (32%)",
+        "chaos_space_marines (30%)",
+        "chaos_space_marines (30%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12wzqkz_7e8021670a80.jpg",
+      "filename": "12wzqkz_7e8021670a80.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.671,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (67%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13d0th9_412602e1b814.jpg",
+      "filename": "13d0th9_412602e1b814.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 7.786,
+      "num_detections": 24,
+      "all_predictions": [
+        "chaos_space_marines (90%)",
+        "chaos_space_marines (86%)",
+        "chaos_space_marines (77%)",
+        "chaos_space_marines (74%)",
+        "imperial_guard (67%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13d0th9_cbc006f24dae.jpg",
+      "filename": "13d0th9_cbc006f24dae.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 13.292,
+      "num_detections": 33,
+      "all_predictions": [
+        "chaos_space_marines (83%)",
+        "chaos_space_marines (82%)",
+        "chaos_space_marines (81%)",
+        "chaos_space_marines (75%)",
+        "chaos_space_marines (74%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13d0th9_ff484424379d.jpg",
+      "filename": "13d0th9_ff484424379d.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 5.774,
+      "num_detections": 15,
+      "all_predictions": [
+        "chaos_space_marines (76%)",
+        "chaos_space_marines (69%)",
+        "chaos_space_marines (59%)",
+        "imperial_guard (57%)",
+        "chaos_space_marines (55%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13f7odi_9aebf1b18760.jpg",
+      "filename": "13f7odi_9aebf1b18760.jpg",
+      "expected": "imperial_guard",
+      "predicted": "grey_knights",
+      "confidence_sum": 0.696,
+      "num_detections": 2,
+      "all_predictions": [
+        "grey_knights (70%)",
+        "custodes (44%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13fowyh_35176f344f3e.jpg",
+      "filename": "13fowyh_35176f344f3e.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 4.596,
+      "num_detections": 14,
+      "all_predictions": [
+        "chaos_space_marines (79%)",
+        "chaos_space_marines (78%)",
+        "imperial_guard (71%)",
+        "chaos_space_marines (69%)",
+        "imperial_guard (59%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_017bd63269ff.jpg",
+      "filename": "13gsfrz_017bd63269ff.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.882,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (88%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_1fa491897cd6.jpg",
+      "filename": "13gsfrz_1fa491897cd6.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.967,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (97%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_2b0b4e6aceb6.jpg",
+      "filename": "13gsfrz_2b0b4e6aceb6.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 4.512,
+      "num_detections": 8,
+      "all_predictions": [
+        "custodes (82%)",
+        "custodes (82%)",
+        "custodes (81%)",
+        "custodes (75%)",
+        "custodes (69%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_4fcf0fe6f444.jpg",
+      "filename": "13gsfrz_4fcf0fe6f444.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 2.802,
+      "num_detections": 5,
+      "all_predictions": [
+        "custodes (79%)",
+        "custodes (71%)",
+        "custodes (55%)",
+        "custodes (41%)",
+        "custodes (35%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_6d0357e52eb5.jpg",
+      "filename": "13gsfrz_6d0357e52eb5.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.716,
+      "num_detections": 3,
+      "all_predictions": [
+        "custodes (53%)",
+        "death_guard (42%)",
+        "death_guard (30%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_ea06d9d5390c.jpg",
+      "filename": "13gsfrz_ea06d9d5390c.jpg",
+      "expected": "imperial_guard",
+      "predicted": "adeptus_mechanicus",
+      "confidence_sum": 3.006,
+      "num_detections": 7,
+      "all_predictions": [
+        "adeptus_mechanicus (81%)",
+        "adeptus_mechanicus (76%)",
+        "adeptus_mechanicus (55%)",
+        "adeptus_mechanicus (46%)",
+        "adeptus_mechanicus (43%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_f04a35fba41e.jpg",
+      "filename": "13gsfrz_f04a35fba41e.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.599,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (60%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13gsfrz_f969c2c76ac1.jpg",
+      "filename": "13gsfrz_f969c2c76ac1.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.462,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (46%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13ii8t8_05848e328bc9.jpg",
+      "filename": "13ii8t8_05848e328bc9.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 2.406,
+      "num_detections": 5,
+      "all_predictions": [
+        "chaos_space_marines (78%)",
+        "chaos_space_marines (70%)",
+        "chaos_space_marines (32%)",
+        "chaos_space_marines (31%)",
+        "chaos_space_marines (30%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13ii8t8_32212fa78b25.jpg",
+      "filename": "13ii8t8_32212fa78b25.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.751,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (39%)",
+        "chaos_space_marines (36%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13ii8t8_3280e8fd924b.jpg",
+      "filename": "13ii8t8_3280e8fd924b.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.49,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (49%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13ii8t8_e1b31e12a157.jpg",
+      "filename": "13ii8t8_e1b31e12a157.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.428,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (43%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13kf06g_47abf64fb7db.jpg",
+      "filename": "13kf06g_47abf64fb7db.jpg",
+      "expected": "imperial_guard",
+      "predicted": "custodes",
+      "confidence_sum": 0.41,
+      "num_detections": 1,
+      "all_predictions": [
+        "custodes (41%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13koz8g_763088bd87bc.jpg",
+      "filename": "13koz8g_763088bd87bc.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 4.434,
+      "num_detections": 12,
+      "all_predictions": [
+        "death_guard (73%)",
+        "death_guard (67%)",
+        "death_guard (49%)",
+        "death_guard (48%)",
+        "death_guard (45%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13oshwq_0fdce7d23054.jpg",
+      "filename": "13oshwq_0fdce7d23054.jpg",
+      "expected": "imperial_guard",
+      "predicted": "genestealer_cult",
+      "confidence_sum": 0.68,
+      "num_detections": 3,
+      "all_predictions": [
+        "genestealer_cult (68%)",
+        "eldar (59%)",
+        "custodes (27%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13oshwq_22e21182c2c6.jpg",
+      "filename": "13oshwq_22e21182c2c6.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.367,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (37%)",
+        "imperial_guard (36%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13oshwq_29d4f164bfcf.jpg",
+      "filename": "13oshwq_29d4f164bfcf.jpg",
+      "expected": "imperial_guard",
+      "predicted": "adeptus_mechanicus",
+      "confidence_sum": 0.405,
+      "num_detections": 1,
+      "all_predictions": [
+        "adeptus_mechanicus (41%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13oshwq_4f80b6d308c2.jpg",
+      "filename": "13oshwq_4f80b6d308c2.jpg",
+      "expected": "imperial_guard",
+      "predicted": "eldar",
+      "confidence_sum": 1.561,
+      "num_detections": 3,
+      "all_predictions": [
+        "eldar (94%)",
+        "eldar (62%)",
+        "chaos_space_marines (30%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13oshwq_74d8f9cd126c.jpg",
+      "filename": "13oshwq_74d8f9cd126c.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.769,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (77%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13oshwq_88dd470550e9.jpg",
+      "filename": "13oshwq_88dd470550e9.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.534,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (53%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13s8yfl_b73a7fd77cf1.jpg",
+      "filename": "13s8yfl_b73a7fd77cf1.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.454,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (45%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/13y8vs2_191b2f3ab17d.jpg",
+      "filename": "13y8vs2_191b2f3ab17d.jpg",
+      "expected": "imperial_guard",
+      "predicted": "grey_knights",
+      "confidence_sum": 0.565,
+      "num_detections": 2,
+      "all_predictions": [
+        "grey_knights (57%)",
+        "custodes (39%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/14214uv_07a76a52fc1b.jpg",
+      "filename": "14214uv_07a76a52fc1b.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 21.46,
+      "num_detections": 32,
+      "all_predictions": [
+        "death_guard (87%)",
+        "death_guard (87%)",
+        "death_guard (86%)",
+        "death_guard (84%)",
+        "death_guard (82%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/14214uv_530487642dcb.jpg",
+      "filename": "14214uv_530487642dcb.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 13.406,
+      "num_detections": 20,
+      "all_predictions": [
+        "death_guard (86%)",
+        "death_guard (86%)",
+        "death_guard (85%)",
+        "death_guard (85%)",
+        "death_guard (84%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/14214uv_f5ecb54b7ab4.jpg",
+      "filename": "14214uv_f5ecb54b7ab4.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 7.689,
+      "num_detections": 15,
+      "all_predictions": [
+        "death_guard (81%)",
+        "death_guard (80%)",
+        "death_guard (80%)",
+        "death_guard (78%)",
+        "death_guard (76%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_06e6a4aa2e19.jpg",
+      "filename": "143zp2w_06e6a4aa2e19.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 8.439,
+      "num_detections": 23,
+      "all_predictions": [
+        "chaos_space_marines (62%)",
+        "custodes (62%)",
+        "chaos_space_marines (62%)",
+        "chaos_space_marines (60%)",
+        "chaos_space_marines (59%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_118d1f8eb9ae.jpg",
+      "filename": "143zp2w_118d1f8eb9ae.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.868,
+      "num_detections": 2,
+      "all_predictions": [
+        "death_guard (57%)",
+        "death_guard (29%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_14853d7ccf25.jpg",
+      "filename": "143zp2w_14853d7ccf25.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.912,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (91%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_1b00b99d64e6.jpg",
+      "filename": "143zp2w_1b00b99d64e6.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 3.397,
+      "num_detections": 4,
+      "all_predictions": [
+        "death_guard (87%)",
+        "death_guard (86%)",
+        "death_guard (84%)",
+        "death_guard (83%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_2299d199b83d.jpg",
+      "filename": "143zp2w_2299d199b83d.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.544,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (54%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_49a6e7024092.jpg",
+      "filename": "143zp2w_49a6e7024092.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 1.102,
+      "num_detections": 3,
+      "all_predictions": [
+        "death_guard (74%)",
+        "adeptus_mechanicus (50%)",
+        "death_guard (36%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_4f0d32ff679f.jpg",
+      "filename": "143zp2w_4f0d32ff679f.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.274,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (27%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_5475938ce76a.jpg",
+      "filename": "143zp2w_5475938ce76a.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.666,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (67%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_6e53aca6243c.jpg",
+      "filename": "143zp2w_6e53aca6243c.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 1.206,
+      "num_detections": 3,
+      "all_predictions": [
+        "death_guard (50%)",
+        "death_guard (45%)",
+        "death_guard (26%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_8c28d31e6048.jpg",
+      "filename": "143zp2w_8c28d31e6048.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.547,
+      "num_detections": 1,
+      "all_predictions": [
+        "death_guard (55%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_8dcadd2bd138.jpg",
+      "filename": "143zp2w_8dcadd2bd138.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 0.459,
+      "num_detections": 2,
+      "all_predictions": [
+        "death_guard (46%)",
+        "custodes (43%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_8f7a7429cf61.jpg",
+      "filename": "143zp2w_8f7a7429cf61.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.446,
+      "num_detections": 3,
+      "all_predictions": [
+        "chaos_space_marines (45%)",
+        "death_guard (36%)",
+        "adeptus_mechanicus (27%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_9a1d663b4128.jpg",
+      "filename": "143zp2w_9a1d663b4128.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.367,
+      "num_detections": 2,
+      "all_predictions": [
+        "chaos_space_marines (37%)",
+        "death_guard (37%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_a17906775de0.jpg",
+      "filename": "143zp2w_a17906775de0.jpg",
+      "expected": "imperial_guard",
+      "predicted": "adeptus_mechanicus",
+      "confidence_sum": 0.825,
+      "num_detections": 2,
+      "all_predictions": [
+        "adeptus_mechanicus (83%)",
+        "death_guard (55%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_be0b74623a4f.jpg",
+      "filename": "143zp2w_be0b74623a4f.jpg",
+      "expected": "imperial_guard",
+      "predicted": "death_guard",
+      "confidence_sum": 3.125,
+      "num_detections": 6,
+      "all_predictions": [
+        "death_guard (89%)",
+        "death_guard (84%)",
+        "death_guard (82%)",
+        "chaos_space_marines (67%)",
+        "death_guard (56%)"
+      ]
+    },
+    {
+      "image": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/143zp2w_c78c0cb670d5.jpg",
+      "filename": "143zp2w_c78c0cb670d5.jpg",
+      "expected": "imperial_guard",
+      "predicted": "chaos_space_marines",
+      "confidence_sum": 0.642,
+      "num_detections": 1,
+      "all_predictions": [
+        "chaos_space_marines (64%)"
+      ]
+    }
+  ]
+}

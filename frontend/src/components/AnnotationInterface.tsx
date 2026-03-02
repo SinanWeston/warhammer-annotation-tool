@@ -38,7 +38,12 @@ interface QualityIssue {
   bboxId?: string
 }
 
-export default function AnnotationInterface() {
+interface AnnotationInterfaceProps {
+  editImageId?: string | null
+  onEditComplete?: () => void
+}
+
+export default function AnnotationInterface({ editImageId, onEditComplete }: AnnotationInterfaceProps = {}) {
   const [currentImage, setCurrentImage] = useState<ImageData | null>(null)
   const [annotations, setAnnotations] = useState<BboxAnnotation[]>([])
   const [progress, setProgress] = useState<AnnotationProgress | null>(null)
@@ -58,6 +63,32 @@ export default function AnnotationInterface() {
   const [predictions, setPredictions] = useState<BboxAnnotation[]>([])
   const [validationMode, setValidationMode] = useState(false)
   const [highlightedPrediction, setHighlightedPrediction] = useState<string | null>(null)
+
+  // Edit mode state
+  const [editMode, setEditMode] = useState(false)
+
+  // History for back navigation
+  const [previousImageId, setPreviousImageId] = useState<string | null>(null)
+
+  // Active learning state
+  const [prioritize, setPrioritize] = useState(false)
+  const [confidenceScore, setConfidenceScore] = useState<number | null>(null)
+
+  // Preloaded next image buffer
+  const [preloadedImage, setPreloadedImage] = useState<{
+    image: ImageData
+    annotations: BboxAnnotation[]
+    confidenceScore?: number
+  } | null>(null)
+
+  // Session stats
+  const [sessionStart] = useState<number>(Date.now())
+  const [sessionCount, setSessionCount] = useState(0)
+  const [sessionTimes, setSessionTimes] = useState<number[]>([])
+  const [imageStartTime, setImageStartTime] = useState<number>(Date.now())
+
+  // Faction filter state
+  const [selectedFaction, setSelectedFaction] = useState<string | null>(null)
 
   // Fetch progress on mount
   useEffect(() => {
@@ -81,15 +112,44 @@ export default function AnnotationInterface() {
     }
   }
 
-  // Load next image
-  const loadNextImage = async () => {
-    setLoading(true)
+  // Load next image. factionOverride lets callers pass a faction directly
+  // (e.g. when clicking a faction card, before state has updated).
+  const loadNextImage = async (factionOverride?: string | null) => {
+    // Remember current image for back navigation
+    if (currentImage) {
+      setPreviousImageId(currentImage.imageId)
+    }
+
     setError(null)
     setSuccess(null)
 
+    const faction = factionOverride !== undefined ? factionOverride : selectedFaction
+
+    // Use preloaded image if available, not the same as current, and no faction override
+    if (preloadedImage && factionOverride === undefined && preloadedImage.image.imageId !== currentImage?.imageId) {
+      setCurrentImage(preloadedImage.image)
+      setAnnotations(preloadedImage.annotations)
+      setConfidenceScore(preloadedImage.confidenceScore ?? null)
+      setPredictions([])
+      setProcessedPredictions([])
+      setValidationMode(false)
+      setHighlightedPrediction(null)
+      setPreloadedImage(null)
+      return
+    }
+    // Discard stale preload (same image as current — was fetched before save completed)
+    setPreloadedImage(null)
+
+    setLoading(true)
+
     try {
       // Get next image metadata
-      const response = await fetch('http://localhost:3001/api/annotate/next')
+      const params = new URLSearchParams()
+      if (prioritize) params.set('prioritize', 'true')
+      if (faction) params.set('faction', faction)
+      const qs = params.toString()
+      const url = `http://localhost:3001/api/annotate/next${qs ? '?' + qs : ''}`
+      const response = await fetch(url)
       const data = await response.json()
 
       if (!data.success || !data.data.image) {
@@ -99,6 +159,7 @@ export default function AnnotationInterface() {
       }
 
       const imageInfo = data.data.image
+      setConfidenceScore(imageInfo.confidenceScore ?? null)
 
       // Load full image data
       const imageResponse = await fetch(`http://localhost:3001/api/annotate/image/${imageInfo.imageId}`)
@@ -137,6 +198,112 @@ export default function AnnotationInterface() {
     }
   }
 
+  // Load a specific image by ID (for editing previously annotated images)
+  const loadSpecificImage = async (imageId: string) => {
+    setLoading(true)
+    setError(null)
+    setSuccess(null)
+    setEditMode(true)
+
+    try {
+      const imageResponse = await fetch(`http://localhost:3001/api/annotate/image/${imageId}`)
+      const imageData = await imageResponse.json()
+
+      if (imageData.success) {
+        let newAnnotations: BboxAnnotation[] = []
+
+        if (imageData.data.annotation && imageData.data.annotation.annotations) {
+          newAnnotations = imageData.data.annotation.annotations.map((ann: any) => ({
+            id: ann.id,
+            x: ann.modelBbox.x,
+            y: ann.modelBbox.y,
+            width: ann.modelBbox.width,
+            height: ann.modelBbox.height,
+            classLabel: ann.classLabel,
+            baseBbox: ann.baseBbox
+          }))
+        }
+
+        setCurrentImage(imageData.data.image)
+        setAnnotations(newAnnotations)
+        setPredictions([])
+        setProcessedPredictions([])
+        setValidationMode(false)
+        setHighlightedPrediction(null)
+        setSuccess(`Editing previously annotated image — Save to update`)
+      } else {
+        setError(`Image not found: ${imageId}`)
+      }
+    } catch (err: any) {
+      setError(`Failed to load image: ${err.message}`)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Go back to previous image
+  const goBack = () => {
+    if (!previousImageId) return
+    loadSpecificImage(previousImageId)
+    setPreviousImageId(null)
+  }
+
+  // Load specific image when editImageId prop is provided
+  useEffect(() => {
+    if (editImageId) {
+      loadSpecificImage(editImageId)
+    }
+  }, [editImageId])
+
+  // Prefetch next image while user annotates current one
+  const prefetchNextImage = async () => {
+    try {
+      const params = new URLSearchParams()
+      if (prioritize) params.set('prioritize', 'true')
+      if (selectedFaction) params.set('faction', selectedFaction)
+      const qs = params.toString()
+      const url = `http://localhost:3001/api/annotate/next${qs ? '?' + qs : ''}`
+      const response = await fetch(url)
+      const data = await response.json()
+
+      if (!data.success || !data.data.image) return
+
+      const imageInfo = data.data.image
+      const imageResponse = await fetch(`http://localhost:3001/api/annotate/image/${imageInfo.imageId}`)
+      const imageData = await imageResponse.json()
+
+      if (imageData.success) {
+        let newAnnotations: BboxAnnotation[] = []
+        if (imageData.data.annotation && imageData.data.annotation.annotations) {
+          newAnnotations = imageData.data.annotation.annotations.map((ann: any) => ({
+            id: ann.id,
+            x: ann.modelBbox.x,
+            y: ann.modelBbox.y,
+            width: ann.modelBbox.width,
+            height: ann.modelBbox.height,
+            classLabel: ann.classLabel,
+            baseBbox: ann.baseBbox
+          }))
+        }
+
+        setPreloadedImage({
+          image: imageData.data.image,
+          annotations: newAnnotations,
+          confidenceScore: imageInfo.confidenceScore
+        })
+      }
+    } catch {
+      // Silent fail — prefetch is optional
+    }
+  }
+
+  // Track image start time when a new image loads
+  useEffect(() => {
+    if (currentImage) {
+      setImageStartTime(Date.now())
+    }
+  }, [currentImage?.imageId])
+
   // Save current annotations
   const saveAnnotations = async () => {
     if (!currentImage) return
@@ -146,13 +313,14 @@ export default function AnnotationInterface() {
     setSuccess(null)
 
     try {
-      // Combine current annotations with accepted processed predictions
-      const acceptedPredictions = processedPredictions.filter(p => p.validationAction === 'accepted')
+      // Accepted predictions now stay in `annotations` (as isAccepted:true), so just use annotations directly.
+      // processedPredictions still holds rejected/redrawn for training metadata.
       const rejectedPredictions = processedPredictions.filter(p => p.validationAction === 'rejected')
       const redrawnPredictions = processedPredictions.filter(p => p.validationAction === 'redrawn')
 
-      // All boxes to save (manual + accepted AI predictions)
-      const allAnnotations = [...annotations, ...acceptedPredictions]
+      // All boxes to save: manual annotations + accepted AI predictions (both in annotations[])
+      // Exclude any boxes still marked as pending predictions (isPrediction: true)
+      const allAnnotations = annotations.filter(ann => !ann.isPrediction)
 
       // Convert BboxAnnotator format to backend format
       const annotationData = {
@@ -228,8 +396,20 @@ export default function AnnotationInterface() {
         const redrawnCount = redrawnPredictions.length
         setSuccess(`✅ Saved ${totalSaved} annotations! (${rejectedCount} rejected, ${redrawnCount} redrawn for training)`)
 
+        // Track session stats
+        const elapsed = (Date.now() - imageStartTime) / 1000
+        setSessionCount(prev => prev + 1)
+        setSessionTimes(prev => [...prev.slice(-49), elapsed])
+
+        // Prefetch now — current image is saved so /api/annotate/next will skip it
+        prefetchNextImage()
+
         // Update progress and load next image
         await fetchProgress()
+        if (editMode) {
+          setEditMode(false)
+          onEditComplete?.()
+        }
         setTimeout(() => {
           loadNextImage()
         }, 300)
@@ -295,21 +475,14 @@ export default function AnnotationInterface() {
   // Processed predictions storage (for training data)
   const [processedPredictions, setProcessedPredictions] = useState<BboxAnnotation[]>([])
 
-  // Accept a prediction (mark as correct, remove from canvas, store for training)
+  // Accept a prediction (mark as correct — turns green, stays on canvas)
   const acceptPrediction = (id: string) => {
-    const prediction = annotations.find(ann => ann.id === id)
-    if (prediction) {
-      // Store accepted prediction with validation data
-      setProcessedPredictions(prev => [...prev, {
-        ...prediction,
-        validated: true,
-        isPrediction: false,
-        validationAction: 'accepted',
-        originalPrediction: true
-      }])
-    }
-    // Remove from display
-    setAnnotations(prev => prev.filter(ann => ann.id !== id))
+    // Update the box in-place: clear isPrediction, set isAccepted so it renders green
+    setAnnotations(prev => prev.map(ann =>
+      ann.id === id
+        ? { ...ann, isPrediction: false, isAccepted: true, validated: true, validationAction: 'accepted', originalPrediction: true }
+        : ann
+    ))
     setPredictions(prev => prev.filter(p => p.id !== id))
     setHighlightedPrediction(null)
   }
@@ -359,24 +532,23 @@ export default function AnnotationInterface() {
 
     setSaving(true)
 
-    // Combine all accepted predictions (already processed + remaining)
-    const allAccepted = [
-      ...processedPredictions.filter(p => p.validationAction === 'accepted'),
-      ...predictions.map(pred => ({
-        ...pred,
-        validated: true,
-        isPrediction: false,
-        validationAction: 'accepted' as const,
-        originalPrediction: true
-      }))
-    ]
+    // Accept all remaining pending predictions — flip them green in-place
+    setAnnotations(prev => prev.map(ann =>
+      ann.isPrediction
+        ? { ...ann, isPrediction: false, isAccepted: true, validated: true, validationAction: 'accepted' as const, originalPrediction: true }
+        : ann
+    ))
+    setPredictions([])
 
     const rejectedPredictions = processedPredictions.filter(p => p.validationAction === 'rejected')
     const redrawnPredictions = processedPredictions.filter(p => p.validationAction === 'redrawn')
 
-    // Also include any manually drawn boxes still on canvas
-    const manualBoxes = annotations.filter(a => !a.isPrediction)
-    const allAnnotations = [...manualBoxes, ...allAccepted]
+    // All boxes: manual + everything now accepted (isPrediction cleared above)
+    const allAnnotations = annotations.map(ann =>
+      ann.isPrediction
+        ? { ...ann, isPrediction: false, isAccepted: true, validated: true, validationAction: 'accepted' as const, originalPrediction: true }
+        : ann
+    )
 
     try {
       const annotationData = {
@@ -433,6 +605,24 @@ export default function AnnotationInterface() {
     }
   }
 
+  // Reject all remaining predictions
+  const rejectAllPredictions = () => {
+    const remaining = [...predictions]
+    for (const pred of remaining) {
+      rejectPrediction(pred.id)
+    }
+  }
+
+  // Accept predictions above a confidence threshold (default 80%)
+  const acceptHighConfidencePredictions = (threshold = 0.8) => {
+    const remaining = [...predictions]
+    for (const pred of remaining) {
+      if ((pred.confidence || 0) >= threshold) {
+        acceptPrediction(pred.id)
+      }
+    }
+  }
+
   // Skip current image (save empty annotation to mark as processed)
   const skipImage = async () => {
     if (!currentImage) return
@@ -473,6 +663,108 @@ export default function AnnotationInterface() {
       setSaving(false)
     }
   }
+
+  // Flag image as permanently unusable
+  const flagImage = async () => {
+    if (!currentImage) return
+
+    setSaving(true)
+    setError(null)
+
+    try {
+      const response = await fetch('http://localhost:3001/api/annotate/flag', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageId: currentImage.imageId, reason: 'unusable' })
+      })
+      const data = await response.json()
+
+      if (data.success) {
+        setSuccess('🚫 Image flagged as unusable — loading next...')
+        setAnnotations([])
+        await fetchProgress()
+        setTimeout(() => loadNextImage(), 300)
+      } else {
+        setError(`Failed to flag: ${data.error?.message || 'Unknown error'}`)
+      }
+    } catch (err: any) {
+      setError(`Failed to flag: ${err.message}`)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  // Keyboard shortcuts for AI prediction validation panel
+  useEffect(() => {
+    if (predictions.length === 0) return
+
+    const handlePredictionKeys = (e: KeyboardEvent) => {
+      // Don't interfere if user is typing in an input
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement) {
+        return
+      }
+
+      // Tab / Shift+Tab — cycle through predictions
+      if (e.key === 'Tab') {
+        e.preventDefault()
+        if (predictions.length === 0) return
+
+        const currentIdx = highlightedPrediction
+          ? predictions.findIndex(p => p.id === highlightedPrediction)
+          : -1
+
+        let nextIdx: number
+        if (e.shiftKey) {
+          nextIdx = currentIdx <= 0 ? predictions.length - 1 : currentIdx - 1
+        } else {
+          nextIdx = currentIdx >= predictions.length - 1 ? 0 : currentIdx + 1
+        }
+        setHighlightedPrediction(predictions[nextIdx].id)
+        return
+      }
+
+      // A — Accept highlighted prediction
+      if (e.key === 'a' || e.key === 'A') {
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault()
+          if (highlightedPrediction) {
+            acceptPrediction(highlightedPrediction)
+          }
+        }
+        return
+      }
+
+      // W — Mark highlighted prediction as Wrong
+      if (e.key === 'w' || e.key === 'W') {
+        e.preventDefault()
+        if (highlightedPrediction) {
+          rejectPrediction(highlightedPrediction)
+        }
+        return
+      }
+
+      // R — Mark highlighted prediction for Redraw
+      if (e.key === 'r' || e.key === 'R') {
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault()
+          if (highlightedPrediction) {
+            redrawPrediction(highlightedPrediction)
+          }
+        }
+        return
+      }
+
+      // Enter — Accept all remaining predictions and save
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        acceptAllPredictions()
+        return
+      }
+    }
+
+    window.addEventListener('keydown', handlePredictionKeys)
+    return () => window.removeEventListener('keydown', handlePredictionKeys)
+  }, [predictions, highlightedPrediction])
 
   return (
     <div className="annotation-interface" style={{ padding: '0.5rem', margin: '0 auto' }}>
@@ -515,6 +807,43 @@ export default function AnnotationInterface() {
         </div>
 
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          {/* Prioritize toggle */}
+          <label style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            cursor: 'pointer',
+            padding: '0.5rem 1rem',
+            backgroundColor: prioritize ? '#7c3aed30' : '#1a1a1a',
+            border: prioritize ? '1px solid #7c3aed' : '1px solid #333',
+            borderRadius: '8px',
+            fontSize: '0.85rem',
+            color: prioritize ? '#a78bfa' : '#888',
+            transition: 'all 0.2s'
+          }}>
+            <input
+              type="checkbox"
+              checked={prioritize}
+              onChange={e => setPrioritize(e.target.checked)}
+              style={{ accentColor: '#7c3aed' }}
+            />
+            Prioritize by confidence
+          </label>
+
+          {/* Confidence badge */}
+          {confidenceScore !== null && prioritize && (
+            <span style={{
+              padding: '0.4rem 0.8rem',
+              backgroundColor: confidenceScore < 0.3 ? '#dc262640' : confidenceScore < 0.6 ? '#f59e0b40' : '#05966940',
+              color: confidenceScore < 0.3 ? '#fca5a5' : confidenceScore < 0.6 ? '#fcd34d' : '#6ee7b7',
+              borderRadius: '6px',
+              fontSize: '0.8rem',
+              fontWeight: 'bold'
+            }}>
+              Conf: {(confidenceScore * 100).toFixed(0)}%
+            </span>
+          )}
+
           <button
             onClick={fetchProgress}
             disabled={fetchingProgress}
@@ -570,15 +899,36 @@ export default function AnnotationInterface() {
         }}>
           {Object.entries(progress.byFaction)
             .sort((a, b) => b[1].total - a[1].total)
-            .map(([faction, stats]) => (
-              <div key={faction} style={{
-                padding: '1rem',
-                backgroundColor: '#1a1a1a',
-                borderRadius: '8px',
-                border: '1px solid #333'
-              }}>
-                <div style={{ color: '#aaa', fontSize: '0.8rem', marginBottom: '0.5rem', textTransform: 'capitalize' }}>
+            .map(([faction, stats]) => {
+              const isSelected = selectedFaction === faction
+              const isComplete = stats.annotated >= stats.total
+              return (
+              <div
+                key={faction}
+                onClick={() => {
+                  const newFaction = isSelected ? null : faction
+                  setSelectedFaction(newFaction)
+                  loadNextImage(newFaction)
+                }}
+                style={{
+                  padding: '1rem',
+                  backgroundColor: isSelected ? '#1a2a1a' : '#1a1a1a',
+                  borderRadius: '8px',
+                  border: isSelected ? '2px solid #10b981' : '1px solid #333',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                  opacity: isComplete && !isSelected ? 0.6 : 1
+                }}
+              >
+                <div style={{
+                  color: isSelected ? '#10b981' : '#aaa',
+                  fontSize: '0.8rem',
+                  marginBottom: '0.5rem',
+                  textTransform: 'capitalize',
+                  fontWeight: isSelected ? 'bold' : 'normal'
+                }}>
                   {faction.replace(/_/g, ' ')}
+                  {isSelected && ' ●'}
                 </div>
                 <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 'bold' }}>
                   {stats.annotated} / {stats.total}
@@ -587,12 +937,68 @@ export default function AnnotationInterface() {
                   <div style={{
                     height: '100%',
                     width: `${(stats.annotated / stats.total) * 100}%`,
-                    backgroundColor: '#10b981',
+                    backgroundColor: isComplete ? '#059669' : '#10b981',
                     transition: 'width 0.3s'
                   }} />
                 </div>
               </div>
-            ))}
+              )
+            })}
+        </div>
+      )}
+
+      {/* Selected Faction Indicator */}
+      {selectedFaction && (
+        <div style={{
+          padding: '0.75rem 1rem',
+          backgroundColor: '#1a2a1a',
+          borderRadius: '8px',
+          border: '1px solid #10b981',
+          marginBottom: '1rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <span style={{ color: '#10b981', fontSize: '0.9rem' }}>
+            Filtering: <strong style={{ textTransform: 'capitalize' }}>{selectedFaction.replace(/_/g, ' ')}</strong>
+          </span>
+          <button
+            onClick={() => setSelectedFaction(null)}
+            style={{
+              padding: '0.3rem 0.75rem',
+              backgroundColor: '#374151',
+              color: '#aaa',
+              border: '1px solid #4b5563',
+              borderRadius: '4px',
+              fontSize: '0.8rem',
+              cursor: 'pointer'
+            }}
+          >
+            Clear filter
+          </button>
+        </div>
+      )}
+
+      {/* Session Stats Bar */}
+      {sessionCount > 0 && (
+        <div style={{
+          display: 'flex',
+          gap: '2rem',
+          padding: '0.5rem 1rem',
+          backgroundColor: '#1e293b',
+          borderRadius: '6px',
+          marginBottom: '1rem',
+          fontSize: '0.85rem',
+          color: '#94a3b8',
+          justifyContent: 'center'
+        }}>
+          <span>Session: <strong style={{ color: '#10b981' }}>{sessionCount}</strong> images</span>
+          <span>Duration: <strong style={{ color: '#60a5fa' }}>{Math.floor((Date.now() - sessionStart) / 60000)}m</strong></span>
+          <span>Avg: <strong style={{ color: '#f59e0b' }}>
+            {sessionTimes.length > 0
+              ? `${Math.round(sessionTimes.reduce((a, b) => a + b, 0) / sessionTimes.length)}s`
+              : '—'}
+          </strong>/image</span>
         </div>
       )}
 
@@ -618,6 +1024,37 @@ export default function AnnotationInterface() {
           marginBottom: '1rem'
         }}>
           {success}
+        </div>
+      )}
+
+      {/* Edit Mode Banner */}
+      {editMode && currentImage && (
+        <div style={{
+          padding: '0.75rem 1rem',
+          backgroundColor: '#92400e',
+          color: '#fff',
+          borderRadius: '8px',
+          marginBottom: '1rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          fontWeight: 'bold'
+        }}>
+          <span>Editing previously annotated image — Save to update</span>
+          <button
+            onClick={() => { setEditMode(false); onEditComplete?.(); loadNextImage() }}
+            style={{
+              padding: '0.4rem 0.75rem',
+              backgroundColor: '#78350f',
+              color: '#fff',
+              border: '1px solid #b45309',
+              borderRadius: '6px',
+              cursor: 'pointer',
+              fontSize: '0.85rem'
+            }}
+          >
+            Cancel Edit
+          </button>
         </div>
       )}
 
@@ -665,6 +1102,8 @@ export default function AnnotationInterface() {
             initialAnnotations={annotations}  // Pre-populate with AI suggestions or existing annotations
             onSaveRequested={saveAnnotations}  // Keyboard shortcut: S
             onSkipRequested={skipImage}  // Keyboard shortcut: K
+            onFlagRequested={flagImage}  // Keyboard shortcut: X
+            onBackRequested={goBack}  // Keyboard shortcut: B
             highlightedId={highlightedPrediction}  // Highlight box from validation panel hover
             onBoxSelected={setHighlightedPrediction}  // Sync selection to validation panel
           />
@@ -680,22 +1119,75 @@ export default function AnnotationInterface() {
           border: '2px solid #3b82f6',
           marginBottom: '1rem'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
             <h3 style={{ margin: 0, color: '#fff' }}>🤖 AI Predictions - Validate Each Box</h3>
-            <button
-              onClick={acceptAllPredictions}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#059669',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '6px',
-                fontSize: '0.9rem',
-                cursor: 'pointer'
-              }}
-            >
-              ✓ Accept All
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                onClick={() => acceptHighConfidencePredictions()}
+                style={{
+                  padding: '0.4rem 0.75rem',
+                  backgroundColor: '#0d9488',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  cursor: 'pointer'
+                }}
+                title="Accept predictions with >80% confidence"
+              >
+                ✓ Accept High Conf
+              </button>
+              <button
+                onClick={acceptAllPredictions}
+                style={{
+                  padding: '0.4rem 0.75rem',
+                  backgroundColor: '#059669',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  cursor: 'pointer',
+                  fontWeight: 'bold'
+                }}
+                title="Accept all remaining predictions and save (Enter)"
+              >
+                ✓ Accept All
+              </button>
+              <button
+                onClick={rejectAllPredictions}
+                style={{
+                  padding: '0.4rem 0.75rem',
+                  backgroundColor: '#dc2626',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontSize: '0.8rem',
+                  cursor: 'pointer'
+                }}
+                title="Reject all remaining predictions"
+              >
+                ✗ Reject All
+              </button>
+            </div>
+          </div>
+
+          {/* Keyboard shortcut legend */}
+          <div style={{
+            display: 'flex',
+            gap: '1rem',
+            marginBottom: '0.75rem',
+            padding: '0.5rem 0.75rem',
+            backgroundColor: '#0f172a',
+            borderRadius: '4px',
+            fontSize: '0.75rem',
+            color: '#64748b',
+            flexWrap: 'wrap'
+          }}>
+            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>Tab</kbd> cycle</span>
+            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>A</kbd> accept</span>
+            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>W</kbd> wrong</span>
+            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>R</kbd> redraw</span>
+            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>Enter</kbd> accept all + save</span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -805,6 +1297,27 @@ export default function AnnotationInterface() {
           borderRadius: '8px',
           border: '1px solid #333'
         }}>
+          {/* Back Button */}
+          <button
+            onClick={goBack}
+            disabled={!previousImageId || loading || saving}
+            style={{
+              padding: '1rem 1.5rem',
+              backgroundColor: previousImageId ? '#4b5563' : '#1f2937',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              cursor: !previousImageId || loading || saving ? 'not-allowed' : 'pointer',
+              opacity: !previousImageId || loading || saving ? 0.3 : 1,
+              transition: 'all 0.2s'
+            }}
+            title="Go back to previous image (B)"
+          >
+            ← Back (B)
+          </button>
+
           {/* AI Predict Button */}
           <button
             onClick={getAIPredictions}
@@ -853,6 +1366,26 @@ export default function AnnotationInterface() {
           </button>
 
           <button
+            onClick={flagImage}
+            disabled={loading || saving}
+            style={{
+              padding: '1rem 1.5rem',
+              backgroundColor: '#92400e',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              fontSize: '1rem',
+              fontWeight: 'bold',
+              cursor: loading || saving ? 'not-allowed' : 'pointer',
+              opacity: loading || saving ? 0.5 : 1,
+              transition: 'all 0.2s'
+            }}
+            title="Flag as unusable — permanently remove from annotation queue (X)"
+          >
+            🚫 Flag Unusable (X)
+          </button>
+
+          <button
             onClick={saveAnnotations}
             disabled={loading || saving || annotations.length === 0}
             style={{
@@ -888,14 +1421,18 @@ export default function AnnotationInterface() {
           <li style={{ marginBottom: '0.5rem' }}>Click <strong style={{ color: '#7c3aed' }}>🤖 Get AI Suggestions</strong> to let the AI detect miniatures</li>
           <li style={{ marginBottom: '0.5rem' }}>Validate each AI prediction:
             <ul style={{ marginTop: '0.25rem' }}>
-              <li><strong style={{ color: '#059669' }}>✓ Correct</strong> - Accept the box as-is</li>
-              <li><strong style={{ color: '#eab308' }}>✎ Redraw</strong> - Delete and draw manually</li>
-              <li><strong style={{ color: '#dc2626' }}>✗ Wrong</strong> - Remove the box (false positive)</li>
+              <li><strong style={{ color: '#059669' }}>✓ Correct</strong> - Accept the box as-is (<strong>A</strong>)</li>
+              <li><strong style={{ color: '#eab308' }}>✎ Redraw</strong> - Delete and draw manually (<strong>R</strong>)</li>
+              <li><strong style={{ color: '#dc2626' }}>✗ Wrong</strong> - Remove the box (<strong>W</strong>)</li>
+              <li><strong>Tab</strong> / <strong>Shift+Tab</strong> — cycle through predictions</li>
+              <li><strong>Enter</strong> — accept all remaining + save</li>
             </ul>
           </li>
           <li style={{ marginBottom: '0.5rem' }}>Draw additional boxes manually if the AI missed any</li>
-          <li style={{ marginBottom: '0.5rem' }}>Click "Save & Next" to save and continue</li>
-          <li>Click "Skip" for images without miniatures</li>
+          <li style={{ marginBottom: '0.5rem' }}>Click "Save & Next" to save and continue (<strong>S</strong>)</li>
+          <li>Click "Skip" for images without miniatures (<strong>K</strong>)</li>
+          <li>Click "Flag Unusable" to permanently remove bad images (<strong>X</strong>)</li>
+          <li>Click "Back" to return to the previous image (<strong>B</strong>)</li>
         </ol>
       </div>
 

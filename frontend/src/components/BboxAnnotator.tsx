@@ -25,6 +25,8 @@ interface BboxAnnotatorProps {
   initialAnnotations?: BboxAnnotation[]  // Pre-populated annotations (e.g., from AI)
   onSaveRequested?: () => void  // Called when user presses save shortcut
   onSkipRequested?: () => void  // Called when user presses skip shortcut
+  onFlagRequested?: () => void  // Called when user presses flag shortcut (X)
+  onBackRequested?: () => void  // Called when user presses back shortcut (B)
   highlightedId?: string | null  // ID of box to highlight (from validation panel hover)
   onBoxSelected?: (id: string | null) => void  // Called when a box is selected/clicked
 }
@@ -85,6 +87,8 @@ export default function BboxAnnotator({
   initialAnnotations = [],
   onSaveRequested,
   onSkipRequested,
+  onFlagRequested,
+  onBackRequested,
   highlightedId,
   onBoxSelected
 }: BboxAnnotatorProps) {
@@ -243,15 +247,17 @@ export default function BboxAnnotator({
       const isHighlighted = box.id === highlightedId
 
       // Color coding:
-      // - Cyan: Highlighted from validation panel hover
-      // - Purple: AI prediction (not yet validated)
-      // - Green: Selected or validated
-      // - Red: Manual annotation
+      // - Cyan:   Highlighted from validation panel hover
+      // - Purple: AI prediction (pending — not yet validated)
+      // - Green:  Accepted AI prediction (correct ✓)
+      // - Red:    Manual annotation
       let color = '#ff0000'  // Default red for manual
       if (isHighlighted) {
         color = '#00ffff'  // Cyan for highlighted from panel
+      } else if (box.isAccepted) {
+        color = '#22c55e'  // Green for accepted predictions
       } else if (box.isPrediction) {
-        color = isSelected ? '#a855f7' : '#7c3aed'  // Purple for AI predictions
+        color = isSelected ? '#a855f7' : '#7c3aed'  // Purple for pending AI predictions
       } else if (box.validated) {
         color = '#10b981'  // Green for validated
       } else if (isSelected) {
@@ -263,11 +269,15 @@ export default function BboxAnnotator({
 
       // Build label text
       let labelText = ''
-      if (box.isPrediction) {
-        // Show prediction number, class, and confidence
+      if (box.isAccepted) {
+        // Accepted prediction: show ✓ and class
+        const confidence = box.confidence ? ` ${Math.round(box.confidence * 100)}%` : ''
+        labelText = `✓ ${box.classLabel.replace(/_/g, ' ')}${confidence}`
+      } else if (box.isPrediction) {
+        // Pending prediction: show number, class, and confidence
         const predIndex = boxes.filter(b => b.isPrediction).indexOf(box) + 1
-        const confidence = box.confidence ? `${Math.round(box.confidence * 100)}%` : ''
-        labelText = `#${predIndex} ${box.classLabel.replace(/_/g, ' ')} ${confidence}`
+        const confidence = box.confidence ? ` ${Math.round(box.confidence * 100)}%` : ''
+        labelText = `#${predIndex} ${box.classLabel.replace(/_/g, ' ')}${confidence}`
       } else {
         labelText = box.classLabel.replace(/_/g, ' ')
       }
@@ -479,6 +489,20 @@ export default function BboxAnnotator({
         return
       }
 
+      // Flag as unusable (X key)
+      if (e.key === 'x' || e.key === 'X') {
+        e.preventDefault()
+        onFlagRequested?.()
+        return
+      }
+
+      // Back to previous image (B key)
+      if (e.key === 'b' || e.key === 'B') {
+        e.preventDefault()
+        onBackRequested?.()
+        return
+      }
+
       // Zoom controls
       if (e.key === '+' || e.key === '=') {
         e.preventDefault()
@@ -506,7 +530,7 @@ export default function BboxAnnotator({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedId, annotations, undoStack, redoStack, onSaveRequested, onSkipRequested, zoom])
+  }, [selectedId, annotations, undoStack, redoStack, onSaveRequested, onSkipRequested, onFlagRequested, onBackRequested, zoom])
 
   return (
     <div className="bbox-annotator">

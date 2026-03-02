@@ -5,10 +5,22 @@
  * Creates training data for YOLO object detection models.
  */
 
+import { useState } from 'react'
 import ErrorBoundary from './components/ErrorBoundary'
 import AnnotationInterface from './components/AnnotationInterface'
+import QualityDashboard from './components/QualityDashboard'
+
+type View = 'annotate' | 'dashboard'
 
 function App() {
+  const [view, setView] = useState<View>('annotate')
+  const [editImageId, setEditImageId] = useState<string | null>(null)
+
+  const handleEditImage = (imageId: string) => {
+    setEditImageId(imageId)
+    setView('annotate')
+  }
+
   return (
     <ErrorBoundary>
       <div className="min-h-screen bg-gray-900">
@@ -25,14 +37,48 @@ function App() {
               Manual bbox annotation for YOLO training data
             </p>
             <div className="h-0.5 mx-auto mb-6 w-48 bg-amber-500 opacity-50" />
-            <p className="text-base text-gray-300 opacity-90">
-              Draw bounding boxes around miniatures to create training data
-            </p>
+
+            {/* Navigation */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
+              <button
+                onClick={() => setView('annotate')}
+                style={{
+                  padding: '0.75rem 2rem',
+                  backgroundColor: view === 'annotate' ? '#059669' : '#1a1a1a',
+                  color: '#fff',
+                  border: view === 'annotate' ? '2px solid #10b981' : '2px solid #333',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+              >
+                Annotation
+              </button>
+              <button
+                onClick={() => setView('dashboard')}
+                style={{
+                  padding: '0.75rem 2rem',
+                  backgroundColor: view === 'dashboard' ? '#7c3aed' : '#1a1a1a',
+                  color: '#fff',
+                  border: view === 'dashboard' ? '2px solid #a78bfa' : '2px solid #333',
+                  borderRadius: '8px',
+                  fontSize: '1rem',
+                  fontWeight: 'bold',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
+              >
+                Dashboard
+              </button>
+            </div>
           </header>
 
           {/* MAIN CONTENT */}
           <main>
-            <AnnotationInterface />
+            {view === 'annotate' && <AnnotationInterface editImageId={editImageId} onEditComplete={() => setEditImageId(null)} />}
+            {view === 'dashboard' && <QualityDashboard onEditImage={handleEditImage} />}
           </main>
         </div>
       </div>
