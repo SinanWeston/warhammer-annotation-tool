@@ -122,14 +122,31 @@ def main():
     lines.append(f"| Faction top-1 | {fmt_pct_ci(tier2_val, tier2_k, n)} |")
     lines.append("")
 
-    lines.append("## Tier 3 retrieval — three variants side-by-side")
+    lines.append("## Tier 3 retrieval — variants side-by-side")
     lines.append("")
     lines.append("| Variant | Unit top-1 | Unit top-3 | Unit top-5 | MRR |")
     lines.append("|---|---|---|---|---|")
-    lines.append(variant_row("unscoped (Phase 1-style)", m["unscoped"], n))
-    lines.append(variant_row("scoped_actual (production)", m["scoped_actual"], n, bold_pass_threshold=0.70))
+    lines.append(variant_row("unscoped (no Tier 2)", m["unscoped"], n, bold_pass_threshold=0.70))
+    lines.append(variant_row("scoped_actual (always scope)", m["scoped_actual"], n))
+    if "scoped_gated" in m:
+        gate_t = retrieval.get("gate_threshold", 0.5)
+        lines.append(variant_row(f"scoped_gated @ conf ≥ {gate_t}", m["scoped_gated"], n))
     lines.append(variant_row("scoped_oracle (upper bound)", m["scoped_oracle"], n))
     lines.append("")
+
+    if "gate_sweep" in m:
+        lines.append("### Gate threshold sweep")
+        lines.append("")
+        lines.append("| Threshold | Top-1 | Top-3 | Top-5 | MRR | Queries scoped |")
+        lines.append("|---|---|---|---|---|---|")
+        for tname, vals in sorted(m["gate_sweep"].items()):
+            t = float(tname.split("_")[1])
+            n_scoped = sum(1 for q in per_q if q.get("tier2_conf", 0) >= t)
+            lines.append(
+                f"| t = {t:.1f} | {vals['top1']:.1%} | {vals['top3']:.1%} | "
+                f"{vals['top5']:.1%} | {vals['mrr']:.3f} | {n_scoped}/{n} |"
+            )
+        lines.append("")
 
     # Comparison vs Phase 1 on the unscoped number.
     lines.append("## Delta vs Phase 1")
@@ -212,6 +229,33 @@ def main():
                      f"(score threshold {det.get('score_threshold', 0.1)}; tune for precision in a follow-up)")
         lines.append("")
 
+    lines.append("## Headline findings")
+    lines.append("")
+    lines.append("**Phase 2's retrieval hypothesis is confirmed. Its Tier 2 scoping approach is falsified — even with confidence gating.**")
+    lines.append("")
+    lines.append(f"1. **Unscoped retrieval top-3 = {m['unscoped']['top3']:.1%}** (Wilson 57.8–95.7% on 13 queries) — clears the 70% Phase 2 exit bar at point estimate. MRR climbed from Phase 1's 0.72 to {m['unscoped']['mrr']:.2f}. A bigger, deeper gallery alone lifted every metric by 8–18 pp vs Phase 1.")
+    lines.append("")
+    lines.append(f"2. **KNN-vote Tier 2 = {m['tier2_faction_top1']:.1%} faction top-1.** Far below the 90% exit bar. When it's right (7/13), scoped retrieval is perfect (100% top-3). When it's wrong (6/13), scoped retrieval is 0% by construction — the correct unit is excluded from the search slice. `scoped_actual` flatlines at exactly the Tier 2 accuracy.")
+    lines.append("")
+    lines.append("3. **Confidence gating doesn't rescue scoping.** Swept gate thresholds 0.3–0.7; the best (0.6–0.7) hits top-3 = 76.9%, still below unscoped's 84.6%. Tier 2's confidence signal isn't reliable enough — confidently-wrong predictions still drag scoped numbers down. Gating recovers some damage but never wins.")
+    lines.append("")
+    lines.append("4. **Scoped oracle = 100%.** Within-faction discrimination is fully solved at this gallery size. The cross-faction confusions Phase 1 flagged (aberrants vs deathshroud_terminators) resolved purely by gallery depth — no architectural change needed.")
+    lines.append("")
+    lines.append("5. **Thousand Sons is the canonical failure mode.** Both TS queries got classified as `chaos_space_marines` by Tier 2; crops look visually very similar in armour/silhouette. Unscoped retrieval nailed both (matching across factions by embedding only).")
+    lines.append("")
+    lines.append("## What this means for STRATEGY.md")
+    lines.append("")
+    lines.append("- **Ship unscoped retrieval as the production path.** No Tier 2 needed for the MVP. k-NN over 79 items is sub-millisecond; scoping is a latency optimisation, not a correctness pass.")
+    lines.append("- **Tier 2 as KNN-vote is a dead end** at this gallery size. Confidence gating confirmed.")
+    lines.append("- **If Tier 2 scoping is ever re-attempted**, the viable paths are: (a) linear probe on DINOv2 embeddings with gallery faction labels (~30 LOC, likely 80%+ faction top-1), (b) a dedicated YOLO retrained specifically on crops (not scene-context full images — Phase 0/2 showed the crop-vs-scene distribution mismatch breaks YOLO).")
+    lines.append("- **Gallery depth is the highest-leverage investment.** Biggest single lift between Phase 1 and Phase 2 came from 2× crops per unit. This predicts Phase 3's synthetic-data expansion will continue to move the needle.")
+    lines.append("")
+    lines.append("## Caveats")
+    lines.append("")
+    lines.append("- **13 queries is still small.** Wilson 95% CIs on headline numbers are ±20 pp. Treat direction as strong; treat exact percentages as soft.")
+    lines.append("- **Unit top-3 unscoped Wilson lower bound is 57.8%** — below the 70% threshold. On this sample the *point estimate* passes; the *confidence interval* straddles it. A 30-query rerun (hand-label more crops) would pin it down.")
+    lines.append("- **Detection precision was not re-measured.** OWLv2 at score threshold 0.1 stays at 0.6%. Threshold tuning remains a separate follow-up.")
+    lines.append("")
     lines.append("## Reproduction")
     lines.append("")
     lines.append("```bash")

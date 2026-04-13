@@ -237,7 +237,7 @@ Update this section as phases complete. Date every entry.
 |---|---|---|---|
 | 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
 | 1 · Prototype Tier 1+3 | ✅ Complete | OWLv2 detection recall 83.3% (+17pp); DINOv2 retrieval unit top-5 83.3%, top-1 66.7%, MRR 0.72 on 6 queries. Both exit criteria met. [Full report](docs/benchmarks/2026-04-13-phase1-prototype.md) | 2026-04-13 |
-| 2 · Tier 2 + gallery expand | 🟠 Partial pass | Unscoped top-3 = 84.6% (passes 70% bar). Tier 2 KNN-vote = 54%, far below 90% bar — scoping regresses vs unscoped. Thesis "retrieval works" confirmed; thesis "Tier 2 scoping helps" falsified with this Tier 2 approach. [Full report](docs/benchmarks/2026-04-13-phase2-scoped.md) | 2026-04-13 |
+| 2 · Tier 2 + gallery expand | ✅ Complete (unscoped path) | Unscoped top-3 = 84.6% (passes 70% bar). Tier 2 KNN-vote + confidence-gating swept 0.3→0.7; best gated top-3 = 76.9%, still below unscoped. Production ships unscoped; Tier 2 deferred to a future linear-probe experiment. [Full report](docs/benchmarks/2026-04-14-phase2-scoped.md) | 2026-04-14 |
 | 3 · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |
@@ -257,8 +257,9 @@ On 13 queries against an 80-image gallery (labels hand-curated + normalised from
 
 - **Unscoped retrieval top-3 = 84.6% (CI 57.8–95.7%)** — passes the Phase 2 exit bar at point estimate; Wilson lower bound is below 70%, so the *direction* is confirmed but tighter measurement is needed. Unscoped MRR climbed from Phase 1's 0.72 → 0.84.
 - **Tier 2 KNN-vote = 53.8% faction top-1** — far below the 90% exit bar. When Tier 2 is right (7/13), scoped retrieval is perfect (100%). When it's wrong (6/13), scoped retrieval is 0% by construction. `scoped_actual` flatlines at exactly the Tier 2 accuracy.
-- **Scoped oracle = 100% across top-1/3/5**. Within-faction discrimination is fully solved at this gallery size. The cross-faction confusion Phase 1 flagged (aberrants vs deathshroud_terminators) resolved *purely by gallery depth*.
-- **Strategic implication**: Tier 2 scoping as drawn in §3 is an *optimisation*, not a correctness pass. With a noisy Tier 2 it regresses vs unscoped. Three responses, in order of preference: (a) ship unscoped retrieval now and skip Tier 2 for MVP latency (k-NN over 79 gallery items is sub-millisecond); (b) confidence-gate Tier 2 so we only scope when sure; (c) upgrade Tier 2 via a linear probe on DINOv2 embeddings. All three are tractable Phase 2.5 work.
+- **Confidence gating does not rescue scoping.** Swept gate thresholds 0.3–0.7; the best (0.6–0.7) still under-performs unscoped by 7.7 pp on top-3 (76.9% vs 84.6%). Tier 2's confidence signal is too noisy — confidently-wrong predictions still regress results.
+- **Scoped oracle = 100% across top-1/3/5**. Within-faction discrimination is fully solved at this gallery size. The cross-faction confusions Phase 1 flagged (aberrants vs deathshroud_terminators) resolved *purely by gallery depth*.
+- **Strategic decision.** Ship unscoped retrieval as the production Tier 3. Tier 2 as drawn in §3 is deferred — not cancelled. When attempted again, the viable paths are (a) linear probe on DINOv2 embeddings with gallery faction labels, or (b) a crops-specific YOLO retrain. KNN-vote is a dead end.
 - **Gallery depth keeps paying off.** Biggest single lift between Phase 1 and Phase 2 came from 2× crops per unit (+18 pp top-5). This directly predicts Phase 3's synthetic-data expansion will continue to move the needle.
 
 ### Phase 1 headline findings

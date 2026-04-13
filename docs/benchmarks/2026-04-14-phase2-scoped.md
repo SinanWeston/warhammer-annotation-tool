@@ -1,6 +1,6 @@
 # Phase 2 — scoped retrieval (Tier 1 + Tier 2 + Tier 3)
 
-**Date**: 2026-04-13
+**Date**: 2026-04-14
 **Phase**: 2 (Tier 2 faction classifier + scoped Tier 3)
 **Retrieval model**: `facebook/dinov2-base`
 **Tier 2 classifier**: KNN-vote on DINOv2 gallery embeddings (k=5)
@@ -20,13 +20,24 @@
 |---|---|
 | Faction top-1 | 53.8% (29.1%–76.8%) |
 
-## Tier 3 retrieval — three variants side-by-side
+## Tier 3 retrieval — variants side-by-side
 
 | Variant | Unit top-1 | Unit top-3 | Unit top-5 | MRR |
 |---|---|---|---|---|
-| unscoped (Phase 1-style) | 76.9% (49.7%–91.8%) | 84.6% (57.8%–95.7%) | 92.3% (66.7%–98.6%) | 0.840 |
-| scoped_actual (production) | 53.8% (29.1%–76.8%) | 53.8% (29.1%–76.8%) | 53.8% (29.1%–76.8%) | 0.538 |
+| unscoped (no Tier 2) | 76.9% (49.7%–91.8%) | **84.6% (57.8%–95.7%)** ✓ | 92.3% (66.7%–98.6%) | 0.840 |
+| scoped_actual (always scope) | 53.8% (29.1%–76.8%) | 53.8% (29.1%–76.8%) | 53.8% (29.1%–76.8%) | 0.538 |
+| scoped_gated @ conf ≥ 0.5 | 61.5% (35.5%–82.3%) | 69.2% (42.4%–87.3%) | 76.9% (49.7%–91.8%) | 0.686 |
 | scoped_oracle (upper bound) | 100.0% (77.2%–100.0%) | 100.0% (77.2%–100.0%) | 100.0% (77.2%–100.0%) | 1.000 |
+
+### Gate threshold sweep
+
+| Threshold | Top-1 | Top-3 | Top-5 | MRR | Queries scoped |
+|---|---|---|---|---|---|
+| t = 0.3 | 53.8% | 53.8% | 61.5% | 0.558 | 12/13 |
+| t = 0.4 | 61.5% | 61.5% | 69.2% | 0.635 | 11/13 |
+| t = 0.5 | 61.5% | 69.2% | 76.9% | 0.686 | 8/13 |
+| t = 0.6 | 69.2% | 76.9% | 84.6% | 0.763 | 7/13 |
+| t = 0.7 | 69.2% | 76.9% | 84.6% | 0.763 | 4/13 |
 
 ## Delta vs Phase 1
 
@@ -78,6 +89,33 @@
 
 - OWLv2 detection recall @ IoU 0.5: **83.3%** (vs YOLO baseline 83.3%)
 - OWLv2 detection precision @ IoU 0.5: **0.6%** (score threshold 0.1; tune for precision in a follow-up)
+
+## Headline findings
+
+**Phase 2's retrieval hypothesis is confirmed. Its Tier 2 scoping approach is falsified — even with confidence gating.**
+
+1. **Unscoped retrieval top-3 = 84.6%** (Wilson 57.8–95.7% on 13 queries) — clears the 70% Phase 2 exit bar at point estimate. MRR climbed from Phase 1's 0.72 to 0.84. A bigger, deeper gallery alone lifted every metric by 8–18 pp vs Phase 1.
+
+2. **KNN-vote Tier 2 = 53.8% faction top-1.** Far below the 90% exit bar. When it's right (7/13), scoped retrieval is perfect (100% top-3). When it's wrong (6/13), scoped retrieval is 0% by construction — the correct unit is excluded from the search slice. `scoped_actual` flatlines at exactly the Tier 2 accuracy.
+
+3. **Confidence gating doesn't rescue scoping.** Swept gate thresholds 0.3–0.7; the best (0.6–0.7) hits top-3 = 76.9%, still below unscoped's 84.6%. Tier 2's confidence signal isn't reliable enough — confidently-wrong predictions still drag scoped numbers down. Gating recovers some damage but never wins.
+
+4. **Scoped oracle = 100%.** Within-faction discrimination is fully solved at this gallery size. The cross-faction confusions Phase 1 flagged (aberrants vs deathshroud_terminators) resolved purely by gallery depth — no architectural change needed.
+
+5. **Thousand Sons is the canonical failure mode.** Both TS queries got classified as `chaos_space_marines` by Tier 2; crops look visually very similar in armour/silhouette. Unscoped retrieval nailed both (matching across factions by embedding only).
+
+## What this means for STRATEGY.md
+
+- **Ship unscoped retrieval as the production path.** No Tier 2 needed for the MVP. k-NN over 79 items is sub-millisecond; scoping is a latency optimisation, not a correctness pass.
+- **Tier 2 as KNN-vote is a dead end** at this gallery size. Confidence gating confirmed.
+- **If Tier 2 scoping is ever re-attempted**, the viable paths are: (a) linear probe on DINOv2 embeddings with gallery faction labels (~30 LOC, likely 80%+ faction top-1), (b) a dedicated YOLO retrained specifically on crops (not scene-context full images — Phase 0/2 showed the crop-vs-scene distribution mismatch breaks YOLO).
+- **Gallery depth is the highest-leverage investment.** Biggest single lift between Phase 1 and Phase 2 came from 2× crops per unit. This predicts Phase 3's synthetic-data expansion will continue to move the needle.
+
+## Caveats
+
+- **13 queries is still small.** Wilson 95% CIs on headline numbers are ±20 pp. Treat direction as strong; treat exact percentages as soft.
+- **Unit top-3 unscoped Wilson lower bound is 57.8%** — below the 70% threshold. On this sample the *point estimate* passes; the *confidence interval* straddles it. A 30-query rerun (hand-label more crops) would pin it down.
+- **Detection precision was not re-measured.** OWLv2 at score threshold 0.1 stays at 0.6%. Threshold tuning remains a separate follow-up.
 
 ## Reproduction
 

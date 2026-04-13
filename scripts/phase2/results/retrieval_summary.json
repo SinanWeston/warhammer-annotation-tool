@@ -2,6 +2,7 @@
   "model_id": "facebook/dinov2-base",
   "tier2_method": "knn_vote",
   "tier2_k": 5,
+  "gate_threshold": 0.5,
   "metrics": {
     "num_queries": 13,
     "tier2_faction_top1": 0.5384615384615384,
@@ -29,6 +30,18 @@
         "total": 13
       }
     },
+    "scoped_gated": {
+      "top1": 0.6153846153846154,
+      "top3": 0.6923076923076923,
+      "top5": 0.7692307692307693,
+      "mrr": 0.6858974358974359,
+      "counts": {
+        "top1": 8,
+        "top3": 9,
+        "top5": 10,
+        "total": 13
+      }
+    },
     "scoped_oracle": {
       "top1": 1.0,
       "top3": 1.0,
@@ -39,6 +52,68 @@
         "top3": 13,
         "top5": 13,
         "total": 13
+      }
+    },
+    "gate_sweep": {
+      "threshold_0.3": {
+        "top1": 0.5384615384615384,
+        "top3": 0.5384615384615384,
+        "top5": 0.6153846153846154,
+        "mrr": 0.5576923076923077,
+        "counts": {
+          "top1": 7,
+          "top3": 7,
+          "top5": 8,
+          "total": 13
+        }
+      },
+      "threshold_0.4": {
+        "top1": 0.6153846153846154,
+        "top3": 0.6153846153846154,
+        "top5": 0.6923076923076923,
+        "mrr": 0.6346153846153846,
+        "counts": {
+          "top1": 8,
+          "top3": 8,
+          "top5": 9,
+          "total": 13
+        }
+      },
+      "threshold_0.5": {
+        "top1": 0.6153846153846154,
+        "top3": 0.6923076923076923,
+        "top5": 0.7692307692307693,
+        "mrr": 0.6858974358974359,
+        "counts": {
+          "top1": 8,
+          "top3": 9,
+          "top5": 10,
+          "total": 13
+        }
+      },
+      "threshold_0.6": {
+        "top1": 0.6923076923076923,
+        "top3": 0.7692307692307693,
+        "top5": 0.8461538461538461,
+        "mrr": 0.7628205128205128,
+        "counts": {
+          "top1": 9,
+          "top3": 10,
+          "top5": 11,
+          "total": 13
+        }
+      },
+      "threshold_0.7": {
+        "top1": 0.6923076923076923,
+        "top3": 0.7692307692307693,
+        "top5": 0.8461538461538461,
+        "mrr": 0.7628205128205128,
+        "counts": {
+          "top1": 9,
+          "top3": 10,
+          "top5": 11,
+          "total": 13
+        }
       }
     }
   },
@@ -58,6 +133,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
       "unscoped_top5": [
         {
           "unit": "legionaries",
@@ -126,6 +203,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "plague_marines",
@@ -196,6 +275,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": null,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "drukhari_warriors",
@@ -266,6 +347,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "shining_spears",
@@ -337,6 +420,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": null,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
       "unscoped_top5": [
         {
           "unit": "aberrants",
@@ -406,6 +491,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "neophyte_hybrids",
@@ -475,6 +562,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": null,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "canoptek_wraiths",
@@ -545,6 +634,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "immortals",
@@ -611,6 +702,8 @@
       "unscoped_rank": 6,
       "scoped_actual_rank": null,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 6,
+      "scoped_gated_used_scoping": false,
       "unscoped_top5": [
         {
           "unit": "chaos_lord",
@@ -682,6 +775,8 @@
       "unscoped_rank": 2,
       "scoped_actual_rank": null,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 2,
+      "scoped_gated_used_scoping": false,
       "unscoped_top5": [
         {
           "unit": "legionaries",
@@ -750,6 +845,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "genestealers",
@@ -818,6 +915,8 @@
       "unscoped_rank": 1,
       "scoped_actual_rank": 1,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
       "unscoped_top5": [
         {
           "unit": "termagants",
@@ -890,6 +989,8 @@
       "unscoped_rank": 4,
       "scoped_actual_rank": null,
       "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 4,
+      "scoped_gated_used_scoping": false,
       "unscoped_top5": [
         {
           "unit": "rubric_marines",

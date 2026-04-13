@@ -50,6 +50,19 @@ def parse_args():
     p.add_argument("--device", default=None)
     p.add_argument("--k", type=int, default=5, help="Top-K for retrieval output")
     p.add_argument("--tier2-k", type=int, default=5, help="K neighbours for Tier 2 faction voting")
+    p.add_argument(
+        "--gate-threshold",
+        type=float,
+        default=0.5,
+        help="Tier 2 confidence threshold for the scoped_gated variant. Below this, "
+             "fall back to unscoped retrieval. Default 0.5.",
+    )
+    p.add_argument(
+        "--sweep-gates",
+        action="store_true",
+        help="Also evaluate a sweep of gate thresholds (0.3 / 0.4 / 0.5 / 0.6 / 0.7) "
+             "for quick comparison.",
+    )
     return p.parse_args()
 
 
@@ -151,6 +164,9 @@ def main():
     unscoped_ranks = []
     scoped_actual_ranks = []
     scoped_oracle_ranks = []
+    scoped_gated_ranks = []
+    # Sweep storage: { threshold: [rank_per_query] }
+    sweep_ranks = {t: [] for t in (0.3, 0.4, 0.5, 0.6, 0.7)} if args.sweep_gates else {}
 
     for qi, (q_faction, q_unit, q_rel, _) in enumerate(queries):
         sims = all_sims[qi]
@@ -161,10 +177,12 @@ def main():
             query_emb[qi], gallery_emb, gallery_factions, k=args.tier2_k
         )
         predicted_faction = tier2["faction"]
+        tier2_conf = tier2["confidence"]
         tier2_is_right = predicted_faction == q_faction
         tier2_correct += int(tier2_is_right)
 
-        # Three variants.
+        # Rank under the three masks — we need all of them for the gated
+        # variant (which conditionally uses scoped vs unscoped).
         u_ranked = rank_units(sims, gallery_factions, gallery_units, all_mask)
         u_rank = find_rank(u_ranked, true_key)
         unscoped_ranks.append(u_rank)
@@ -179,17 +197,27 @@ def main():
         o_rank = find_rank(o_ranked, true_key)
         scoped_oracle_ranks.append(o_rank)
 
+        # Gated: use scoped only when Tier 2 is confident enough.
+        gated_rank = a_rank if tier2_conf >= args.gate_threshold else u_rank
+        gated_used_scoped = tier2_conf >= args.gate_threshold
+        scoped_gated_ranks.append(gated_rank)
+
+        for t, bucket in sweep_ranks.items():
+            bucket.append(a_rank if tier2_conf >= t else u_rank)
+
         per_query.append({
             "query_path": q_rel,
             "true_faction": q_faction,
             "true_unit": q_unit,
             "tier2_pred": predicted_faction,
-            "tier2_conf": round(tier2["confidence"], 3),
+            "tier2_conf": round(tier2_conf, 3),
             "tier2_correct": tier2_is_right,
             "tier2_all_scores": {k: round(v, 3) for k, v in tier2["all_scores"].items()},
             "unscoped_rank": u_rank,
             "scoped_actual_rank": a_rank,
             "scoped_oracle_rank": o_rank,
+            "scoped_gated_rank": gated_rank,
+            "scoped_gated_used_scoping": gated_used_scoped,
             "unscoped_top5": [{"unit": u, "faction": f, "sim": round(s, 3)} for (f, u), s in u_ranked[:args.k]],
             "scoped_actual_top5": [{"unit": u, "faction": f, "sim": round(s, 3)} for (f, u), s in a_ranked[:args.k]],
         })
@@ -199,15 +227,21 @@ def main():
         "model_id": model_id,
         "tier2_method": "knn_vote",
         "tier2_k": args.tier2_k,
+        "gate_threshold": args.gate_threshold,
         "metrics": {
             "num_queries": n,
             "tier2_faction_top1": tier2_correct / n if n else 0,
             "unscoped": agg(unscoped_ranks, n),
             "scoped_actual": agg(scoped_actual_ranks, n),
+            "scoped_gated": agg(scoped_gated_ranks, n),
             "scoped_oracle": agg(scoped_oracle_ranks, n),
         },
         "per_query": per_query,
     }
+    if sweep_ranks:
+        summary["metrics"]["gate_sweep"] = {
+            f"threshold_{t}": agg(ranks, n) for t, ranks in sweep_ranks.items()
+        }
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     out_path = RESULTS_DIR / "retrieval_summary.json"
@@ -217,12 +251,22 @@ def main():
         return f"top1={v['top1']:.1%} top3={v['top3']:.1%} top5={v['top5']:.1%} MRR={v['mrr']:.3f}"
 
     m = summary["metrics"]
+    n_gated_scoped = sum(1 for q in per_query if q["scoped_gated_used_scoping"])
     print()
     print(f"=== Phase 2 scoped retrieval ({n} queries) ===")
     print(f"Tier 2 (KNN-vote, k={args.tier2_k}) faction top-1: {m['tier2_faction_top1']:.1%}")
     print(f"unscoped        : {fmt(m['unscoped'])}")
-    print(f"scoped_actual   : {fmt(m['scoped_actual'])}   ← production")
+    print(f"scoped_actual   : {fmt(m['scoped_actual'])}   ← always-scope")
+    print(f"scoped_gated    : {fmt(m['scoped_gated'])}   ← gated @ conf ≥ {args.gate_threshold} "
+          f"({n_gated_scoped}/{n} queries took the scoped branch)")
     print(f"scoped_oracle   : {fmt(m['scoped_oracle'])}   ← upper bound")
+    if sweep_ranks:
+        print()
+        print("Gate threshold sweep:")
+        for t, ranks in sweep_ranks.items():
+            a = agg(ranks, n)
+            n_scoped = sum(1 for q in per_query if q["tier2_conf"] >= t)
+            print(f"  t={t:.1f}  {fmt(a)}  ({n_scoped}/{n} queries scoped)")
     print(f"\nFull results: {out_path.relative_to(REPO_ROOT)}")
 
 
