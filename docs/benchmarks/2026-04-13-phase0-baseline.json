@@ -1,0 +1,190 @@
+{
+  "date": "2026-04-13",
+  "model": "/home/sinan/Active/Projects/photoanalyzer/runs/yolo11x_run2_best.pt",
+  "eval_set": "/home/sinan/Active/Projects/photoanalyzer/backend/yolo_dataset/images/val",
+  "num_images": 119,
+  "conf_threshold": 0.25,
+  "iou_match_threshold": 0.5,
+  "totals": {
+    "ground_truth_boxes": 561,
+    "predicted_boxes": 485,
+    "true_positives": 370,
+    "correct_class_on_matched": 236
+  },
+  "metrics": {
+    "detection_recall_iou50": 0.6595365418894831,
+    "detection_precision_iou50": 0.7628865979381443,
+    "faction_top1_on_matched": 0.6378378378378379,
+    "mAP50_ultralytics": 0.5465052004482166,
+    "mAP50_95_ultralytics": 0.3914180115690279,
+    "precision_ultralytics": 0.5185975527509512,
+    "recall_ultralytics": 0.5403661995644051
+  },
+  "per_class": [
+    {
+      "class_id": 0,
+      "name": "adeptus_mechanicus",
+      "gt": 36,
+      "pred": 43,
+      "tp": 28,
+      "correct_class": 25,
+      "det_recall": 0.7777777777777778,
+      "class_precision": 0.5813953488372093,
+      "cls_top1_on_matched": 0.8928571428571429
+    },
+    {
+      "class_id": 1,
+      "name": "chaos_knights",
+      "gt": 6,
+      "pred": 14,
+      "tp": 6,
+      "correct_class": 5,
+      "det_recall": 1.0,
+      "class_precision": 0.35714285714285715,
+      "cls_top1_on_matched": 0.8333333333333334
+    },
+    {
+      "class_id": 2,
+      "name": "chaos_space_marines",
+      "gt": 28,
+      "pred": 38,
+      "tp": 25,
+      "correct_class": 2,
+      "det_recall": 0.8928571428571429,
+      "class_precision": 0.05263157894736842,
+      "cls_top1_on_matched": 0.08
+    },
+    {
+      "class_id": 3,
+      "name": "custodes",
+      "gt": 22,
+      "pred": 26,
+      "tp": 21,
+      "correct_class": 10,
+      "det_recall": 0.9545454545454546,
+      "class_precision": 0.38461538461538464,
+      "cls_top1_on_matched": 0.47619047619047616
+    },
+    {
+      "class_id": 4,
+      "name": "death_guard",
+      "gt": 13,
+      "pred": 41,
+      "tp": 13,
+      "correct_class": 1,
+      "det_recall": 1.0,
+      "class_precision": 0.024390243902439025,
+      "cls_top1_on_matched": 0.07692307692307693
+    },
+    {
+      "class_id": 5,
+      "name": "deathwatch",
+      "gt": 0,
+      "pred": 0,
+      "tp": 0,
+      "correct_class": 0,
+      "det_recall": 0.0,
+      "class_precision": 0.0,
+      "cls_top1_on_matched": 0.0
+    },
+    {
+      "class_id": 6,
+      "name": "eldar",
+      "gt": 73,
+      "pred": 52,
+      "tp": 54,
+      "correct_class": 32,
+      "det_recall": 0.7397260273972602,
+      "class_precision": 0.6153846153846154,
+      "cls_top1_on_matched": 0.5925925925925926
+    },
+    {
+      "class_id": 7,
+      "name": "genestealer_cult",
+      "gt": 30,
+      "pred": 7,
+      "tp": 15,
+      "correct_class": 1,
+      "det_recall": 0.5,
+      "class_precision": 0.14285714285714285,
+      "cls_top1_on_matched": 0.06666666666666667
+    },
+    {
+      "class_id": 8,
+      "name": "grey_knights",
+      "gt": 32,
+      "pred": 27,
+      "tp": 32,
+      "correct_class": 19,
+      "det_recall": 1.0,
+      "class_precision": 0.7037037037037037,
+      "cls_top1_on_matched": 0.59375
+    },
+    {
+      "class_id": 9,
+      "name": "imperial_guard",
+      "gt": 18,
+      "pred": 21,
+      "tp": 16,
+      "correct_class": 11,
+      "det_recall": 0.8888888888888888,
+      "class_precision": 0.5238095238095238,
+      "cls_top1_on_matched": 0.6875
+    },
+    {
+      "class_id": 10,
+      "name": "necrons",
+      "gt": 111,
+      "pred": 31,
+      "tp": 40,
+      "correct_class": 25,
+      "det_recall": 0.36036036036036034,
+      "class_precision": 0.8064516129032258,
+      "cls_top1_on_matched": 0.625
+    },
+    {
+      "class_id": 11,
+      "name": "orks",
+      "gt": 27,
+      "pred": 28,
+      "tp": 22,
+      "correct_class": 11,
+      "det_recall": 0.8148148148148148,
+      "class_precision": 0.39285714285714285,
+      "cls_top1_on_matched": 0.5
+    },
+    {
+      "class_id": 12,
+      "name": "space_marines",
+      "gt": 7,
+      "pred": 10,
+      "tp": 6,
+      "correct_class": 6,
+      "det_recall": 0.8571428571428571,
+      "class_precision": 0.6,
+      "cls_top1_on_matched": 1.0
+    },
+    {
+      "class_id": 13,
+      "name": "thousand_sons",
+      "gt": 13,
+      "pred": 15,
+      "tp": 13,
+      "correct_class": 9,
+      "det_recall": 1.0,
+      "class_precision": 0.6,
+      "cls_top1_on_matched": 0.6923076923076923
+    },
+    {
+      "class_id": 14,
+      "name": "tyranids",
+      "gt": 145,
+      "pred": 132,
+      "tp": 79,
+      "correct_class": 79,
+      "det_recall": 0.5448275862068965,
+      "class_precision": 0.5984848484848485,
+      "cls_top1_on_matched": 1.0
+    }
+  ]
+}

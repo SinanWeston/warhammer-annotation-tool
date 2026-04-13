@@ -473,7 +473,7 @@ backend/
 
 runs/
 ├── yolo11_colab_best.pt              # First model (8 classes, 63.2% mAP50)
-└── yolo11x_run2_best.pt             # Second model (15 classes, 39.9% mAP50)
+└── yolo11x_run2_best.pt             # Second model (15 classes, 54.7% mAP50 / 39.1% mAP50-95)
 
 yolo_env/                             # Python venv with ultralytics
 └── bin/python3
@@ -768,7 +768,10 @@ Best factions: Custodes (97%), Grey Knights (96%). Worst: Death Guard (3.4%).
 | Architecture | YOLO11 extra-large |
 | Training data | 593 images, 15 factions |
 | Training | Google Colab GPU |
-| mAP50 | 39.9% |
+| mAP50 | 54.7% |
+| mAP50-95 | 39.1% |
+| Detection recall @ IoU 0.5 | 66.0% |
+| Faction top-1 on matched | 63.8% |
 | Location | `runs/yolo11x_run2_best.pt` |
 
 Lower mAP50 than model 1 because the class count nearly doubled (8 → 15) while per-class training samples remained limited. Performance expected to improve as more annotations are completed.

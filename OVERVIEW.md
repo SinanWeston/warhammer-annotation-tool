@@ -122,7 +122,7 @@ A YOLO11x model trained on Google Colab is integrated for AI-assisted annotation
 
 - **Location**: `runs/yolo11x_run2_best.pt`
 - **Trained on**: ~1,549 annotated images, 15 factions
-- **Performance**: 39.9% mAP50 overall
+- **Performance**: 54.7% mAP50 / 39.1% mAP50-95 on the 119-image val split. Detection recall 66%, faction top-1 on matched 64%. ([full Phase 0 baseline](docs/benchmarks/2026-04-13-phase0-baseline.md))
 - **Note**: Lower mAP50 vs earlier model due to wider faction coverage and mixed-quality training images. Retraining planned using the clean training_data_v2 dataset once sufficient images are collected (target: 2,000 annotated → 80% mAP50).
 
 ---

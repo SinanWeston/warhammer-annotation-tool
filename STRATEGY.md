@@ -235,12 +235,21 @@ Update this section as phases complete. Date every entry.
 
 | Phase | Status | Notes | Last update |
 |---|---|---|---|
-| 0 · Baseline reality-check | ☐ Not started | Need faction top-1 + unit top-1 numbers from current YOLO | — |
+| 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
 | 1 · Prototype Tier 1+3 | ☐ Not started | Seed gallery from GW product pages; T-Rex2 + DINOv3-Base | — |
 | 2 · Tier 2 + gallery expand | ☐ Not started | Faction classifier; scoped k-NN | — |
 | 3 · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |
+
+### Phase 0 headline findings
+
+The baseline split confirmed the strategic thesis:
+
+- **Detection is the strong link** (66% recall, 76% precision @ IoU 0.5). Keep it.
+- **Classification is the weak link** (64% top-1 on matched), and **highly bimodal per class** — some classes are near-solved (tyranids 100%, adeptus_mechanicus 89%) while others are effectively hallucinated (death_guard 2.4% class precision, chaos_space_marines 5.3%). Retrieval-based classification should move the bottom more than the top.
+- **The "39.9% mAP50" number in SPEC.md was actually mAP50-95.** Real mAP50 on the same val split is 54.7%. The stricter mAP50-95 is 39.1%. SPEC.md corrected alongside this phase.
+- **Unit-level KPIs are N/A.** Not a model failure — a corpus limitation. Annotations are faction-only, so top-1 / top-3 unit accuracy literally cannot be measured against current ground truth. Tier 3 retrieval evaluates against the reference gallery instead and does not require unit annotations.
 
 ## Source list
 
