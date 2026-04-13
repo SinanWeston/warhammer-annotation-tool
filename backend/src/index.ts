@@ -18,6 +18,7 @@ import { promises as fs } from 'fs'
 import { addRequestId } from './middleware/requestId'
 import { errorHandler, notFoundHandler } from './middleware/errorHandler'
 import logger, { createRequestLogger } from './utils/logger'
+import sharp from 'sharp'
 import { annotationService } from './services/annotationService'
 import { dashboardStatsService } from './services/dashboardStatsService'
 import { activeLearningService } from './services/activeLearningService'
@@ -37,6 +38,21 @@ const port = process.env.PORT || 3001
 app.set('trust proxy', 1)
 app.use(cors())
 app.use(addRequestId)
+
+// Optional password protection — set ANNOTATOR_PASSWORD in .env to enable.
+// Works when the frontend is served from the same origin or with Cloudflare Access.
+if (process.env.ANNOTATOR_PASSWORD) {
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    const auth = req.headers.authorization
+    if (auth?.startsWith('Basic ')) {
+      const decoded = Buffer.from(auth.slice(6), 'base64').toString()
+      const password = decoded.split(':').slice(1).join(':')
+      if (password === process.env.ANNOTATOR_PASSWORD) return next()
+    }
+    res.set('WWW-Authenticate', 'Basic realm="40K Annotator"')
+      .status(401).json({ success: false, error: { code: 'UNAUTHORIZED', message: 'Password required' } })
+  })
+}
 
 // Request logging
 app.use((req: Request, res: Response, next: NextFunction) => {
@@ -97,9 +113,11 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
   try {
     const prioritize = req.query.prioritize === 'true'
     const faction = req.query.faction as string | undefined
-    log.info(`📷 Get next unannotated image (prioritize: ${prioritize}, faction: ${faction || 'all'})`)
+    const userId = req.query.userId as string | undefined
+    const exclude = req.query.exclude ? (req.query.exclude as string).split(',') : undefined
+    log.info(`📷 Get next unannotated image (prioritize: ${prioritize}, faction: ${faction || 'all'}, user: ${userId || 'anonymous'})`)
 
-    const image = await annotationService.getNextImage(prioritize, faction)
+    const image = await annotationService.getNextImage(prioritize, faction, userId, exclude)
 
     if (!image) {
       log.info(`✅ No more images to annotate`)
@@ -113,12 +131,27 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
       })
     }
 
+    // Include full image data in response to avoid a second round-trip.
+    // Over ngrok this saves ~500ms per image load.
+    const [imageBuffer, metadata, annotation] = await Promise.all([
+      fs.readFile(image.imagePath),
+      sharp(image.imagePath).metadata(),
+      annotationService.getAnnotation(image.imageId),
+    ])
+    const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`
+
     log.info(`✅ Next image: ${image.imageId}`)
 
     res.json({
       success: true,
       data: {
-        image
+        image: {
+          ...image,
+          imageBase64,
+          width: metadata.width || 0,
+          height: metadata.height || 0,
+        },
+        annotation,
       },
       requestId
     })
@@ -141,32 +174,31 @@ app.get('/api/annotate/image/:imageId', async (req: Request, res: Response, next
     const { imageId } = req.params
     log.info(`📷 Get image data: ${imageId}`)
 
-    // Get image from list
-    const images = await annotationService.getImageList(true)
-    const image = images.find(img => img.imageId === imageId)
-
+    // Fast path: use the permanent imagePathMap (populated during first scan).
+    // Falls back to a full scan only on cold start before any scan has happened.
+    let image = annotationService.getImageMeta(imageId)
     if (!image) {
-      log.error(`🔴 Image not found: ${imageId}`)
-      return res.status(404).json({
-        success: false,
-        error: {
-          code: 'NOT_FOUND',
-          message: 'Image not found'
-        },
-        requestId
-      })
+      const images = await annotationService.getImageList(true)
+      const found = images.find(img => img.imageId === imageId)
+      if (!found) {
+        log.error(`🔴 Image not found: ${imageId}`)
+        return res.status(404).json({
+          success: false,
+          error: { code: 'NOT_FOUND', message: 'Image not found' },
+          requestId
+        })
+      }
+      image = found
     }
 
-    // Read image as base64
-    const imageBuffer = await fs.readFile(image.imagePath)
+    // Read image and get metadata in parallel
+    const [imageBuffer, metadata, annotation] = await Promise.all([
+      fs.readFile(image.imagePath),
+      sharp(image.imagePath).metadata(),
+      annotationService.getAnnotation(imageId),
+    ])
+
     const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`
-
-    // Get dimensions
-    const sharp = await import('sharp')
-    const metadata = await sharp.default(image.imagePath).metadata()
-
-    // Get existing annotation if any
-    const annotation = await annotationService.getAnnotation(imageId)
 
     log.info(`✅ Image data loaded: ${imageId}`)
 
@@ -174,7 +206,9 @@ app.get('/api/annotate/image/:imageId', async (req: Request, res: Response, next
       success: true,
       data: {
         image: {
+          imageId,
           ...image,
+          isAnnotated: !!annotation,
           imageBase64,
           width: metadata.width || 0,
           height: metadata.height || 0
@@ -307,6 +341,32 @@ app.post('/api/annotate/flag', express.json(), async (req: Request, res: Respons
     log.error(`🔴 Failed to flag image: ${error.message}`)
     next(error)
   }
+})
+
+/**
+ * GET /api/annotate/who
+ *
+ * Returns active annotators and the images they currently have reserved.
+ * Useful for the dashboard to show who is working on what.
+ */
+app.get('/api/annotate/who', async (req: Request, res: Response) => {
+  const reservations = annotationService.getActiveReservations()
+  const byUser: Record<string, number> = {}
+  for (const r of reservations) {
+    byUser[r.userId] = (byUser[r.userId] || 0) + 1
+  }
+  res.json({
+    success: true,
+    data: {
+      activeAnnotators: Object.keys(byUser).length,
+      byUser,
+      reservations: reservations.map(r => ({
+        imageId: r.imageId,
+        userId: r.userId,
+        expiresInMs: r.expiresAt - Date.now()
+      }))
+    }
+  })
 })
 
 /**
@@ -707,6 +767,65 @@ app.get('/api/mobile/status', async (req: Request, res: Response, next: NextFunc
 })
 
 // ═══════════════════════════════════════════════════════════
+// GROUNDING DINO PROPOSALS ENDPOINT
+// ═══════════════════════════════════════════════════════════
+
+const proposalsDir = path.join(process.cwd(), 'training_data_proposals')
+
+/**
+ * GET /api/annotate/proposals/:imageId
+ *
+ * Get pre-computed Grounding DINO box proposals for an image.
+ * These are generated offline by scripts/grounding_dino_propose.py
+ * and served as AI suggestions in the annotator.
+ */
+app.get('/api/annotate/proposals/:imageId', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { imageId } = req.params
+    const proposalPath = path.join(proposalsDir, `${imageId}.json`)
+
+    try {
+      const raw = await fs.readFile(proposalPath, 'utf-8')
+      const proposal = JSON.parse(raw)
+
+      log.info(`Found ${proposal.boxes?.length || 0} DINO proposals for ${imageId}`)
+
+      res.json({
+        success: true,
+        data: {
+          imageId,
+          source: 'grounding_dino',
+          predictions: (proposal.boxes || []).map((box: any, idx: number) => ({
+            id: `dino_${idx}`,
+            x: box.x,
+            y: box.y,
+            width: box.width,
+            height: box.height,
+            classLabel: 'miniature',
+            confidence: box.confidence,
+          })),
+          inferenceTime: 0,
+        },
+        requestId,
+      })
+    } catch {
+      // No proposal file — return empty
+      res.json({
+        success: true,
+        data: { imageId, source: 'none', predictions: [], inferenceTime: 0 },
+        requestId,
+      })
+    }
+  } catch (error: any) {
+    log.error(`Failed to load proposals: ${error.message}`)
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
 // YOLO INFERENCE ENDPOINT
 // ═══════════════════════════════════════════════════════════
 
@@ -952,6 +1071,113 @@ app.get('/api/health', async (_req: Request, res: Response) => {
 })
 
 // ═══════════════════════════════════════════════════════════
+// REFERENCE GALLERY ENDPOINTS (image collection review UI)
+// ═══════════════════════════════════════════════════════════
+
+// Accepted clean images: clean_references/{faction}/clean/ (flat, prefixed by unit slug)
+const cleanRefsDir = path.join(process.cwd(), '../clean_references')
+// Unreviewed scraped candidates
+const galleryCandidatesDir = path.join(process.cwd(), 'training_data_candidates')
+
+const IMAGE_EXT_RE = /\.(jpg|jpeg|png|webp)$/i
+
+async function listImages(dir: string): Promise<string[]> {
+  try {
+    const files = await fs.readdir(dir)
+    return files.filter(f => IMAGE_EXT_RE.test(f)).sort()
+  } catch {
+    return []
+  }
+}
+
+/** GET /api/references/coverage — full coverage report */
+app.get('/api/references/coverage', async (_req: Request, res: Response) => {
+  try {
+    const raw = await fs.readFile(path.join(galleryCandidatesDir, 'coverage.json'), 'utf-8')
+    res.json({ success: true, data: JSON.parse(raw) })
+  } catch {
+    res.status(404).json({ success: false, error: { message: 'Run: python scripts/generate_coverage.py' } })
+  }
+})
+
+/** GET /api/references/candidates/:faction/:unit — list candidate images */
+app.get('/api/references/candidates/:faction/:unit', async (req: Request, res: Response) => {
+  const { faction, unit } = req.params
+  const images = await listImages(path.join(galleryCandidatesDir, faction, unit))
+  res.json({ success: true, data: { images } })
+})
+
+/** GET /api/references/gallery/:faction/:unit — list accepted images (flat dir, filtered by unit prefix) */
+app.get('/api/references/gallery/:faction/:unit', async (req: Request, res: Response) => {
+  const { faction, unit } = req.params
+  const factionDirMap: Record<string, string> = {
+    astra_militarum: 'imperial_guard',
+    craftworld_aeldari: 'eldar',
+    adeptus_custodes: 'custodes',
+  }
+  const fDir = factionDirMap[faction] || faction
+  const dir = path.join(cleanRefsDir, fDir, 'clean')
+  try {
+    const files = await fs.readdir(dir)
+    const images = files.filter(f => f.startsWith(unit + '_') && IMAGE_EXT_RE.test(f)).sort()
+    res.json({ success: true, data: { images } })
+  } catch {
+    res.json({ success: true, data: { images: [] } })
+  }
+})
+
+/** GET /api/references/image/candidates/:faction/:unit/:filename — serve candidate image */
+app.get('/api/references/image/candidates/:faction/:unit/:filename', (req: Request, res: Response) => {
+  const { faction, unit, filename } = req.params
+  const filePath = path.join(galleryCandidatesDir, faction, unit, filename)
+  res.sendFile(filePath, (err) => { if (err) res.status(404).end() })
+})
+
+/** GET /api/references/image/gallery/:faction/:unit/:filename — serve accepted image */
+app.get('/api/references/image/gallery/:faction/:unit/:filename', (req: Request, res: Response) => {
+  const { faction, unit, filename } = req.params
+  const factionDirMap: Record<string, string> = {
+    astra_militarum: 'imperial_guard',
+    craftworld_aeldari: 'eldar',
+    adeptus_custodes: 'custodes',
+  }
+  const fDir = factionDirMap[faction] || faction
+  const filePath = path.join(cleanRefsDir, fDir, 'clean', filename)
+  res.sendFile(filePath, (err) => { if (err) res.status(404).end() })
+})
+
+/** POST /api/references/accept — move candidate to clean_references/{faction}/clean/ (flat) */
+app.post('/api/references/accept', express.json(), async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { faction, unit, filename } = req.body
+    const factionDirMap: Record<string, string> = {
+      astra_militarum: 'imperial_guard',
+      craftworld_aeldari: 'eldar',
+      adeptus_custodes: 'custodes',
+    }
+    const fDir = factionDirMap[faction] || faction
+    const src = path.join(galleryCandidatesDir, faction, unit, filename)
+    const destDir = path.join(process.cwd(), '../clean_references', fDir, 'clean')
+    await fs.mkdir(destDir, { recursive: true })
+    await fs.rename(src, path.join(destDir, filename))
+    res.json({ success: true })
+  } catch (error: any) {
+    next(error)
+  }
+})
+
+/** POST /api/references/reject — delete candidate */
+app.post('/api/references/reject', express.json(), async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const { faction, unit, filename } = req.body
+    await fs.unlink(path.join(galleryCandidatesDir, faction, unit, filename))
+    res.json({ success: true })
+  } catch (error: any) {
+    next(error)
+  }
+})
+
+// ═══════════════════════════════════════════════════════════
 // CONSUMER FEEDBACK ENDPOINT
 // ═══════════════════════════════════════════════════════════
 
@@ -989,6 +1215,21 @@ app.post('/api/consumer/feedback', express.json(), async (req: Request, res: Res
     log.error(`🔴 Failed to save feedback: ${error.message}`)
     next(error)
   }
+})
+
+// ═══════════════════════════════════════════════════════════
+// STATIC FRONTEND (production / shared deployment)
+// ═══════════════════════════════════════════════════════════
+
+// Serve the built frontend from backend so friends only need one URL.
+// Build the frontend first: cd frontend && VITE_API_URL=<your-url> npm run build
+// The dist folder will be at ../frontend/dist relative to the backend working directory.
+const frontendDist = path.join(process.cwd(), '../frontend/dist')
+app.use(express.static(frontendDist))
+
+// SPA fallback — return index.html for any non-API route so React Router works
+app.get(/^(?!\/api).*/, (req: Request, res: Response) => {
+  res.sendFile(path.join(frontendDist, 'index.html'))
 })
 
 // ═══════════════════════════════════════════════════════════

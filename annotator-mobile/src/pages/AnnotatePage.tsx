@@ -12,15 +12,32 @@ interface Props {
 
 interface Rect { x: number; y: number; width: number; height: number }
 
-// Canonical faction list — updated dynamically from imported images
+// Faction label remapping — mirrors annotationService.ts EXPORT_LABEL_REMAP.
+// When the imported batch's faction is one of these, default the label to the
+// canonical class so annotators don't accidentally re-introduce split classes.
+const FACTION_REMAP: Record<string, string> = {
+  // Loyalist chapters → space_marines
+  blood_angels:     'space_marines',
+  dark_angels:      'space_marines',
+  space_wolves:     'space_marines',
+  black_templars:   'space_marines',
+  deathwatch:       'space_marines',
+  grey_knights:     'space_marines',
+  // Traitor legions → chaos_space_marines
+  death_guard:      'chaos_space_marines',
+  thousand_sons:    'chaos_space_marines',
+  world_eaters:     'chaos_space_marines',
+  emperors_children:'chaos_space_marines',
+}
+
+// Canonical faction list shown in the label picker.
+// Collapsed subfactions are omitted — their images are labelled under the parent class.
 const DEFAULT_FACTIONS = [
   // Imperium
-  'space_marines', 'blood_angels', 'dark_angels', 'space_wolves', 'black_templars',
-  'deathwatch', 'grey_knights', 'adeptus_mechanicus', 'imperial_guard',
+  'space_marines', 'adeptus_mechanicus', 'imperial_guard',
   'custodes', 'adepta_sororitas', 'imperial_knights', 'imperial_agents',
   // Chaos
-  'chaos_space_marines', 'death_guard', 'thousand_sons', 'world_eaters',
-  'emperors_children', 'chaos_daemons', 'chaos_knights',
+  'chaos_space_marines', 'chaos_daemons', 'chaos_knights',
   // Xenos
   'orks', 'eldar', 'drukhari', 'harlequins', 'ynnari',
   'tau_empire', 'tyranids', 'genestealer_cult', 'necrons', 'leagues_of_votann',
@@ -67,7 +84,7 @@ export default function AnnotatePage({ onBack }: Props) {
     }
 
     setImage(next)
-    setClassLabel(next.faction)
+    setClassLabel(FACTION_REMAP[next.faction] ?? next.faction)
 
     // Update faction list if needed
     if (!factions.includes(next.faction)) {

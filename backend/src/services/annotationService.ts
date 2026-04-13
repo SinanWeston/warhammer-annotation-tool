@@ -14,6 +14,39 @@ import { randomUUID } from 'crypto'
 import sharp from 'sharp'
 import logger from '../utils/logger'
 
+// Faction label remapping applied at YOLO export time only.
+// Existing annotation JSON files are left unchanged — fully reversible.
+//
+// space_marines:       all loyalist chapter marines collapsed for model accuracy
+// chaos_space_marines: all traitor legions collapsed for model accuracy
+const EXPORT_LABEL_REMAP: Record<string, string> = {
+  // Loyalist chapters → space_marines
+  blood_angels:     'space_marines',
+  dark_angels:      'space_marines',
+  space_wolves:     'space_marines',
+  black_templars:   'space_marines',
+  deathwatch:       'space_marines',
+  grey_knights:     'space_marines',
+  // Traitor legions → chaos_space_marines
+  death_guard:      'chaos_space_marines',
+  thousand_sons:    'chaos_space_marines',
+  world_eaters:     'chaos_space_marines',
+  emperors_children:'chaos_space_marines',
+}
+function remapExportLabel(label: string): string {
+  return EXPORT_LABEL_REMAP[label] ?? label
+}
+
+/** Expand a merged faction name back to all raw faction directories it covers. */
+function expandFaction(faction: string): string[] {
+  const raw = Object.entries(EXPORT_LABEL_REMAP)
+    .filter(([, merged]) => merged === faction)
+    .map(([original]) => original)
+  // If faction is a merged name, include itself + all sub-factions
+  // If faction is a raw name, just return it
+  return raw.length > 0 ? [faction, ...raw] : [faction]
+}
+
 export interface QualityIssue {
   type: 'error' | 'warning'
   code: 'BBOX_OUT_OF_BOUNDS' | 'BBOX_TOO_SMALL' | 'DUPLICATE_BOX'
@@ -25,7 +58,7 @@ export interface ImageAnnotation {
   imageId: string
   imagePath: string
   faction: string
-  source: 'reddit' | 'dakkadakka'
+  source: string
   width: number
   height: number
   annotations: BboxAnnotationData[]
@@ -79,11 +112,91 @@ export interface AnnotationProgress {
 export class AnnotationService {
   private trainingDataPath: string
   private annotationsPath: string
+  private get allowedSources(): string[] {
+    const sources = process.env.ANNOTATION_SOURCES ?? 'reddit,dakkadakka'
+    return sources.split(',').map(s => s.trim()).filter(Boolean)
+  }
   public onAnnotationSaved: (() => void) | null = null
 
+  // Image list cache — avoids walking 25k files on every request.
+  // Stores only the unannotated list (the hot path). Cleared on every save.
+  private imageListCache: Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }> | null = null
+
+  // Permanent path map — populated during any getImageList() scan, never cleared.
+  // Image paths never change, so no invalidation needed.
+  // Lets the image endpoint skip the full 36k-fs-call scan to find one file.
+  private imagePathMap = new Map<string, { imagePath: string; faction: string; source: string }>()
+
+  // Per-image reservations: imageId → { userId, expiresAt }.
+  // Prevents two annotators from being served the same image simultaneously.
+  private reservations = new Map<string, { userId: string; expiresAt: number }>()
+  private readonly RESERVATION_TTL_MS = 15 * 60 * 1000  // 15 minutes
+
+  // Cached set of imageIds that have DINO proposals. Refreshed periodically.
+  private proposalIds: Set<string> | null = null
+  private proposalIdsCacheTime = 0
+  private readonly PROPOSAL_CACHE_TTL_MS = 60 * 1000  // 60 seconds
+  private proposalsPath: string
+
   constructor() {
-    this.trainingDataPath = path.join(__dirname, '../../training_data')
-    this.annotationsPath = path.join(__dirname, '../../training_data_annotations')
+    // All paths configurable via env — allows running a parallel clean-reference instance
+    const dataDir = process.env.TRAINING_DATA_PATH
+      ? path.resolve(process.env.TRAINING_DATA_PATH)
+      : path.join(__dirname, '../../training_data')
+    const annotDir = process.env.ANNOTATIONS_PATH
+      ? path.resolve(process.env.ANNOTATIONS_PATH)
+      : path.join(__dirname, '../../training_data_annotations')
+    const proposalsDir = process.env.PROPOSALS_PATH
+      ? path.resolve(process.env.PROPOSALS_PATH)
+      : path.join(__dirname, '../../training_data_proposals')
+    this.trainingDataPath = dataDir
+    this.annotationsPath = annotDir
+    this.proposalsPath = proposalsDir
+  }
+
+  /** Load the set of imageIds that have pre-computed DINO proposals. */
+  private async getProposalIds(): Promise<Set<string>> {
+    const now = Date.now()
+    if (this.proposalIds && now - this.proposalIdsCacheTime < this.PROPOSAL_CACHE_TTL_MS) {
+      return this.proposalIds
+    }
+    const ids = new Set<string>()
+    try {
+      const files = await fs.readdir(this.proposalsPath)
+      for (const f of files) {
+        if (f.endsWith('.json')) ids.add(f.replace('.json', ''))
+      }
+    } catch {
+      // proposals dir doesn't exist yet — empty set
+    }
+    this.proposalIds = ids
+    this.proposalIdsCacheTime = now
+    return ids
+  }
+
+  // ── Reservation helpers ────────────────────────────────────────────────────
+
+  private cleanExpiredReservations(): void {
+    const now = Date.now()
+    for (const [id, res] of this.reservations) {
+      if (now > res.expiresAt) this.reservations.delete(id)
+    }
+  }
+
+  reserveImage(imageId: string, userId: string): void {
+    this.reservations.set(imageId, { userId, expiresAt: Date.now() + this.RESERVATION_TTL_MS })
+  }
+
+  clearReservation(imageId: string): void {
+    this.reservations.delete(imageId)
+  }
+
+  getActiveReservations(): Array<{ imageId: string; userId: string; expiresAt: number }> {
+    this.cleanExpiredReservations()
+    return Array.from(this.reservations.entries()).map(([imageId, res]) => ({ imageId, ...res }))
   }
 
   /**
@@ -93,6 +206,9 @@ export class AnnotationService {
   async initialize(): Promise<void> {
     try {
       await fs.mkdir(this.annotationsPath, { recursive: true })
+      // Warm the image list cache and path map on startup so the first annotator
+      // request is instant rather than triggering a cold 18k-file scan.
+      await this.getImageList(false)
       logger.info('📝 Annotation service initialized')
     } catch (error) {
       logger.error('Failed to initialize annotation service:', error)
@@ -123,14 +239,19 @@ export class AnnotationService {
     imageId: string
     imagePath: string
     faction: string
-    source: 'reddit' | 'dakkadakka'
+    source: string
     isAnnotated: boolean
   }>> {
+    // Return cached unannotated list when available — avoids full filesystem scan on every request
+    if (!includeAnnotated && this.imageListCache) {
+      return this.imageListCache
+    }
+
     const images: Array<{
       imageId: string
       imagePath: string
       faction: string
-      source: 'reddit' | 'dakkadakka'
+      source: string
       isAnnotated: boolean
     }> = []
 
@@ -150,8 +271,8 @@ export class AnnotationService {
 
         factionCounts[faction] = 0
 
-        // Check reddit and dakkadakka subdirectories
-        for (const source of ['reddit', 'dakkadakka'] as const) {
+        // Check configured source subdirectories
+        for (const source of this.allowedSources) {
           const sourcePath = path.join(factionPath, source)
 
           try {
@@ -175,6 +296,11 @@ export class AnnotationService {
               // Count ALL images toward limit (not just filtered ones)
               factionCounts[faction]++
 
+              // Populate permanent path map (paths never change)
+              if (!this.imagePathMap.has(imageId)) {
+                this.imagePathMap.set(imageId, { imagePath, faction, source })
+              }
+
               // But only add to results if it matches the filter
               if (includeAnnotated || !isAnnotated) {
                 images.push({
@@ -194,6 +320,10 @@ export class AnnotationService {
       }
 
       logger.info(`📋 Found ${images.length} images (${this.perFactionLimit}/faction, includeAnnotated: ${includeAnnotated})`)
+
+      // Cache only the unannotated list — that's the hot path for concurrent annotators
+      if (!includeAnnotated) this.imageListCache = images
+
       return images
     } catch (error) {
       logger.error('Error getting image list:', error)
@@ -206,30 +336,66 @@ export class AnnotationService {
    * When prioritize=true, delegates to active learning service for confidence-based ordering
    * Returns null if all images are annotated
    */
-  async getNextImage(prioritize: boolean = false, faction?: string): Promise<{
+  async getNextImage(prioritize: boolean = false, faction?: string, userId?: string, exclude?: string[]): Promise<{
     imageId: string
     imagePath: string
     faction: string
-    source: 'reddit' | 'dakkadakka'
+    source: string
     confidenceScore?: number
   } | null> {
+    this.cleanExpiredReservations()
+
     let images = await this.getImageList(false)
     if (faction) {
-      images = images.filter(img => img.faction === faction)
+      const factionSet = new Set(expandFaction(faction))
+      images = images.filter(img => factionSet.has(img.faction))
     }
+
+    // Filter out images reserved by a different user.
+    // A user may be re-sent their own currently-reserved image (e.g. on page reload).
+    images = images.filter(img => {
+      const res = this.reservations.get(img.imageId)
+      return !res || res.userId === userId
+    })
+
     if (images.length === 0) return null
+
+    // Only serve images that have pre-computed proposals, sorted by imageId so
+    // the same unit clusters together (imageId encodes faction + unit name).
+    const proposalIds = await this.getProposalIds()
+    const withProposals = images.filter(img => proposalIds.has(img.imageId))
+    if (withProposals.length > 0) {
+      withProposals.sort((a, b) => a.imageId.localeCompare(b.imageId))
+      images = withProposals
+    }
+    // If no proposals exist yet, fall through to the full list (first-run scenario)
+
+    // Move session-skipped images to the back of the queue (must run after sort)
+    if (exclude?.length) {
+      const excludeSet = new Set(exclude)
+      const notSkipped = images.filter(img => !excludeSet.has(img.imageId))
+      const skipped    = images.filter(img =>  excludeSet.has(img.imageId))
+      images = [...notSkipped, ...skipped]
+    }
+
+    let chosen: typeof images[0]
 
     if (prioritize) {
       try {
         const { activeLearningService } = await import('./activeLearningService')
-        const prioritized = activeLearningService.getNextPrioritizedImage(images)
-        if (prioritized) return prioritized
+        const prioritized = activeLearningService.getNextPrioritizedImage(images as any)
+        chosen = (prioritized as typeof images[0]) ?? images[0]
       } catch {
-        // Fall through to default behavior
+        chosen = images[0]
       }
+    } else {
+      chosen = images[0]
     }
 
-    return images[0]
+    // Reserve this image for the requesting user
+    if (userId) this.reserveImage(chosen.imageId, userId)
+
+    return chosen
   }
 
   /**
@@ -441,6 +607,10 @@ export class AnnotationService {
       const aiAccepted = annotation.annotations.filter(a => a.originalPrediction).length
       logger.info(`✅ Saved annotation for ${annotation.imageId} (${annotation.annotations.length} boxes, ${aiAccepted} AI-accepted, ${rejectedCount} rejected, ${redrawnCount} redrawn)`)
 
+      // Invalidate image list cache and release reservation so other annotators can't be offered a done image
+      this.imageListCache = null
+      this.clearReservation(annotation.imageId)
+
       // Invalidate dashboard cache
       if (this.onAnnotationSaved) {
         this.onAnnotationSaved()
@@ -469,6 +639,10 @@ export class AnnotationService {
   /**
    * Check if image is annotated
    */
+  getImageMeta(imageId: string): { imagePath: string; faction: string; source: string } | undefined {
+    return this.imagePathMap.get(imageId)
+  }
+
   async isImageAnnotated(imageId: string): Promise<boolean> {
     const annotationPath = this.getAnnotationPath(imageId)
     try {
@@ -526,7 +700,7 @@ export class AnnotationService {
         const dakkaIdx = parts.indexOf('dakkadakka')
         const sepIdx = redditIdx >= 0 ? redditIdx : dakkaIdx
         if (sepIdx > 0) {
-          const faction = parts.slice(0, sepIdx).join('_')
+          const faction = remapExportLabel(parts.slice(0, sepIdx).join('_'))
           byFaction[faction] = (byFaction[faction] || 0) + 1
         }
       }
@@ -547,12 +721,13 @@ export class AnnotationService {
     const byFaction: Record<string, { total: number; annotated: number }> = {}
 
     for (const img of allImages) {
-      if (!byFaction[img.faction]) {
-        byFaction[img.faction] = { total: 0, annotated: 0 }
+      const key = remapExportLabel(img.faction)
+      if (!byFaction[key]) {
+        byFaction[key] = { total: 0, annotated: 0 }
       }
-      byFaction[img.faction].total++
+      byFaction[key].total++
       if (img.isAnnotated) {
-        byFaction[img.faction].annotated++
+        byFaction[key].annotated++
       }
     }
 
@@ -582,7 +757,11 @@ export class AnnotationService {
    * Get annotation file path for an image ID
    */
   private getAnnotationPath(imageId: string): string {
-    return path.join(this.annotationsPath, `${imageId}.json`)
+    // New ebay (training_data_v2) images go in an ebay/ subfolder
+    const subfolder = imageId.includes('_ebay_') ? 'ebay' : ''
+    return subfolder
+      ? path.join(this.annotationsPath, subfolder, `${imageId}.json`)
+      : path.join(this.annotationsPath, `${imageId}.json`)
   }
 
   /**
@@ -665,7 +844,7 @@ export class AnnotationService {
       // Only include images with actual annotations (skip empty/skipped ones)
       if (annotation && annotation.annotations.length > 0) {
         annotations.push({ image: img, annotation })
-        annotation.annotations.forEach(ann => classesSet.add(ann.classLabel))
+        annotation.annotations.forEach(ann => classesSet.add(remapExportLabel(ann.classLabel)))
       }
     }
 
@@ -781,7 +960,7 @@ names: [${classes.map(c => `"${c}"`).join(', ')}]
     const yoloLines: string[] = []
 
     for (const ann of annotation.annotations) {
-      const classIndex = classToIndex.get(ann.classLabel)
+      const classIndex = classToIndex.get(remapExportLabel(ann.classLabel))
       if (classIndex === undefined) continue
 
       // Normalize bbox to [0, 1]
