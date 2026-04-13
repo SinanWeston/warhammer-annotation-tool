@@ -78,6 +78,8 @@ backend/training_data_annotations/
 backend/training_data_proposals/
 backend/training_data_candidates/
 backend/yolo_dataset/
+training_data_v2/
+training_data_v2_annotations/
 backend/debug_overlays/
 backend/classification_logs/
 backend/.sessions/
