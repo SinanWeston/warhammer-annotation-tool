@@ -16,6 +16,21 @@ export default {
           'dark': '#2a3d52',
           'medium': '#3d4a63',
           'light': '#5a6b82'
+        },
+        'brass': {
+          'dark': '#8b6914',
+          DEFAULT: '#b08d57',
+          'light': '#d4af37'
+        },
+        'gold': {
+          DEFAULT: '#ffd700',
+          'muted': '#b8960c'
+        },
+        'surface': {
+          '1': '#111111',
+          '2': '#1a1a1a',
+          '3': '#222222',
+          '4': '#2a2a2a'
         }
       },
       boxShadow: {
@@ -29,30 +44,6 @@ export default {
         'glow-amber': '0 0 20px rgba(245, 158, 11, 0.35)',
         'glow-green': '0 0 20px rgba(132, 204, 22, 0.4)',
       },
-      keyframes: {
-        'pulse-glow': {
-          '0%, 100%': { 'box-shadow': '0 0 10px currentColor' },
-          '50%': { 'box-shadow': '0 0 25px currentColor' }
-        },
-        'fade-in-down': {
-          '0%': { opacity: '0', transform: 'translateY(-10px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' }
-        },
-        'glow-pulse': {
-          '0%, 100%': { opacity: '1' },
-          '50%': { opacity: '0.7' }
-        },
-        'scan-line': {
-          '0%': { top: '0%' },
-          '100%': { top: '100%' }
-        }
-      },
-      animation: {
-        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
-        'fade-in-down': 'fade-in-down 0.5s ease-out',
-        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
-        'scan-line': 'scan-line 2s ease-in-out infinite'
-      }
     },
   },
   plugins: [],

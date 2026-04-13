@@ -1,113 +1,77 @@
-import { openDB, type IDBPDatabase } from 'idb'
-import { generateId } from './id'
-import type { DetectionResult } from '../types/detection'
+import { openDB, type DBSchema, type IDBPDatabase } from 'idb'
+import type { ScanResult } from '../types/detection'
+import type { Army } from '../types/army'
 
-export interface StoredScan {
-  id: string
-  timestamp: string
-  imageDataUrl: string
-  results: DetectionResult
+interface BattleScannerDB extends DBSchema {
+  scans: {
+    key: string
+    value: ScanResult
+    indexes: { 'by-timestamp': string }
+  }
+  armies: {
+    key: string
+    value: Army
+    indexes: { 'by-updated': string }
+  }
 }
 
-export interface StoredFeedback {
-  id: string
-  scanId: string
-  originalFaction: string
-  correctedFaction: string | null // null = "not a miniature"
-  detectionIndex: number
-  timestamp: string
-  synced: 0 | 1
-}
+let dbPromise: Promise<IDBPDatabase<BattleScannerDB>> | null = null
 
-const DB_NAME = 'battle-scanner'
-const DB_VERSION = 1
-
-let dbPromise: Promise<IDBPDatabase> | null = null
-
-function getDB() {
+function getDb() {
   if (!dbPromise) {
-    dbPromise = openDB(DB_NAME, DB_VERSION, {
+    dbPromise = openDB<BattleScannerDB>('battle-scanner', 1, {
       upgrade(db) {
-        if (!db.objectStoreNames.contains('scans')) {
-          const scanStore = db.createObjectStore('scans', { keyPath: 'id' })
-          scanStore.createIndex('timestamp', 'timestamp')
-        }
-        if (!db.objectStoreNames.contains('feedback')) {
-          const feedbackStore = db.createObjectStore('feedback', { keyPath: 'id' })
-          feedbackStore.createIndex('synced', 'synced')
-          feedbackStore.createIndex('scanId', 'scanId')
-        }
+        const scanStore = db.createObjectStore('scans', { keyPath: 'id' })
+        scanStore.createIndex('by-timestamp', 'timestamp')
+
+        const armyStore = db.createObjectStore('armies', { keyPath: 'id' })
+        armyStore.createIndex('by-updated', 'updatedAt')
       },
-      terminated() {
-        dbPromise = null
-      }
     })
   }
   return dbPromise
 }
 
-export async function saveScan(imageDataUrl: string, results: DetectionResult): Promise<StoredScan> {
-  const db = await getDB()
-  const scan: StoredScan = {
-    id: generateId(),
-    timestamp: new Date().toISOString(),
-    imageDataUrl,
-    results,
-  }
+// Scans
+export async function saveScan(scan: ScanResult): Promise<void> {
+  const db = await getDb()
   await db.put('scans', scan)
-  return scan
 }
 
-export async function getAllScans(): Promise<StoredScan[]> {
-  const db = await getDB()
-  const scans = await db.getAllFromIndex('scans', 'timestamp')
-  return scans.reverse() // newest first
-}
-
-export async function getScan(id: string): Promise<StoredScan | undefined> {
-  const db = await getDB()
+export async function getScan(id: string): Promise<ScanResult | undefined> {
+  const db = await getDb()
   return db.get('scans', id)
 }
 
-export async function clearAllScans(): Promise<void> {
-  const db = await getDB()
-  await db.clear('scans')
+export async function getAllScans(): Promise<ScanResult[]> {
+  const db = await getDb()
+  const all = await db.getAllFromIndex('scans', 'by-timestamp')
+  return all.reverse()
 }
 
-export async function saveFeedback(
-  scanId: string,
-  originalFaction: string,
-  correctedFaction: string | null,
-  detectionIndex: number
-): Promise<StoredFeedback> {
-  const db = await getDB()
-  const feedback: StoredFeedback = {
-    id: generateId(),
-    scanId,
-    originalFaction,
-    correctedFaction,
-    detectionIndex,
-    timestamp: new Date().toISOString(),
-    synced: 0,
-  }
-  await db.put('feedback', feedback)
-  return feedback
+export async function deleteScan(id: string): Promise<void> {
+  const db = await getDb()
+  await db.delete('scans', id)
 }
 
-export async function getUnsyncedFeedback(): Promise<StoredFeedback[]> {
-  const db = await getDB()
-  return db.getAllFromIndex('feedback', 'synced', 0)
+// Armies
+export async function saveArmy(army: Army): Promise<void> {
+  const db = await getDb()
+  await db.put('armies', army)
 }
 
-export async function markFeedbackSynced(ids: string[]): Promise<void> {
-  const db = await getDB()
-  const tx = db.transaction('feedback', 'readwrite')
-  for (const id of ids) {
-    const feedback = await tx.store.get(id)
-    if (feedback) {
-      feedback.synced = 1
-      await tx.store.put(feedback)
-    }
-  }
-  await tx.done
+export async function getArmy(id: string): Promise<Army | undefined> {
+  const db = await getDb()
+  return db.get('armies', id)
+}
+
+export async function getAllArmies(): Promise<Army[]> {
+  const db = await getDb()
+  const all = await db.getAllFromIndex('armies', 'by-updated')
+  return all.reverse()
+}
+
+export async function deleteArmy(id: string): Promise<void> {
+  const db = await getDb()
+  await db.delete('armies', id)
 }

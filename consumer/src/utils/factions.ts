@@ -10,13 +10,9 @@ export interface Faction {
 
 export const FACTIONS: Faction[] = [
   // ── IMPERIUM ─────────────────────────────────────────────────────
+  // Note: blood_angels, dark_angels, space_wolves, black_templars, deathwatch,
+  // grey_knights are all detected as space_marines (collapsed for model accuracy).
   { key: 'space_marines',     displayName: 'Space Marines',       color: '#3b82f6', avgPointsPerModel: 30,  group: 'Imperium' },
-  { key: 'blood_angels',      displayName: 'Blood Angels',        color: '#dc2626', avgPointsPerModel: 32,  group: 'Imperium' },
-  { key: 'dark_angels',       displayName: 'Dark Angels',         color: '#15803d', avgPointsPerModel: 30,  group: 'Imperium' },
-  { key: 'space_wolves',      displayName: 'Space Wolves',        color: '#7dd3fc', avgPointsPerModel: 30,  group: 'Imperium' },
-  { key: 'black_templars',    displayName: 'Black Templars',      color: '#a8a29e', avgPointsPerModel: 28,  group: 'Imperium' },
-  { key: 'deathwatch',        displayName: 'Deathwatch',          color: '#475569', avgPointsPerModel: 35,  group: 'Imperium' },
-  { key: 'grey_knights',      displayName: 'Grey Knights',        color: '#94a3b8', avgPointsPerModel: 35,  group: 'Imperium' },
   { key: 'adeptus_mechanicus',displayName: 'Adeptus Mechanicus',  color: '#ef4444', avgPointsPerModel: 18,  group: 'Imperium' },
   { key: 'astra_militarum',   displayName: 'Astra Militarum',     color: '#84cc16', avgPointsPerModel: 8,   group: 'Imperium' },
   { key: 'adeptus_custodes',  displayName: 'Adeptus Custodes',    color: '#f59e0b', avgPointsPerModel: 50,  group: 'Imperium' },
@@ -25,13 +21,11 @@ export const FACTIONS: Faction[] = [
   { key: 'imperial_agents',   displayName: 'Imperial Agents',     color: '#6366f1', avgPointsPerModel: 20,  group: 'Imperium' },
 
   // ── CHAOS ─────────────────────────────────────────────────────────
+  // Note: death_guard, thousand_sons, world_eaters, emperors_children are all
+  // detected as chaos_space_marines (traitor legions collapsed for model accuracy).
   { key: 'chaos_space_marines', displayName: 'Chaos Space Marines', color: '#991b1b', avgPointsPerModel: 28,  group: 'Chaos' },
-  { key: 'death_guard',         displayName: 'Death Guard',          color: '#65a30d', avgPointsPerModel: 32,  group: 'Chaos' },
-  { key: 'thousand_sons',       displayName: 'Thousand Sons',        color: '#2563eb', avgPointsPerModel: 28,  group: 'Chaos' },
-  { key: 'world_eaters',        displayName: 'World Eaters',         color: '#7f1d1d', avgPointsPerModel: 25,  group: 'Chaos' },
-  { key: 'emperors_children',   displayName: "Emperor's Children",   color: '#c026d3', avgPointsPerModel: 26,  group: 'Chaos' },
-  { key: 'chaos_daemons',       displayName: 'Chaos Daemons',        color: '#9333ea', avgPointsPerModel: 15,  group: 'Chaos' },
-  { key: 'chaos_knights',       displayName: 'Chaos Knights',        color: '#78716c', avgPointsPerModel: 150, group: 'Chaos' },
+  { key: 'chaos_daemons',       displayName: 'Chaos Daemons',       color: '#9333ea', avgPointsPerModel: 15,  group: 'Chaos' },
+  { key: 'chaos_knights',       displayName: 'Chaos Knights',       color: '#78716c', avgPointsPerModel: 150, group: 'Chaos' },
 
   // ── XENOS ─────────────────────────────────────────────────────────
   { key: 'orks',               displayName: 'Orks',                color: '#22c55e', avgPointsPerModel: 10,  group: 'Xenos' },
