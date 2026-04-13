@@ -29,3 +29,4 @@ Populated in order as phases close their exit criteria.
 | Date | Model / config | Phase | File |
 |---|---|---|---|
 | 2026-04-13 | YOLO11x Run 2 (15-class faction detector) | Phase 0 | `2026-04-13-phase0-baseline.md` |
+| 2026-04-13 | OWLv2 + DINOv2-base retrieval | Phase 1 | `2026-04-13-phase1-prototype.md` |

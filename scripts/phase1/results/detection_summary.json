@@ -1,0 +1,27 @@
+{
+  "model_id": "google/owlv2-base-patch16-ensemble",
+  "num_images": 30,
+  "prompts_per_faction": 1,
+  "prompt_paths": [
+    "scripts/phase1/crops/chaos_space_marines/13164_2ebfe221cced__01.jpg",
+    "scripts/phase1/crops/death_guard/106798_0c58414bb9eb__06.jpg",
+    "scripts/phase1/crops/genestealer_cult/109528_e6d3b5be9657__00.jpg",
+    "scripts/phase1/crops/space_marines/10j4au8_a534218bca89__00.jpg",
+    "scripts/phase1/crops/tyranids/122lero_82096eaba983__19.jpg"
+  ],
+  "score_threshold": 0.1,
+  "iou_match_threshold": 0.5,
+  "totals": {
+    "ground_truth_boxes": 96,
+    "predicted_boxes": 13127,
+    "true_positives": 80
+  },
+  "metrics": {
+    "detection_recall_iou50": 0.8333333333333334,
+    "detection_precision_iou50": 0.006094309438561743
+  },
+  "comparison_baseline": {
+    "yolo_phase0_recall_iou50": 0.66,
+    "yolo_phase0_precision_iou50": 0.763
+  }
+}

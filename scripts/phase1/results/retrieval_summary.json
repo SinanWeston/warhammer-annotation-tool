@@ -1,0 +1,238 @@
+{
+  "model_id": "facebook/dinov2-base",
+  "num_queries": 6,
+  "num_gallery_images": 24,
+  "num_gallery_units": 17,
+  "metrics": {
+    "top1": 0.6666666666666666,
+    "top3": 0.6666666666666666,
+    "top5": 0.8333333333333334,
+    "mrr": 0.7222222222222222,
+    "faction_top1": 0.6666666666666666,
+    "unknown_threshold_sim_at_fpr10pct": 0.8123776316642761
+  },
+  "per_query": [
+    {
+      "query_path": "scripts/phase1/queries/chaos_space_marines/legionaries/138245_351bd85403f3__03.jpg",
+      "true_faction": "chaos_space_marines",
+      "true_unit": "legionaries",
+      "ranked_units": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.936701774597168
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.8410411477088928
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.8019154071807861
+        },
+        {
+          "unit": "captain",
+          "faction": "space_marines",
+          "sim": 0.7955634593963623
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.786189079284668
+        }
+      ],
+      "is_top1": true,
+      "is_top3": true,
+      "is_top5": true,
+      "reciprocal_rank": 1.0,
+      "true_rank": 1
+    },
+    {
+      "query_path": "scripts/phase1/queries/death_guard/plague_marines/106798_0c58414bb9eb__00.jpg",
+      "true_faction": "death_guard",
+      "true_unit": "plague_marines",
+      "ranked_units": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.8262317180633545
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.8011150360107422
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.794925332069397
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.7383800745010376
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.7304332256317139
+        }
+      ],
+      "is_top1": true,
+      "is_top3": true,
+      "is_top5": true,
+      "reciprocal_rank": 1.0,
+      "true_rank": 1
+    },
+    {
+      "query_path": "scripts/phase1/queries/genestealer_cult/aberrants/1061044_3995318f2400__02.jpg",
+      "true_faction": "genestealer_cult",
+      "true_unit": "aberrants",
+      "ranked_units": [
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.8123776316642761
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.7743702530860901
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.7695642709732056
+        },
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.7649892568588257
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.7451967597007751
+        }
+      ],
+      "is_top1": false,
+      "is_top3": false,
+      "is_top5": true,
+      "reciprocal_rank": 0.25,
+      "true_rank": 4
+    },
+    {
+      "query_path": "scripts/phase1/queries/genestealer_cult/neophyte_hybrids/10861_1954714f329e__03.jpg",
+      "true_faction": "genestealer_cult",
+      "true_unit": "neophyte_hybrids",
+      "ranked_units": [
+        {
+          "unit": "neophyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.8130954504013062
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.6683337092399597
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.6136288642883301
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.6121658086776733
+        },
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.5760495066642761
+        }
+      ],
+      "is_top1": true,
+      "is_top3": true,
+      "is_top5": true,
+      "reciprocal_rank": 1.0,
+      "true_rank": 1
+    },
+    {
+      "query_path": "scripts/phase1/queries/thousand_sons/rubric_marines/13164_2ebfe221cced__01.jpg",
+      "true_faction": "thousand_sons",
+      "true_unit": "rubric_marines",
+      "ranked_units": [
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.9254105687141418
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.8309381008148193
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.7912280559539795
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.7595852017402649
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.7527709603309631
+        }
+      ],
+      "is_top1": true,
+      "is_top3": true,
+      "is_top5": true,
+      "reciprocal_rank": 1.0,
+      "true_rank": 1
+    },
+    {
+      "query_path": "scripts/phase1/queries/tyranids/termagants/14kujha_a92f261b1099__14.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "termagants",
+      "ranked_units": [
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.6216995716094971
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.5404107570648193
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.5305979251861572
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.5105328559875488
+        },
+        {
+          "unit": "genestealers",
+          "faction": "genestealer_cult",
+          "sim": 0.5027987957000732
+        }
+      ],
+      "is_top1": false,
+      "is_top3": false,
+      "is_top5": false,
+      "reciprocal_rank": 0.08333333333333333,
+      "true_rank": 12
+    }
+  ]
+}

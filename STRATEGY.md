@@ -236,7 +236,7 @@ Update this section as phases complete. Date every entry.
 | Phase | Status | Notes | Last update |
 |---|---|---|---|
 | 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
-| 1 · Prototype Tier 1+3 | ☐ Not started | Seed gallery from GW product pages; T-Rex2 + DINOv3-Base | — |
+| 1 · Prototype Tier 1+3 | ✅ Complete | OWLv2 detection recall 83.3% (+17pp); DINOv2 retrieval unit top-5 83.3%, top-1 66.7%, MRR 0.72 on 6 queries. Both exit criteria met. [Full report](docs/benchmarks/2026-04-13-phase1-prototype.md) | 2026-04-13 |
 | 2 · Tier 2 + gallery expand | ☐ Not started | Faction classifier; scoped k-NN | — |
 | 3 · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
@@ -250,6 +250,18 @@ The baseline split confirmed the strategic thesis:
 - **Classification is the weak link** (64% top-1 on matched), and **highly bimodal per class** — some classes are near-solved (tyranids 100%, adeptus_mechanicus 89%) while others are effectively hallucinated (death_guard 2.4% class precision, chaos_space_marines 5.3%). Retrieval-based classification should move the bottom more than the top.
 - **The "39.9% mAP50" number in SPEC.md was actually mAP50-95.** Real mAP50 on the same val split is 54.7%. The stricter mAP50-95 is 39.1%. SPEC.md corrected alongside this phase.
 - **Unit-level KPIs are N/A.** Not a model failure — a corpus limitation. Annotations are faction-only, so top-1 / top-3 unit accuracy literally cannot be measured against current ground truth. Tier 3 retrieval evaluates against the reference gallery instead and does not require unit annotations.
+
+### Phase 1 headline findings
+
+The retrieval prototype hit both exit criteria on a 24-image gallery + 6 query eval:
+
+- **OWLv2 detection recall 83.3% (+17.3 pp over YOLO)** with zero training. Precision 0.6% at score threshold 0.1 — tuning, not fundamental.
+- **DINOv2-base retrieval top-5 83.3%, top-1 66.7%, MRR 0.722.** DINOv3 was gated on HuggingFace and was not used — the fallback is already above the bar.
+- **Retrieval inverted the difficulty pattern.** The YOLO-problem block (CSM, DG, GSC; Phase 0 faction top-1 7–14%) produced 4/4 top-5 and 3/4 top-1. The YOLO-easy block (tyranids 100%, SM 100% in Phase 0) lost its only query — a termagants crop that had just one gallery example. **Gallery depth matters more than breadth** at this scale.
+- **"Unknown" threshold 0.812** — sim@FPR=10%. Correct matches land at 0.81–0.94 similarity; the one total failure bottoms at 0.62. The threshold is clean and usable for Phase 4's "I don't recognise this" calibration.
+- **Sample size caveat**: 6 queries is small. Wilson 95% CIs are wide (~±30 pp). Phase 2 should rerun with ≥30 queries once the gallery expands.
+
+All of this aligns with — and strengthens — the three-tier architecture in §3. No direction change is warranted; Phase 2 proceeds as planned.
 
 ## Source list
 

@@ -436,11 +436,22 @@
     }
 
     function pickSlug(slug) {
-      $('slug-input').value = slug
-      state.selectedSlug = slug
-      // Visual feedback.
+      // Clicking a currently-selected pill deselects it.
+      if ($('slug-input').value.trim() === slug) {
+        $('slug-input').value = ''
+        state.selectedSlug = ''
+      } else {
+        $('slug-input').value = slug
+        state.selectedSlug = slug
+      }
+      syncPillHighlight()
+    }
+
+    /** Highlight whichever pill matches the current input value (none if no match). */
+    function syncPillHighlight() {
+      const current = $('slug-input').value.trim()
       for (const p of document.querySelectorAll('.pill')) {
-        p.classList.toggle('selected', p.dataset.slug === slug)
+        p.classList.toggle('selected', !!current && p.dataset.slug === current)
       }
     }
 
@@ -486,6 +497,9 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
     }
+
+    // Keep pill highlight in sync with typed input.
+    $('slug-input').addEventListener('input', syncPillHighlight)
 
     // Nav handlers
     $('btn-prev').onclick = () => {
