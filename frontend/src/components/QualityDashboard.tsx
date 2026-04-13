@@ -11,8 +11,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import type { DashboardStats, ActiveLearningStatus, OutlierEntry } from '../types/dashboard'
-
-const API_BASE = 'http://localhost:3001'
+import { API_BASE } from '../lib/api'
 
 interface QualityDashboardProps {
   onEditImage?: (imageId: string) => void

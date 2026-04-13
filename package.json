@@ -18,7 +18,10 @@
     "build:annotator-mobile": "cd annotator-mobile && npm run build",
     "start": "npm run start:backend",
     "start:backend": "cd backend && npm start",
-    "sync:mobile": "node scripts/import-mobile-annotations.js"
+    "sync:mobile": "node scripts/import-mobile-annotations.js",
+    "dev:clean-backend": "cd backend && TRAINING_DATA_PATH=../clean_references ANNOTATIONS_PATH=../clean_references_annotations ANNOTATION_SOURCES=clean PORT=3002 npm run dev",
+    "dev:clean-frontend": "cd frontend && VITE_API_URL=http://localhost:3002 npm run dev -- --port 5176",
+    "dev:clean-annotator": "concurrently \"npm run dev:clean-backend\" \"npm run dev:clean-frontend\""
   },
   "devDependencies": {
     "concurrently": "^8.2.0"

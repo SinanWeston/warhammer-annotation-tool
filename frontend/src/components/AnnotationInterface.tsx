@@ -9,10 +9,21 @@
  * - Navigation (next/previous/skip)
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import BboxAnnotator from './BboxAnnotator'
 import QualityIssuesModal from './QualityIssuesModal'
 import { BboxAnnotation } from '../types'
+import { API_BASE } from '../lib/api'
+
+// Mirrors EXPORT_LABEL_REMAP in annotationService.ts — keep in sync.
+const FACTION_REMAP: Record<string, string> = {
+  blood_angels: 'space_marines', dark_angels: 'space_marines',
+  space_wolves: 'space_marines', black_templars: 'space_marines',
+  deathwatch: 'space_marines', grey_knights: 'space_marines',
+  death_guard: 'chaos_space_marines', thousand_sons: 'chaos_space_marines',
+  world_eaters: 'chaos_space_marines', emperors_children: 'chaos_space_marines',
+}
+const remapFaction = (f: string) => FACTION_REMAP[f] ?? f
 
 interface ImageData {
   imageId: string
@@ -41,9 +52,10 @@ interface QualityIssue {
 interface AnnotationInterfaceProps {
   editImageId?: string | null
   onEditComplete?: () => void
+  annotatorName?: string | null
 }
 
-export default function AnnotationInterface({ editImageId, onEditComplete }: AnnotationInterfaceProps = {}) {
+export default function AnnotationInterface({ editImageId, onEditComplete, annotatorName }: AnnotationInterfaceProps = {}) {
   const [currentImage, setCurrentImage] = useState<ImageData | null>(null)
   const [annotations, setAnnotations] = useState<BboxAnnotation[]>([])
   const [progress, setProgress] = useState<AnnotationProgress | null>(null)
@@ -74,18 +86,19 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
   const [prioritize, setPrioritize] = useState(false)
   const [confidenceScore, setConfidenceScore] = useState<number | null>(null)
 
-  // Preloaded next image buffer
-  const [preloadedImage, setPreloadedImage] = useState<{
-    image: ImageData
-    annotations: BboxAnnotation[]
-    confidenceScore?: number
-  } | null>(null)
+  // Preload queue — up to 3 images buffered ahead so "next" is instant
+  type PreloadedEntry = { image: ImageData; annotations: BboxAnnotation[]; confidenceScore?: number }
+  const [preloadQueue, setPreloadQueue] = useState<PreloadedEntry[]>([])
 
   // Session stats
   const [sessionStart] = useState<number>(Date.now())
   const [sessionCount, setSessionCount] = useState(0)
   const [sessionTimes, setSessionTimes] = useState<number[]>([])
   const [imageStartTime, setImageStartTime] = useState<number>(Date.now())
+
+  // Ref to track latest annotations for async callbacks (avoids stale closures)
+  const annotationsRef = useRef(annotations)
+  annotationsRef.current = annotations
 
   // Faction filter state
   const [selectedFaction, setSelectedFaction] = useState<string | null>(null)
@@ -99,7 +112,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
   const fetchProgress = async () => {
     try {
       setFetchingProgress(true)
-      const response = await fetch('http://localhost:3001/api/annotate/progress')
+      const response = await fetch(`${API_BASE}/api/annotate/progress`)
       const data = await response.json()
 
       if (data.success) {
@@ -114,7 +127,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
 
   // Load next image. factionOverride lets callers pass a faction directly
   // (e.g. when clicking a faction card, before state has updated).
-  const loadNextImage = async (factionOverride?: string | null) => {
+  const loadNextImage = async (factionOverride?: string | null, extraExclude?: string) => {
     // Remember current image for back navigation
     if (currentImage) {
       setPreviousImageId(currentImage.imageId)
@@ -126,6 +139,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     const faction = factionOverride !== undefined ? factionOverride : selectedFaction
 
     // Use preloaded image if available, not the same as current, and no faction override
+    const preloadedImage = preloadQueue[0]
     if (preloadedImage && factionOverride === undefined && preloadedImage.image.imageId !== currentImage?.imageId) {
       setCurrentImage(preloadedImage.image)
       setAnnotations(preloadedImage.annotations)
@@ -134,11 +148,11 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
       setProcessedPredictions([])
       setValidationMode(false)
       setHighlightedPrediction(null)
-      setPreloadedImage(null)
+      setPreloadQueue([])
       return
     }
     // Discard stale preload (same image as current — was fetched before save completed)
-    setPreloadedImage(null)
+    setPreloadQueue([])
 
     setLoading(true)
 
@@ -147,8 +161,11 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
       const params = new URLSearchParams()
       if (prioritize) params.set('prioritize', 'true')
       if (faction) params.set('faction', faction)
+      if (annotatorName) params.set('userId', annotatorName)
+      const excludeIds = extraExclude ? new Set([...skippedIds, extraExclude]) : skippedIds
+      if (excludeIds.size > 0) params.set('exclude', Array.from(excludeIds).join(','))
       const qs = params.toString()
-      const url = `http://localhost:3001/api/annotate/next${qs ? '?' + qs : ''}`
+      const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
       const response = await fetch(url)
       const data = await response.json()
 
@@ -161,36 +178,28 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
       const imageInfo = data.data.image
       setConfidenceScore(imageInfo.confidenceScore ?? null)
 
-      // Load full image data
-      const imageResponse = await fetch(`http://localhost:3001/api/annotate/image/${imageInfo.imageId}`)
-      const imageData = await imageResponse.json()
+      // /next now returns full image data inline (base64, dimensions, annotation)
+      // so no second fetch is needed — saves one round trip over ngrok.
+      let newAnnotations: BboxAnnotation[] = []
 
-      if (imageData.success) {
-        // Load existing annotations if any, otherwise start with empty array
-        let newAnnotations: BboxAnnotation[] = []
-
-        if (imageData.data.annotation && imageData.data.annotation.annotations) {
-          // Convert backend format to BboxAnnotator format
-          newAnnotations = imageData.data.annotation.annotations.map((ann: any) => ({
-            id: ann.id,
-            x: ann.modelBbox.x,
-            y: ann.modelBbox.y,
-            width: ann.modelBbox.width,
-            height: ann.modelBbox.height,
-            classLabel: ann.classLabel,
-            baseBbox: ann.baseBbox
-          }))
-        }
-
-        // Update both image and annotations together
-        setCurrentImage(imageData.data.image)
-        setAnnotations(newAnnotations)
-        // Reset AI prediction state for new image
-        setPredictions([])
-        setProcessedPredictions([])
-        setValidationMode(false)
-        setHighlightedPrediction(null)
+      if (data.data.annotation?.annotations) {
+        newAnnotations = data.data.annotation.annotations.map((ann: any) => ({
+          id: ann.id,
+          x: ann.modelBbox.x,
+          y: ann.modelBbox.y,
+          width: ann.modelBbox.width,
+          height: ann.modelBbox.height,
+          classLabel: ann.classLabel,
+          baseBbox: ann.baseBbox
+        }))
       }
+
+      setCurrentImage(imageInfo)
+      setAnnotations(newAnnotations)
+      setPredictions([])
+      setProcessedPredictions([])
+      setValidationMode(false)
+      setHighlightedPrediction(null)
     } catch (err: any) {
       setError(`Failed to load image: ${err.message}`)
     } finally {
@@ -206,7 +215,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     setEditMode(true)
 
     try {
-      const imageResponse = await fetch(`http://localhost:3001/api/annotate/image/${imageId}`)
+      const imageResponse = await fetch(`${API_BASE}/api/annotate/image/${imageId}`)
       const imageData = await imageResponse.json()
 
       if (imageData.success) {
@@ -255,43 +264,82 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     }
   }, [editImageId])
 
+  // Auto-load DINO proposals when navigating to a new unannotated image
+  useEffect(() => {
+    if (!currentImage || loading || editMode) return
+    // Only auto-load if the image has no existing annotations
+    if (annotations.length > 0) return
+
+    const abortController = new AbortController()
+
+    const loadProposals = async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/annotate/proposals/${currentImage.imageId}`, {
+          signal: abortController.signal,
+        })
+        const data = await res.json()
+        // Skip if user drew boxes while we were fetching
+        if (annotationsRef.current.length > 0) return
+        if (data.success && data.data.predictions?.length > 0) {
+          const factionLabel = remapFaction(currentImage.faction)
+          const proposed: BboxAnnotation[] = data.data.predictions.map((pred: any, idx: number) => ({
+            id: `dino_${idx}_${Date.now()}`,
+            x: pred.x,
+            y: pred.y,
+            width: pred.width,
+            height: pred.height,
+            classLabel: factionLabel,
+            confidence: pred.confidence,
+            isPrediction: true,
+            validated: false,
+          }))
+          setPredictions(proposed)
+          setAnnotations(proposed)
+          setValidationMode(true)
+          setSuccess(`🤖 DINO found ${proposed.length} miniatures! Resize boxes to fit tightly, then validate.`)
+        }
+      } catch {
+        // Aborted, network error, or proposals unavailable — no-op
+      }
+    }
+    loadProposals()
+
+    return () => abortController.abort()
+  }, [currentImage?.imageId])
+
   // Prefetch next image while user annotates current one
   const prefetchNextImage = async () => {
     try {
       const params = new URLSearchParams()
       if (prioritize) params.set('prioritize', 'true')
       if (selectedFaction) params.set('faction', selectedFaction)
+      if (annotatorName) params.set('userId', annotatorName)
       const qs = params.toString()
-      const url = `http://localhost:3001/api/annotate/next${qs ? '?' + qs : ''}`
+      const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
       const response = await fetch(url)
       const data = await response.json()
 
       if (!data.success || !data.data.image) return
 
       const imageInfo = data.data.image
-      const imageResponse = await fetch(`http://localhost:3001/api/annotate/image/${imageInfo.imageId}`)
-      const imageData = await imageResponse.json()
-
-      if (imageData.success) {
-        let newAnnotations: BboxAnnotation[] = []
-        if (imageData.data.annotation && imageData.data.annotation.annotations) {
-          newAnnotations = imageData.data.annotation.annotations.map((ann: any) => ({
-            id: ann.id,
-            x: ann.modelBbox.x,
-            y: ann.modelBbox.y,
-            width: ann.modelBbox.width,
-            height: ann.modelBbox.height,
-            classLabel: ann.classLabel,
-            baseBbox: ann.baseBbox
-          }))
-        }
-
-        setPreloadedImage({
-          image: imageData.data.image,
-          annotations: newAnnotations,
-          confidenceScore: imageInfo.confidenceScore
-        })
+      let newAnnotations: BboxAnnotation[] = []
+      if (data.data.annotation?.annotations) {
+        newAnnotations = data.data.annotation.annotations.map((ann: any) => ({
+          id: ann.id,
+          x: ann.modelBbox.x,
+          y: ann.modelBbox.y,
+          width: ann.modelBbox.width,
+          height: ann.modelBbox.height,
+          classLabel: ann.classLabel,
+          baseBbox: ann.baseBbox
+        }))
       }
+
+      setPreloadQueue(prev => [...prev, {
+        image: imageInfo,
+        annotations: newAnnotations,
+        confidenceScore: imageInfo.confidenceScore
+      }])
     } catch {
       // Silent fail — prefetch is optional
     }
@@ -318,9 +366,9 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
       const rejectedPredictions = processedPredictions.filter(p => p.validationAction === 'rejected')
       const redrawnPredictions = processedPredictions.filter(p => p.validationAction === 'redrawn')
 
-      // All boxes to save: manual annotations + accepted AI predictions (both in annotations[])
-      // Exclude any boxes still marked as pending predictions (isPrediction: true)
-      const allAnnotations = annotations.filter(ann => !ann.isPrediction)
+      // All boxes to save: manual annotations + accepted AI predictions + unconfirmed predictions.
+      // Unconfirmed DINO/YOLO predictions are treated as accepted (user didn't reject them).
+      const allAnnotations = annotations
 
       // Convert BboxAnnotator format to backend format
       const annotationData = {
@@ -370,10 +418,10 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
           confidence: ann.confidence
         })),
         annotatedAt: new Date().toISOString(),
-        annotatedBy: 'user'
+        annotatedBy: annotatorName || 'anonymous'
       }
 
-      const response = await fetch('http://localhost:3001/api/annotate/save', {
+      const response = await fetch(`${API_BASE}/api/annotate/save`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -433,7 +481,8 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     }
   }
 
-  // Get AI predictions for the current image
+  // Get AI predictions for the current image.
+  // Tries pre-computed DINO proposals first (instant), falls back to live YOLO inference.
   const getAIPredictions = async () => {
     if (!currentImage) return
 
@@ -441,29 +490,57 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     setError(null)
 
     try {
-      const response = await fetch(`http://localhost:3001/api/annotate/predict/${currentImage.imageId}`)
-      const data = await response.json()
+      // Try DINO proposals first (pre-computed, instant)
+      let predictions: any[] = []
+      let source = 'yolo'
 
-      if (data.success) {
-        // Convert predictions to annotation format
-        const predictedAnnotations: BboxAnnotation[] = data.data.predictions.map((pred: any, idx: number) => ({
+      try {
+        const proposalRes = await fetch(`${API_BASE}/api/annotate/proposals/${currentImage.imageId}`)
+        const proposalData = await proposalRes.json()
+        if (proposalData.success && proposalData.data.predictions?.length > 0) {
+          predictions = proposalData.data.predictions
+          source = 'grounding_dino'
+        }
+      } catch {
+        // Proposals endpoint unavailable, fall through to YOLO
+      }
+
+      // Fall back to YOLO if no DINO proposals
+      if (predictions.length === 0) {
+        const response = await fetch(`${API_BASE}/api/annotate/predict/${currentImage.imageId}`)
+        const data = await response.json()
+        if (data.success) {
+          predictions = data.data.predictions || []
+          source = 'yolo'
+        } else {
+          setError(`Failed to get predictions: ${data.error?.message || 'Unknown error'}`)
+          return
+        }
+      }
+
+      if (predictions.length > 0) {
+        // Use the image's faction as classLabel for DINO proposals (they come as 'miniature')
+        const factionLabel = remapFaction(currentImage.faction)
+
+        const predictedAnnotations: BboxAnnotation[] = predictions.map((pred: any, idx: number) => ({
           id: `pred_${idx}_${Date.now()}`,
           x: pred.x,
           y: pred.y,
           width: pred.width,
           height: pred.height,
-          classLabel: pred.classLabel,
+          classLabel: source === 'grounding_dino' ? factionLabel : pred.classLabel,
           confidence: pred.confidence,
-          isPrediction: true,  // Mark as AI prediction
-          validated: false     // Not yet validated
+          isPrediction: true,
+          validated: false
         }))
 
         setPredictions(predictedAnnotations)
         setAnnotations(predictedAnnotations)
         setValidationMode(true)
-        setSuccess(`🤖 AI found ${predictedAnnotations.length} miniatures! Validate each box below.`)
+        const sourceLabel = source === 'grounding_dino' ? 'DINO' : 'YOLO'
+        setSuccess(`🤖 ${sourceLabel} found ${predictedAnnotations.length} miniatures! Resize boxes to fit tightly, then validate.`)
       } else {
-        setError(`Failed to get predictions: ${data.error?.message || 'Unknown error'}`)
+        setSuccess('No AI proposals found for this image. Draw boxes manually.')
       }
     } catch (err: any) {
       setError(`Failed to get predictions: ${err.message}`)
@@ -580,10 +657,10 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
           confidence: ann.confidence
         })),
         annotatedAt: new Date().toISOString(),
-        annotatedBy: 'user'
+        annotatedBy: annotatorName || 'anonymous'
       }
 
-      const response = await fetch('http://localhost:3001/api/annotate/save', {
+      const response = await fetch(`${API_BASE}/api/annotate/save`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(annotationData)
@@ -623,45 +700,26 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     }
   }
 
-  // Skip current image (save empty annotation to mark as processed)
+  // Ref to hold latest prediction action functions (avoids stale closures in keyboard handler)
+  const predictionActionsRef = useRef({ acceptPrediction, rejectPrediction, redrawPrediction, acceptAllPredictions })
+  predictionActionsRef.current = { acceptPrediction, rejectPrediction, redrawPrediction, acceptAllPredictions }
+
+  // Track images skipped this session so the backend won't re-serve them
+  const [skippedIds, setSkippedIds] = useState<Set<string>>(new Set())
+
+  // Skip current image without saving anything — image stays unannotated
   const skipImage = async () => {
     if (!currentImage) return
 
     setError(null)
     setSuccess(null)
-    setSaving(true)
-
-    try {
-      // Save empty annotation to mark image as skipped/processed
-      const annotationData = {
-        imageId: currentImage.imageId,
-        imagePath: currentImage.imagePath,
-        faction: currentImage.faction,
-        source: currentImage.source,
-        width: currentImage.width || 0,
-        height: currentImage.height || 0,
-        annotations: [],  // Empty - no miniatures in this image
-        annotatedAt: new Date().toISOString(),
-        annotatedBy: 'user'
-      }
-
-      await fetch('http://localhost:3001/api/annotate/save', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(annotationData)
-      })
-
-      // Update progress and load next
-      setAnnotations([])
-      await fetchProgress()
-      await loadNextImage()
-    } catch (err: any) {
-      setError(`Failed to skip: ${err.message}`)
-    } finally {
-      setSaving(false)
-    }
+    const skippedId = currentImage.imageId
+    setSkippedIds(prev => new Set(prev).add(skippedId))
+    setAnnotations([])
+    setPredictions([])
+    setProcessedPredictions([])
+    setValidationMode(false)
+    await loadNextImage(undefined, skippedId)
   }
 
   // Flag image as permanently unusable
@@ -672,7 +730,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
     setError(null)
 
     try {
-      const response = await fetch('http://localhost:3001/api/annotate/flag', {
+      const response = await fetch(`${API_BASE}/api/annotate/flag`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ imageId: currentImage.imageId, reason: 'unusable' })
@@ -723,12 +781,15 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
         return
       }
 
+      // Read latest action functions from ref to avoid stale closures
+      const actions = predictionActionsRef.current
+
       // A — Accept highlighted prediction
       if (e.key === 'a' || e.key === 'A') {
         if (!e.ctrlKey && !e.metaKey) {
           e.preventDefault()
           if (highlightedPrediction) {
-            acceptPrediction(highlightedPrediction)
+            actions.acceptPrediction(highlightedPrediction)
           }
         }
         return
@@ -738,7 +799,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
       if (e.key === 'w' || e.key === 'W') {
         e.preventDefault()
         if (highlightedPrediction) {
-          rejectPrediction(highlightedPrediction)
+          actions.rejectPrediction(highlightedPrediction)
         }
         return
       }
@@ -748,7 +809,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
         if (!e.ctrlKey && !e.metaKey) {
           e.preventDefault()
           if (highlightedPrediction) {
-            redrawPrediction(highlightedPrediction)
+            actions.redrawPrediction(highlightedPrediction)
           }
         }
         return
@@ -757,7 +818,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
       // Enter — Accept all remaining predictions and save
       if (e.key === 'Enter') {
         e.preventDefault()
-        acceptAllPredictions()
+        actions.acceptAllPredictions()
         return
       }
     }
@@ -869,7 +930,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
           </button>
           {!currentImage && (
             <button
-              onClick={loadNextImage}
+              onClick={() => loadNextImage()}
               disabled={loading}
               style={{
                 padding: '1rem 2rem',
@@ -1072,7 +1133,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
               <div style={{ color: '#aaa', fontSize: '0.8rem' }}>Current Image:</div>
               <div style={{ color: '#fff', fontSize: '1rem', marginTop: '0.25rem' }}>
                 <span style={{ color: '#10b981', textTransform: 'capitalize' }}>
-                  {currentImage.faction.replace(/_/g, ' ')}
+                  {remapFaction(currentImage.faction).replace(/_/g, ' ')}
                 </span>
                 {' '} / {currentImage.source}
                 {' '} / {currentImage.width}x{currentImage.height}
@@ -1096,9 +1157,14 @@ export default function AnnotationInterface({ editImageId, onEditComplete }: Ann
             imageUrl={currentImage.imageBase64}
             imageWidth={currentImage.width}
             imageHeight={currentImage.height}
-            onAnnotationsChange={setAnnotations}
-            classLabels={[currentImage.faction]}  // Use faction as default class
-            defaultClass={currentImage.faction}
+            onAnnotationsChange={(newAnns: BboxAnnotation[]) => {
+              setAnnotations(newAnns)
+              // Sync predictions panel: remove entries whose boxes were deleted on canvas
+              const annIds = new Set(newAnns.map(a => a.id))
+              setPredictions(prev => prev.filter(p => annIds.has(p.id)))
+            }}
+            classLabels={[remapFaction(currentImage.faction)]}  // Use faction as default class
+            defaultClass={remapFaction(currentImage.faction)}
             initialAnnotations={annotations}  // Pre-populate with AI suggestions or existing annotations
             onSaveRequested={saveAnnotations}  // Keyboard shortcut: S
             onSkipRequested={skipImage}  // Keyboard shortcut: K

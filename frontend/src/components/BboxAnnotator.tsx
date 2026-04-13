@@ -14,6 +14,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { BboxAnnotation } from '../types'
+import { screenToImage, scaleBbox, fitScale } from '../utils/coordinates'
 
 interface BboxAnnotatorProps {
   imageUrl: string
@@ -37,6 +38,65 @@ interface DrawingState {
   startY: number
   currentX: number
   currentY: number
+}
+
+type ResizeHandle = 'nw' | 'ne' | 'sw' | 'se' | 'n' | 's' | 'e' | 'w'
+
+interface ResizingState {
+  isResizing: boolean
+  boxId: string
+  handle: ResizeHandle
+  // Original box coords (image space) at drag start
+  origX: number
+  origY: number
+  origWidth: number
+  origHeight: number
+}
+
+const HANDLE_SIZE = 8 // px in screen space
+const HANDLE_HIT_SIZE = 12 // px — slightly larger hit target for easier grabbing
+
+const HANDLE_CURSORS: Record<ResizeHandle, string> = {
+  nw: 'nwse-resize', ne: 'nesw-resize', sw: 'nesw-resize', se: 'nwse-resize',
+  n: 'ns-resize', s: 'ns-resize', e: 'ew-resize', w: 'ew-resize',
+}
+
+/**
+ * Get the resize handle at the given screen position, if any.
+ * Returns the handle type and the box ID, or null.
+ */
+function getHandleAtPoint(
+  screenX: number,
+  screenY: number,
+  annotations: BboxAnnotation[],
+  scale: number,
+): { handle: ResizeHandle; boxId: string } | null {
+  // Check in reverse order so topmost (last drawn) box wins
+  for (let i = annotations.length - 1; i >= 0; i--) {
+    const box = annotations[i]
+    const sx = box.x * scale
+    const sy = box.y * scale
+    const sw = box.width * scale
+    const sh = box.height * scale
+
+    const handles: { handle: ResizeHandle; hx: number; hy: number }[] = [
+      { handle: 'nw', hx: sx, hy: sy },
+      { handle: 'ne', hx: sx + sw, hy: sy },
+      { handle: 'sw', hx: sx, hy: sy + sh },
+      { handle: 'se', hx: sx + sw, hy: sy + sh },
+      { handle: 'n', hx: sx + sw / 2, hy: sy },
+      { handle: 's', hx: sx + sw / 2, hy: sy + sh },
+      { handle: 'w', hx: sx, hy: sy + sh / 2 },
+      { handle: 'e', hx: sx + sw, hy: sy + sh / 2 },
+    ]
+
+    for (const h of handles) {
+      if (Math.abs(screenX - h.hx) <= HANDLE_HIT_SIZE && Math.abs(screenY - h.hy) <= HANDLE_HIT_SIZE) {
+        return { handle: h.handle, boxId: box.id }
+      }
+    }
+  }
+  return null
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -77,6 +137,20 @@ class DeleteModelBoxCommand implements Command {
   description = 'Delete model box'
 }
 
+class ChangeClassCommand implements Command {
+  constructor(private boxId: string, private oldClass: string, private newClass: string) {}
+
+  execute(annotations: BboxAnnotation[]): BboxAnnotation[] {
+    return annotations.map(a => a.id === this.boxId ? { ...a, classLabel: this.newClass } : a)
+  }
+
+  undo(annotations: BboxAnnotation[]): BboxAnnotation[] {
+    return annotations.map(a => a.id === this.boxId ? { ...a, classLabel: this.oldClass } : a)
+  }
+
+  description = 'Change class'
+}
+
 export default function BboxAnnotator({
   imageUrl,
   imageWidth,
@@ -98,6 +172,10 @@ export default function BboxAnnotator({
 
   const [annotations, setAnnotations] = useState<BboxAnnotation[]>(initialAnnotations)
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [resizing, setResizing] = useState<ResizingState>({
+    isResizing: false, boxId: '', handle: 'se', origX: 0, origY: 0, origWidth: 0, origHeight: 0
+  })
+  const [hoverCursor, setHoverCursor] = useState<string>('default')
 
   // Sync annotations when initialAnnotations changes (e.g., AI predictions loaded)
   useEffect(() => {
@@ -158,19 +236,8 @@ export default function BboxAnnotator({
     setUndoStack(prev => [...prev, command])
   }
 
-  // ═══════════════════════════════════════════════════════════
-  // COORDINATE TRANSFORMS
-  // ═══════════════════════════════════════════════════════════
-
-  /**
-   * Convert screen coordinates (canvas pixels) → image coordinates (actual image pixels)
-   */
-  const screenToImage = (screenX: number, screenY: number) => {
-    return {
-      x: screenX / scale,
-      y: screenY / scale
-    }
-  }
+  // Coordinate transforms live in src/utils/coordinates.ts — shared across
+  // annotation components. Use screenToImage / scaleBbox / fitScale from there.
 
   // Load and scale image
   useEffect(() => {
@@ -182,7 +249,7 @@ export default function BboxAnnotator({
     img.onload = () => {
       // Use most of the window width (minimal padding)
       const availableWidth = window.innerWidth - 100
-      const scale = availableWidth / imageWidth
+      const scale = fitScale(imageWidth, availableWidth)
 
       canvas.width = imageWidth * scale
       canvas.height = imageHeight * scale
@@ -221,8 +288,8 @@ export default function BboxAnnotator({
 
       // Draw current drawing box
       if (drawing.isDrawing) {
-        const start = screenToImage(drawing.startX, drawing.startY)
-        const end = screenToImage(drawing.currentX, drawing.currentY)
+        const start = screenToImage(drawing.startX, drawing.startY, scale)
+        const end = screenToImage(drawing.currentX, drawing.currentY, scale)
 
         drawBox(ctx, {
           x: Math.min(start.x, end.x) * scale,
@@ -237,12 +304,7 @@ export default function BboxAnnotator({
 
   const redrawAnnotations = (ctx: CanvasRenderingContext2D, boxes: BboxAnnotation[]) => {
     boxes.forEach((box, index) => {
-      const scaledBox = {
-        x: box.x * scale,
-        y: box.y * scale,
-        width: box.width * scale,
-        height: box.height * scale
-      }
+      const scaledBox = scaleBbox(box, scale)
       const isSelected = box.id === selectedId
       const isHighlighted = box.id === highlightedId
 
@@ -300,6 +362,28 @@ export default function BboxAnnotator({
       // Label text in white
       ctx.fillStyle = '#ffffff'
       ctx.fillText(labelText, scaledBox.x + padding, scaledBox.y - padding - 2)
+
+      // Draw resize handles for selected or hovered box
+      if (isSelected || isHighlighted) {
+        const hs = HANDLE_SIZE / 2
+        const handlePositions = [
+          { x: scaledBox.x, y: scaledBox.y },                                          // nw
+          { x: scaledBox.x + scaledBox.width, y: scaledBox.y },                        // ne
+          { x: scaledBox.x, y: scaledBox.y + scaledBox.height },                       // sw
+          { x: scaledBox.x + scaledBox.width, y: scaledBox.y + scaledBox.height },     // se
+          { x: scaledBox.x + scaledBox.width / 2, y: scaledBox.y },                    // n
+          { x: scaledBox.x + scaledBox.width / 2, y: scaledBox.y + scaledBox.height }, // s
+          { x: scaledBox.x, y: scaledBox.y + scaledBox.height / 2 },                   // w
+          { x: scaledBox.x + scaledBox.width, y: scaledBox.y + scaledBox.height / 2 }, // e
+        ]
+        for (const hp of handlePositions) {
+          ctx.fillStyle = '#ffffff'
+          ctx.fillRect(hp.x - hs, hp.y - hs, HANDLE_SIZE, HANDLE_SIZE)
+          ctx.strokeStyle = color
+          ctx.lineWidth = 1
+          ctx.strokeRect(hp.x - hs, hp.y - hs, HANDLE_SIZE, HANDLE_SIZE)
+        }
+      }
     })
   }
 
@@ -342,12 +426,60 @@ export default function BboxAnnotator({
   const zoomOut = () => setZoom(prev => Math.max(0.1, prev - 0.25))
   const resetZoom = () => setZoom(1)
 
+  // Apply a resize delta to a box based on which handle is being dragged
+  const applyResize = (
+    orig: { x: number; y: number; width: number; height: number },
+    handle: ResizeHandle,
+    deltaX: number,
+    deltaY: number,
+  ) => {
+    let { x, y, width, height } = orig
+    const MIN_SIZE = 10
+
+    switch (handle) {
+      case 'se': width += deltaX; height += deltaY; break
+      case 'nw': x += deltaX; y += deltaY; width -= deltaX; height -= deltaY; break
+      case 'ne': y += deltaY; width += deltaX; height -= deltaY; break
+      case 'sw': x += deltaX; width -= deltaX; height += deltaY; break
+      case 'n': y += deltaY; height -= deltaY; break
+      case 's': height += deltaY; break
+      case 'w': x += deltaX; width -= deltaX; break
+      case 'e': width += deltaX; break
+    }
+
+    // Enforce minimum size
+    if (width < MIN_SIZE) { width = MIN_SIZE }
+    if (height < MIN_SIZE) { height = MIN_SIZE }
+
+    return { x, y, width, height }
+  }
+
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     // Only handle left mouse button
     if (e.button !== 0) return
 
     const screenPos = getMousePos(e)
-    const imagePos = screenToImage(screenPos.x, screenPos.y)
+    const imagePos = screenToImage(screenPos.x, screenPos.y, scale)
+
+    // Check resize handles first (higher priority than box selection)
+    const hit = getHandleAtPoint(screenPos.x, screenPos.y, annotations, scale)
+    if (hit) {
+      const box = annotations.find(a => a.id === hit.boxId)
+      if (box) {
+        setSelectedId(hit.boxId)
+        onBoxSelected?.(hit.boxId)
+        setResizing({
+          isResizing: true,
+          boxId: hit.boxId,
+          handle: hit.handle,
+          origX: box.x,
+          origY: box.y,
+          origWidth: box.width,
+          origHeight: box.height,
+        })
+        return
+      }
+    }
 
     // Helper: check if point is inside a bbox (in image coordinates)
     const isPointInBox = (box: BboxAnnotation, point: { x: number, y: number }) => {
@@ -356,12 +488,20 @@ export default function BboxAnnotator({
     }
 
     // Check if clicking on any existing box (in image coordinates)
-    const clickedBox = annotations.find(box => isPointInBox(box, imagePos))
+    // Collect all overlapping boxes, smallest-area first (most specific box wins)
+    const overlapping = annotations
+      .filter(box => isPointInBox(box, imagePos))
+      .sort((a, b) => (a.width * a.height) - (b.width * b.height))
 
-    // Clicking a box selects it
-    if (clickedBox) {
-      setSelectedId(clickedBox.id)
-      onBoxSelected?.(clickedBox.id)  // Notify parent of selection
+    if (overlapping.length > 0) {
+      // Cycle: if the currently selected box is among the overlapping ones,
+      // pick the next one in the list so repeated clicks rotate through them
+      const currentIdx = overlapping.findIndex(b => b.id === selectedId)
+      const next = currentIdx >= 0
+        ? overlapping[(currentIdx + 1) % overlapping.length]
+        : overlapping[0]
+      setSelectedId(next.id)
+      onBoxSelected?.(next.id)
       return
     }
 
@@ -378,17 +518,78 @@ export default function BboxAnnotator({
   }
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!drawing.isDrawing) return
-
     const screenPos = getMousePos(e)
-    setDrawing(prev => ({
-      ...prev,
-      currentX: screenPos.x,
-      currentY: screenPos.y
-    }))
+
+    // Resizing in progress
+    if (resizing.isResizing) {
+      const imagePos = screenToImage(screenPos.x, screenPos.y, scale)
+      const origin = screenToImage(0, 0, scale)
+      const deltaX = imagePos.x - origin.x - resizing.origX
+      const deltaY = imagePos.y - origin.y - resizing.origY
+
+      // Compute absolute delta from original box position
+      const newRect = applyResize(
+        { x: resizing.origX, y: resizing.origY, width: resizing.origWidth, height: resizing.origHeight },
+        resizing.handle,
+        imagePos.x - (resizing.origX + (resizing.handle.includes('e') ? resizing.origWidth : resizing.handle.includes('w') ? 0 : resizing.origWidth / 2)),
+        imagePos.y - (resizing.origY + (resizing.handle.includes('s') ? resizing.origHeight : resizing.handle.includes('n') ? 0 : resizing.origHeight / 2)),
+      )
+
+      setAnnotations(prev => prev.map(a =>
+        a.id === resizing.boxId ? { ...a, ...newRect } : a
+      ))
+      return
+    }
+
+    // Drawing in progress
+    if (drawing.isDrawing) {
+      setDrawing(prev => ({
+        ...prev,
+        currentX: screenPos.x,
+        currentY: screenPos.y
+      }))
+      return
+    }
+
+    // Hover: update cursor based on handle proximity
+    const hit = getHandleAtPoint(screenPos.x, screenPos.y, annotations, scale)
+    setHoverCursor(hit ? HANDLE_CURSORS[hit.handle] : 'default')
   }
 
   const handleMouseUp = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    // Finish resizing
+    if (resizing.isResizing) {
+      const box = annotations.find(a => a.id === resizing.boxId)
+      if (box) {
+        // Record as a command for undo support: delete old, add new
+        const oldBox: BboxAnnotation = {
+          ...box,
+          x: resizing.origX,
+          y: resizing.origY,
+          width: resizing.origWidth,
+          height: resizing.origHeight,
+        }
+        // Create a resize command (delete old + add new)
+        const command = {
+          execute(anns: BboxAnnotation[]) {
+            return anns.map(a => a.id === box.id
+              ? { ...a, x: box.x, y: box.y, width: box.width, height: box.height } : a)
+          },
+          undo(anns: BboxAnnotation[]) {
+            return anns.map(a => a.id === box.id
+              ? { ...a, x: oldBox.x, y: oldBox.y, width: oldBox.width, height: oldBox.height } : a)
+          },
+          description: 'Resize box'
+        }
+        // Push to undo stack (annotations are already updated via live preview)
+        setUndoStack(prev => [...prev, command])
+        setRedoStack([])
+        onAnnotationsChange(annotations)
+      }
+      setResizing({ isResizing: false, boxId: '', handle: 'se', origX: 0, origY: 0, origWidth: 0, origHeight: 0 })
+      return
+    }
+
     if (!drawing.isDrawing) return
 
     const screenPos = getMousePos(e)
@@ -402,8 +603,8 @@ export default function BboxAnnotator({
     }
 
     // Convert screen coordinates to image coordinates
-    const startImage = screenToImage(drawing.startX, drawing.startY)
-    const endImage = screenToImage(screenPos.x, screenPos.y)
+    const startImage = screenToImage(drawing.startX, drawing.startY, scale)
+    const endImage = screenToImage(screenPos.x, screenPos.y, scale)
 
     // Create new annotation (in image coordinates)
     const newAnnotation: BboxAnnotation = {
@@ -437,13 +638,13 @@ export default function BboxAnnotator({
   const handleClassChange = (newClass: string) => {
     setCurrentClass(newClass)
 
-    // Also update selected box if any
+    // Update selected box via command pattern for undo support
     if (selectedId) {
-      const updatedAnnotations = annotations.map(a =>
-        a.id === selectedId ? { ...a, classLabel: newClass } : a
-      )
-      setAnnotations(updatedAnnotations)
-      onAnnotationsChange(updatedAnnotations)
+      const box = annotations.find(a => a.id === selectedId)
+      if (box && box.classLabel !== newClass) {
+        const command = new ChangeClassCommand(selectedId, box.classLabel, newClass)
+        executeCommand(command)
+      }
     }
   }
 
@@ -475,10 +676,8 @@ export default function BboxAnnotator({
 
       // Save (Ctrl+S or S)
       if (e.key === 's' || e.key === 'S') {
-        if (e.ctrlKey || e.metaKey || !e.ctrlKey) {  // Allow both Ctrl+S and just S
-          e.preventDefault()
-          onSaveRequested?.()
-        }
+        e.preventDefault()
+        onSaveRequested?.()
         return
       }
 
@@ -531,6 +730,30 @@ export default function BboxAnnotator({
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedId, annotations, undoStack, redoStack, onSaveRequested, onSkipRequested, onFlagRequested, onBackRequested, zoom])
+
+  // Handle mouseup outside canvas — cancel stuck drawing/resizing
+  useEffect(() => {
+    if (!drawing.isDrawing && !resizing.isResizing) return
+
+    const handleWindowMouseUp = (e: MouseEvent) => {
+      if (canvasRef.current?.contains(e.target as Node)) return
+
+      if (drawing.isDrawing) {
+        setDrawing({ isDrawing: false, startX: 0, startY: 0, currentX: 0, currentY: 0 })
+      }
+      if (resizing.isResizing) {
+        setAnnotations(prev => prev.map(a =>
+          a.id === resizing.boxId
+            ? { ...a, x: resizing.origX, y: resizing.origY, width: resizing.origWidth, height: resizing.origHeight }
+            : a
+        ))
+        setResizing({ isResizing: false, boxId: '', handle: 'se', origX: 0, origY: 0, origWidth: 0, origHeight: 0 })
+      }
+    }
+
+    window.addEventListener('mouseup', handleWindowMouseUp)
+    return () => window.removeEventListener('mouseup', handleWindowMouseUp)
+  }, [drawing.isDrawing, resizing.isResizing, resizing.boxId, resizing.origX, resizing.origY, resizing.origWidth, resizing.origHeight])
 
   return (
     <div className="bbox-annotator">
@@ -706,7 +929,7 @@ export default function BboxAnnotator({
               onMouseUp={handleMouseUp}
               style={{
                 display: 'block',
-                cursor: drawing.isDrawing ? 'crosshair' : 'default',
+                cursor: drawing.isDrawing ? 'crosshair' : resizing.isResizing ? HANDLE_CURSORS[resizing.handle] : hoverCursor,
                 userSelect: 'none',
                 transform: `scale(${zoom})`,
                 transformOrigin: 'top left'
