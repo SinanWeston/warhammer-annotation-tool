@@ -57,7 +57,10 @@ Full details: `/debug` skill
 Update `SPEC.md` (root) when making architecture changes. Show before/after comparison format. Structural changes only — not bug fixes or typos.
 
 ## Skills
-`/test` — full test suite (TS + Python). `/export` — YOLO dataset export/validation. `/debug` — troubleshooting, logs, iOS gotchas.
+`/test` — full test suite (TS + Python). `/export` — YOLO dataset export/validation. `/debug` — troubleshooting, logs, iOS gotchas. `/strategy` — current STRATEGY.md phase + next step. `/bench` — run/review CV model benchmarks. `/ship` — pre-push checklist (typecheck+tests+secret-scan). `/dev` — start dev servers.
+
+## .claude/ environment
+See `.claude/README.md` for hooks, agents, skills, and status line. Specialist agents available: `cv-researcher` (literature review), `annotation-reviewer` (audit annotation corpus), `bench-runner` (record benchmark results).
 
 ## Constraints
 - NEVER commit files in `images/` or `runs/` to git (training data ~50GB)

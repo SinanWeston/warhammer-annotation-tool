@@ -1,0 +1,137 @@
+# .claude/ — project environment
+
+Project-local Claude Code configuration for the Warhammer 40K miniature recognition project. Everything here is version-controlled and applies to anyone who opens this repo in Claude Code.
+
+User-specific overrides live in `.claude/settings.local.json` (gitignored).
+
+## Layout
+
+```
+.claude/
+├── README.md              (this file)
+├── settings.json          (hooks, status line, permissions — tracked)
+├── settings.local.json    (user overrides — gitignored)
+├── hooks/                 (shell scripts, one per event)
+│   ├── block-large-commits.sh
+│   ├── protect-model.sh
+│   ├── protect-strategy.sh
+│   ├── session-start.sh
+│   ├── statusline.sh
+│   ├── autocheck-ts.sh
+│   └── autocheck-py.sh
+├── agents/                (specialist subagents, one .md per agent)
+│   ├── cv-researcher.md
+│   ├── annotation-reviewer.md
+│   └── bench-runner.md
+└── skills/                (slash commands, one dir per skill)
+    ├── debug/SKILL.md
+    ├── export/SKILL.md
+    ├── test/SKILL.md
+    ├── strategy/SKILL.md
+    ├── bench/SKILL.md
+    ├── ship/SKILL.md
+    └── dev/SKILL.md
+```
+
+## Hooks
+
+Every hook is silent on success and informative on action. They never block
+legitimate work — they surface issues and let the user decide.
+
+| Hook | Event | Purpose |
+|---|---|---|
+| `block-large-commits.sh` | PreToolUse(Bash) | Refuses `git add -A` / `git add .` / staging of training images or model weights. Parses the actual command via jq — does **not** trip on commit messages that mention those patterns as text. |
+| `protect-model.sh` | PreToolUse(Write\|Edit) | Guards `runs/*.pt` from accidental edits. |
+| `protect-strategy.sh` | PreToolUse(Write\|Edit) | Surfaces a reminder whenever `STRATEGY.md` is edited — prompts a deliberate update vs drift. Non-blocking. |
+| `session-start.sh` | SessionStart | Prints a one-screen project snapshot: branch, commits ahead, dirty count, last commit, current strategy phase, annotation count. |
+| `statusline.sh` | statusLine | Compact live status: `⎇ branch · ◈ Phase N · ●dirty · N%ctx`. |
+| `autocheck-ts.sh` | PostToolUse(Write\|Edit) | After any `.ts` / `.tsx` edit, runs `tsc --noEmit` on the workspace that owns the file. Emits errors as additionalContext; won't block the edit. |
+| `autocheck-py.sh` | PostToolUse(Write\|Edit) | After any `.py` edit, runs `python -m py_compile` for a syntax check. Uses `yolo_env/bin/python3` if present. |
+
+### Anti-patterns to avoid when adding hooks
+
+- **Don't grep the raw JSON input.** Parse `.tool_input.command` (etc.) with `jq` so hook logic doesn't trip on commit messages or file contents that mention patterns as text. The older version of `block-large-commits.sh` had exactly this bug.
+- **Don't emit chatty success output.** Exit 0 with `{}` on the no-op path. Reserve stdout for the cases that actually need user/Claude attention.
+- **Don't omit `timeout`.** The typecheck hook has a 45s cap; the fast hooks use 5–10s. A hung hook blocks the turn.
+
+## Agents
+
+Specialist subagents for heavy, context-hungry work. Each runs in an
+isolated context window and returns a structured report.
+
+| Agent | Model | When to use |
+|---|---|---|
+| `cv-researcher` | opus | Literature review, benchmark lookup, new-model validation. Invoked when a CV/ML decision needs evidence. Always checks `STRATEGY.md` + `docs/STRATEGY_SOURCES.md` first to avoid repeat research. |
+| `annotation-reviewer` | sonnet | Audits `backend/training_data_annotations/` for label consistency, bbox sanity, annotator drift. Read-only — reports findings, does not modify annotations. |
+| `bench-runner` | sonnet | Executes a benchmark run and records the result under `docs/benchmarks/YYYY-MM-DD-<slug>.md` using the canonical KPIs from `STRATEGY.md` §8. |
+
+Invoke via the Agent tool with `subagent_type: "<agent-name>"`. See each
+agent's frontmatter description for trigger phrases.
+
+## Skills (slash commands)
+
+Invokable as `/name [args]` or via the Skill tool. These are workflow
+playbooks — Claude runs the steps, not a static script.
+
+| Skill | Purpose |
+|---|---|
+| `/debug` | Log locations, iOS Safari gotchas, common pitfalls. Reference. |
+| `/export` | YOLO dataset export + validation before a training run. |
+| `/test` | Run all TS + Python test suites. |
+| `/strategy` | Print STRATEGY.md phase status and next step. Read-only. |
+| `/bench [model]` | Review past benchmarks or delegate a new run to `bench-runner`. |
+| `/ship` | Pre-push checklist: typecheck all workspaces, run tests, scan diff for secrets, sanity-check docs. |
+| `/dev [workspace]` | Start dev servers with the right ports. |
+
+## Status line
+
+Shown in the Claude Code UI at all times. Format:
+
+```
+⎇ main · ◈ Phase 1 · ●3 · 42%ctx
+```
+
+- `⎇` branch name
+- `◈` current active strategy phase (from STRATEGY.md Status table)
+- `●` dirty file count (hidden when clean)
+- `%ctx` context-window usage
+
+The status line is generated by `hooks/statusline.sh`.
+
+## Extending the environment
+
+### Adding a hook
+
+1. Write the script in `.claude/hooks/`. Parse stdin with `jq`. Emit a JSON
+   hook-response on stdout or an empty `{}` on the no-op path.
+2. `chmod +x` the script.
+3. Add an entry under the relevant event in `settings.json`.
+4. Test by piping synthetic JSON input through the script by hand before
+   wiring it into a session.
+
+### Adding a skill
+
+1. `mkdir .claude/skills/<name>`.
+2. Write `SKILL.md` with a YAML frontmatter (`name`, `description`,
+   optional `argument-hint`) followed by the playbook prose. Use
+   `$ARGUMENTS` or `${CLAUDE_PROJECT_DIR}` where helpful.
+3. The skill is discoverable as `/<name>` immediately.
+
+### Adding an agent
+
+1. `touch .claude/agents/<name>.md`.
+2. Frontmatter must include `name`, `description`, `tools`, and ideally
+   `model`. The body is the system prompt for the subagent.
+3. Reference the agent from other skills or agents via `subagent_type: "<name>"`.
+
+## Troubleshooting
+
+- **Hook doesn't run**: check `chmod +x` on the script; verify the path in
+  `settings.json` uses `${CLAUDE_PROJECT_DIR}` so it works regardless of
+  where Claude Code is invoked from.
+- **Hook blocks the wrong thing**: run it manually with sample JSON on
+  stdin to see what pattern it's matching. Prefer strict `jq` extraction
+  over regex on raw input.
+- **`/strategy` shows "Phase 0" when a phase is in progress**: update the
+  Status table at the bottom of `STRATEGY.md` — status lines other than
+  "Not started" or "Deferred" are considered active.
