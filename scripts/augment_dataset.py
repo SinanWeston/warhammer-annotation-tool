@@ -62,6 +62,9 @@ def main():
         A.HueSaturationValue(hue_shift_limit=10, sat_shift_limit=20, val_shift_limit=15, p=0.3),
         A.GaussianBlur(blur_limit=(3, 5), p=0.2),
         A.ImageCompression(quality_lower=70, quality_upper=100, p=0.3),
+        A.Downscale(scale_min=0.5, scale_max=0.9, p=0.3),
+        A.RandomShadow(p=0.2),
+        A.CLAHE(p=0.2),
     ], bbox_params=A.BboxParams(format='yolo', label_fields=['class_labels'], min_visibility=0.3))
 
     # Process train split
