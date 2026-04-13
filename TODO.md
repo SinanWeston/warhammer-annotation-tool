@@ -3,6 +3,8 @@
 Prioritized improvements based on codebase audit and spec review (March 2026).
 Ordered by impact and risk. Honest disagreements noted inline.
 
+> **April 2026 update — read [STRATEGY.md](STRATEGY.md) first.** The architectural direction has shifted from "scale end-to-end YOLO to 900 classes" to "class-agnostic detection + retrieval against a reference gallery". Items below remain useful but should be re-evaluated against the strategy before execution. Items that are purely YOLO-scaling (e.g. "Switch to YOLO11s/m with heavy augmentation" in §2.5) are demoted.
+
 ---
 
 ## Tier 1 — Do Now (high impact, low risk)

@@ -1,7 +1,8 @@
 # Warhammer 40K Miniature Recogniser — Project Overview
 
-**Last updated**: March 2026
+**Last updated**: April 2026
 **Status**: Active development — annotation in progress, first model trained
+**Architectural direction**: See [STRATEGY.md](STRATEGY.md) — pivoting from end-to-end YOLO to a three-tier detection + retrieval pipeline
 
 ---
 

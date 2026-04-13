@@ -50,6 +50,9 @@ Full details: `/debug` skill
 - **Model**: `runs/yolo11_colab_best.pt`
 - **Logs**: `backend/logs/all.log`, `backend/logs/error.log`
 
+## STRATEGY.md
+`STRATEGY.md` at repo root is the guiding-star architectural plan. **Read it before proposing any modelling change.** It sets the direction: move from end-to-end YOLO to a three-tier pipeline (class-agnostic detection → faction classifier → unit retrieval against a reference gallery). If a change would contradict STRATEGY.md, flag that explicitly and either update the strategy deliberately or reconsider the change.
+
 ## SPEC.md
 Update `SPEC.md` (root) when making architecture changes. Show before/after comparison format. Structural changes only — not bug fixes or typos.
 
