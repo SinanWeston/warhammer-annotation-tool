@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warhammer 40K Miniature Analyzer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #1e1e2e 0%, #2d2d44 100%);
+      color: #e0e0e0;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: #a0a0a0;
+      font-size: 1.1rem;
+    }
+
+    .upload-zone {
+      background: #2d2d44;
+      border: 3px dashed #667eea;
+      border-radius: 12px;
+      padding: 60px 40px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+
+    .upload-zone:hover {
+      border-color: #764ba2;
+      background: #353555;
+    }
+
+    .upload-zone.dragover {
+      border-color: #764ba2;
+      background: #353555;
+      transform: scale(1.02);
+    }
+
+    .upload-icon {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    .upload-text {
+      font-size: 1.2rem;
+      color: #a0a0a0;
+    }
+
+    .upload-hint {
+      font-size: 0.9rem;
+      color: #707070;
+      margin-top: 10px;
+    }
+
+    #fileInput {
+      display: none;
+    }
+
+    .status {
+      background: #2d2d44;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+      display: none;
+    }
+
+    .status.show {
+      display: block;
+    }
+
+    .status.analyzing {
+      border-left: 4px solid #667eea;
+    }
+
+    .status.success {
+      border-left: 4px solid #4caf50;
+    }
+
+    .status.error {
+      border-left: 4px solid #f44336;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #667eea;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .results {
+      background: #2d2d44;
+      border-radius: 12px;
+      padding: 30px;
+      display: none;
+    }
+
+    .results.show {
+      display: block;
+    }
+
+    .results-header {
+      border-bottom: 2px solid #667eea;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+    }
+
+    .results-title {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .results-meta {
+      color: #a0a0a0;
+      font-size: 0.95rem;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .unit-card {
+      background: #353555;
+      border-radius: 8px;
+      padding: 20px;
+      border-left: 4px solid #667eea;
+    }
+
+    .unit-name {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .unit-faction {
+      color: #a0a0a0;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+    }
+
+    .unit-count {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .detections-list {
+      margin-top: 30px;
+    }
+
+    .detections-title {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #444;
+    }
+
+    .detection-item {
+      background: #353555;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .detection-info {
+      flex: 1;
+    }
+
+    .detection-unit {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .detection-details {
+      font-size: 0.85rem;
+      color: #a0a0a0;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      margin-left: 8px;
+    }
+
+    .badge.tier1 {
+      background: #4caf50;
+      color: white;
+    }
+
+    .badge.tier2 {
+      background: #2196f3;
+      color: white;
+    }
+
+    .badge.tier3 {
+      background: #ff9800;
+      color: white;
+    }
+
+    .badge.triangulated {
+      background: #9c27b0;
+      color: white;
+    }
+
+    .badge.disagreement {
+      background: #f44336;
+      color: white;
+    }
+
+    .confidence {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #667eea;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎲 Warhammer 40K Miniature Analyzer</h1>
+      <p class="subtitle">AI-powered detection and identification with 100% counting accuracy</p>
+      <p style="margin-top:12px;font-size:14px"><a href="/label" style="color:#d4a050">→ Phase 1 labelling tool</a></p>
+    </header>
+
+    <div class="upload-zone" id="uploadZone">
+      <div class="upload-icon">📸</div>
+      <div class="upload-text">Drop your miniature image here or click to browse</div>
+      <div class="upload-hint">Supports JPG, PNG, WEBP</div>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <div class="status" id="status"></div>
+
+    <div class="results" id="results"></div>
+  </div>
+
+  <script>
+    const uploadZone = document.getElementById('uploadZone')
+    const fileInput = document.getElementById('fileInput')
+    const status = document.getElementById('status')
+    const results = document.getElementById('results')
+
+    // Click to upload
+    uploadZone.addEventListener('click', () => {
+      fileInput.click()
+    })
+
+    // File selected
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files[0]
+      if (file) analyzeImage(file)
+    })
+
+    // Drag and drop
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault()
+      uploadZone.classList.add('dragover')
+    })
+
+    uploadZone.addEventListener('dragleave', () => {
+      uploadZone.classList.remove('dragover')
+    })
+
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault()
+      uploadZone.classList.remove('dragover')
+      const file = e.dataTransfer.files[0]
+      if (file && file.type.startsWith('image/')) {
+        analyzeImage(file)
+      }
+    })
+
+    async function analyzeImage(file) {
+      // Show analyzing status
+      status.className = 'status show analyzing'
+      status.innerHTML = '<div><span class="spinner"></span>Analyzing image through three-pass pipeline...</div>'
+      results.classList.remove('show')
+
+      try {
+        const formData = new FormData()
+        formData.append('image', file)
+
+        const response = await fetch('http://localhost:3002/api/analyze', {
+          method: 'POST',
+          body: formData
+        })
+
+        const data = await response.json()
+
+        if (data.success) {
+          displayResults(data.data)
+          status.className = 'status show success'
+          status.innerHTML = `<div>✓ Analysis complete in ${data.data.metadata.processingTimeMs}ms</div>`
+        } else {
+          throw new Error(data.error)
+        }
+      } catch (error) {
+        status.className = 'status show error'
+        status.innerHTML = `<div>✗ Error: ${error.message}</div>`
+      }
+    }
+
+    function displayResults(data) {
+      const { detections, summary, metadata } = data
+
+      let html = `
+        <div class="results-header">
+          <div class="results-title">Analysis Results</div>
+          <div class="results-meta">
+            Found ${summary.totalCount} miniatures |
+            Detection: ${metadata.detection.processingTimeMs}ms |
+            Classification: ${metadata.classification.processingTimeMs}ms |
+            Validation: ${metadata.validation.processingTimeMs}ms
+          </div>
+        </div>
+      `
+
+      // Summary by unit
+      html += '<div class="summary">'
+      summary.models.forEach(model => {
+        html += `
+          <div class="unit-card">
+            <div class="unit-name">${model.unit}</div>
+            <div class="unit-faction">${model.faction}</div>
+            <div class="unit-count">${model.count}×</div>
+          </div>
+        `
+      })
+      html += '</div>'
+
+      // Detailed detections
+      html += '<div class="detections-list">'
+      html += '<div class="detections-title">Detailed Detections</div>'
+
+      detections.forEach((det, i) => {
+        const badges = []
+        badges.push(`<span class="badge ${det.tier}">${det.tier.toUpperCase()}</span>`)
+        if (det.triangulated) {
+          badges.push(`<span class="badge triangulated">TRIANGULATED</span>`)
+        }
+        if (det.disagreement) {
+          badges.push(`<span class="badge disagreement">DISAGREEMENT</span>`)
+        }
+
+        html += `
+          <div class="detection-item">
+            <div class="detection-info">
+              <div class="detection-unit">#${i + 1}: ${det.unit}</div>
+              <div class="detection-details">
+                ${det.faction} ${badges.join('')}
+              </div>
+            </div>
+            <div class="confidence">${(det.confidence * 100).toFixed(0)}%</div>
+          </div>
+        `
+      })
+
+      html += '</div>'
+
+      results.innerHTML = html
+      results.classList.add('show')
+    }
+  </script>
+</body>
+</html>

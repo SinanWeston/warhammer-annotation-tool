@@ -1,0 +1,23 @@
+{
+  "name": "warhammer-analyzer",
+  "version": "1.0.0",
+  "description": "Modular AI-powered Warhammer 40K miniature analyzer",
+  "type": "module",
+  "scripts": {
+    "dev": "node backend/src/index.js",
+    "dev:frontend": "node server.js",
+    "install:backend": "cd backend && npm install",
+    "start": "node backend/src/index.js"
+  },
+  "keywords": [
+    "warhammer",
+    "ai",
+    "image-analysis",
+    "bbox-detection"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

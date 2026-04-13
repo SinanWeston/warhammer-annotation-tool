@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Warhammer Labeller — Phase 1</title>
+  <style>
+    :root {
+      --bg: #0f0f1a;
+      --bg-card: #1a1a2e;
+      --bg-pill: #242442;
+      --bg-pill-hover: #323256;
+      --accent: #b266ff;
+      --accent-strong: #9333ea;
+      --gold: #d4a050;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --muted: #888;
+      --text: #e5e5e5;
+      --border: #333349;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+    }
+    header h1 small {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 400;
+      margin-left: 8px;
+    }
+    #progress-summary {
+      color: var(--muted);
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+    #progress-summary b { color: var(--text); }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: minmax(280px, 1fr) 340px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 820px) { main { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .crop-viewer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .crop-frame {
+      background: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+    }
+    .crop-frame img {
+      display: block;
+      max-width: 100%;
+      max-height: 480px;
+      height: auto;
+    }
+
+    .crop-meta {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .crop-meta .faction {
+      color: var(--gold);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+
+    .nav-row {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+    button {
+      font-family: inherit;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg-pill);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    button:hover:not(:disabled) { background: var(--bg-pill-hover); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    button.primary {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+      color: #fff;
+      font-weight: 600;
+    }
+    button.primary:hover:not(:disabled) { background: var(--accent); }
+
+    .suggest-area {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .suggest-area h2 {
+      font-size: 13px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .top-suggestion {
+      padding: 14px;
+      background: rgba(147, 51, 234, 0.1);
+      border: 1px solid rgba(147, 51, 234, 0.4);
+      border-radius: 8px;
+    }
+    .top-suggestion .slug {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 600;
+      word-break: break-word;
+    }
+    .top-suggestion .conf {
+      color: var(--muted);
+      font-size: 12px;
+      margin-left: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+    .top-suggestion .reason {
+      color: var(--text);
+      font-size: 13px;
+      margin-top: 8px;
+      opacity: 0.8;
+      font-style: italic;
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .pill {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 12px;
+      padding: 5px 10px;
+      background: var(--bg-pill);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .pill:hover { background: var(--bg-pill-hover); }
+    .pill.selected {
+      background: var(--accent-strong);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 13px;
+    }
+    input[type="text"]:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    label.small-label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .status-line {
+      min-height: 20px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .status-line.success { color: var(--good); }
+    .status-line.error { color: var(--bad); }
+
+    .footer-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .footer-actions button { flex: 1; }
+
+    .spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid var(--muted);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    kbd {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 11px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 1px 5px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Warhammer Labeller <small>Phase 1 · scripts/phase1/labels.csv</small></h1>
+    <div id="progress-summary">Loading…</div>
+  </header>
+
+  <main>
+    <section class="panel crop-viewer">
+      <div class="crop-frame">
+        <img id="crop-img" alt="crop" />
+      </div>
+      <div class="crop-meta">
+        <span class="faction" id="crop-faction"></span>
+        <span id="crop-filename"></span>
+        <br />
+        <span id="crop-position"></span>
+      </div>
+      <div class="nav-row">
+        <button id="btn-prev" title="Previous (←)">← Prev</button>
+        <button id="btn-skip" title="Skip (Space)">Skip</button>
+        <button id="btn-next" title="Next (→)">Next →</button>
+      </div>
+    </section>
+
+    <aside class="panel suggest-area">
+      <div>
+        <h2>AI suggestion</h2>
+        <div id="top-suggestion" class="top-suggestion">
+          <span class="spinner"></span><span class="slug">loading…</span>
+        </div>
+      </div>
+
+      <div>
+        <h2>Alternatives (click to select)</h2>
+        <div id="alternatives-pills" class="pill-group"></div>
+      </div>
+
+      <div>
+        <label for="slug-input" class="small-label">Or type your own slug</label>
+        <input id="slug-input" type="text" placeholder="e.g. legionaries" autocomplete="off" />
+      </div>
+
+      <div>
+        <label for="notes-input" class="small-label">Notes (optional)</label>
+        <input id="notes-input" type="text" placeholder="" autocomplete="off" />
+      </div>
+
+      <div class="footer-actions">
+        <button id="btn-save" class="primary" title="Save and advance (Enter)">Save &amp; next</button>
+        <button id="btn-refresh" title="Re-ask AI">Re-suggest</button>
+      </div>
+
+      <div id="status" class="status-line" aria-live="polite"></div>
+
+      <div style="font-size:11px;color:var(--muted);line-height:1.8;margin-top:4px;border-top:1px solid var(--border);padding-top:10px">
+        <kbd>←</kbd> / <kbd>→</kbd> prev/next &nbsp;•&nbsp;
+        <kbd>Space</kbd> skip &nbsp;•&nbsp;
+        <kbd>Enter</kbd> save &nbsp;•&nbsp;
+        <kbd>R</kbd> re-suggest
+      </div>
+    </aside>
+  </main>
+
+  <script>
+    const API = window.location.origin.includes(':3003')
+      ? 'http://localhost:3002'
+      : ''  // when served by the backend itself
+
+    const state = {
+      crops: [],
+      idx: 0,
+      currentSuggestion: null,
+      selectedSlug: '',
+    }
+
+    const $ = (id) => document.getElementById(id)
+    const setStatus = (text, klass = '') => {
+      const el = $('status')
+      el.textContent = text
+      el.className = 'status-line' + (klass ? ' ' + klass : '')
+    }
+
+    function updateProgress() {
+      const labelled = state.crops.filter((c) => c.labelled).length
+      $('progress-summary').innerHTML =
+        `<b>${labelled}</b> / <b>${state.crops.length}</b> labelled · ` +
+        `viewing <b>${state.idx + 1}</b>`
+    }
+
+    function findFirstUnlabelled(fromIdx = 0) {
+      for (let i = fromIdx; i < state.crops.length; i++) {
+        if (!state.crops[i].labelled) return i
+      }
+      return fromIdx
+    }
+
+    async function loadCrops() {
+      const res = await fetch(`${API}/api/labelling/crops`)
+      const json = await res.json()
+      if (!json.success) throw new Error(json.error || 'Failed to load crops')
+      state.crops = json.data.crops
+      state.idx = findFirstUnlabelled(0)
+      updateProgress()
+      await renderCurrent()
+    }
+
+    async function renderCurrent() {
+      const crop = state.crops[state.idx]
+      if (!crop) {
+        setStatus('No crops available', 'error')
+        return
+      }
+      $('crop-img').src = `${API}/api/labelling/crops/${crop.id}/image`
+      $('crop-faction').textContent = crop.faction
+      $('crop-filename').textContent = crop.filename
+      $('crop-position').textContent =
+        `${state.idx + 1} of ${state.crops.length}` +
+        (crop.labelled ? ` · already labelled as "${crop.unit_slug}"` : '')
+      $('slug-input').value = crop.unit_slug || ''
+      $('notes-input').value = crop.notes || ''
+      state.selectedSlug = crop.unit_slug || ''
+      $('alternatives-pills').innerHTML = '<span style="color:var(--muted);font-size:12px">loading…</span>'
+      $('top-suggestion').innerHTML = '<span class="spinner"></span><span class="slug">asking the AI…</span>'
+      updateProgress()
+      setStatus('')
+      fetchSuggestion(crop.id)
+    }
+
+    async function fetchSuggestion(cropId) {
+      try {
+        const res = await fetch(`${API}/api/labelling/crops/${cropId}/suggest`, { method: 'POST' })
+        const json = await res.json()
+        if (!json.success) throw new Error(json.error || 'suggest failed')
+        // If the user navigated elsewhere while we were waiting, bail.
+        if (state.crops[state.idx].id !== cropId) return
+        state.currentSuggestion = json.data
+        renderSuggestion(json.data)
+      } catch (err) {
+        $('top-suggestion').innerHTML =
+          `<span style="color:var(--bad);font-size:13px">AI suggestion failed: ${err.message}</span>`
+        $('alternatives-pills').innerHTML = ''
+      }
+    }
+
+    function renderSuggestion(data) {
+      const top = data.top
+      const topHtml = `
+        <span class="slug">${top.unit}</span>
+        <span class="conf">${top.confidence != null ? (top.confidence * 100).toFixed(0) + '%' : ''}</span>
+        ${top.reasoning ? `<div class="reason">${escapeHtml(top.reasoning)}</div>` : ''}
+      `
+      $('top-suggestion').innerHTML = topHtml
+      $('top-suggestion').style.cursor = 'pointer'
+      $('top-suggestion').onclick = () => pickSlug(top.unit)
+
+      // Build pills: top first (marked selected if matches input), then alternatives.
+      const currentInput = $('slug-input').value.trim()
+      const allPills = [top.unit, ...data.alternatives.map((a) => a.unit)].filter(
+        (v, i, arr) => v && arr.indexOf(v) === i
+      )
+      $('alternatives-pills').innerHTML = allPills
+        .map((slug) => {
+          const sel = slug === currentInput ? 'selected' : ''
+          return `<span class="pill ${sel}" data-slug="${escapeHtml(slug)}">${escapeHtml(slug)}</span>`
+        })
+        .join('')
+      for (const el of document.querySelectorAll('.pill')) {
+        el.addEventListener('click', () => pickSlug(el.dataset.slug))
+      }
+    }
+
+    function pickSlug(slug) {
+      $('slug-input').value = slug
+      state.selectedSlug = slug
+      // Visual feedback.
+      for (const p of document.querySelectorAll('.pill')) {
+        p.classList.toggle('selected', p.dataset.slug === slug)
+      }
+    }
+
+    async function saveCurrent() {
+      const crop = state.crops[state.idx]
+      const slug = $('slug-input').value.trim()
+      const notes = $('notes-input').value.trim()
+      if (!slug) {
+        setStatus('Enter a unit slug first', 'error')
+        return
+      }
+      setStatus('Saving…')
+      try {
+        const res = await fetch(`${API}/api/labelling/crops/${crop.id}/label`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ unit_slug: slug, notes }),
+        })
+        const json = await res.json()
+        if (!json.success) throw new Error(json.error || 'save failed')
+        crop.labelled = true
+        crop.unit_slug = slug
+        crop.notes = notes
+        setStatus(`Saved ${slug}`, 'success')
+        updateProgress()
+        // Advance to the next unlabelled.
+        const next = findFirstUnlabelled(state.idx + 1)
+        if (next !== state.idx) {
+          state.idx = next
+          await renderCurrent()
+        } else if (state.crops.every((c) => c.labelled)) {
+          setStatus('🎉 All crops labelled!', 'success')
+        }
+      } catch (err) {
+        setStatus(`Save failed: ${err.message}`, 'error')
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+    }
+
+    // Nav handlers
+    $('btn-prev').onclick = () => {
+      if (state.idx > 0) { state.idx--; renderCurrent() }
+    }
+    $('btn-next').onclick = () => {
+      if (state.idx < state.crops.length - 1) { state.idx++; renderCurrent() }
+    }
+    $('btn-skip').onclick = () => {
+      if (state.idx < state.crops.length - 1) { state.idx++; renderCurrent() }
+    }
+    $('btn-save').onclick = saveCurrent
+    $('btn-refresh').onclick = () => fetchSuggestion(state.crops[state.idx].id)
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT') {
+        if (e.key === 'Enter') { e.preventDefault(); saveCurrent() }
+        return
+      }
+      switch (e.key) {
+        case 'ArrowLeft': $('btn-prev').click(); break
+        case 'ArrowRight': $('btn-next').click(); break
+        case ' ': e.preventDefault(); $('btn-skip').click(); break
+        case 'Enter': e.preventDefault(); saveCurrent(); break
+        case 'r': case 'R': $('btn-refresh').click(); break
+      }
+    })
+
+    loadCrops().catch((err) => setStatus(`Failed to load: ${err.message}`, 'error'))
+  </script>
+</body>
+</html>

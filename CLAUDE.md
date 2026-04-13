@@ -62,6 +62,12 @@ Update `SPEC.md` (root) when making architecture changes. Show before/after comp
 ## .claude/ environment
 See `.claude/README.md` for hooks, agents, skills, and status line. Specialist agents available: `cv-researcher` (literature review), `annotation-reviewer` (audit annotation corpus), `bench-runner` (record benchmark results).
 
+## warhammer-analyzer/ sub-project
+`warhammer-analyzer/` is an LLM-based analyzer + AI-assisted labelling tool that lives inside this repo. Two modes:
+- `/api/analyze` (port 3002) + `/` (port 3003) — original three-pass pipeline (kept as legacy / reference for STRATEGY.md Tier 4).
+- `/api/labelling/*` + `/label` — Phase 1 helper. Reads `scripts/phase1/crops/`, suggests unit slugs via OpenRouter, writes `scripts/phase1/labels.csv`.
+Run both via `cd warhammer-analyzer && npm run dev` (backend) and `npm run dev:frontend`. Needs `OPENROUTER_API_KEY` (or a native provider key) in `warhammer-analyzer/.env`.
+
 ## Constraints
 - NEVER commit files in `images/` or `runs/` to git (training data ~50GB)
 - NEVER modify `runs/*.pt` — trained model files are read-only
