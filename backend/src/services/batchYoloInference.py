@@ -11,11 +11,12 @@ import json
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: batchYoloInference.py <model_path> <image_list_file>", file=sys.stderr)
+        print("Usage: batchYoloInference.py <model_path> <image_list_file> [confidence]", file=sys.stderr)
         sys.exit(1)
 
     model_path = sys.argv[1]
     image_list_file = sys.argv[2]
+    confidence = float(sys.argv[3]) if len(sys.argv) > 3 else 0.10
 
     from ultralytics import YOLO
     model = YOLO(model_path)
@@ -25,7 +26,7 @@ def main():
 
     for img_path in image_paths:
         try:
-            results = model.predict(img_path, conf=0.10, verbose=False)
+            results = model.predict(img_path, conf=confidence, verbose=False)
             confs = []
             for r in results:
                 for box in r.boxes:

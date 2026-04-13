@@ -12,7 +12,7 @@
 
 import { spawn, ChildProcess } from 'child_process'
 import fs from 'fs/promises'
-import path from 'path'
+import { config } from '../config'
 import logger from '../utils/logger'
 
 interface ConfidenceScore {
@@ -38,12 +38,14 @@ class ActiveLearningService {
   private modelPath: string
   private pythonPath: string
   private scriptPath: string
+  private batchConfidence: number
 
   constructor() {
-    this.scoresPath = path.join(__dirname, '../../confidence_scores.json')
-    this.modelPath = path.join(__dirname, '../../../runs/yolo11_colab_best.pt')
-    this.pythonPath = path.join(__dirname, '../../../yolo_env/bin/python3')
-    this.scriptPath = path.join(__dirname, './batchYoloInference.py')
+    this.scoresPath = config.paths.confidenceScores
+    this.modelPath = config.paths.yoloModel
+    this.pythonPath = config.paths.pythonBin
+    this.scriptPath = config.paths.batchInferenceScript
+    this.batchConfidence = config.yolo.batchConfidence
   }
 
   /**
@@ -107,7 +109,12 @@ class ActiveLearningService {
       this.ensureScoresLoaded().then(() => {
         logger.info(`🤖 Starting batch inference on ${imagesToProcess.length} images`)
 
-        const python = spawn(this.pythonPath, [this.scriptPath, this.modelPath, listPath])
+        const python = spawn(this.pythonPath, [
+          this.scriptPath,
+          this.modelPath,
+          listPath,
+          String(this.batchConfidence),
+        ])
         this.batchProcess = python
 
         let buffer = ''
@@ -198,14 +205,14 @@ class ActiveLearningService {
       imageId: string
       imagePath: string
       faction: string
-      source: 'reddit' | 'dakkadakka'
+      source: string
     }>,
     priorityFactions?: string[]
   ): {
     imageId: string
     imagePath: string
     faction: string
-    source: 'reddit' | 'dakkadakka'
+    source: string
     confidenceScore?: number
   } | null {
     if (unannotatedImages.length === 0) return null

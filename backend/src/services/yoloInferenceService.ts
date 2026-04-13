@@ -4,7 +4,7 @@
  */
 
 import { spawn } from 'child_process'
-import path from 'path'
+import { config } from '../config'
 import logger from '../utils/logger'
 
 export interface PredictedBox {
@@ -23,11 +23,6 @@ export interface PredictionResult {
   inferenceTime: number
 }
 
-// Path to the trained model
-// Run 2: YOLO11x, 593 images, 15 classes, best epoch 83, mAP50 39.9%
-const MODEL_PATH = path.join(__dirname, '../../../runs/yolo11x_run2_best.pt')
-const PYTHON_ENV = path.join(__dirname, '../../../yolo_env/bin/python3')
-
 /**
  * Run YOLO inference on an image
  */
@@ -40,8 +35,8 @@ import sys
 import json
 from ultralytics import YOLO
 
-model = YOLO('${MODEL_PATH}')
-results = model.predict('${imagePath}', conf=0.25, verbose=False)
+model = YOLO('${config.paths.yoloModel}')
+results = model.predict('${imagePath}', conf=${config.yolo.inferenceConfidence}, verbose=False)
 
 predictions = []
 for r in results:
@@ -64,7 +59,7 @@ for r in results:
 print(json.dumps(predictions))
 `
 
-    const python = spawn(PYTHON_ENV, ['-c', pythonScript])
+    const python = spawn(config.paths.pythonBin, ['-c', pythonScript])
 
     let stdout = ''
     let stderr = ''
@@ -103,16 +98,12 @@ print(json.dumps(predictions))
   })
 }
 
-// Canonical 30-faction color map (keys match canonical faction list)
+// Canonical 24-faction color map.
+// blood_angels, dark_angels, space_wolves, black_templars, deathwatch, grey_knights
+// are collapsed into space_marines — see remapExportLabel in annotationService.ts.
 const FACTION_COLORS: Record<string, string> = {
   // Imperium
   'space_marines':      '#3b82f6',
-  'blood_angels':       '#dc2626',
-  'dark_angels':        '#15803d',
-  'space_wolves':       '#7dd3fc',
-  'black_templars':     '#a8a29e',
-  'deathwatch':         '#475569',
-  'grey_knights':       '#94a3b8',
   'adeptus_mechanicus': '#ef4444',
   'astra_militarum':    '#84cc16',
   'adeptus_custodes':   '#f59e0b',
@@ -120,11 +111,8 @@ const FACTION_COLORS: Record<string, string> = {
   'imperial_knights':   '#d97706',
   'imperial_agents':    '#6366f1',
   // Chaos
+  // death_guard, thousand_sons, world_eaters, emperors_children collapsed → chaos_space_marines
   'chaos_space_marines': '#991b1b',
-  'death_guard':         '#65a30d',
-  'thousand_sons':       '#2563eb',
-  'world_eaters':        '#7f1d1d',
-  'emperors_children':   '#c026d3',
   'chaos_daemons':       '#9333ea',
   'chaos_knights':       '#78716c',
   // Xenos
@@ -140,15 +128,28 @@ const FACTION_COLORS: Record<string, string> = {
   'leagues_of_votann':  '#92400e',
 }
 
-// Maps run-2 model output class names → canonical faction keys.
+// Maps model output class names → canonical faction keys.
 // Run 2 classes: adeptus_mechanicus, chaos_knights, chaos_space_marines, custodes,
 //   death_guard, deathwatch, eldar, genestealer_cult, grey_knights, imperial_guard,
 //   necrons, orks, space_marines, thousand_sons, tyranids
+// Chapter marines (blood_angels etc.) are remapped to space_marines here and at export.
 const MODEL_CLASS_ALIASES: Record<string, string> = {
   'eldar':            'craftworld_aeldari',
   'imperial_guard':   'astra_militarum',
   'custodes':         'adeptus_custodes',
   'genestealer_cult': 'genestealer_cults',
+  // Loyalist chapters → space_marines
+  'blood_angels':     'space_marines',
+  'dark_angels':      'space_marines',
+  'space_wolves':     'space_marines',
+  'black_templars':   'space_marines',
+  'deathwatch':       'space_marines',
+  'grey_knights':     'space_marines',
+  // Traitor legions → chaos_space_marines
+  'death_guard':      'chaos_space_marines',
+  'thousand_sons':    'chaos_space_marines',
+  'world_eaters':     'chaos_space_marines',
+  'emperors_children':'chaos_space_marines',
 }
 
 export interface ConsumerDetection {
@@ -224,7 +225,7 @@ export async function detectAndSummarize(imagePath: string): Promise<DetectionRe
 export async function isModelAvailable(): Promise<boolean> {
   const fs = await import('fs/promises')
   try {
-    await fs.access(MODEL_PATH)
+    await fs.access(config.paths.yoloModel)
     return true
   } catch {
     return false
