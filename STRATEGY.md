@@ -237,7 +237,7 @@ Update this section as phases complete. Date every entry.
 |---|---|---|---|
 | 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
 | 1 · Prototype Tier 1+3 | ✅ Complete | OWLv2 detection recall 83.3% (+17pp); DINOv2 retrieval unit top-5 83.3%, top-1 66.7%, MRR 0.72 on 6 queries. Both exit criteria met. [Full report](docs/benchmarks/2026-04-13-phase1-prototype.md) | 2026-04-13 |
-| 2 · Tier 2 + gallery expand | ☐ Not started | Faction classifier; scoped k-NN | — |
+| 2 · Tier 2 + gallery expand | 🟡 Prepared (awaiting user labelling) | Scaffold in `scripts/phase2/`. 79 new unlabelled crops seeded; Tier 2 pivoted from YOLO to KNN-vote (YOLO collapses on crops). Blocks on user hand-labelling via the warhammer-analyzer `/label` tool. | 2026-04-13 |
 | 3 · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |

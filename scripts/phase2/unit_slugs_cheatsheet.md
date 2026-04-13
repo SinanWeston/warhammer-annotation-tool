@@ -1,0 +1,323 @@
+# Phase 2 unit slugs cheatsheet
+
+Extended from Phase 1 with necrons, eldar, thousand_sons coverage. When unsure, prefer the broader slug over guessing a variant.
+
+## chaos_space_marines (Chaos Space Marines)
+
+- `abaddon_the_despoiler` — Abaddon the Despoiler
+- `accursed_cultists` — Accursed Cultists
+- `chaos_bikers` — Chaos Bikers
+- `chaos_land_raider` — Chaos Land Raider
+- `chaos_lord` — Chaos Lord
+- `chaos_lord_in_terminator_armour` — Chaos Lord in Terminator Armour
+- `chaos_lord_with_jump_pack` — Chaos Lord with Jump Pack
+- `chaos_predator_annihilator` — Chaos Predator Annihilator
+- `chaos_predator_destructor` — Chaos Predator Destructor
+- `chaos_rhino` — Chaos Rhino
+- `chaos_spawn` — Chaos Spawn
+- `chaos_terminator_squad` — Chaos Terminator Squad
+- `chaos_vindicator` — Chaos Vindicator
+- `chosen` — Chosen
+- `cultist_firebrand` — Cultist Firebrand
+- `cultist_mob` — Cultist Mob
+- `cypher` — Cypher
+- `dark_apostle` — Dark Apostle
+- `dark_commune` — Dark Commune
+- `defiler` — Defiler
+- `fabius_bile` — Fabius Bile
+- `fellgor_beastmen` — Fellgor Beastmen
+- `forgefiend` — Forgefiend
+- `haarken_worldclaimer` — Haarken Worldclaimer
+- `havocs` — Havocs
+- `helbrute` — Helbrute
+- `heldrake` — Heldrake
+- `heretic_astartes_daemon_prince` — Heretic Astartes Daemon Prince
+- `heretic_astartes_daemon_prince_with_wings` — Heretic Astartes Daemon Prince with Wings
+- `huron_blackheart` — Huron Blackheart
+- `khorne_berzerkers` — Khorne Berzerkers
+- `khorne_lord_of_skulls` — Khorne Lord of Skulls
+- `legionaries` — Legionaries
+- `lord_discordant_on_helstalker` — Lord Discordant on Helstalker
+- `master_of_executions` — Master of Executions
+- `master_of_possession` — Master of Possession
+- `masters_of_the_maelstrom` — Masters of the Maelstrom
+- `maulerfiend` — Maulerfiend
+- `nemesis_claw` — Nemesis Claw
+- `noise_marines` — Noise Marines
+- `obliterators` — Obliterators
+- `plague_marines` — Plague Marines
+- `raptors` — Raptors
+- `red_corsairs_raiders` — Red Corsairs Raiders
+- `red_corsairs_reave-captain` — Red Corsairs Reave-Captain
+- `rubric_marines` — Rubric Marines
+- `sorcerer` — Sorcerer
+- `sorcerer_in_terminator_armour` — Sorcerer in Terminator Armour
+- `terrax-pattern_termite` — Terrax-pattern Termite
+- `traitor_enforcer` — Traitor Enforcer
+- `traitor_guardsmen_squad` — Traitor Guardsmen Squad
+- `vashtorr_the_arkifane` — Vashtorr the Arkifane
+- `venomcrawler` — Venomcrawler
+- `warp_talons` — Warp Talons
+- `warpsmith` — Warpsmith
+
+## death_guard
+
+_Not found in units.json._
+
+## thousand_sons
+
+_Not found in units.json._
+
+## genestealer_cult
+
+_Not found in units.json._
+
+## space_marines (Space Marines)
+
+- `captain` — Captain
+- `captain_in_gravis_armour` — Captain in Gravis Armour
+- `captain_in_phobos_armour` — Captain in Phobos Armour
+- `captain_in_terminator_armour` — Captain in Terminator Armour
+- `captain_with_jump_pack` — Captain with Jump Pack
+- `chaplain` — Chaplain
+- `chaplain_in_terminator_armour` — Chaplain in Terminator Armour
+- `chaplain_on_bike` — Chaplain on Bike
+- `chaplain_with_jump_pack` — Chaplain with Jump Pack
+- `librarian` — Librarian
+- `librarian_in_phobos_armour` — Librarian in Phobos Armour
+- `librarian_in_terminator_armour` — Librarian in Terminator Armour
+- `lieutenant` — Lieutenant
+- `lieutenant_in_phobos_armour` — Lieutenant in Phobos Armour
+- `lieutenant_in_reiver_armour` — Lieutenant in Reiver Armour
+- `lieutenant_with_combi-weapon` — Lieutenant with Combi-weapon
+- `techmarine` — Techmarine
+- `ancient` — Ancient
+- `ancient_in_terminator_armour` — Ancient in Terminator Armour
+- `apothecary` — Apothecary
+- `apothecary_biologis` — Apothecary Biologis
+- `bladeguard_ancient` — Bladeguard Ancient
+- `judiciar` — Judiciar
+- `assault_intercessor_squad` — Assault Intercessor Squad
+- `heavy_intercessor_squad` — Heavy Intercessor Squad
+- `intercessor_squad` — Intercessor Squad
+- `infernus_squad` — Infernus Squad
+- `tactical_squad` — Tactical Squad
+- `scout_squad` — Scout Squad
+- `scout_sniper_squad` — Scout Sniper Squad
+- `incursor_squad` — Incursor Squad
+- `infiltrator_squad` — Infiltrator Squad
+- `reiver_squad` — Reiver Squad
+- `desolation_squad` — Desolation Squad
+- `devastator_squad` — Devastator Squad
+- `sternguard_veteran_squad` — Sternguard Veteran Squad
+- `vanguard_veteran_squad` — Vanguard Veteran Squad
+- `bladeguard_veteran_squad` — Bladeguard Veteran Squad
+- `terminator_squad` — Terminator Squad
+- `terminator_assault_squad` — Terminator Assault Squad
+- `aggressor_squad` — Aggressor Squad
+- `centurion_assault_squad` — Centurion Assault Squad
+- `centurion_devastator_squad` — Centurion Devastator Squad
+- `eradicator_squad` — Eradicator Squad
+- `hellblaster_squad` — Hellblaster Squad
+- `eliminator_squad` — Eliminator Squad
+- `suppressor_squad` — Suppressor Squad
+- `inceptor_squad` — Inceptor Squad
+- `assault_squad` — Assault Squad
+- `outrider_squad` — Outrider Squad
+- `bike_squad` — Bike Squad
+- `attack_bike_squad` — Attack Bike Squad
+- `scout_bike_squad` — Scout Bike Squad
+- `invader_atv` — Invader ATV
+- `redemptor_dreadnought` — Redemptor Dreadnought
+- `brutalis_dreadnought` — Brutalis Dreadnought
+- `ballistus_dreadnought` — Ballistus Dreadnought
+- `venerable_dreadnought` — Venerable Dreadnought
+- `ironclad_dreadnought` — Ironclad Dreadnought
+- `dreadnought` — Dreadnought
+- `invictor_tactical_warsuit` — Invictor Tactical Warsuit
+- `contemptor_dreadnought` — Contemptor Dreadnought
+- `leviathan_dreadnought` — Leviathan Dreadnought
+- `deredeo_dreadnought` — Deredeo Dreadnought
+- `repulsor` — Repulsor
+- `repulsor_executioner` — Repulsor Executioner
+- `impulsor` — Impulsor
+- `gladiator_lancer` — Gladiator Lancer
+- `gladiator_reaper` — Gladiator Reaper
+- `gladiator_valiant` — Gladiator Valiant
+- `predator` — Predator
+- `rhino` — Rhino
+- `razorback` — Razorback
+- `vindicator` — Vindicator
+- `whirlwind` — Whirlwind
+- `hunter` — Hunter
+- `stalker` — Stalker
+- `land_raider` — Land Raider
+- `land_raider_crusader` — Land Raider Crusader
+- `land_raider_redeemer` — Land Raider Redeemer
+- `drop_pod` — Drop Pod
+- `land_speeder` — Land Speeder
+- `land_speeder_storm` — Land Speeder Storm
+- `hammerfall_bunker` — Hammerfall Bunker
+- `firestrike_servo-turrets` — Firestrike Servo-turrets
+- `stormraven_gunship` — Stormraven Gunship
+- `stormtalon_gunship` — Stormtalon Gunship
+- `stormhawk_interceptor` — Stormhawk Interceptor
+- `fire_raptor_gunship` — Fire Raptor Gunship
+- `storm_eagle_gunship` — Storm Eagle Gunship
+- `thunderhawk_gunship` — Thunderhawk Gunship
+- `sicaran_battle_tank` — Sicaran Battle Tank
+- `caestus_assault_ram` — Caestus Assault Ram
+- `crusader_squad` — Crusader Squad
+- `sword_brethren` — Sword Brethren
+- `emperors_champion` — Emperor's Champion
+- `high_marshal_helbrecht` — High Marshal Helbrecht
+- `castellan` — Castellan
+- `chaplain_grimaldus` — Chaplain Grimaldus
+- `sanguinary_guard` — Sanguinary Guard
+- `death_company_marines` — Death Company Marines
+- `death_company_captain` — Death Company Captain
+- `sanguinary_priest` — Sanguinary Priest
+- `commander_dante` — Commander Dante
+- `the_sanguinor` — The Sanguinor
+- `lemartes` — Lemartes
+- `mephiston` — Mephiston
+- `deathwing_terminator_squad` — Deathwing Terminator Squad
+- `deathwing_command_squad` — Deathwing Command Squad
+- `ravenwing_black_knights` — Ravenwing Black Knights
+- `ravenwing_dark_talon` — Ravenwing Dark Talon
+- `ravenwing_darkshroud` — Ravenwing Darkshroud
+- `azrael` — Azrael
+- `belial` — Belial
+- `sammael` — Sammael
+- `lion_eljonson` — Lion El'Jonson
+- `wulfen` — Wulfen
+- `thunderwolf_cavalry` — Thunderwolf Cavalry
+- `fenrisian_wolves` — Fenrisian Wolves
+- `bjorn_the_fell-handed` — Bjorn the Fell-Handed
+- `logan_grimnar` — Logan Grimnar
+- `ragnar_blackmane` — Ragnar Blackmane
+- `murderfang` — Murderfang
+- `deathwatch_veterans` — Deathwatch Veterans
+- `watch_master` — Watch Master
+
+## tyranids (Tyranids)
+
+- `hive_tyrant` — Hive Tyrant
+- `winged_hive_tyrant` — Winged Hive Tyrant
+- `broodlord` — Broodlord
+- `tyranid_prime` — Tyranid Prime
+- `winged_tyranid_prime` — Winged Tyranid Prime
+- `neurotyrant` — Neurotyrant
+- `tervigon` — Tervigon
+- `old_one_eye` — Old One Eye
+- `deathleaper` — Deathleaper
+- `parasite_of_mortrex` — Parasite of Mortrex
+- `the_swarmlord` — The Swarmlord
+- `termagants` — Termagants
+- `hormagaunts` — Hormagaunts
+- `gargoyles` — Gargoyles
+- `genestealers` — Genestealers
+- `neurogaunts` — Neurogaunts
+- `ripper_swarms` — Ripper Swarms
+- `barbgaunts` — Barbgaunts
+- `tyranid_warriors_with_melee_bio-weapons` — Tyranid Warriors with Melee Bio-weapons
+- `tyranid_warriors_with_ranged_bio-weapons` — Tyranid Warriors with Ranged Bio-weapons
+- `tyrant_guard` — Tyrant Guard
+- `hive_guard` — Hive Guard
+- `zoanthropes` — Zoanthropes
+- `venomthropes` — Venomthropes
+- `von_ryans_leapers` — Von Ryan's Leapers
+- `lictor` — Lictor
+- `neurolictor` — Neurolictor
+- `pyrovores` — Pyrovores
+- `biovores` — Biovores
+- `raveners` — Raveners
+- `carnifexes` — Carnifexes
+- `screamer-killer` — Screamer-killer
+- `psychophage` — Psychophage
+- `haruspex` — Haruspex
+- `toxicrene` — Toxicrene
+- `maleceptor` — Maleceptor
+- `exocrine` — Exocrine
+- `tyrannofex` — Tyrannofex
+- `trygon` — Trygon
+- `mawloc` — Mawloc
+- `norn_emissary` — Norn Emissary
+- `norn_assimilator` — Norn Assimilator
+- `harpy` — Harpy
+- `hive_crone` — Hive Crone
+- `tyrannocyte` — Tyrannocyte
+- `sporocyst` — Sporocyst
+- `spore_mines` — Spore Mines
+- `mucolid_spores` — Mucolid Spores
+- `harridan` — Harridan
+- `hierophant` — Hierophant
+- `barbed_hierodule` — Barbed Hierodule
+- `scythed_hierodule` — Scythed Hierodule
+- `dimachaeron` — Dimachaeron
+
+## necrons (Necrons)
+
+- `overlord` — Overlord
+- `overlord_with_translocation_shroud` — Overlord with Translocation Shroud
+- `catacomb_command_barge` — Catacomb Command Barge
+- `chronomancer` — Chronomancer
+- `plasmancer` — Plasmancer
+- `psychomancer` — Psychomancer
+- `technomancer` — Technomancer
+- `hexmark_destroyer` — Hexmark Destroyer
+- `skorpekh_lord` — Skorpekh Lord
+- `lokhust_lord` — Lokhust Lord
+- `royal_warden` — Royal Warden
+- `lord` — Lord
+- `illuminor_szeras` — Illuminor Szeras
+- `imotekh_the_stormlord` — Imotekh the Stormlord
+- `the_silent_king` — The Silent King
+- `trazyn_the_infinite` — Trazyn the Infinite
+- `orikan_the_diviner` — Orikan the Diviner
+- `anrakyr_the_traveller` — Anrakyr the Traveller
+- `nemesor_zahndrekh` — Nemesor Zahndrekh
+- `vargard_obyron` — Vargard Obyron
+- `transcendent_ctan` — Transcendent C'tan
+- `ctan_shard_of_the_nightbringer` — C'tan Shard of the Nightbringer
+- `ctan_shard_of_the_deceiver` — C'tan Shard of the Deceiver
+- `ctan_shard_of_the_void_dragon` — C'tan Shard of the Void Dragon
+- `necron_warriors` — Necron Warriors
+- `immortals` — Immortals
+- `lychguard` — Lychguard
+- `deathmarks` — Deathmarks
+- `flayed_ones` — Flayed Ones
+- `triarch_praetorians` — Triarch Praetorians
+- `cryptothralls` — Cryptothralls
+- `skorpekh_destroyers` — Skorpekh Destroyers
+- `ophydian_destroyers` — Ophydian Destroyers
+- `lokhust_destroyers` — Lokhust Destroyers
+- `lokhust_heavy_destroyers` — Lokhust Heavy Destroyers
+- `canoptek_wraiths` — Canoptek Wraiths
+- `canoptek_scarab_swarms` — Canoptek Scarab Swarms
+- `canoptek_spyders` — Canoptek Spyders
+- `canoptek_reanimator` — Canoptek Reanimator
+- `canoptek_doomstalker` — Canoptek Doomstalker
+- `tomb_blades` — Tomb Blades
+- `triarch_stalker` — Triarch Stalker
+- `ghost_ark` — Ghost Ark
+- `doomsday_ark` — Doomsday Ark
+- `annihilation_barge` — Annihilation Barge
+- `night_scythe` — Night Scythe
+- `doom_scythe` — Doom Scythe
+- `monolith` — Monolith
+- `obelisk` — Obelisk
+- `tesseract_vault` — Tesseract Vault
+- `convergence_of_dominion` — Convergence of Dominion
+- `seraptek_heavy_construct` — Seraptek Heavy Construct
+- `canoptek_acanthrites` — Canoptek Acanthrites
+- `canoptek_tomb_sentinel` — Canoptek Tomb Sentinel
+- `canoptek_tomb_stalker` — Canoptek Tomb Stalker
+- `night_shroud` — Night Shroud
+- `tesseract_ark` — Tesseract Ark
+- `gauss_pylon` — Gauss Pylon
+- `sentry_pylon` — Sentry Pylon
+
+## eldar
+
+_Not found in units.json._
