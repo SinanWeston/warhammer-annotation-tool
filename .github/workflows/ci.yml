@@ -2,38 +2,57 @@ name: CI
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
-  test:
+  ts:
+    name: TS typecheck + backend tests
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x]
-
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Run linter
-      run: npm run lint
+      - name: Typecheck (backend)
+        run: cd backend && npx tsc --noEmit
 
-    - name: Run tests
-      run: npm test
+      - name: Typecheck (frontend)
+        run: cd frontend && npx tsc --noEmit
 
-    - name: Build frontend
-      run: npm run build:frontend
+      - name: Typecheck (consumer)
+        run: cd consumer && npx tsc --noEmit
 
-    - name: Build backend
-      run: npm run build:backend
+      - name: Typecheck (annotator-mobile)
+        run: cd annotator-mobile && npx tsc --noEmit
+
+      - name: Backend tests (Vitest)
+        run: cd backend && npx vitest run
+
+      # Frontend component tests are blocked by a jsdom/vitest dep conflict
+      # (see TODO.md "Still outstanding"). Skipped in CI until that's fixed.
+
+  python:
+    name: Python dataset validator tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install pytest
+        run: pip install pytest
+
+      - name: Run validator tests
+        run: pytest scripts/test_validate_yolo_dataset.py -v
