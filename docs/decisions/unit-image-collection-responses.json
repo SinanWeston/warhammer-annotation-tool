@@ -1,0 +1,22 @@
+{
+  "timestamp": "2026-03-09T19:31:50.670Z",
+  "responses": {
+    "source": [
+      "scraped_web",
+      "stock_sites",
+      "gw_official"
+    ],
+    "background": "simple_bg",
+    "paint_quality": "any",
+    "angle": "multi_angle",
+    "faction_scope": "all_factions",
+    "specific_factions": "",
+    "unit_granularity": "unit_type",
+    "purpose": "multiple",
+    "purpose_detail": "I want to use it to create a good foundation for my box drawer AI. I think having a clear set of each unit in an army will help the model greatly, as I ad more less cleare data in the form of the other diversly qualitied images",
+    "collection_method": "scraper_then_filter",
+    "storage_location": "tbd",
+    "tooling": "yes_review_ui",
+    "other": "I want the colected images to be diverse in both angel and paint job to function as better training data."
+  }
+}

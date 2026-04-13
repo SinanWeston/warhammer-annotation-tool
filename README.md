@@ -209,12 +209,14 @@ See `TESTING.md` for comprehensive testing documentation.
 
 ## Documentation
 
-- **README.md** - This file (quick start guide)
-- **STATUS.md** - Project status, changelog, and current state
-- **IMPROVEMENTS.md** - Completed enhancements (correctness, throughput, training pipeline)
-- **TESTING.md** - Testing guide (unit tests, coverage, CI/CD setup)
-- **CLAUDE.md** - Developer guidance for Claude Code
-- **TRAIN_CUSTOM_YOLO.md** - Guide for training YOLO models after annotation
+- **README.md** — This file (quick start guide)
+- **OVERVIEW.md** — High-level project overview (components, dataset, tech stack)
+- **SPEC.md** — Technical specification (architecture, data models, API)
+- **TODO.md** — Current improvement plan, tiered by priority
+- **DEPLOY.md** — Multi-user deployment via ngrok
+- **CLAUDE.md** — Developer guidance for Claude Code
+- **docs/** — Reference guides (CONSUMER_APP, TRAIN_CUSTOM_YOLO, TESTING, SCRAPING)
+- **docs/archive/** — Historical planning docs
 
 ## License
 

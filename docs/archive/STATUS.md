@@ -1,12 +1,42 @@
 # Project Status
 
-**Last Updated**: February 15, 2026
-**Version**: 7.0 (Quality Dashboard + Active Learning)
-**Status**: Active Learning Phase - Dashboard live, confidence-based prioritization ready
+**Last Updated**: March 6, 2026
+**Version**: 8.0 (Grounding DINO Pre-Proposals + Resize Handles)
+**Status**: DINO proposal pipeline operational, annotation throughput optimization in progress
 
 ---
 
 ## Recent Changes (Factual Log)
+
+### March 6, 2026 - Grounding DINO Pre-Proposal Pipeline
+
+**Goal**: Cut per-image annotation time by 50-70% by providing pre-computed bounding box proposals
+
+**Achievements**:
+
+1. **Batch proposal script** (`scripts/grounding_dino_propose.py`)
+   - Runs Grounding DINO (IDEA-Research/grounding-dino-base) over unannotated images
+   - Saves proposals to `backend/training_data_proposals/{imageId}.json`
+   - Supports `--faction`, `--limit`, `--threshold`, `--dry-run` flags
+   - Resumable: skips already-annotated and already-proposed images
+   - Uses local model from `models/grounding-dino-base/` (no HuggingFace download needed after first setup)
+
+2. **Backend proposals endpoint** (`GET /api/annotate/proposals/:imageId`)
+   - Serves pre-computed DINO proposals in the same format as YOLO predictions
+   - Falls back to empty array if no proposal file exists
+
+3. **Frontend: bbox resize handles**
+   - 8 handles per selected box (4 corners + 4 edges)
+   - Drag to resize with live preview
+   - Undo/redo support for resize operations
+   - Cursor changes on handle hover (nwse-resize, ns-resize, etc.)
+
+4. **Frontend: auto-load proposals**
+   - When navigating to an unannotated image, automatically loads DINO proposals
+   - "Get AI Suggestions" button tries DINO proposals first, falls back to YOLO
+   - DINO proposals use the image's faction directory as the class label
+
+**Test results**: 3/3 ork images received proposals, 2.0 boxes avg per image, 0.25-0.85 confidence range
 
 ### February 15, 2026 - Quality Dashboard + Active Learning Pipeline
 

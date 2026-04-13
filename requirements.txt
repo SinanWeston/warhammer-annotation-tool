@@ -1,0 +1,38 @@
+# Python dependencies for photoanalyzer.
+# Install into the yolo_env venv:
+#   yolo_env/bin/pip install -r requirements.txt
+
+# ─── Core ML (backend inference + training) ───────────────────
+ultralytics>=8.4           # YOLO training + inference
+torch>=2.4                 # PyTorch (YOLO, DINO)
+torchvision>=0.19          # vision transforms
+transformers>=4.40         # Grounding DINO (scripts/grounding_dino_propose.py)
+accelerate>=0.30           # transformers accelerator
+
+# ─── Dataset augmentation ─────────────────────────────────────
+albumentations>=1.4        # scripts/augment_dataset.py
+numpy>=1.26
+opencv-python>=4.9
+Pillow>=10.0
+PyYAML>=6.0
+tqdm>=4.66
+scipy>=1.13
+
+# ─── Scraper suite (scripts/*.py) ─────────────────────────────
+requests>=2.31
+beautifulsoup4>=4.12
+praw>=7.8                  # Reddit
+yt-dlp>=2024.1             # YouTube
+scenedetect[opencv]>=0.6.3 # YouTube frame extraction
+flickrapi>=2.4             # Flickr
+icrawler>=0.6              # Bing/Google fallback
+python-dotenv>=1.0
+cloudscraper>=1.2          # eBay anti-bot
+
+# ─── Quality & dedup ──────────────────────────────────────────
+open-clip-torch>=2.24      # CLIP quality scoring
+imagehash>=4.3             # perceptual hash dedup
+
+# ─── Inference server (optional, for FastAPI refactor) ────────
+fastapi>=0.110
+uvicorn>=0.29

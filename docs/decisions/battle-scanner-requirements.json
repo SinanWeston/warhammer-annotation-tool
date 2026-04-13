@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-03-08T19:22:02.675Z",
+  "responses": {
+    "target_user": "casual",
+    "primary_job": "list_building",
+    "ux_tone": "approachable",
+    "accounts": "optional",
+    "photo_count": "multiple",
+    "webcam": "later",
+    "crop": "yes",
+    "dragdrop": "no",
+    "demo_mode": "no",
+    "results_layout": "split",
+    "show_bboxes": "always",
+    "grouping": "user_choice",
+    "low_confidence": "separate",
+    "edition": "latest_only",
+    "manual_edit": "yes",
+    "add_units": "yes",
+    "suggestion_detail": "brief",
+    "suggestion_count": "3",
+    "playstyle_filter": "yes",
+    "meta_ref": "no",
+    "app_structure": "tabbed",
+    "nav_style": "top_nav",
+    "results_split": "yes",
+    "mobile_responsive": "no",
+    "history": "yes_account",
+    "history_ttl": "forever",
+    "save_army": "yes",
+    "share_link": "yes",
+    "factions_scope": "all",
+    "faction_filter": "optional",
+    "unknown_models": "unknown_label",
+    "points_source": "wahapedia",
+    "color_palette": "grimdark",
+    "typography": "gothic",
+    "faction_icons": "small",
+    "animation": "none",
+    "gw_artwork": "icons_only",
+    "landing_state": "upload_only",
+    "no_detect": "technical",
+    "error_tone": "mixed",
+    "loading_state": "spinner",
+    "offline": "no",
+    "browser_support": "modern",
+    "keyboard_shortcuts": "no",
+    "mvp": "were currently building the whole layout etc, so It should have all the features etc. except for calling the AI itself. so style, buttons functionality, and we can currently have 1 example that can be run, but all the AI intergration comes later",
+    "out_of_scope": "just fully functioning website on a ofline dev server.",
+    "frontend_stack": "no_pref",
+    "styling": "no_pref",
+    "other_notes": "it should be kept using whatever makes it the cleanest to program and run. no fancy tricks, keep it so that its easy to work on and fast and reliable",
+    "upload_constraints": [
+      "file_size",
+      "format"
+    ],
+    "unit_info": [
+      "name",
+      "faction",
+      "points",
+      "count",
+      "role",
+      "artwork"
+    ],
+    "export": [
+      "pdf",
+      "text",
+      "battlescribe"
+    ],
+    "suggestion_types": [
+      "synergies",
+      "missing",
+      "tournament",
+      "full_list"
+    ],
+    "a11y": [
+      "none"
+    ],
+    "integrations": [
+      "wahapedia"
+    ]
+  }
+}

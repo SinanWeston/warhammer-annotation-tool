@@ -1,0 +1,59 @@
+{
+  "project": "battle-scanner-training-data-fix",
+  "timestamp": "2026-03-11T21:11:47.942Z",
+  "responses": {
+    "q1_other": "the images are not from tenth adition, or are kitbashed.",
+    "q1_failure": "havent_tested",
+    "q2_detection_goal": "faction_first_unit_later",
+    "q2_scenario": "both",
+    "q3_existing": "manual_review",
+    "q3_ebay": "yes_secondary",
+    "q3_dakka": "improve",
+    "q4_low_count": "rescrape",
+    "q4_min_images": 200,
+    "q5_min_res": "400x400",
+    "q5_cgi": "reject_all",
+    "q5_unpainted": "allow_20pct",
+    "q5_ratio_isolation": 70,
+    "q5_ratio_patrol": 40,
+    "q5_ratio_army": 20,
+    "q6_folder": "add_tier",
+    "q7_who": "ai_assisted",
+    "q7_retrain_target": "2000",
+    "q7_bbox_style": "model_only",
+    "q8_target_map": 80,
+    "q8_goals": "I want a realy clean set of anotated pictures to use for a realy well trained model",
+    "q8_constraints": "I dont want to throw away any images collected so far, nor do I want to throw away all the anotated ones. I want to just do what we are taliking about first. 10 images of each unit for each faction, all combat patroles. high quality of all so we can produce lots of realy good data that we can use to make a realy good v1. then we can add in images from the rest of the scraped images and anotated images, if they are good",
+    "q8_first_task": "ebay_scraper",
+    "q1_problems": [
+      "other"
+    ],
+    "q4_factions": [
+      "Adepta Sororitas",
+      "Adeptus Mechanicus",
+      "Chaos Knights",
+      "Custodes",
+      "Eldar",
+      "Genestealer Cult",
+      "Imperial Guard",
+      "Imperial Knights",
+      "Leagues of Votann",
+      "Necrons",
+      "Orks",
+      "Space Marines",
+      "Tau Empire",
+      "Tyranids"
+    ],
+    "q6_automation": [
+      "dedup_hash",
+      "blur_detect",
+      "manual_review_ui"
+    ],
+    "q6_new_sources": [
+      "ebay",
+      "reddit_more",
+      "dakka_more",
+      "pinterest"
+    ]
+  }
+}
