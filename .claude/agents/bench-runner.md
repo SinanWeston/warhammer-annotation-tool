@@ -20,8 +20,19 @@ A held-out evaluation set lives under `backend/training_data_annotations/` (curr
 
 ## Playbook
 
+**Before anything else — re-audit the data landscape.** Every phase starts with "what data is actually available right now?" Don't inherit the previous phase's sourcing assumptions. A 30-second audit of `backend/training_data_annotations/` (or whatever corpus is canonical) catches gallery-expansion opportunities that would otherwise get missed. The 14-faction gap in Phase 2 came from skipping this step.
+
+Concrete check at start of every phase:
+```bash
+# How many annotations exist, per faction? How many are NOT in the YOLO train/val split?
+ls backend/training_data_annotations/*.json | wc -l
+python3 -c "import json, glob; from collections import Counter; \
+  c=Counter(); [c.update([json.load(open(f))['faction']]) for f in glob.glob('backend/training_data_annotations/*.json')]; \
+  print(c.most_common())"
+```
+
 1. **Identify the model and config** the caller wants benchmarked. Pin the exact weights path, threshold, prompt set.
-2. **Pick or confirm the eval set**. Default: a fixed 10% holdout of annotated images (seeded split).
+2. **Pick or confirm the eval set**. Default: a fixed 10% holdout of annotated images (seeded split). When the goal is gallery expansion rather than held-out evaluation, the *full* annotation corpus is the source — not just the val split. Don't conflate "YOLO train/val" with "retrieval-available data"; retrieval doesn't train on anything.
 3. **Run the harness**. Capture stdout + stderr; don't swallow warnings.
 4. **Compute the canonical metrics** — exactly the ones listed in STRATEGY.md §8. Don't invent new ones without justification.
 5. **Record the result** under `docs/benchmarks/YYYY-MM-DD-<slug>.md` with this structure:

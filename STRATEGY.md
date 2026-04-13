@@ -238,7 +238,8 @@ Update this section as phases complete. Date every entry.
 | 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
 | 1 · Prototype Tier 1+3 | ✅ Complete | OWLv2 detection recall 83.3% (+17pp); DINOv2 retrieval unit top-5 83.3%, top-1 66.7%, MRR 0.72 on 6 queries. Both exit criteria met. [Full report](docs/benchmarks/2026-04-13-phase1-prototype.md) | 2026-04-13 |
 | 2 · Tier 2 + gallery expand | ✅ Complete (unscoped path) | Unscoped top-3 = 84.6% (passes 70% bar). Tier 2 KNN-vote + confidence-gating swept 0.3→0.7; best gated top-3 = 76.9%, still below unscoped. Production ships unscoped; Tier 2 deferred to a future linear-probe experiment. [Full report](docs/benchmarks/2026-04-14-phase2-scoped.md) | 2026-04-14 |
-| 3 · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D | — |
+| 3a · Gallery expansion from existing corpus | 🟡 Prepared (awaiting labelling) | 316 new crops seeded from the 3,525-bbox corpus. Covers all 14 previously-missing factions. Added when an audit revealed 97% of the corpus was unused. [scripts/phase3/](scripts/phase3/README.md) | 2026-04-14 |
+| 3b · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D. Runs only after 3a closes the corpus-derived gaps. | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |
 
