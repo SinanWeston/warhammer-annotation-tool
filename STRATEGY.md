@@ -237,7 +237,7 @@ Update this section as phases complete. Date every entry.
 |---|---|---|---|
 | 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
 | 1 · Prototype Tier 1+3 | ✅ Complete | OWLv2 detection recall 83.3% (+17pp); DINOv2 retrieval unit top-5 83.3%, top-1 66.7%, MRR 0.72 on 6 queries. Both exit criteria met. [Full report](docs/benchmarks/2026-04-13-phase1-prototype.md) | 2026-04-13 |
-| 2 · Tier 2 + gallery expand | 🟡 Prepared (awaiting user labelling) | Scaffold in `scripts/phase2/`. 79 new unlabelled crops seeded; Tier 2 pivoted from YOLO to KNN-vote (YOLO collapses on crops). Blocks on user hand-labelling via the warhammer-analyzer `/label` tool. | 2026-04-13 |
+| 2 · Tier 2 + gallery expand | 🟠 Partial pass | Unscoped top-3 = 84.6% (passes 70% bar). Tier 2 KNN-vote = 54%, far below 90% bar — scoping regresses vs unscoped. Thesis "retrieval works" confirmed; thesis "Tier 2 scoping helps" falsified with this Tier 2 approach. [Full report](docs/benchmarks/2026-04-13-phase2-scoped.md) | 2026-04-13 |
 | 3 · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |
@@ -250,6 +250,16 @@ The baseline split confirmed the strategic thesis:
 - **Classification is the weak link** (64% top-1 on matched), and **highly bimodal per class** — some classes are near-solved (tyranids 100%, adeptus_mechanicus 89%) while others are effectively hallucinated (death_guard 2.4% class precision, chaos_space_marines 5.3%). Retrieval-based classification should move the bottom more than the top.
 - **The "39.9% mAP50" number in SPEC.md was actually mAP50-95.** Real mAP50 on the same val split is 54.7%. The stricter mAP50-95 is 39.1%. SPEC.md corrected alongside this phase.
 - **Unit-level KPIs are N/A.** Not a model failure — a corpus limitation. Annotations are faction-only, so top-1 / top-3 unit accuracy literally cannot be measured against current ground truth. Tier 3 retrieval evaluates against the reference gallery instead and does not require unit annotations.
+
+### Phase 2 headline findings
+
+On 13 queries against an 80-image gallery (labels hand-curated + normalised from 93 Sinan labels):
+
+- **Unscoped retrieval top-3 = 84.6% (CI 57.8–95.7%)** — passes the Phase 2 exit bar at point estimate; Wilson lower bound is below 70%, so the *direction* is confirmed but tighter measurement is needed. Unscoped MRR climbed from Phase 1's 0.72 → 0.84.
+- **Tier 2 KNN-vote = 53.8% faction top-1** — far below the 90% exit bar. When Tier 2 is right (7/13), scoped retrieval is perfect (100%). When it's wrong (6/13), scoped retrieval is 0% by construction. `scoped_actual` flatlines at exactly the Tier 2 accuracy.
+- **Scoped oracle = 100% across top-1/3/5**. Within-faction discrimination is fully solved at this gallery size. The cross-faction confusion Phase 1 flagged (aberrants vs deathshroud_terminators) resolved *purely by gallery depth*.
+- **Strategic implication**: Tier 2 scoping as drawn in §3 is an *optimisation*, not a correctness pass. With a noisy Tier 2 it regresses vs unscoped. Three responses, in order of preference: (a) ship unscoped retrieval now and skip Tier 2 for MVP latency (k-NN over 79 gallery items is sub-millisecond); (b) confidence-gate Tier 2 so we only scope when sure; (c) upgrade Tier 2 via a linear probe on DINOv2 embeddings. All three are tractable Phase 2.5 work.
+- **Gallery depth keeps paying off.** Biggest single lift between Phase 1 and Phase 2 came from 2× crops per unit (+18 pp top-5). This directly predicts Phase 3's synthetic-data expansion will continue to move the needle.
 
 ### Phase 1 headline findings
 

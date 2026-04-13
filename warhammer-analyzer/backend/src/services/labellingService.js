@@ -163,6 +163,21 @@ async function writeLabelsCsv({ headers, byPath }) {
 }
 
 /**
+ * Derive the label_key (CSV `crop_path` value) for a crop. We re-derive
+ * from the configured cropsDir rather than hardcoding `scripts/phase1/`,
+ * so pointing LABELLING_CROPS_DIR at a different path (e.g. Phase 2)
+ * produces matching CSV keys. Result is a repo-relative POSIX path.
+ */
+function labelKeyForCrop(crop) {
+  const cfg = getLabellingConfig()
+  const absCropsDir = resolveLabellingPath(cfg.cropsDir)
+  const repoRoot = path.resolve(process.cwd(), '..')
+  const absCropPath = path.join(absCropsDir, crop.relPath)
+  const relFromRepo = path.relative(repoRoot, absCropPath)
+  return relFromRepo.split(path.sep).join('/')
+}
+
+/**
  * List all crops with their labelling status. Cross-references the
  * crops on disk with labels.csv.
  *
@@ -176,9 +191,7 @@ async function writeLabelsCsv({ headers, byPath }) {
 export async function listCrops() {
   const [crops, labels] = await Promise.all([walkCrops(), readLabelsCsv()])
   return crops.map((c) => {
-    // The CSV stores paths relative to the photoanalyzer repo root.
-    // In our case: `scripts/phase1/crops/{faction}/{filename}`.
-    const labelKey = `scripts/phase1/crops/${c.relPath}`
+    const labelKey = labelKeyForCrop(c)
     const row = labels.byPath.get(labelKey)
     return {
       id: c.id,
@@ -276,7 +289,7 @@ export async function saveLabel(id, { unit_slug, notes = '' }) {
   const crop = await resolveCropPath(id)
   const labels = await readLabelsCsv()
 
-  const labelKey = `scripts/phase1/crops/${crop.relPath}`
+  const labelKey = labelKeyForCrop(crop)
   const existing = labels.byPath.get(labelKey) || {}
   const row = {
     ...existing,

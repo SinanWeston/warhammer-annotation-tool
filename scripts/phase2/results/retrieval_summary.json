@@ -1,0 +1,939 @@
+{
+  "model_id": "facebook/dinov2-base",
+  "tier2_method": "knn_vote",
+  "tier2_k": 5,
+  "metrics": {
+    "num_queries": 13,
+    "tier2_faction_top1": 0.5384615384615384,
+    "unscoped": {
+      "top1": 0.7692307692307693,
+      "top3": 0.8461538461538461,
+      "top5": 0.9230769230769231,
+      "mrr": 0.8397435897435896,
+      "counts": {
+        "top1": 10,
+        "top3": 11,
+        "top5": 12,
+        "total": 13
+      }
+    },
+    "scoped_actual": {
+      "top1": 0.5384615384615384,
+      "top3": 0.5384615384615384,
+      "top5": 0.5384615384615384,
+      "mrr": 0.5384615384615384,
+      "counts": {
+        "top1": 7,
+        "top3": 7,
+        "top5": 7,
+        "total": 13
+      }
+    },
+    "scoped_oracle": {
+      "top1": 1.0,
+      "top3": 1.0,
+      "top5": 1.0,
+      "mrr": 1.0,
+      "counts": {
+        "top1": 13,
+        "top3": 13,
+        "top5": 13,
+        "total": 13
+      }
+    }
+  },
+  "per_query": [
+    {
+      "query_path": "scripts/phase2/queries/chaos_space_marines/legionaries/138245_351bd85403f3__01.jpg",
+      "true_faction": "chaos_space_marines",
+      "true_unit": "legionaries",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.44,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "chaos_space_marines": 1.862,
+        "thousand_sons": 0.808,
+        "death_guard": 1.566
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.937
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.808
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.789
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.771
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.765
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.937
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.681
+        },
+        {
+          "unit": "dark_angels_company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.646
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.592
+        },
+        {
+          "unit": "astorath_the_grim",
+          "faction": "chaos_space_marines",
+          "sim": 0.364
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/death_guard/plague_marines/106635_b7a1d8b0d592__04.jpg",
+      "true_faction": "death_guard",
+      "true_unit": "plague_marines",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "death_guard": 4.371
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 1.0
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.79
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.777
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.757
+        },
+        {
+          "unit": "death_company_captain",
+          "faction": "space_marines",
+          "sim": 0.75
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 1.0
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.735
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.733
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.728
+        },
+        {
+          "unit": "deathwing_dreadnought",
+          "faction": "death_guard",
+          "sim": 0.643
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/drukhari/drukhari_warriors/10655_89682d0e5a24__05.jpg",
+      "true_faction": "drukhari",
+      "true_unit": "drukhari_warriors",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.593,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "drukhari": 0.717,
+        "death_guard": 1.979,
+        "genestealer_cult": 0.643
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "drukhari_warriors",
+          "faction": "drukhari",
+          "sim": 0.717
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.693
+        },
+        {
+          "unit": "acolyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.643
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.626
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.624
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.693
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.555
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.518
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.498
+        },
+        {
+          "unit": "deathwing_dreadnought",
+          "faction": "death_guard",
+          "sim": 0.385
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/eldar/shining_spears/120212_39f0e76af687__03.jpg",
+      "true_faction": "eldar",
+      "true_unit": "shining_spears",
+      "tier2_pred": "eldar",
+      "tier2_conf": 0.647,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "eldar": 1.771,
+        "necrons": 0.488,
+        "chaos_space_marines": 0.477
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "shining_spears",
+          "faction": "eldar",
+          "sim": 0.755
+        },
+        {
+          "unit": "windriders",
+          "faction": "eldar",
+          "sim": 0.518
+        },
+        {
+          "unit": "wraithlord",
+          "faction": "eldar",
+          "sim": 0.499
+        },
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.488
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.477
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "shining_spears",
+          "faction": "eldar",
+          "sim": 0.755
+        },
+        {
+          "unit": "windriders",
+          "faction": "eldar",
+          "sim": 0.518
+        },
+        {
+          "unit": "wraithlord",
+          "faction": "eldar",
+          "sim": 0.499
+        },
+        {
+          "unit": "wave_serpent",
+          "faction": "eldar",
+          "sim": 0.406
+        },
+        {
+          "unit": "wraithguard",
+          "faction": "eldar",
+          "sim": 0.401
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/genestealer_cult/aberrants/1061044_3995318f2400__01.jpg",
+      "true_faction": "genestealer_cult",
+      "true_unit": "aberrants",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.377,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "genestealer_cult": 0.831,
+        "chaos_space_marines": 0.695,
+        "death_guard": 1.328,
+        "thousand_sons": 0.665
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.831
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.695
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.684
+        },
+        {
+          "unit": "exalted_sorcerer",
+          "faction": "thousand_sons",
+          "sim": 0.665
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.644
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.684
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.644
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.516
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.513
+        },
+        {
+          "unit": "great_unclean_one",
+          "faction": "death_guard",
+          "sim": 0.424
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/genestealer_cult/neophyte_hybrids/10861_1954714f329e__03.jpg",
+      "true_faction": "genestealer_cult",
+      "true_unit": "neophyte_hybrids",
+      "tier2_pred": "genestealer_cult",
+      "tier2_conf": 0.615,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "genestealer_cult": 2.133,
+        "death_guard": 1.335
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "neophyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.813
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.668
+        },
+        {
+          "unit": "acolyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.661
+        },
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.658
+        },
+        {
+          "unit": "kelermorph",
+          "faction": "genestealer_cult",
+          "sim": 0.631
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "neophyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.813
+        },
+        {
+          "unit": "acolyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.661
+        },
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.658
+        },
+        {
+          "unit": "kelermorph",
+          "faction": "genestealer_cult",
+          "sim": 0.631
+        },
+        {
+          "unit": "genestealers",
+          "faction": "genestealer_cult",
+          "sim": 0.488
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/necrons/canoptek_wraiths/128ijpx_4ca827421e5d__33.jpg",
+      "true_faction": "necrons",
+      "true_unit": "canoptek_wraiths",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 0.745,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "necrons": 0.824,
+        "tyranids": 2.41
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "canoptek_wraiths",
+          "faction": "necrons",
+          "sim": 0.824
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.622
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.602
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.59
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.582
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.622
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.602
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.59
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.582
+        },
+        {
+          "unit": "gargoyles",
+          "faction": "tyranids",
+          "sim": 0.548
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/necrons/immortals/128ijpx_4ca827421e5d__21.jpg",
+      "true_faction": "necrons",
+      "true_unit": "immortals",
+      "tier2_pred": "necrons",
+      "tier2_conf": 0.619,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "necrons": 2.097,
+        "genestealer_cult": 0.678,
+        "death_guard": 0.615
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.761
+        },
+        {
+          "unit": "neophyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.678
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.615
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.599
+        },
+        {
+          "unit": "kelermorph",
+          "faction": "genestealer_cult",
+          "sim": 0.557
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.761
+        },
+        {
+          "unit": "overlord",
+          "faction": "necrons",
+          "sim": 0.551
+        },
+        {
+          "unit": "canoptek_wraiths",
+          "faction": "necrons",
+          "sim": 0.447
+        },
+        {
+          "unit": "warriors",
+          "faction": "necrons",
+          "sim": 0.408
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/thousand_sons/exalted_sorcerer/1218019_8fb9b9be817c__00.jpg",
+      "true_faction": "thousand_sons",
+      "true_unit": "exalted_sorcerer",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.416,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "chaos_space_marines": 1.421,
+        "space_marines": 0.668,
+        "death_guard": 0.666,
+        "eldar": 0.665
+      },
+      "unscoped_rank": 6,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.75
+        },
+        {
+          "unit": "dark_angels_company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.671
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.668
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.666
+        },
+        {
+          "unit": "wraithlord",
+          "faction": "eldar",
+          "sim": 0.665
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.75
+        },
+        {
+          "unit": "dark_angels_company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.671
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.583
+        },
+        {
+          "unit": "astorath_the_grim",
+          "faction": "chaos_space_marines",
+          "sim": 0.5
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.496
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/thousand_sons/rubric_marines/13164_2ebfe221cced__01.jpg",
+      "true_faction": "thousand_sons",
+      "true_unit": "rubric_marines",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.412,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "chaos_space_marines": 1.81,
+        "thousand_sons": 0.925,
+        "death_guard": 0.831,
+        "space_marines": 0.822
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 1.0
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.925
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.831
+        },
+        {
+          "unit": "death_company_captain",
+          "faction": "space_marines",
+          "sim": 0.822
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.806
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 1.0
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.736
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.704
+        },
+        {
+          "unit": "dark_angels_company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.673
+        },
+        {
+          "unit": "astorath_the_grim",
+          "faction": "chaos_space_marines",
+          "sim": 0.403
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/tyranids/genestealers/122lero_82096eaba983__02.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "genestealers",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tyranids": 2.269
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.596
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.489
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.39
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.389
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.378
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.596
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.489
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.39
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.389
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.378
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/tyranids/termagants/122lero_82096eaba983__34.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "termagants",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tyranids": 2.783
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.662
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.482
+        },
+        {
+          "unit": "canoptek_wraiths",
+          "faction": "necrons",
+          "sim": 0.458
+        },
+        {
+          "unit": "hormagaunts",
+          "faction": "tyranids",
+          "sim": 0.448
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.437
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.662
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.482
+        },
+        {
+          "unit": "hormagaunts",
+          "faction": "tyranids",
+          "sim": 0.448
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.437
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.404
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase2/queries/tyranids/tyranid_warriors/122lero_82096eaba983__04.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "tyranid_warriors",
+      "tier2_pred": "thousand_sons",
+      "tier2_conf": 0.204,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "thousand_sons": 0.658,
+        "death_guard": 0.65,
+        "necrons": 0.641,
+        "tyranids": 0.636,
+        "eldar": 0.634
+      },
+      "unscoped_rank": 4,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "unscoped_top5": [
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.658
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.65
+        },
+        {
+          "unit": "overlord",
+          "faction": "necrons",
+          "sim": 0.641
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.636
+        },
+        {
+          "unit": "wraithlord",
+          "faction": "eldar",
+          "sim": 0.634
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.658
+        },
+        {
+          "unit": "ahriman",
+          "faction": "thousand_sons",
+          "sim": 0.569
+        },
+        {
+          "unit": "exalted_sorcerer",
+          "faction": "thousand_sons",
+          "sim": 0.504
+        }
+      ]
+    }
+  ]
+}
