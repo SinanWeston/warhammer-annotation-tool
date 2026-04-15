@@ -238,8 +238,9 @@ Update this section as phases complete. Date every entry.
 | 0 · Baseline reality-check | ✅ Complete | Detection 66.0% / faction-top-1 64% / mAP50 54.7% on val split. [Full report](docs/benchmarks/2026-04-13-phase0-baseline.md) | 2026-04-13 |
 | 1 · Prototype Tier 1+3 | ✅ Complete | OWLv2 detection recall 83.3% (+17pp); DINOv2 retrieval unit top-5 83.3%, top-1 66.7%, MRR 0.72 on 6 queries. Both exit criteria met. [Full report](docs/benchmarks/2026-04-13-phase1-prototype.md) | 2026-04-13 |
 | 2 · Tier 2 + gallery expand | ✅ Complete (unscoped path) | Unscoped top-3 = 84.6% (passes 70% bar). Tier 2 KNN-vote + confidence-gating swept 0.3→0.7; best gated top-3 = 76.9%, still below unscoped. Production ships unscoped; Tier 2 deferred to a future linear-probe experiment. [Full report](docs/benchmarks/2026-04-14-phase2-scoped.md) | 2026-04-14 |
-| 3a · Gallery expansion from existing corpus | 🟡 Prepared (awaiting labelling) | 316 new crops seeded from the 3,525-bbox corpus. Covers all 14 previously-missing factions. Added when an audit revealed 97% of the corpus was unused. [scripts/phase3/](scripts/phase3/README.md) | 2026-04-14 |
-| 3b · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D. Runs only after 3a closes the corpus-derived gaps. | — |
+| 3a · Gallery expansion from existing corpus | 🟠 Partial pass | Breadth met (23 factions, 51 queries — 3.9× Phase 2); unit top-3 regressed to 74.5% (Wilson LB 61.1%) because 78% of gallery units have depth=1. Tier 2 KNN-vote flatlined at 54.9%, confirming Phase 2.5's dead-end verdict. [Full report](docs/benchmarks/2026-04-15-phase3a-corpus-expansion.md) | 2026-04-15 |
+| 3a.1 · Depth-focused labelling | ☐ Not started | Lift the 109 singleton gallery units to ≥ 3 crops each from the already-annotated corpus. Cheapest path to clearing the 80% top-3 bar. | — |
+| 3b · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D. Runs only after 3a.1 exposes which units the corpus can't cover. | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |
 
@@ -251,6 +252,17 @@ The baseline split confirmed the strategic thesis:
 - **Classification is the weak link** (64% top-1 on matched), and **highly bimodal per class** — some classes are near-solved (tyranids 100%, adeptus_mechanicus 89%) while others are effectively hallucinated (death_guard 2.4% class precision, chaos_space_marines 5.3%). Retrieval-based classification should move the bottom more than the top.
 - **The "39.9% mAP50" number in SPEC.md was actually mAP50-95.** Real mAP50 on the same val split is 54.7%. The stricter mAP50-95 is 39.1%. SPEC.md corrected alongside this phase.
 - **Unit-level KPIs are N/A.** Not a model failure — a corpus limitation. Annotations are faction-only, so top-1 / top-3 unit accuracy literally cannot be measured against current ground truth. Tier 3 retrieval evaluates against the reference gallery instead and does not require unit annotations.
+
+### Phase 3a headline findings
+
+On 51 queries (3.9× Phase 2) against a 274-crop, 23-faction gallery drawn from the full annotation corpus:
+
+- **Breadth target met, accuracy target missed.** All 14 previously-uncovered factions now have gallery + query coverage. Unscoped top-3 = 74.5% (Wilson 61.1–84.5%) — regressed from Phase 2's 84.6% on 13 queries, but the 61.1% lower bound is *tighter* than Phase 2's 57.8%. The headline is more honest, not worse.
+- **Depth=1 is the single biggest failure mode.** 109 of 139 gallery units (78%) have only one reference crop. Every named retrieval failure (rank > 5) is a singleton unit. Retrieval cannot generalise off a lone exemplar when paint schemes vary.
+- **Tier 2 KNN-vote flatlined at 54.9%** (vs Phase 2's 53.8%) despite 3.4× more gallery data. Confirms Phase 2.5's conclusion: the problem is not volume, it's that DINOv2 embeddings don't cluster linearly by faction under majority vote. Linear probe remains the cheapest next experiment if Tier 2 is revisited.
+- **Phase 0's crisis classes recovered.** CSM 100%, death_guard 100%, genestealer_cult 50% unscoped top-3. The retrieval architecture *does* rescue the YOLO-bad classes — the residual problem is gallery depth, not embedding discrimination. This is the Phase 1 hypothesis holding at larger scale.
+- **Scoped_oracle dropped 100% → 92.2%.** Within-faction discrimination is still strong at the larger scale; the 5.9 pp ceiling gap is the cost of adding the long tail.
+- **Strategic decision.** Treat Phase 3a as a partial pass: ship what we have, then run Phase 3a.1 (depth-focused labelling — bring every query unit to ≥ 3 crops from the already-annotated corpus) before considering synthetic data (Phase 3b). The lever is known; only labelling hours are required.
 
 ### Phase 2 headline findings
 

@@ -1,0 +1,3643 @@
+{
+  "model_id": "facebook/dinov2-base",
+  "tier2_method": "knn_vote",
+  "tier2_k": 5,
+  "gate_threshold": 0.5,
+  "metrics": {
+    "num_queries": 51,
+    "tier2_faction_top1": 0.5490196078431373,
+    "unscoped": {
+      "top1": 0.5882352941176471,
+      "top3": 0.7450980392156863,
+      "top5": 0.803921568627451,
+      "mrr": 0.6877868262339752,
+      "counts": {
+        "top1": 30,
+        "top3": 38,
+        "top5": 41,
+        "total": 51
+      }
+    },
+    "scoped_actual": {
+      "top1": 0.47058823529411764,
+      "top3": 0.5294117647058824,
+      "top5": 0.5490196078431373,
+      "mrr": 0.5016339869281046,
+      "counts": {
+        "top1": 24,
+        "top3": 27,
+        "top5": 28,
+        "total": 51
+      }
+    },
+    "scoped_gated": {
+      "top1": 0.5098039215686274,
+      "top3": 0.6274509803921569,
+      "top5": 0.6666666666666666,
+      "mrr": 0.5881603089603991,
+      "counts": {
+        "top1": 26,
+        "top3": 32,
+        "top5": 34,
+        "total": 51
+      }
+    },
+    "scoped_oracle": {
+      "top1": 0.7450980392156863,
+      "top3": 0.9215686274509803,
+      "top5": 0.9803921568627451,
+      "mrr": 0.8470588235294119,
+      "counts": {
+        "top1": 38,
+        "top3": 47,
+        "top5": 50,
+        "total": 51
+      }
+    }
+  },
+  "per_query": [
+    {
+      "query_path": "scripts/phase3/queries/adepta_sororitas/battle_sisters/1caiims_e876d8c86751__01.jpg",
+      "true_faction": "adepta_sororitas",
+      "true_unit": "battle_sisters",
+      "tier2_pred": "space_marines",
+      "tier2_conf": 0.401,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "space_marines": 1.707,
+        "death_guard": 0.853,
+        "adepta_sororitas": 1.693
+      },
+      "unscoped_rank": 4,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 4,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.855
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.853
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.852
+        },
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.849
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.841
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.855
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.852
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.806
+        },
+        {
+          "unit": "death_company_captain",
+          "faction": "space_marines",
+          "sim": 0.796
+        },
+        {
+          "unit": "captain",
+          "faction": "space_marines",
+          "sim": 0.795
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/adeptus_mechanicus/skitarii_rangers/1010052_27fdf68d8954__00.jpg",
+      "true_faction": "adeptus_mechanicus",
+      "true_unit": "skitarii_rangers",
+      "tier2_pred": "adeptus_mechanicus",
+      "tier2_conf": 0.202,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "adeptus_mechanicus": 0.822,
+        "space_marines": 0.818,
+        "black_templars": 0.817,
+        "adepta_sororitas": 0.809,
+        "chaos_space_marines": 0.807
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "skitarii_rangers",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.822
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.818
+        },
+        {
+          "unit": "high_marshal_helbrecht",
+          "faction": "black_templars",
+          "sim": 0.817
+        },
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.809
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.807
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "skitarii_rangers",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.822
+        },
+        {
+          "unit": "tech_priest",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.744
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/adeptus_mechanicus/tech_priest/162517_bad6b66af189__00.jpg",
+      "true_faction": "adeptus_mechanicus",
+      "true_unit": "tech_priest",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.399,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "space_marines": 0.799,
+        "death_guard": 1.567,
+        "black_templars": 1.558
+      },
+      "unscoped_rank": 6,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 6,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.799
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.784
+        },
+        {
+          "unit": "crusader_squad",
+          "faction": "black_templars",
+          "sim": 0.78
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.778
+        },
+        {
+          "unit": "rangers",
+          "faction": "ynnari",
+          "sim": 0.777
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.784
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.743
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.717
+        },
+        {
+          "unit": "noxious_blightbringer",
+          "faction": "death_guard",
+          "sim": 0.696
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.665
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/black_templars/crusader_squad/dakka_1100443__00.jpg",
+      "true_faction": "black_templars",
+      "true_unit": "crusader_squad",
+      "tier2_pred": "black_templars",
+      "tier2_conf": 0.808,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "black_templars": 3.459,
+        "death_guard": 0.823
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "crusader_squad",
+          "faction": "black_templars",
+          "sim": 0.899
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.823
+        },
+        {
+          "unit": "infiltrators",
+          "faction": "black_templars",
+          "sim": 0.818
+        },
+        {
+          "unit": "eliminators",
+          "faction": "black_templars",
+          "sim": 0.808
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.804
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "crusader_squad",
+          "faction": "black_templars",
+          "sim": 0.899
+        },
+        {
+          "unit": "infiltrators",
+          "faction": "black_templars",
+          "sim": 0.818
+        },
+        {
+          "unit": "eliminators",
+          "faction": "black_templars",
+          "sim": 0.808
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.804
+        },
+        {
+          "unit": "sword_brethren",
+          "faction": "black_templars",
+          "sim": 0.8
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/black_templars/infiltrators/dakka_1038484__02.jpg",
+      "true_faction": "black_templars",
+      "true_unit": "infiltrators",
+      "tier2_pred": "black_templars",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "black_templars": 4.567
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "infiltrators",
+          "faction": "black_templars",
+          "sim": 0.924
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.91
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "black_templars",
+          "sim": 0.894
+        },
+        {
+          "unit": "incursors",
+          "faction": "black_templars",
+          "sim": 0.884
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.867
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "infiltrators",
+          "faction": "black_templars",
+          "sim": 0.924
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.91
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "black_templars",
+          "sim": 0.894
+        },
+        {
+          "unit": "incursors",
+          "faction": "black_templars",
+          "sim": 0.884
+        },
+        {
+          "unit": "crusader_squad",
+          "faction": "black_templars",
+          "sim": 0.858
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_daemons/bloodthirster/1cmdxlw_bdf976f7726b__02.jpg",
+      "true_faction": "chaos_daemons",
+      "true_unit": "bloodthirster",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 0.61,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "tyranids": 1.682,
+        "chaos_daemons": 1.074
+      },
+      "unscoped_rank": 5,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.577
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.565
+        },
+        {
+          "unit": "seekers_of_slaanesh",
+          "faction": "chaos_daemons",
+          "sim": 0.544
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.54
+        },
+        {
+          "unit": "bloodthirster",
+          "faction": "chaos_daemons",
+          "sim": 0.53
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.577
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.565
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.54
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.464
+        },
+        {
+          "unit": "hormagaunts",
+          "faction": "tyranids",
+          "sim": 0.415
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_daemons/daemon_prince/dakka_16387__00.jpg",
+      "true_faction": "chaos_daemons",
+      "true_unit": "daemon_prince",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 0.594,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "chaos_daemons": 1.535,
+        "tyranids": 2.244
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "daemon_prince",
+          "faction": "chaos_daemons",
+          "sim": 0.826
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.815
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.726
+        },
+        {
+          "unit": "bloodthirster",
+          "faction": "chaos_daemons",
+          "sim": 0.709
+        },
+        {
+          "unit": "solitaire",
+          "faction": "harlequins",
+          "sim": 0.695
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.815
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.726
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.688
+        },
+        {
+          "unit": "gargoyles",
+          "faction": "tyranids",
+          "sim": 0.518
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.487
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_daemons/daemonettes/dakka_1028257__04.jpg",
+      "true_faction": "chaos_daemons",
+      "true_unit": "daemonettes",
+      "tier2_pred": "harlequins",
+      "tier2_conf": 0.399,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "space_marines": 0.807,
+        "harlequins": 1.593,
+        "death_guard": 0.798,
+        "grey_knights": 0.794
+      },
+      "unscoped_rank": 81,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 4,
+      "scoped_gated_rank": 81,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.807
+        },
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.804
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.798
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.794
+        },
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.789
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.804
+        },
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.789
+        },
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.762
+        },
+        {
+          "unit": "solitaire",
+          "faction": "harlequins",
+          "sim": 0.756
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_daemons/great_unclean_one/114228_528377b7b6f4__00.jpg",
+      "true_faction": "chaos_daemons",
+      "true_unit": "great_unclean_one",
+      "tier2_pred": "chaos_daemons",
+      "tier2_conf": 0.671,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "chaos_daemons": 1.715,
+        "genestealer_cult": 0.424,
+        "death_guard": 0.416
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "great_unclean_one",
+          "faction": "chaos_daemons",
+          "sim": 0.829
+        },
+        {
+          "unit": "daemon_prince",
+          "faction": "chaos_daemons",
+          "sim": 0.444
+        },
+        {
+          "unit": "rotigus",
+          "faction": "chaos_daemons",
+          "sim": 0.442
+        },
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.424
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.416
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "great_unclean_one",
+          "faction": "chaos_daemons",
+          "sim": 0.829
+        },
+        {
+          "unit": "daemon_prince",
+          "faction": "chaos_daemons",
+          "sim": 0.444
+        },
+        {
+          "unit": "rotigus",
+          "faction": "chaos_daemons",
+          "sim": 0.442
+        },
+        {
+          "unit": "masque_of_slaanesh",
+          "faction": "chaos_daemons",
+          "sim": 0.386
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_daemons",
+          "sim": 0.375
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_daemons/plaguebearers/11z25d9_d4983cdc5731__01.jpg",
+      "true_faction": "chaos_daemons",
+      "true_unit": "plaguebearers",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.392,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "chaos_daemons": 0.735,
+        "thousand_sons": 0.694,
+        "chaos_space_marines": 0.694,
+        "death_guard": 1.37
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "plaguebearers",
+          "faction": "chaos_daemons",
+          "sim": 0.735
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.694
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.694
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.691
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.676
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.691
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.646
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.59
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.57
+        },
+        {
+          "unit": "noxious_blightbringer",
+          "faction": "death_guard",
+          "sim": 0.543
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_knights/war_dog/dakka_1024835__00.jpg",
+      "true_faction": "chaos_knights",
+      "true_unit": "war_dog",
+      "tier2_pred": "chaos_knights",
+      "tier2_conf": 0.616,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "chaos_knights": 2.593,
+        "imperial_knights": 0.811,
+        "death_guard": 0.803
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "war_dog",
+          "faction": "chaos_knights",
+          "sim": 0.96
+        },
+        {
+          "unit": "armigers",
+          "faction": "imperial_knights",
+          "sim": 0.811
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.803
+        },
+        {
+          "unit": "knight_paladin",
+          "faction": "imperial_knights",
+          "sim": 0.802
+        },
+        {
+          "unit": "knight_valiant",
+          "faction": "imperial_knights",
+          "sim": 0.779
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "war_dog",
+          "faction": "chaos_knights",
+          "sim": 0.96
+        },
+        {
+          "unit": "khorne_lord_of_skulls",
+          "faction": "chaos_knights",
+          "sim": 0.768
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/chaos_space_marines/legionaries/138245_351bd85403f3__04.jpg",
+      "true_faction": "chaos_space_marines",
+      "true_unit": "legionaries",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.811,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "chaos_space_marines": 3.576,
+        "custodes": 0.833
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.943
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.862
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.833
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.828
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.826
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.943
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.862
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.736
+        },
+        {
+          "unit": "khorne_berzerkers",
+          "faction": "chaos_space_marines",
+          "sim": 0.728
+        },
+        {
+          "unit": "company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.689
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/custodes/allarus_custodians/1069936_13b7678f1b44__00.jpg",
+      "true_faction": "custodes",
+      "true_unit": "allarus_custodians",
+      "tier2_pred": "custodes",
+      "tier2_conf": 0.4,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "chaos_space_marines": 1.684,
+        "custodes": 1.687,
+        "grey_knights": 0.849
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 2,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.851
+        },
+        {
+          "unit": "allarus_custodians",
+          "faction": "custodes",
+          "sim": 0.849
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.849
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.833
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.826
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "allarus_custodians",
+          "faction": "custodes",
+          "sim": 0.849
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.826
+        },
+        {
+          "unit": "shield_captain",
+          "faction": "custodes",
+          "sim": 0.744
+        },
+        {
+          "unit": "vexilus_praetor",
+          "faction": "custodes",
+          "sim": 0.741
+        },
+        {
+          "unit": "valdor",
+          "faction": "custodes",
+          "sim": 0.703
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/custodes/custodian_guard/1012992_e1379e555db1__09.jpg",
+      "true_faction": "custodes",
+      "true_unit": "custodian_guard",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.592,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "adeptus_mechanicus": 0.756,
+        "custodes": 0.756,
+        "death_guard": 2.197
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "tech_priest",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.756
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.756
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.735
+        },
+        {
+          "unit": "death_korps_of_krieg",
+          "faction": "imperial_guard",
+          "sim": 0.729
+        },
+        {
+          "unit": "intercessors",
+          "faction": "space_marines",
+          "sim": 0.727
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.735
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.671
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.661
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.63
+        },
+        {
+          "unit": "noxious_blightbringer",
+          "faction": "death_guard",
+          "sim": 0.606
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/custodes/custodian_wardens/1040930_82abbd4d3a7b__03.jpg",
+      "true_faction": "custodes",
+      "true_unit": "custodian_wardens",
+      "tier2_pred": "grey_knights",
+      "tier2_conf": 0.401,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "adepta_sororitas": 0.812,
+        "grey_knights": 1.611,
+        "custodes": 1.597
+      },
+      "unscoped_rank": 55,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 6,
+      "scoped_gated_rank": 55,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.812
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.809
+        },
+        {
+          "unit": "allarus_custodians",
+          "faction": "custodes",
+          "sim": 0.8
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.797
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.793
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.809
+        },
+        {
+          "unit": "voldus",
+          "faction": "grey_knights",
+          "sim": 0.737
+        },
+        {
+          "unit": "grey_knight_paladins",
+          "faction": "grey_knights",
+          "sim": 0.651
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/custodes/shield_captain/1058168_ffc5b56d61e5__00.jpg",
+      "true_faction": "custodes",
+      "true_unit": "shield_captain",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.402,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "death_guard": 1.744,
+        "custodes": 1.732,
+        "space_marines": 0.867
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 2,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.879
+        },
+        {
+          "unit": "shield_captain",
+          "faction": "custodes",
+          "sim": 0.873
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.867
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.858
+        },
+        {
+          "unit": "valdor",
+          "faction": "custodes",
+          "sim": 0.845
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.879
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.821
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.768
+        },
+        {
+          "unit": "noxious_blightbringer",
+          "faction": "death_guard",
+          "sim": 0.756
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.734
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/death_guard/plague_marines/dakka_1037686__00.jpg",
+      "true_faction": "death_guard",
+      "true_unit": "plague_marines",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.808,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "death_guard": 3.546,
+        "space_marines": 0.842
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.986
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.842
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.827
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "black_templars",
+          "sim": 0.827
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.824
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.986
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.821
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.779
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.771
+        },
+        {
+          "unit": "noxious_blightbringer",
+          "faction": "death_guard",
+          "sim": 0.755
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/deathwatch/chaplain/1fkh5cg_269a1cea45dc__04.jpg",
+      "true_faction": "deathwatch",
+      "true_unit": "chaplain",
+      "tier2_pred": "space_marines",
+      "tier2_conf": 0.593,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "deathwatch": 0.798,
+        "space_marines": 2.287,
+        "death_guard": 0.769
+      },
+      "unscoped_rank": 21,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "deathwatch_veterans",
+          "faction": "deathwatch",
+          "sim": 0.798
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.77
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.769
+        },
+        {
+          "unit": "ezekiel",
+          "faction": "space_marines",
+          "sim": 0.76
+        },
+        {
+          "unit": "kayvaan_shrike",
+          "faction": "space_marines",
+          "sim": 0.757
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.77
+        },
+        {
+          "unit": "ezekiel",
+          "faction": "space_marines",
+          "sim": 0.76
+        },
+        {
+          "unit": "kayvaan_shrike",
+          "faction": "space_marines",
+          "sim": 0.757
+        },
+        {
+          "unit": "cypher",
+          "faction": "space_marines",
+          "sim": 0.749
+        },
+        {
+          "unit": "lemartes",
+          "faction": "space_marines",
+          "sim": 0.749
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/drukhari/drukhari_warriors/10655_89682d0e5a24__09.jpg",
+      "true_faction": "drukhari",
+      "true_unit": "drukhari_warriors",
+      "tier2_pred": "drukhari",
+      "tier2_conf": 0.449,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "drukhari": 1.434,
+        "imperial_guard": 0.592,
+        "genestealer_cult": 0.583,
+        "adepta_sororitas": 0.582
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": 2,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": 2,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "archon",
+          "faction": "drukhari",
+          "sim": 0.717
+        },
+        {
+          "unit": "drukhari_warriors",
+          "faction": "drukhari",
+          "sim": 0.717
+        },
+        {
+          "unit": "death_korps_of_krieg",
+          "faction": "imperial_guard",
+          "sim": 0.592
+        },
+        {
+          "unit": "acolyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.583
+        },
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.582
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "archon",
+          "faction": "drukhari",
+          "sim": 0.717
+        },
+        {
+          "unit": "drukhari_warriors",
+          "faction": "drukhari",
+          "sim": 0.717
+        },
+        {
+          "unit": "incubi",
+          "faction": "drukhari",
+          "sim": 0.47
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/eldar/shining_spears/120212_39f0e76af687__03.jpg",
+      "true_faction": "eldar",
+      "true_unit": "shining_spears",
+      "tier2_pred": "eldar",
+      "tier2_conf": 0.639,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "eldar": 1.771,
+        "harlequins": 0.504,
+        "necrons": 0.495
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "shining_spears",
+          "faction": "eldar",
+          "sim": 0.755
+        },
+        {
+          "unit": "windriders",
+          "faction": "eldar",
+          "sim": 0.518
+        },
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.504
+        },
+        {
+          "unit": "wraithlord",
+          "faction": "eldar",
+          "sim": 0.499
+        },
+        {
+          "unit": "skorpekh_destroyers",
+          "faction": "necrons",
+          "sim": 0.495
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "shining_spears",
+          "faction": "eldar",
+          "sim": 0.755
+        },
+        {
+          "unit": "windriders",
+          "faction": "eldar",
+          "sim": 0.518
+        },
+        {
+          "unit": "wraithlord",
+          "faction": "eldar",
+          "sim": 0.499
+        },
+        {
+          "unit": "wraithknight",
+          "faction": "eldar",
+          "sim": 0.432
+        },
+        {
+          "unit": "wraithguard",
+          "faction": "eldar",
+          "sim": 0.422
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/eldar/wraithguard/12047_8fb0bb7e29d1__02.jpg",
+      "true_faction": "eldar",
+      "true_unit": "wraithguard",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.6,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "eldar": 0.828,
+        "chaos_space_marines": 2.436,
+        "thousand_sons": 0.798
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "wraithguard",
+          "faction": "eldar",
+          "sim": 0.828
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.825
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.813
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.798
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.798
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.825
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.813
+        },
+        {
+          "unit": "khorne_berzerkers",
+          "faction": "chaos_space_marines",
+          "sim": 0.693
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.654
+        },
+        {
+          "unit": "company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.635
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/genestealer_cult/aberrants/1061044_3995318f2400__03.jpg",
+      "true_faction": "genestealer_cult",
+      "true_unit": "aberrants",
+      "tier2_pred": "genestealer_cult",
+      "tier2_conf": 0.41,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "genestealer_cult": 1.596,
+        "death_guard": 0.8,
+        "black_templars": 0.748,
+        "space_marines": 0.745
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.831
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.8
+        },
+        {
+          "unit": "primaris_librarian",
+          "faction": "black_templars",
+          "sim": 0.748
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.745
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.736
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.831
+        },
+        {
+          "unit": "kelermorph",
+          "faction": "genestealer_cult",
+          "sim": 0.688
+        },
+        {
+          "unit": "acolyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.633
+        },
+        {
+          "unit": "neophyte_hybrids",
+          "faction": "genestealer_cult",
+          "sim": 0.576
+        },
+        {
+          "unit": "genestealers",
+          "faction": "genestealer_cult",
+          "sim": 0.322
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/genestealer_cult/neophyte_hybrids/1061044_3995318f2400__04.jpg",
+      "true_faction": "genestealer_cult",
+      "true_unit": "neophyte_hybrids",
+      "tier2_pred": "death_guard",
+      "tier2_conf": 0.399,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "imperial_guard": 0.771,
+        "death_guard": 1.501,
+        "black_templars": 1.49
+      },
+      "unscoped_rank": 11,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": 11,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "cadian_shock_troops",
+          "faction": "imperial_guard",
+          "sim": 0.771
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.758
+        },
+        {
+          "unit": "eliminators",
+          "faction": "black_templars",
+          "sim": 0.752
+        },
+        {
+          "unit": "crusader_squad",
+          "faction": "black_templars",
+          "sim": 0.739
+        },
+        {
+          "unit": "kasrkin",
+          "faction": "imperial_guard",
+          "sim": 0.735
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.758
+        },
+        {
+          "unit": "blightlord_terminators",
+          "faction": "death_guard",
+          "sim": 0.617
+        },
+        {
+          "unit": "deathshroud_terminators",
+          "faction": "death_guard",
+          "sim": 0.597
+        },
+        {
+          "unit": "lord_of_contagion",
+          "faction": "death_guard",
+          "sim": 0.532
+        },
+        {
+          "unit": "noxious_blightbringer",
+          "faction": "death_guard",
+          "sim": 0.449
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/grey_knights/grey_knight_strike_squad/117052_c1c9d14d75a3__00.jpg",
+      "true_faction": "grey_knights",
+      "true_unit": "grey_knight_strike_squad",
+      "tier2_pred": "orks",
+      "tier2_conf": 0.204,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "orks": 0.813,
+        "chaos_space_marines": 0.803,
+        "grey_knights": 0.8,
+        "black_templars": 0.788,
+        "adeptus_mechanicus": 0.786
+      },
+      "unscoped_rank": 3,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 3,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "boyz",
+          "faction": "orks",
+          "sim": 0.813
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.803
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.8
+        },
+        {
+          "unit": "primaris_librarian",
+          "faction": "black_templars",
+          "sim": 0.788
+        },
+        {
+          "unit": "tech_priest",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.786
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "boyz",
+          "faction": "orks",
+          "sim": 0.813
+        },
+        {
+          "unit": "stompa",
+          "faction": "orks",
+          "sim": 0.581
+        },
+        {
+          "unit": "warboss",
+          "faction": "orks",
+          "sim": 0.53
+        },
+        {
+          "unit": "battlefortress",
+          "faction": "orks",
+          "sim": 0.349
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/harlequins/death_jester/dakka_1000525__00.jpg",
+      "true_faction": "harlequins",
+      "true_unit": "death_jester",
+      "tier2_pred": "harlequins",
+      "tier2_conf": 0.406,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "harlequins": 1.452,
+        "imperial_knights": 0.714,
+        "eldar": 0.711,
+        "necrons": 0.7
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.749
+        },
+        {
+          "unit": "armigers",
+          "faction": "imperial_knights",
+          "sim": 0.714
+        },
+        {
+          "unit": "wraithguard",
+          "faction": "eldar",
+          "sim": 0.711
+        },
+        {
+          "unit": "overlord",
+          "faction": "necrons",
+          "sim": 0.7
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.7
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.749
+        },
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.68
+        },
+        {
+          "unit": "solitaire",
+          "faction": "harlequins",
+          "sim": 0.649
+        },
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.607
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/harlequins/harlequin_troupe/dakka_1063106__00.jpg",
+      "true_faction": "harlequins",
+      "true_unit": "harlequin_troupe",
+      "tier2_pred": "harlequins",
+      "tier2_conf": 0.402,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "harlequins": 1.461,
+        "grey_knights": 0.736,
+        "thousand_sons": 0.725,
+        "genestealer_cult": 0.715
+      },
+      "unscoped_rank": 13,
+      "scoped_actual_rank": 3,
+      "scoped_oracle_rank": 3,
+      "scoped_gated_rank": 13,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.739
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.736
+        },
+        {
+          "unit": "scarab_occult_terminators",
+          "faction": "thousand_sons",
+          "sim": 0.725
+        },
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.722
+        },
+        {
+          "unit": "aberrants",
+          "faction": "genestealer_cult",
+          "sim": 0.715
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.739
+        },
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.722
+        },
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.697
+        },
+        {
+          "unit": "solitaire",
+          "faction": "harlequins",
+          "sim": 0.694
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/harlequins/shadowseer/dakka_1116781__02.jpg",
+      "true_faction": "harlequins",
+      "true_unit": "shadowseer",
+      "tier2_pred": "space_marines",
+      "tier2_conf": 0.388,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "harlequins": 0.963,
+        "space_marines": 1.674,
+        "death_guard": 0.853,
+        "chaos_daemons": 0.828
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.963
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.855
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.853
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_daemons",
+          "sim": 0.828
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.819
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.855
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.819
+        },
+        {
+          "unit": "death_company_captain",
+          "faction": "space_marines",
+          "sim": 0.803
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.791
+        },
+        {
+          "unit": "captain",
+          "faction": "space_marines",
+          "sim": 0.771
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/harlequins/solitaire/dakka_1094993__00.jpg",
+      "true_faction": "harlequins",
+      "true_unit": "solitaire",
+      "tier2_pred": "harlequins",
+      "tier2_conf": 0.598,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "space_marines": 0.836,
+        "harlequins": 2.446,
+        "chaos_space_marines": 0.808
+      },
+      "unscoped_rank": 3,
+      "scoped_actual_rank": 2,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": 2,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.836
+        },
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.834
+        },
+        {
+          "unit": "solitaire",
+          "faction": "harlequins",
+          "sim": 0.813
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.808
+        },
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.799
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.834
+        },
+        {
+          "unit": "solitaire",
+          "faction": "harlequins",
+          "sim": 0.813
+        },
+        {
+          "unit": "shadowseer",
+          "faction": "harlequins",
+          "sim": 0.799
+        },
+        {
+          "unit": "death_jester",
+          "faction": "harlequins",
+          "sim": 0.783
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/imperial_guard/armoured_sentinel/12fouwo_1c5512305f35__00.jpg",
+      "true_faction": "imperial_guard",
+      "true_unit": "armoured_sentinel",
+      "tier2_pred": "imperial_guard",
+      "tier2_conf": 0.432,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "imperial_guard": 1.442,
+        "adeptus_mechanicus": 0.633,
+        "orks": 0.633,
+        "death_guard": 0.633
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "armoured_sentinel",
+          "faction": "imperial_guard",
+          "sim": 0.784
+        },
+        {
+          "unit": "tech_priest",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.633
+        },
+        {
+          "unit": "warboss",
+          "faction": "orks",
+          "sim": 0.633
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.633
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "black_templars",
+          "sim": 0.621
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "armoured_sentinel",
+          "faction": "imperial_guard",
+          "sim": 0.784
+        },
+        {
+          "unit": "death_korps_of_krieg",
+          "faction": "imperial_guard",
+          "sim": 0.605
+        },
+        {
+          "unit": "kasrkin",
+          "faction": "imperial_guard",
+          "sim": 0.556
+        },
+        {
+          "unit": "cadian_shock_troops",
+          "faction": "imperial_guard",
+          "sim": 0.539
+        },
+        {
+          "unit": "leman_russ_battle_tanks",
+          "faction": "imperial_guard",
+          "sim": 0.404
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/imperial_guard/cadian_shock_troops/12fouwo_1c5512305f35__20.jpg",
+      "true_faction": "imperial_guard",
+      "true_unit": "cadian_shock_troops",
+      "tier2_pred": "imperial_guard",
+      "tier2_conf": 0.608,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "imperial_guard": 1.919,
+        "adepta_sororitas": 0.65,
+        "space_marines": 0.585
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "cadian_shock_troops",
+          "faction": "imperial_guard",
+          "sim": 0.734
+        },
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.65
+        },
+        {
+          "unit": "intercessors",
+          "faction": "space_marines",
+          "sim": 0.585
+        },
+        {
+          "unit": "rangers",
+          "faction": "ynnari",
+          "sim": 0.585
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.576
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "cadian_shock_troops",
+          "faction": "imperial_guard",
+          "sim": 0.734
+        },
+        {
+          "unit": "death_korps_of_krieg",
+          "faction": "imperial_guard",
+          "sim": 0.559
+        },
+        {
+          "unit": "kasrkin",
+          "faction": "imperial_guard",
+          "sim": 0.489
+        },
+        {
+          "unit": "armoured_sentinel",
+          "faction": "imperial_guard",
+          "sim": 0.437
+        },
+        {
+          "unit": "leman_russ_battle_tanks",
+          "faction": "imperial_guard",
+          "sim": 0.186
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/imperial_guard/death_korps_of_krieg/11t2alq_15adda0a7fce__02.jpg",
+      "true_faction": "imperial_guard",
+      "true_unit": "death_korps_of_krieg",
+      "tier2_pred": "custodes",
+      "tier2_conf": 0.202,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "custodes": 0.79,
+        "imperial_guard": 0.785,
+        "death_guard": 0.781,
+        "ynnari": 0.78,
+        "adepta_sororitas": 0.778
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 2,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.79
+        },
+        {
+          "unit": "death_korps_of_krieg",
+          "faction": "imperial_guard",
+          "sim": 0.785
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.781
+        },
+        {
+          "unit": "rangers",
+          "faction": "ynnari",
+          "sim": 0.78
+        },
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.778
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.79
+        },
+        {
+          "unit": "shield_captain",
+          "faction": "custodes",
+          "sim": 0.74
+        },
+        {
+          "unit": "allarus_custodians",
+          "faction": "custodes",
+          "sim": 0.715
+        },
+        {
+          "unit": "valdor",
+          "faction": "custodes",
+          "sim": 0.684
+        },
+        {
+          "unit": "vexilus_praetor",
+          "faction": "custodes",
+          "sim": 0.645
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/imperial_guard/kasrkin/12gas6q_dec3606097f3__04.jpg",
+      "true_faction": "imperial_guard",
+      "true_unit": "kasrkin",
+      "tier2_pred": "black_templars",
+      "tier2_conf": 0.791,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "imperial_guard": 0.921,
+        "black_templars": 3.484
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "kasrkin",
+          "faction": "imperial_guard",
+          "sim": 0.921
+        },
+        {
+          "unit": "infiltrators",
+          "faction": "black_templars",
+          "sim": 0.883
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "black_templars",
+          "sim": 0.864
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.862
+        },
+        {
+          "unit": "cadian_shock_troops",
+          "faction": "imperial_guard",
+          "sim": 0.849
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "infiltrators",
+          "faction": "black_templars",
+          "sim": 0.883
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "black_templars",
+          "sim": 0.864
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.862
+        },
+        {
+          "unit": "incursors",
+          "faction": "black_templars",
+          "sim": 0.845
+        },
+        {
+          "unit": "crusader_squad",
+          "faction": "black_templars",
+          "sim": 0.835
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/imperial_knights/knight_paladin/dakka_1093382__04.jpg",
+      "true_faction": "imperial_knights",
+      "true_unit": "knight_paladin",
+      "tier2_pred": "imperial_knights",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "imperial_knights": 2.946
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "knight_paladin",
+          "faction": "imperial_knights",
+          "sim": 0.654
+        },
+        {
+          "unit": "knight_magaera",
+          "faction": "imperial_knights",
+          "sim": 0.445
+        },
+        {
+          "unit": "war_dog",
+          "faction": "chaos_knights",
+          "sim": 0.438
+        },
+        {
+          "unit": "knight_valiant",
+          "faction": "imperial_knights",
+          "sim": 0.421
+        },
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.409
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "knight_paladin",
+          "faction": "imperial_knights",
+          "sim": 0.654
+        },
+        {
+          "unit": "knight_magaera",
+          "faction": "imperial_knights",
+          "sim": 0.445
+        },
+        {
+          "unit": "knight_valiant",
+          "faction": "imperial_knights",
+          "sim": 0.421
+        },
+        {
+          "unit": "armigers",
+          "faction": "imperial_knights",
+          "sim": 0.376
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/necrons/canoptek_wraiths/128ijpx_4ca827421e5d__35.jpg",
+      "true_faction": "necrons",
+      "true_unit": "canoptek_wraiths",
+      "tier2_pred": "necrons",
+      "tier2_conf": 0.634,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "necrons": 2.073,
+        "tyranids": 1.197
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "canoptek_wraiths",
+          "faction": "necrons",
+          "sim": 0.824
+        },
+        {
+          "unit": "chronomancer",
+          "faction": "necrons",
+          "sim": 0.629
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.602
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.591
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.585
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "canoptek_wraiths",
+          "faction": "necrons",
+          "sim": 0.824
+        },
+        {
+          "unit": "chronomancer",
+          "faction": "necrons",
+          "sim": 0.629
+        },
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.581
+        },
+        {
+          "unit": "skorpekh_destroyers",
+          "faction": "necrons",
+          "sim": 0.575
+        },
+        {
+          "unit": "overlord",
+          "faction": "necrons",
+          "sim": 0.497
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/necrons/immortals/128ijpx_4ca827421e5d__78.jpg",
+      "true_faction": "necrons",
+      "true_unit": "immortals",
+      "tier2_pred": "necrons",
+      "tier2_conf": 0.613,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "necrons": 2.037,
+        "adeptus_mechanicus": 0.646,
+        "grey_knights": 0.641
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.721
+        },
+        {
+          "unit": "skorpekh_destroyers",
+          "faction": "necrons",
+          "sim": 0.66
+        },
+        {
+          "unit": "tech_priest",
+          "faction": "adeptus_mechanicus",
+          "sim": 0.646
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.641
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.641
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "immortals",
+          "faction": "necrons",
+          "sim": 0.721
+        },
+        {
+          "unit": "skorpekh_destroyers",
+          "faction": "necrons",
+          "sim": 0.66
+        },
+        {
+          "unit": "overlord",
+          "faction": "necrons",
+          "sim": 0.593
+        },
+        {
+          "unit": "chronomancer",
+          "faction": "necrons",
+          "sim": 0.585
+        },
+        {
+          "unit": "canoptek_wraiths",
+          "faction": "necrons",
+          "sim": 0.425
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/orks/boyz/106422_32a253181cce__08.jpg",
+      "true_faction": "orks",
+      "true_unit": "boyz",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.403,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "orks": 0.868,
+        "chaos_space_marines": 1.692,
+        "space_marines": 0.821,
+        "thousand_sons": 0.82
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "boyz",
+          "faction": "orks",
+          "sim": 0.868
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.847
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.844
+        },
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.821
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.82
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.847
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.844
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.729
+        },
+        {
+          "unit": "khorne_berzerkers",
+          "faction": "chaos_space_marines",
+          "sim": 0.685
+        },
+        {
+          "unit": "sorcerer",
+          "faction": "chaos_space_marines",
+          "sim": 0.643
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/orks/warboss/12698_a00a9aa30579__00.jpg",
+      "true_faction": "orks",
+      "true_unit": "warboss",
+      "tier2_pred": "imperial_knights",
+      "tier2_conf": 0.4,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "imperial_knights": 1.622,
+        "grey_knights": 0.812,
+        "tau_empire": 1.617
+      },
+      "unscoped_rank": 12,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": 12,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "knight_paladin",
+          "faction": "imperial_knights",
+          "sim": 0.817
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.812
+        },
+        {
+          "unit": "xv8_crisis_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.812
+        },
+        {
+          "unit": "riptide_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.805
+        },
+        {
+          "unit": "stompa",
+          "faction": "orks",
+          "sim": 0.804
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "knight_paladin",
+          "faction": "imperial_knights",
+          "sim": 0.817
+        },
+        {
+          "unit": "armigers",
+          "faction": "imperial_knights",
+          "sim": 0.778
+        },
+        {
+          "unit": "knight_valiant",
+          "faction": "imperial_knights",
+          "sim": 0.773
+        },
+        {
+          "unit": "knight_magaera",
+          "faction": "imperial_knights",
+          "sim": 0.74
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/space_marines/cypher/1fkh5cg_269a1cea45dc__09.jpg",
+      "true_faction": "space_marines",
+      "true_unit": "cypher",
+      "tier2_pred": "deathwatch",
+      "tier2_conf": 0.21,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "deathwatch": 0.806,
+        "space_marines": 0.766,
+        "death_guard": 0.758,
+        "grey_knights": 0.756,
+        "adepta_sororitas": 0.754
+      },
+      "unscoped_rank": 6,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": 6,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "deathwatch_veterans",
+          "faction": "deathwatch",
+          "sim": 0.806
+        },
+        {
+          "unit": "sanguinary_guard",
+          "faction": "space_marines",
+          "sim": 0.766
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.758
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.756
+        },
+        {
+          "unit": "battle_sisters",
+          "faction": "adepta_sororitas",
+          "sim": 0.754
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "deathwatch_veterans",
+          "faction": "deathwatch",
+          "sim": 0.806
+        },
+        {
+          "unit": "primaris_lieutenant",
+          "faction": "deathwatch",
+          "sim": 0.69
+        },
+        {
+          "unit": "emperors_champion",
+          "faction": "deathwatch",
+          "sim": 0.641
+        },
+        {
+          "unit": "chaplain",
+          "faction": "deathwatch",
+          "sim": 0.628
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tau_empire/drones/dakka_1051128__01.jpg",
+      "true_faction": "tau_empire",
+      "true_unit": "drones",
+      "tier2_pred": "tau_empire",
+      "tier2_conf": 0.419,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tau_empire": 1.507,
+        "chaos_space_marines": 1.397,
+        "thousand_sons": 0.696
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "drones",
+          "faction": "tau_empire",
+          "sim": 0.806
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.7
+        },
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.696
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.696
+        },
+        {
+          "unit": "wraithguard",
+          "faction": "eldar",
+          "sim": 0.688
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "drones",
+          "faction": "tau_empire",
+          "sim": 0.806
+        },
+        {
+          "unit": "riptide_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.677
+        },
+        {
+          "unit": "darkstrider",
+          "faction": "tau_empire",
+          "sim": 0.662
+        },
+        {
+          "unit": "xv8_crisis_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.654
+        },
+        {
+          "unit": "ghostkeel_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.624
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tau_empire/ghostkeel_battlesuit/dakka_1163053__00.jpg",
+      "true_faction": "tau_empire",
+      "true_unit": "ghostkeel_battlesuit",
+      "tier2_pred": "tau_empire",
+      "tier2_conf": 0.801,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tau_empire": 3.616,
+        "space_marines": 0.9
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "ghostkeel_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.927
+        },
+        {
+          "unit": "riptide_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.914
+        },
+        {
+          "unit": "xv8_crisis_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.902
+        },
+        {
+          "unit": "redemptor_dreadnought",
+          "faction": "space_marines",
+          "sim": 0.9
+        },
+        {
+          "unit": "knight_valiant",
+          "faction": "imperial_knights",
+          "sim": 0.869
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "ghostkeel_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.927
+        },
+        {
+          "unit": "riptide_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.914
+        },
+        {
+          "unit": "xv8_crisis_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.902
+        },
+        {
+          "unit": "darkstrider",
+          "faction": "tau_empire",
+          "sim": 0.691
+        },
+        {
+          "unit": "drones",
+          "faction": "tau_empire",
+          "sim": 0.593
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tau_empire/riptide_battlesuit/dakka_1051130__00.jpg",
+      "true_faction": "tau_empire",
+      "true_unit": "riptide_battlesuit",
+      "tier2_pred": "tau_empire",
+      "tier2_conf": 0.404,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tau_empire": 1.646,
+        "imperial_knights": 1.609,
+        "grey_knights": 0.814
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "riptide_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.834
+        },
+        {
+          "unit": "armigers",
+          "faction": "imperial_knights",
+          "sim": 0.815
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.814
+        },
+        {
+          "unit": "xv8_crisis_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.812
+        },
+        {
+          "unit": "knight_paladin",
+          "faction": "imperial_knights",
+          "sim": 0.794
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "riptide_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.834
+        },
+        {
+          "unit": "xv8_crisis_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.812
+        },
+        {
+          "unit": "ghostkeel_battlesuit",
+          "faction": "tau_empire",
+          "sim": 0.793
+        },
+        {
+          "unit": "darkstrider",
+          "faction": "tau_empire",
+          "sim": 0.705
+        },
+        {
+          "unit": "drones",
+          "faction": "tau_empire",
+          "sim": 0.679
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/thousand_sons/exalted_sorcerer/1218019_8fb9b9be817c__00.jpg",
+      "true_faction": "thousand_sons",
+      "true_unit": "exalted_sorcerer",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.392,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "chaos_daemons": 0.813,
+        "death_guard": 0.805,
+        "chaos_space_marines": 1.55,
+        "custodes": 0.784
+      },
+      "unscoped_rank": 29,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 2,
+      "scoped_gated_rank": 29,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_daemons",
+          "sim": 0.813
+        },
+        {
+          "unit": "plague_marines",
+          "faction": "death_guard",
+          "sim": 0.805
+        },
+        {
+          "unit": "sorcerer",
+          "faction": "chaos_space_marines",
+          "sim": 0.8
+        },
+        {
+          "unit": "vexilus_praetor",
+          "faction": "custodes",
+          "sim": 0.784
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.75
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "sorcerer",
+          "faction": "chaos_space_marines",
+          "sim": 0.8
+        },
+        {
+          "unit": "chaos_lord",
+          "faction": "chaos_space_marines",
+          "sim": 0.75
+        },
+        {
+          "unit": "khorne_berzerkers",
+          "faction": "chaos_space_marines",
+          "sim": 0.727
+        },
+        {
+          "unit": "company_champion",
+          "faction": "chaos_space_marines",
+          "sim": 0.671
+        },
+        {
+          "unit": "venomcrawler",
+          "faction": "chaos_space_marines",
+          "sim": 0.668
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/thousand_sons/rubric_marines/13164_2ebfe221cced__00.jpg",
+      "true_faction": "thousand_sons",
+      "true_unit": "rubric_marines",
+      "tier2_pred": "chaos_space_marines",
+      "tier2_conf": 0.601,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "thousand_sons": 0.925,
+        "chaos_space_marines": 2.724,
+        "grey_knights": 0.88
+      },
+      "unscoped_rank": 2,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.925
+        },
+        {
+          "unit": "rubric_marines",
+          "faction": "thousand_sons",
+          "sim": 0.925
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.9
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.88
+        },
+        {
+          "unit": "war_dog",
+          "faction": "chaos_knights",
+          "sim": 0.862
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "legionaries",
+          "faction": "chaos_space_marines",
+          "sim": 0.925
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.9
+        },
+        {
+          "unit": "khorne_berzerkers",
+          "faction": "chaos_space_marines",
+          "sim": 0.776
+        },
+        {
+          "unit": "chaos_terminator_squad",
+          "faction": "chaos_space_marines",
+          "sim": 0.763
+        },
+        {
+          "unit": "helbrute",
+          "faction": "chaos_space_marines",
+          "sim": 0.695
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tyranids/gargoyles/12chle6_1b9e5bbdf7aa__02.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "gargoyles",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tyranids": 2.239
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "gargoyles",
+          "faction": "tyranids",
+          "sim": 0.476
+        },
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.46
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.449
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.439
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.414
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "gargoyles",
+          "faction": "tyranids",
+          "sim": 0.476
+        },
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.46
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.449
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.439
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.414
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tyranids/genestealers/122lero_82096eaba983__02.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "genestealers",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 0.811,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tyranids": 1.923,
+        "ynnari": 0.45
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.596
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.489
+        },
+        {
+          "unit": "rangers",
+          "faction": "ynnari",
+          "sim": 0.45
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.389
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.378
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.596
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.489
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.389
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.378
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.331
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tyranids/termagants/155x3j1_e06889556a36__05.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "termagants",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 0.811,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tyranids": 1.925,
+        "chaos_daemons": 0.449
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.513
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.456
+        },
+        {
+          "unit": "daemon_prince",
+          "faction": "chaos_daemons",
+          "sim": 0.449
+        },
+        {
+          "unit": "contorted_epitome",
+          "faction": "chaos_daemons",
+          "sim": 0.431
+        },
+        {
+          "unit": "venomcrawler",
+          "faction": "chaos_space_marines",
+          "sim": 0.43
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.513
+        },
+        {
+          "unit": "carnifex",
+          "faction": "tyranids",
+          "sim": 0.456
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.426
+        },
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.385
+        },
+        {
+          "unit": "hormagaunts",
+          "faction": "tyranids",
+          "sim": 0.36
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/tyranids/tyranid_warriors/122lero_82096eaba983__19.jpg",
+      "true_faction": "tyranids",
+      "true_unit": "tyranid_warriors",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 1.0,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "tyranids": 2.966
+      },
+      "unscoped_rank": 4,
+      "scoped_actual_rank": 4,
+      "scoped_oracle_rank": 4,
+      "scoped_gated_rank": 4,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.644
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.624
+        },
+        {
+          "unit": "hormagaunts",
+          "faction": "tyranids",
+          "sim": 0.571
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.561
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.509
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "hive_tyrant",
+          "faction": "tyranids",
+          "sim": 0.644
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.624
+        },
+        {
+          "unit": "hormagaunts",
+          "faction": "tyranids",
+          "sim": 0.571
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.561
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.509
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/ynnari/dark_reapers/12k8x12_65d4aab31663__02.jpg",
+      "true_faction": "ynnari",
+      "true_unit": "dark_reapers",
+      "tier2_pred": "ynnari",
+      "tier2_conf": 0.614,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "ynnari": 2.524,
+        "black_templars": 1.585
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "dark_reapers",
+          "faction": "ynnari",
+          "sim": 0.881
+        },
+        {
+          "unit": "eliminators",
+          "faction": "black_templars",
+          "sim": 0.804
+        },
+        {
+          "unit": "captain",
+          "faction": "black_templars",
+          "sim": 0.781
+        },
+        {
+          "unit": "kasrkin",
+          "faction": "imperial_guard",
+          "sim": 0.78
+        },
+        {
+          "unit": "custodian_guard",
+          "faction": "custodes",
+          "sim": 0.779
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "dark_reapers",
+          "faction": "ynnari",
+          "sim": 0.881
+        },
+        {
+          "unit": "rangers",
+          "faction": "ynnari",
+          "sim": 0.762
+        },
+        {
+          "unit": "guardian_defenders",
+          "faction": "ynnari",
+          "sim": 0.647
+        },
+        {
+          "unit": "spiritseer",
+          "faction": "ynnari",
+          "sim": 0.597
+        },
+        {
+          "unit": "howling_banshees",
+          "faction": "ynnari",
+          "sim": 0.552
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/ynnari/falcon/12ljebr_319587223b94__00.jpg",
+      "true_faction": "ynnari",
+      "true_unit": "falcon",
+      "tier2_pred": "ynnari",
+      "tier2_conf": 0.455,
+      "tier2_correct": true,
+      "tier2_all_scores": {
+        "ynnari": 1.496,
+        "grey_knights": 1.197,
+        "imperial_knights": 0.592
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": 1,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": 1,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "falcon",
+          "faction": "ynnari",
+          "sim": 0.762
+        },
+        {
+          "unit": "fire_prism",
+          "faction": "ynnari",
+          "sim": 0.734
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.603
+        },
+        {
+          "unit": "armigers",
+          "faction": "imperial_knights",
+          "sim": 0.592
+        },
+        {
+          "unit": "redemptor_dreadnought",
+          "faction": "space_marines",
+          "sim": 0.587
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "falcon",
+          "faction": "ynnari",
+          "sim": 0.762
+        },
+        {
+          "unit": "fire_prism",
+          "faction": "ynnari",
+          "sim": 0.734
+        },
+        {
+          "unit": "dark_reapers",
+          "faction": "ynnari",
+          "sim": 0.575
+        },
+        {
+          "unit": "spiritseer",
+          "faction": "ynnari",
+          "sim": 0.457
+        },
+        {
+          "unit": "guardian_defenders",
+          "faction": "ynnari",
+          "sim": 0.45
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/ynnari/guardian_defenders/12k8x12_33624d88f938__00.jpg",
+      "true_faction": "ynnari",
+      "true_unit": "guardian_defenders",
+      "tier2_pred": "space_marines",
+      "tier2_conf": 0.204,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "space_marines": 0.838,
+        "harlequins": 0.82,
+        "chaos_space_marines": 0.82,
+        "ynnari": 0.813,
+        "grey_knights": 0.811
+      },
+      "unscoped_rank": 75,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 5,
+      "scoped_gated_rank": 75,
+      "scoped_gated_used_scoping": false,
+      "unscoped_top5": [
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.838
+        },
+        {
+          "unit": "harlequin_troupe",
+          "faction": "harlequins",
+          "sim": 0.82
+        },
+        {
+          "unit": "chaos_lord_in_terminator_armour",
+          "faction": "chaos_space_marines",
+          "sim": 0.82
+        },
+        {
+          "unit": "dark_reapers",
+          "faction": "ynnari",
+          "sim": 0.813
+        },
+        {
+          "unit": "grey_knight_strike_squad",
+          "faction": "grey_knights",
+          "sim": 0.811
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "dante",
+          "faction": "space_marines",
+          "sim": 0.838
+        },
+        {
+          "unit": "death_company_captain",
+          "faction": "space_marines",
+          "sim": 0.796
+        },
+        {
+          "unit": "techmarine",
+          "faction": "space_marines",
+          "sim": 0.783
+        },
+        {
+          "unit": "cypher",
+          "faction": "space_marines",
+          "sim": 0.782
+        },
+        {
+          "unit": "captain",
+          "faction": "space_marines",
+          "sim": 0.778
+        }
+      ]
+    },
+    {
+      "query_path": "scripts/phase3/queries/ynnari/rangers/12ses2u_4c62e5ec2b70__02.jpg",
+      "true_faction": "ynnari",
+      "true_unit": "rangers",
+      "tier2_pred": "tyranids",
+      "tier2_conf": 0.586,
+      "tier2_correct": false,
+      "tier2_all_scores": {
+        "ynnari": 0.521,
+        "tyranids": 1.326,
+        "imperial_guard": 0.415
+      },
+      "unscoped_rank": 1,
+      "scoped_actual_rank": null,
+      "scoped_oracle_rank": 1,
+      "scoped_gated_rank": null,
+      "scoped_gated_used_scoping": true,
+      "unscoped_top5": [
+        {
+          "unit": "rangers",
+          "faction": "ynnari",
+          "sim": 0.521
+        },
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.464
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.451
+        },
+        {
+          "unit": "death_korps_of_krieg",
+          "faction": "imperial_guard",
+          "sim": 0.415
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.405
+        }
+      ],
+      "scoped_actual_top5": [
+        {
+          "unit": "genestealers",
+          "faction": "tyranids",
+          "sim": 0.464
+        },
+        {
+          "unit": "termagants",
+          "faction": "tyranids",
+          "sim": 0.451
+        },
+        {
+          "unit": "hive_guard",
+          "faction": "tyranids",
+          "sim": 0.405
+        },
+        {
+          "unit": "tyranid_warriors",
+          "faction": "tyranids",
+          "sim": 0.398
+        },
+        {
+          "unit": "ripper_swarms",
+          "faction": "tyranids",
+          "sim": 0.341
+        }
+      ]
+    }
+  ]
+}

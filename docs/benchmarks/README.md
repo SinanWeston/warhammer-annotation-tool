@@ -31,3 +31,4 @@ Populated in order as phases close their exit criteria.
 | 2026-04-13 | YOLO11x Run 2 (15-class faction detector) | Phase 0 | `2026-04-13-phase0-baseline.md` |
 | 2026-04-13 | OWLv2 + DINOv2-base retrieval | Phase 1 | `2026-04-13-phase1-prototype.md` |
 | 2026-04-14 | OWLv2 + DINOv2-base + Tier 2 KNN-vote + gating sweep | Phase 2 | `2026-04-14-phase2-scoped.md` |
+| 2026-04-15 | DINOv2-base + corpus-expanded gallery (274 crops, 23 factions, 51 queries) | Phase 3a | `2026-04-15-phase3a-corpus-expansion.md` |
