@@ -163,10 +163,13 @@ def detect_with_sahi(detector: Detector, image: Image.Image) -> tuple[np.ndarray
             class_id=np.zeros(len(boxes), dtype=int),
         )
 
+    # supervision ≥ 0.24 dropped `overlap_ratio_wh` in favour of an
+    # absolute `overlap_wh` (pixel count). Convert the ratio for clarity.
+    overlap_px = int(SAHI_SLICE_SIZE * SAHI_OVERLAP)
     slicer = sv.InferenceSlicer(
         callback=callback,
         slice_wh=(SAHI_SLICE_SIZE, SAHI_SLICE_SIZE),
-        overlap_ratio_wh=(SAHI_OVERLAP, SAHI_OVERLAP),
+        overlap_wh=(overlap_px, overlap_px),
         iou_threshold=NMS_IOU,
     )
     det = slicer(np.array(image))
