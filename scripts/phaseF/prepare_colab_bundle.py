@@ -36,7 +36,9 @@ from tqdm import tqdm
 
 LONG_EDGE_CAP = 1333       # matches Grounding DINO's internal resize target
 JPEG_QUALITY = 92          # keep a margin above the dataset's ~85–90 floor
-OUT_TAR = Path("/tmp/photoanalyzer_f1_bundle.tar")
+# ~/Downloads so file managers can actually find it — /tmp is hidden
+# by most GUIs.
+OUT_TAR = Path.home() / "Downloads" / "photoanalyzer_f1_bundle.tar"
 SRC_IMAGES = Path("backend/training_data")
 SRC_ANNS = Path("backend/training_data_annotations")
 SCRIPTS = [
