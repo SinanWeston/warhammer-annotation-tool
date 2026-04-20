@@ -52,9 +52,11 @@ Photo
   ▼
 ┌─────────────────────────────────────────────────────┐
 │ Tier 1  —  Class-agnostic detection                 │
-│ T-Rex2 (visual prompt) or OWLv2 or Grounding-SAM    │
-│ Prompt: 10–20 example miniature crops + "miniature" │
-│ Output: bounding boxes, no classes. Zero training.  │
+│ Cloud: fine-tuned RF-DETR-Medium (DINOv2 backbone)  │
+│ Edge:  RF-DETR-Nano for on-device mobile inference  │
+│ Bootstrap: Grounded-SAM-2 pseudo-labels on ~17k     │
+│ scraped images + 1.5k gold. See §3.1.               │
+│ Output: bounding boxes, single class ("miniature"). │
 └─────────────────────────────────────────────────────┘
   │
   ▼ per crop
@@ -83,6 +85,28 @@ Photo
 └─────────────────────────────────────────────────────┘
 ```
 
+### 3.1 Tier 1 implementation: pseudo-label bootstrap
+
+The original framing ("Zero training. Foundation models suffice.") held up at the Phase 1 prototype scale (6 queries, OWLv2 at 83% recall) but does *not* hold up at product scale. April 2026 research (Roboflow's RF-DETR training notes, VLM detection survey arXiv 2504.09480) documents that open-vocabulary detectors deliver only **55–70% correct boxes on dense tabletop scenes** — the Dakka-Dakka tier where the consumer product will be judged. The fix is not to abandon zero-shot but to **repurpose it as an auto-labeler** and train a small, fast, class-agnostic detector on the result. This is the same recipe Roboflow uses to pre-train RF-DETR itself.
+
+Concrete pipeline for building the Tier 1 detector:
+
+1. **Freeze a 200-image eval set** stratified by bbox density (single / sparse / medium / crowded), never trained on. (→ Phase C.)
+2. **Auto-label the ~17k unlabelled scraped images** with Grounded-SAM-2 + SAHI, confidence 0.2–0.25, class-agnostic NMS at IoU 0.5. (~4–8 GPU-hours on a 4090.)
+3. **Train RF-DETR-Medium v1** on the union of 1,500 gold annotations (oversampled 5–10×) + ~15,600 pseudo-labels. Expected mAP@50 on the frozen eval: 0.70–0.78.
+4. **Self-relabel at confidence 0.3.** Compare v1 predictions to the original pseudo-labels; images where they disagree become the active-learning pool (~500–1,500 images, ~5–12 human-hours in the desktop annotator).
+5. **Train RF-DETR-Medium v2** (cloud, quality-max) and **RF-DETR-Nano** (edge, mobile) on the cleaned union. Target mAP@50 on the frozen eval: **0.82–0.88**. Both are Apache-2.0; no knowledge-distillation loss, "poor man's distillation" via shared dataset.
+
+License stack is deliberately all-Apache-2.0 to keep commercial options open:
+
+| Component | License | Why chosen |
+|---|---|---|
+| Grounded-SAM-2 (Grounding DINO + SAM 2) | Apache-2.0 | SAM 3 has Meta's custom license restricting competing foundation models; the ~3–5 mAP seed-stage penalty is acceptable given the pseudo-labels are human-reviewed in Step 4 |
+| RF-DETR-Medium (cloud) | Apache-2.0 | DINOv2 backbone, peer-reviewed at ICLR 2026, explicitly designed for 1k–20k custom datasets |
+| RF-DETR-Nano (edge) | Apache-2.0 | Same model family, ships to iPhone via CoreML. ~5 mAP below YOLO26-n but YOLO26-n is AGPL-3.0 which constrains closed-source commercial distribution |
+
+The Phase 1 OWLv2 integration is repurposed — it remains useful as an **auto-label fallback** if Grounded-SAM-2's prompt ("figurine . miniature . toy soldier .") produces low recall on a specific source. It is no longer the inference-time detector.
+
 ### Why this wins over the current pipeline
 
 | Property | YOLO end-to-end (current) | Three-tier architecture (target) |
@@ -101,7 +125,7 @@ Photo
 - **Annotation tooling (desktop + mobile).** Output shifts from "train a detector" to "crop + unit label for the gallery". All 1,500 annotations stay useful.
 - **YOLO11x weights.** Redeploy as a 20-class faction classifier. Run 2's 39.9% mAP50 is probably >80% on faction-only evaluation.
 - **Active learning pipeline.** Re-target: prioritise crops for **gallery enrollment**, not training set.
-- **Grounding DINO integration.** Already in the codebase for annotation proposals — promote it to a first-class detection stage (or swap for T-Rex2 / OWLv2).
+- **Grounding DINO / OWLv2 integration.** Already in the codebase for annotation proposals. Role shifts from "inference-time Tier 1" to **auto-labeler for the pseudo-label bootstrap** (§3.1 Step 2). Primary tool there is Grounded-SAM-2; keep OWLv2 as fallback for sources where Grounded-SAM-2's prompt under-recalls.
 - **18K scraped image pool.** Fodder for later DINOv3 domain adaptation to close the studio-photo-vs-painted-tabletop gap.
 - **Backend + API contracts.** No API change required for Tier 1+3 internals; the `/api/detect` endpoint stays, its innards get swapped.
 - **Consumer v2 UI.** Already supports top-K grouping, uncertainty section, inline edits — fits retrieval-style output better than softmax classification.
@@ -143,7 +167,7 @@ Seed the gallery from free, permissive sources:
 
 ## 6. Research backing (why to trust this)
 
-- **Class-agnostic detection is solved.** T-Rex2 (ECCV 2024) with visual prompts beats text prompts by +5.6 AP on ODinW and +9.2 on Roboflow100 — the rare/novel object regime miniatures live in. OWLv2 and Grounding DINO reach 50–70% zero-shot recall on "miniature" without a single training example.
+- **Class-agnostic detection is tractable with the right split-of-work.** Foundation models (Grounded-SAM-2, SAM 3, T-Rex2, OWLv2) hit **50–70% zero-shot recall on painted miniatures** — strong enough to auto-label 17k scraped images in a weekend, too weak (55–70% correct boxes on dense Dakka-Dakka scenes, per arXiv 2504.09480) to ship as the inference-time detector. The validated 2026 pattern is: auto-label with foundation → fine-tune a small specialised detector (RF-DETR, DINOv2 backbone, Apache-2.0, ICLR 2026). Roboflow uses the same recipe to pre-train RF-DETR itself on Objects365 + SAM 2 pseudo-labels.
 - **Fine-grained retrieval is solved.** DINOv3 (Meta, 2025; 7B-param ViT, 1.7B training images) extends DINOv2's lead. On the 10K-class species benchmark: DINOv2 70%, CLIP 15%, ResNet ~13%.
 - **Production analog.** TCG card scanners (Ximilar, Dragon Shield, Delver Lens, Pokellector) all converged on embedding retrieval, hitting 95%+ on thousands of classes. `YOLO + CLIP` is the published blueprint.
 - **Warhammer CV is greenfield.** Two tiny Roboflow datasets (97, 35 images). No published academic work. No Games Workshop-official scanner. We are ahead of anything public; the question is direction, not competition.
@@ -243,6 +267,16 @@ Update this section as phases complete. Date every entry.
 | 3b · Synthetic data pilot | ☐ Not started | BlenderProc on 20 units from Cults3D. Runs only after 3a.1 exposes which units the corpus can't cover. | — |
 | 4 · Consumer feedback loop | ☐ Not started | Ship + VLM fallback | — |
 | 5 · DINOv3 domain adaptation | ☐ Deferred | After Phase 4 shows domain-gap pain | — |
+| A · Library foundation (refactor) | ✅ Complete | `src/photoanalyzer/` package scaffolded (taxonomy + label schema v2 + scene-eval skeleton + 53 tests green). Legacy `scripts/phase{1,3}/labels.csv` unified into `data/labels.csv` (3748 rows, 92.2% labelled, v2 schema). See [plan](../.claude/plans/okay-this-shows-there-joyful-lark.md). | 2026-04-17 |
+| B · Labelling infrastructure + depth push | ☐ Not started | Weak supervision + CMON crop extraction + active-learning queue + keyboard-first batch UI. Subsumes phase 3a.1. | — |
+| C · Frozen scene benchmark | 🟡 In progress | 200-image frozen eval set stratified by bbox density (60 single / 50 sparse / 50 medium / 40 crowded). Never trained on. See §3.1 step 1 and `data/scene_benchmark/eval_200.json`. | 2026-04-20 |
+| D · Model improvements to ≥95% top-3 | ☐ Not started | D1 linear probe Tier 2, D2 class balancing, D3 multi-view grouping, D4 backbone ablation. Tier 3 / retrieval sub-phases. Gated on Phase C scoreboard. Tier 1 detector work split out into Phase F. | — |
+| E · Consumer app shipping | ☐ Not started | FastAPI server + PWA wire-up + top-3 confirmation UX. | — |
+| F · Tier 1 detector bootstrap | ☐ Not started | Apache-2.0 stack (Grounded-SAM-2 → RF-DETR-Medium cloud + RF-DETR-Nano edge). Sub-phases per §3.1 steps 2–5. Target mAP@50 ≥ 0.82 on Phase C frozen eval. | — |
+| F1 · Auto-label 17k scraped images | ☐ Not started | Grounded-SAM-2 + SAHI, conf 0.2–0.25, class-agnostic NMS. ~4–8 GPU-hours on 4090. Blocks on C. | — |
+| F2 · Train RF-DETR v1 | ☐ Not started | 1.5k gold (5–10× oversampled) + ~15.6k pseudo. Expected mAP@50 0.70–0.78 on frozen eval. Blocks on F1. | — |
+| F3 · Self-relabel + human review | ☐ Not started | RF-DETR v1 at conf 0.3; disagreement set (~500–1.5k images) goes into the desktop annotator. ~5–12 human-hours. Blocks on F2. | — |
+| F4 · Train RF-DETR v2 + Nano | ☐ Not started | Cloud quality-max + edge mobile variant, same cleaned dataset. Target mAP@50 0.82–0.88. Blocks on F3. | — |
 
 ### Phase 0 headline findings
 

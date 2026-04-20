@@ -1,0 +1,2015 @@
+{
+  "version": 1,
+  "seed": 42,
+  "bucket_targets": {
+    "single": 60,
+    "sparse": 50,
+    "medium": 50,
+    "crowded": 40
+  },
+  "frozen_at": "2026-04-20",
+  "source_annotation_dir": "backend/training_data_annotations",
+  "n": 200,
+  "images": [
+    {
+      "imageId": "_unknown_cmon_cmon_471145_02",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471145_02.jpg",
+      "faction": "_unknown",
+      "source": "cmon",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 563,
+      "height": 779
+    },
+    {
+      "imageId": "_unknown_cmon_cmon_471224_00",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471224_00.jpg",
+      "faction": "_unknown",
+      "source": "cmon",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1066,
+      "height": 1066
+    },
+    {
+      "imageId": "adepta_sororitas_reddit_12qi9gb_04ed113cf8ed",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/12qi9gb_04ed113cf8ed.jpg",
+      "faction": "adepta_sororitas",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "adepta_sororitas_reddit_1bketgo_ff6d7a80f550",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/1bketgo_ff6d7a80f550.jpg",
+      "faction": "adepta_sororitas",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2185,
+      "height": 2185
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_11936_57a963e054d9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/11936_57a963e054d9.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 417,
+      "height": 248
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_133346_6efbcb5c2580",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/133346_6efbcb5c2580.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "black_templars_dakkadakka_dakka_1038475",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1038475.jpg",
+      "faction": "black_templars",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 836,
+      "height": 1230
+    },
+    {
+      "imageId": "black_templars_dakkadakka_dakka_1059747",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1059747.jpg",
+      "faction": "black_templars",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1960,
+      "height": 2247
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_1018961",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1018961.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1920,
+      "height": 2560
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_1018964",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1018964.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1920,
+      "height": 2560
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_1153753",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1153753.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2048,
+      "height": 1949
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_138189",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_138189.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 640,
+      "height": 427
+    },
+    {
+      "imageId": "chaos_knights_dakkadakka_dakka_1002867",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_1002867.jpeg",
+      "faction": "chaos_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2547,
+      "height": 2864
+    },
+    {
+      "imageId": "chaos_knights_dakkadakka_dakka_1022350",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_1022350.jpg",
+      "faction": "chaos_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1512,
+      "height": 2016
+    },
+    {
+      "imageId": "chaos_knights_dakkadakka_dakka_1037687",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_1037687.jpg",
+      "faction": "chaos_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "imageId": "chaos_knights_dakkadakka_dakka_1061255",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_1061255.jpg",
+      "faction": "chaos_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1996,
+      "height": 2008
+    },
+    {
+      "imageId": "chaos_knights_dakkadakka_dakka_1084776",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_1084776.jpg",
+      "faction": "chaos_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "chaos_knights_reddit_17ztboj_0b73938b9044",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/reddit/17ztboj_0b73938b9044.jpg",
+      "faction": "chaos_knights",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2865,
+      "height": 3321
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_144684_ecb966127174",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/144684_ecb966127174.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_147718_4c25913edbed",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/147718_4c25913edbed.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "custodes_dakkadakka_1014272_9d9fa451183f",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1014272_9d9fa451183f.jpeg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 1066
+    },
+    {
+      "imageId": "custodes_dakkadakka_1031297_8e443865bcac",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1031297_8e443865bcac.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 963
+    },
+    {
+      "imageId": "custodes_dakkadakka_1057886_b61b6d14c2b4",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1057886_b61b6d14c2b4.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "custodes_dakkadakka_1058169_34368f2b9510",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1058169_34368f2b9510.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 1066
+    },
+    {
+      "imageId": "custodes_dakkadakka_1069932_2d121ef64de5",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1069932_2d121ef64de5.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 658
+    },
+    {
+      "imageId": "custodes_dakkadakka_1075125_98c4634954f6",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1075125_98c4634954f6.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "death_guard_dakkadakka_1099946_6958d962a130",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1099946_6958d962a130.jpeg",
+      "faction": "death_guard",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "drukhari_dakkadakka_dakka_1006091",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1006091.jpeg",
+      "faction": "drukhari",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 3024,
+      "height": 3024
+    },
+    {
+      "imageId": "eldar_dakkadakka_118667_766385e6b62f",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/118667_766385e6b62f.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 533
+    },
+    {
+      "imageId": "eldar_dakkadakka_124606_7c7056f2f8c2",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/124606_7c7056f2f8c2.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 1066
+    },
+    {
+      "imageId": "eldar_dakkadakka_137133_b9c3a0e04b4e",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/137133_b9c3a0e04b4e.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "eldar_dakkadakka_157363_b3238030bf88",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/157363_b3238030bf88.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_1001445_9bea88516a63",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1001445_9bea88516a63.jpg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 924
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_1001532_8793c159f734",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1001532_8793c159f734.png",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 695
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_1027108_747a8bc55834",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1027108_747a8bc55834.jpeg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 889
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_117660_cb47ffbebd41",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/117660_cb47ffbebd41.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_129463_5374727e02b8",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/129463_5374727e02b8.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 369
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_130784_a30b1a7eee89",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/130784_a30b1a7eee89.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 723,
+      "height": 675
+    },
+    {
+      "imageId": "imperial_knights_dakkadakka_dakka_1100343",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_1100343.jpg",
+      "faction": "imperial_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1080,
+      "height": 1080
+    },
+    {
+      "imageId": "imperial_knights_dakkadakka_dakka_591744",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_591744.jpg",
+      "faction": "imperial_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1836,
+      "height": 2448
+    },
+    {
+      "imageId": "imperial_knights_dakkadakka_dakka_595683",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_595683.jpg",
+      "faction": "imperial_knights",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1338,
+      "height": 1028
+    },
+    {
+      "imageId": "imperial_knights_reddit_11vub3p_04983ba1e91e",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/reddit/11vub3p_04983ba1e91e.jpg",
+      "faction": "imperial_knights",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "necrons_reddit_127em9q_b740a4f4cf5a",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/127em9q_b740a4f4cf5a.jpg",
+      "faction": "necrons",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "orks_dakkadakka_111307_9bbaa2eb2fd4",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/111307_9bbaa2eb2fd4.jpg",
+      "faction": "orks",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 618
+    },
+    {
+      "imageId": "orks_dakkadakka_1208722_d6e738686f31",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/1208722_d6e738686f31.png",
+      "faction": "orks",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "orks_dakkadakka_1209304_f9deac0b19b1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/1209304_f9deac0b19b1.png",
+      "faction": "orks",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 595,
+      "height": 711
+    },
+    {
+      "imageId": "space_marines_reddit_1041c7c_9bf8683888f9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1041c7c_9bf8683888f9.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1848,
+      "height": 2463
+    },
+    {
+      "imageId": "space_marines_reddit_12aqimy_3d9caa69bbd5",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/12aqimy_3d9caa69bbd5.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 3000,
+      "height": 3000
+    },
+    {
+      "imageId": "space_marines_reddit_14ew2h8_504be7098dbe",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/14ew2h8_504be7098dbe.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1605,
+      "height": 1204
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_108935_675f99762b54",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/108935_675f99762b54.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_111360_da4371020bba",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/111360_da4371020bba.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "tyranids_reddit_12jqm3y_fe60f47d8336",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/12jqm3y_fe60f47d8336.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "tyranids_reddit_13bnnqg_6223ac0a28e4",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/13bnnqg_6223ac0a28e4.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 4000,
+      "height": 3000
+    },
+    {
+      "imageId": "tyranids_reddit_14itpkq_a7c3ba924522",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14itpkq_a7c3ba924522.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2849,
+      "height": 3561
+    },
+    {
+      "imageId": "tyranids_reddit_14itpkq_e9c0275e81b6",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14itpkq_e9c0275e81b6.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2602,
+      "height": 3252
+    },
+    {
+      "imageId": "tyranids_reddit_14kujha_c9eef4db7eb3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14kujha_c9eef4db7eb3.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1918,
+      "height": 1560
+    },
+    {
+      "imageId": "ynnari_reddit_127aqa8_182d7d637d40",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/127aqa8_182d7d637d40.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "ynnari_reddit_12ljebr_319587223b94",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/12ljebr_319587223b94.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2096,
+      "height": 2266
+    },
+    {
+      "imageId": "ynnari_reddit_1381ett_0c6a1447b353",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/1381ett_0c6a1447b353.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 1868,
+      "height": 4000
+    },
+    {
+      "imageId": "ynnari_reddit_13vhn3y_0c58f0cde60a",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/13vhn3y_0c58f0cde60a.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "single",
+      "n_boxes": 1,
+      "width": 2106,
+      "height": 3001
+    },
+    {
+      "imageId": "_unknown_cmon_cmon_471329_01",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471329_01.jpg",
+      "faction": "_unknown",
+      "source": "cmon",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "imageId": "_unknown_cmon_cmon_471329_03",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471329_03.jpg",
+      "faction": "_unknown",
+      "source": "cmon",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 1600,
+      "height": 1000
+    },
+    {
+      "imageId": "adepta_sororitas_dakkadakka_dakka_1005991",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1005991.jpg",
+      "faction": "adepta_sororitas",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 1200,
+      "height": 574
+    },
+    {
+      "imageId": "adepta_sororitas_dakkadakka_dakka_1009991",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1009991.jpg",
+      "faction": "adepta_sororitas",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 1189,
+      "height": 2901
+    },
+    {
+      "imageId": "adepta_sororitas_dakkadakka_dakka_1029117",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1029117.jpg",
+      "faction": "adepta_sororitas",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 2787,
+      "height": 1442
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_112905_405cedd19ed3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/112905_405cedd19ed3.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 640,
+      "height": 480
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_131893_1780a3d64f5c",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/131893_1780a3d64f5c.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_152309_226f9ef19983",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/152309_226f9ef19983.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 436
+    },
+    {
+      "imageId": "black_templars_dakkadakka_dakka_1038474",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1038474.jpg",
+      "faction": "black_templars",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 1600,
+      "height": 1073
+    },
+    {
+      "imageId": "black_templars_dakkadakka_dakka_1100443",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1100443.jpg",
+      "faction": "black_templars",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 2062,
+      "height": 2061
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_153064",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_153064.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 1853,
+      "height": 5109
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_1079760_7724bf509690",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/1079760_7724bf509690.png",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 1736
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_1087217_503b947ddae3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/1087217_503b947ddae3.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 266
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_112154_4af9022b8e77",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/112154_4af9022b8e77.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 417
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_11575_e130a2c10b70",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/11575_e130a2c10b70.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 640,
+      "height": 480
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_120140_9353b6892970",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/120140_9353b6892970.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 533
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_123003_b392150ce19a",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/123003_b392150ce19a.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_123006_a6b348ca387f",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/123006_a6b348ca387f.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_123110_8c797ce36d63",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/123110_8c797ce36d63.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_127301_928bcb03c991",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/127301_928bcb03c991.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 679,
+      "height": 2246
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_15172_073d8d1624f3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/15172_073d8d1624f3.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "custodes_dakkadakka_1000327_d92f411fb8cf",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1000327_d92f411fb8cf.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 532
+    },
+    {
+      "imageId": "custodes_dakkadakka_1006781_d3f19aca37eb",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1006781_d3f19aca37eb.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 532
+    },
+    {
+      "imageId": "custodes_dakkadakka_1009471_286df9886eea",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1009471_286df9886eea.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 659
+    },
+    {
+      "imageId": "custodes_dakkadakka_1014273_c7f8a9a8f118",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1014273_c7f8a9a8f118.jpeg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 1066
+    },
+    {
+      "imageId": "custodes_dakkadakka_1018186_65f3c37c6dc1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1018186_65f3c37c6dc1.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "custodes_dakkadakka_1040923_66e6eaadcb85",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1040923_66e6eaadcb85.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 599
+    },
+    {
+      "imageId": "custodes_dakkadakka_1046930_5e3edef66214",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1046930_5e3edef66214.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "custodes_dakkadakka_1075164_f1e53fa91848",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1075164_f1e53fa91848.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "custodes_dakkadakka_1076481_7e32f62a8c83",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1076481_7e32f62a8c83.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 541
+    },
+    {
+      "imageId": "death_guard_dakkadakka_133304_e44077aaa2b0",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/133304_e44077aaa2b0.jpg",
+      "faction": "death_guard",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "drukhari_dakkadakka_dakka_1003324",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1003324.jpeg",
+      "faction": "drukhari",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 2048,
+      "height": 1579
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_166868_fc01615313aa",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/166868_fc01615313aa.jpg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_19422_07be8d2a48cc",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/19422_07be8d2a48cc.jpg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 377
+    },
+    {
+      "imageId": "imperial_guard_reddit_100gahx_55ecadc3e1c6",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_55ecadc3e1c6.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 1440,
+      "height": 1440
+    },
+    {
+      "imageId": "imperial_guard_reddit_100gahx_f662f8496c1a",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_f662f8496c1a.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 1225,
+      "height": 1225
+    },
+    {
+      "imageId": "imperial_guard_reddit_114rkcn_5c2699f0ea8d",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/114rkcn_5c2699f0ea8d.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "imperial_guard_reddit_114rkcn_d146e2a9222d",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/114rkcn_d146e2a9222d.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "orks_dakkadakka_1220795_6d18f0ea64a1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/1220795_6d18f0ea64a1.png",
+      "faction": "orks",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 511
+    },
+    {
+      "imageId": "space_marines_reddit_11edcct_4c88b6d79941",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/11edcct_4c88b6d79941.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 3000,
+      "height": 3000
+    },
+    {
+      "imageId": "space_marines_reddit_11edcct_7c99bbb3afe1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/11edcct_7c99bbb3afe1.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 3000,
+      "height": 3000
+    },
+    {
+      "imageId": "space_marines_reddit_12aqimy_592afd264710",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/12aqimy_592afd264710.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 3000,
+      "height": 3000
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_110695_aad4ef8ddb15",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/110695_aad4ef8ddb15.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_1179541_7ea8d4c0b32c",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/1179541_7ea8d4c0b32c.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 800,
+      "height": 489
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_13159_33854f8c9942",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/13159_33854f8c9942.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 520
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_13163_522e5d444aec",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/13163_522e5d444aec.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "tyranids_reddit_122lero_6351e1139b9b",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/122lero_6351e1139b9b.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 2152,
+      "height": 1632
+    },
+    {
+      "imageId": "tyranids_reddit_14bgxjk_d23339b7ca02",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14bgxjk_d23339b7ca02.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "tyranids_reddit_15b7fhh_d4678a57c253",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/15b7fhh_d4678a57c253.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 2,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "tyranids_reddit_15b7fhh_f9ab8a2c08f6",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/15b7fhh_f9ab8a2c08f6.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "sparse",
+      "n_boxes": 3,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "_unknown_cmon_cmon_471296_00",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471296_00.jpg",
+      "faction": "_unknown",
+      "source": "cmon",
+      "bucket": "medium",
+      "n_boxes": 8,
+      "width": 1725,
+      "height": 789
+    },
+    {
+      "imageId": "adepta_sororitas_dakkadakka_dakka_1014375",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1014375.jpg",
+      "faction": "adepta_sororitas",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 1977,
+      "height": 1853
+    },
+    {
+      "imageId": "adepta_sororitas_reddit_1bjqt5t_1e108d424d23",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/1bjqt5t_1e108d424d23.jpg",
+      "faction": "adepta_sororitas",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 5712,
+      "height": 4284
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_131747_61ca57fd981c",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/131747_61ca57fd981c.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 8,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_133349_cbca8edaf1f9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/133349_cbca8edaf1f9.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "black_templars_dakkadakka_dakka_1038483",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1038483.jpg",
+      "faction": "black_templars",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 1600,
+      "height": 1018
+    },
+    {
+      "imageId": "black_templars_dakkadakka_dakka_1099260",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1099260.jpg",
+      "faction": "black_templars",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 3540,
+      "height": 1990
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_1034560",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1034560.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 4734,
+      "height": 1863
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_1165323",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1165323.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 7,
+      "width": 2631,
+      "height": 3946
+    },
+    {
+      "imageId": "chaos_knights_reddit_1kp55l0_672d8e818f45",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/reddit/1kp55l0_672d8e818f45.jpg",
+      "faction": "chaos_knights",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 6,
+      "width": 2758,
+      "height": 1292
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_11380_cae4cdaf18f8",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/11380_cae4cdaf18f8.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 600,
+      "height": 450
+    },
+    {
+      "imageId": "custodes_dakkadakka_1007136_89daaacc2e24",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1007136_89daaacc2e24.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 497
+    },
+    {
+      "imageId": "custodes_dakkadakka_1034536_938089af467e",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1034536_938089af467e.jpeg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "custodes_dakkadakka_1040930_82abbd4d3a7b",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1040930_82abbd4d3a7b.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 599
+    },
+    {
+      "imageId": "death_guard_dakkadakka_1081640_6f7dc328fa71",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1081640_6f7dc328fa71.jpg",
+      "faction": "death_guard",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 8,
+      "width": 800,
+      "height": 290
+    },
+    {
+      "imageId": "death_guard_dakkadakka_1216381_cffefb068d97",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1216381_cffefb068d97.jpg",
+      "faction": "death_guard",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 799
+    },
+    {
+      "imageId": "drukhari_dakkadakka_dakka_1034788",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1034788.jpg",
+      "faction": "drukhari",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 9,
+      "width": 3888,
+      "height": 5184
+    },
+    {
+      "imageId": "eldar_dakkadakka_11220_1c4d512eb3cf",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/11220_1c4d512eb3cf.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 600,
+      "height": 450
+    },
+    {
+      "imageId": "eldar_dakkadakka_114513_20f643c50cdc",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/114513_20f643c50cdc.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "eldar_dakkadakka_120212_39f0e76af687",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/120212_39f0e76af687.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 720,
+      "height": 450
+    },
+    {
+      "imageId": "eldar_dakkadakka_12047_8fb0bb7e29d1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/12047_8fb0bb7e29d1.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "eldar_dakkadakka_125254_44f8595683e3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/125254_44f8595683e3.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 6,
+      "width": 800,
+      "height": 296
+    },
+    {
+      "imageId": "eldar_dakkadakka_126095_d1e7de656221",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/126095_d1e7de656221.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 600,
+      "height": 800
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_1061338_68e7dd9c5628",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1061338_68e7dd9c5628.jpg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 309
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_1076218_1f9fde13fca3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1076218_1f9fde13fca3.png",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 2608
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_1187815_924966be2094",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1187815_924966be2094.jpeg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_19423_53da857abc76",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/19423_53da857abc76.jpg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 7,
+      "width": 800,
+      "height": 244
+    },
+    {
+      "imageId": "genestealer_cult_dakkadakka_19424_c9ea0f309e08",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/19424_c9ea0f309e08.jpg",
+      "faction": "genestealer_cult",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 7,
+      "width": 800,
+      "height": 187
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_117052_c1c9d14d75a3",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/117052_c1c9d14d75a3.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_130783_20a9851c65f9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/130783_20a9851c65f9.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 339
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_131382_aa96ff1fb505",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/131382_aa96ff1fb505.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 597
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_131387_5f5f6fcbb6de",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/131387_5f5f6fcbb6de.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 550
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_174049_8ce69318a4e5",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/174049_8ce69318a4e5.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "harlequins_dakkadakka_dakka_1063106",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/harlequins/dakkadakka/dakka_1063106.jpg",
+      "faction": "harlequins",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 1024,
+      "height": 596
+    },
+    {
+      "imageId": "imperial_guard_reddit_100gahx_37fb8ce8751b",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_37fb8ce8751b.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 1440,
+      "height": 1440
+    },
+    {
+      "imageId": "imperial_guard_reddit_1051t49_234b4ed96c1a",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1051t49_234b4ed96c1a.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 7,
+      "width": 2631,
+      "height": 4032
+    },
+    {
+      "imageId": "imperial_guard_reddit_11t2alq_101f8b6b1093",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11t2alq_101f8b6b1093.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 7,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "imperial_knights_dakkadakka_dakka_1093382",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_1093382.jpg",
+      "faction": "imperial_knights",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 7,
+      "width": 4000,
+      "height": 6000
+    },
+    {
+      "imageId": "necrons_reddit_132nial_6265a73daead",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/132nial_6265a73daead.jpg",
+      "faction": "necrons",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "necrons_reddit_13c81r1_d53fb7940390",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13c81r1_d53fb7940390.jpg",
+      "faction": "necrons",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 3072,
+      "height": 4080
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_111383_8642fdf8c8c8",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/111383_8642fdf8c8c8.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_111390_0cf06097fc9e",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/111390_0cf06097fc9e.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_1179542_32517257a5c5",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/1179542_32517257a5c5.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 8,
+      "width": 800,
+      "height": 547
+    },
+    {
+      "imageId": "thousand_sons_dakkadakka_1287_47b3150dcc6f",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/1287_47b3150dcc6f.jpg",
+      "faction": "thousand_sons",
+      "source": "dakkadakka",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "tyranids_reddit_122lero_a7c9f635b961",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/122lero_a7c9f635b961.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 6,
+      "width": 2288,
+      "height": 1396
+    },
+    {
+      "imageId": "tyranids_reddit_14kmjk2_824887bbbd15",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14kmjk2_824887bbbd15.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 4096,
+      "height": 3072
+    },
+    {
+      "imageId": "ynnari_reddit_12k8x12_33624d88f938",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/12k8x12_33624d88f938.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 5,
+      "width": 3024,
+      "height": 2635
+    },
+    {
+      "imageId": "ynnari_reddit_12ses2u_5ce1ee61cff9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/12ses2u_5ce1ee61cff9.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "ynnari_reddit_1359faz_7628e94422cc",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/1359faz_7628e94422cc.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 3846,
+      "height": 1366
+    },
+    {
+      "imageId": "ynnari_reddit_13dyvdf_1571c29419c8",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/13dyvdf_1571c29419c8.jpg",
+      "faction": "ynnari",
+      "source": "reddit",
+      "bucket": "medium",
+      "n_boxes": 4,
+      "width": 3000,
+      "height": 4000
+    },
+    {
+      "imageId": "adepta_sororitas_dakkadakka_dakka_1022622",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1022622.jpg",
+      "faction": "adepta_sororitas",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 14,
+      "width": 791,
+      "height": 11229
+    },
+    {
+      "imageId": "adepta_sororitas_reddit_15jxccy_55b03b4a9a0b",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/15jxccy_55b03b4a9a0b.jpg",
+      "faction": "adepta_sororitas",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 21,
+      "width": 4032,
+      "height": 3024
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_1008226_2c614debb855",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1008226_2c614debb855.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 21,
+      "width": 800,
+      "height": 439
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_1033735_74041f2db7a9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1033735_74041f2db7a9.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 11,
+      "width": 800,
+      "height": 450
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_1033744_52fe3a2308f0",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1033744_52fe3a2308f0.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 800,
+      "height": 800
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_127288_e69d87c16576",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/127288_e69d87c16576.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 33,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_131746_d86b3e2cb4b1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/131746_d86b3e2cb4b1.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 45,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "adeptus_mechanicus_dakkadakka_19665_5cd02e2bf5a5",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/19665_5cd02e2bf5a5.jpg",
+      "faction": "adeptus_mechanicus",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 26,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "chaos_daemons_dakkadakka_dakka_1079590",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1079590.jpg",
+      "faction": "chaos_daemons",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 11,
+      "width": 3922,
+      "height": 3023
+    },
+    {
+      "imageId": "chaos_space_marines_dakkadakka_105041_229e132ee933",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/105041_229e132ee933.jpg",
+      "faction": "chaos_space_marines",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 16,
+      "width": 800,
+      "height": 347
+    },
+    {
+      "imageId": "custodes_dakkadakka_1069936_13b7678f1b44",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1069936_13b7678f1b44.jpg",
+      "faction": "custodes",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 12,
+      "width": 800,
+      "height": 766
+    },
+    {
+      "imageId": "drukhari_dakkadakka_dakka_1034784",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1034784.jpg",
+      "faction": "drukhari",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 13,
+      "width": 5022,
+      "height": 2664
+    },
+    {
+      "imageId": "drukhari_dakkadakka_dakka_1036769",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1036769.jpg",
+      "faction": "drukhari",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 11,
+      "width": 4032,
+      "height": 2165
+    },
+    {
+      "imageId": "eldar_dakkadakka_1034789_5d9656849aa4",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/1034789_5d9656849aa4.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 800,
+      "height": 577
+    },
+    {
+      "imageId": "eldar_dakkadakka_10655_89682d0e5a24",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/10655_89682d0e5a24.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 800,
+      "height": 450
+    },
+    {
+      "imageId": "eldar_dakkadakka_11218_2527e47ed610",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/11218_2527e47ed610.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 18,
+      "width": 600,
+      "height": 450
+    },
+    {
+      "imageId": "eldar_dakkadakka_124860_f2efef3c0272",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/124860_f2efef3c0272.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 16,
+      "width": 800,
+      "height": 500
+    },
+    {
+      "imageId": "eldar_dakkadakka_129805_567ee81be298",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/129805_567ee81be298.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 53,
+      "width": 800,
+      "height": 292
+    },
+    {
+      "imageId": "eldar_dakkadakka_129808_b17ba179b153",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/129808_b17ba179b153.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 48,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "eldar_dakkadakka_130042_2350fef1fe68",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/130042_2350fef1fe68.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 44,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "eldar_dakkadakka_136101_8f9693fe948a",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/136101_8f9693fe948a.jpg",
+      "faction": "eldar",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 23,
+      "width": 800,
+      "height": 600
+    },
+    {
+      "imageId": "grey_knights_dakkadakka_185254_037c3b51a137",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/185254_037c3b51a137.jpg",
+      "faction": "grey_knights",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 21,
+      "width": 785,
+      "height": 463
+    },
+    {
+      "imageId": "imperial_guard_reddit_100gahx_3a05826ee1ce",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_3a05826ee1ce.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 1440,
+      "height": 1440
+    },
+    {
+      "imageId": "imperial_guard_reddit_1051t49_b6bffef380f2",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1051t49_b6bffef380f2.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 13,
+      "width": 3023,
+      "height": 2183
+    },
+    {
+      "imageId": "imperial_guard_reddit_12fouwo_1c5512305f35",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12fouwo_1c5512305f35.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 56,
+      "width": 3024,
+      "height": 1236
+    },
+    {
+      "imageId": "imperial_guard_reddit_12fouwo_dfa98263edf9",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12fouwo_dfa98263edf9.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 35,
+      "width": 3024,
+      "height": 4032
+    },
+    {
+      "imageId": "imperial_guard_reddit_12gas6q_e2afd66dbaec",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_e2afd66dbaec.jpg",
+      "faction": "imperial_guard",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 4000,
+      "height": 1868
+    },
+    {
+      "imageId": "necrons_reddit_128ijpx_4ca827421e5d",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/128ijpx_4ca827421e5d.jpg",
+      "faction": "necrons",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 89,
+      "width": 1440,
+      "height": 1080
+    },
+    {
+      "imageId": "necrons_reddit_132nial_64b7102d10d1",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/132nial_64b7102d10d1.jpg",
+      "faction": "necrons",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 48,
+      "width": 3875,
+      "height": 1646
+    },
+    {
+      "imageId": "orks_dakkadakka_11837_aecd0ab20ce2",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/11837_aecd0ab20ce2.jpg",
+      "faction": "orks",
+      "source": "dakkadakka",
+      "bucket": "crowded",
+      "n_boxes": 11,
+      "width": 800,
+      "height": 775
+    },
+    {
+      "imageId": "space_marines_reddit_11edabu_6b93c87e5913",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/11edabu_6b93c87e5913.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 3000,
+      "height": 3000
+    },
+    {
+      "imageId": "space_marines_reddit_11edcct_e3c341d535db",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/11edcct_e3c341d535db.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 3000,
+      "height": 3000
+    },
+    {
+      "imageId": "space_marines_reddit_15zzw81_43a82874a9f4",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/15zzw81_43a82874a9f4.jpg",
+      "faction": "space_marines",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 14,
+      "width": 2048,
+      "height": 1536
+    },
+    {
+      "imageId": "tyranids_reddit_10rr868_48f1384b892e",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/10rr868_48f1384b892e.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 61,
+      "width": 4608,
+      "height": 3456
+    },
+    {
+      "imageId": "tyranids_reddit_11yvjr3_48dfacaf91be",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/11yvjr3_48dfacaf91be.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 69,
+      "width": 4080,
+      "height": 3072
+    },
+    {
+      "imageId": "tyranids_reddit_122lero_448d1433e985",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/122lero_448d1433e985.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 2300,
+      "height": 1412
+    },
+    {
+      "imageId": "tyranids_reddit_12chle6_1b9e5bbdf7aa",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/12chle6_1b9e5bbdf7aa.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 10,
+      "width": 2774,
+      "height": 2774
+    },
+    {
+      "imageId": "tyranids_reddit_14bgxjk_25d3b45ecc78",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14bgxjk_25d3b45ecc78.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 20,
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "imageId": "tyranids_reddit_14kujha_a92f261b1099",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14kujha_a92f261b1099.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 20,
+      "width": 2294,
+      "height": 1434
+    },
+    {
+      "imageId": "tyranids_reddit_14qah7y_e2eef9dbcb76",
+      "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14qah7y_e2eef9dbcb76.jpg",
+      "faction": "tyranids",
+      "source": "reddit",
+      "bucket": "crowded",
+      "n_boxes": 35,
+      "width": 3840,
+      "height": 2160
+    }
+  ]
+}
