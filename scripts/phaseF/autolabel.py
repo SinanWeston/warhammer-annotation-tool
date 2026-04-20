@@ -23,7 +23,6 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import numpy as np
-import supervision as sv
 import torch
 import torchvision.ops as ops
 from PIL import Image
@@ -149,33 +148,47 @@ class Detector:
 
 
 def detect_with_sahi(detector: Detector, image: Image.Image) -> tuple[np.ndarray, np.ndarray]:
-    """Run tiled inference via supervision.InferenceSlicer for images larger
-    than `SAHI_LONG_EDGE_THRESHOLD`. Merges via greedy NMS after tiling."""
+    """Run tiled inference on images larger than `SAHI_LONG_EDGE_THRESHOLD`.
+    Crops the image into overlapping SAHI_SLICE_SIZE tiles, runs the detector
+    on each, offsets boxes back into image coordinates, then merges via
+    class-agnostic NMS. Hand-rolled to keep the dependency footprint to
+    just transformers + torch + Pillow — Colab's preinstalled torch is
+    CUDA-12 and breaks if we let `supervision`'s wheel drag in cu13 torch."""
+    w, h = image.size
+    stride = max(1, int(SAHI_SLICE_SIZE * (1 - SAHI_OVERLAP)))
+    # Compute anchors that cover the image even if (w - slice) isn't a
+    # multiple of stride — pad the last row / column by snapping to
+    # w - slice / h - slice so no pixels are missed.
+    def _anchors(dim: int) -> list[int]:
+        if dim <= SAHI_SLICE_SIZE:
+            return [0]
+        pts = list(range(0, dim - SAHI_SLICE_SIZE, stride))
+        pts.append(dim - SAHI_SLICE_SIZE)
+        return pts
 
-    def callback(slice_np: np.ndarray) -> sv.Detections:
-        img = Image.fromarray(slice_np)
-        boxes, scores = detector.detect(img)
-        if len(boxes) == 0:
-            return sv.Detections.empty()
-        return sv.Detections(
-            xyxy=boxes,
-            confidence=scores,
-            class_id=np.zeros(len(boxes), dtype=int),
-        )
+    xs = _anchors(w)
+    ys = _anchors(h)
+    all_boxes: list[np.ndarray] = []
+    all_scores: list[np.ndarray] = []
+    for y in ys:
+        for x in xs:
+            tile = image.crop((x, y, x + SAHI_SLICE_SIZE, y + SAHI_SLICE_SIZE))
+            tb, ts = detector.detect(tile)
+            if len(tb) == 0:
+                continue
+            tb = tb.copy()
+            tb[:, [0, 2]] += x
+            tb[:, [1, 3]] += y
+            all_boxes.append(tb)
+            all_scores.append(ts)
 
-    # supervision ≥ 0.24 dropped `overlap_ratio_wh` in favour of an
-    # absolute `overlap_wh` (pixel count). Convert the ratio for clarity.
-    overlap_px = int(SAHI_SLICE_SIZE * SAHI_OVERLAP)
-    slicer = sv.InferenceSlicer(
-        callback=callback,
-        slice_wh=(SAHI_SLICE_SIZE, SAHI_SLICE_SIZE),
-        overlap_wh=(overlap_px, overlap_px),
-        iou_threshold=NMS_IOU,
-    )
-    det = slicer(np.array(image))
-    if len(det) == 0:
+    if not all_boxes:
         return np.zeros((0, 4), dtype=np.float32), np.zeros((0,), dtype=np.float32)
-    return det.xyxy.astype(np.float32), det.confidence.astype(np.float32)
+    boxes = np.concatenate(all_boxes, axis=0)
+    scores = np.concatenate(all_scores, axis=0)
+    # Class-agnostic NMS to dedupe boxes predicted on adjacent tiles.
+    keep = ops.nms(torch.from_numpy(boxes), torch.from_numpy(scores), NMS_IOU).tolist()
+    return boxes[keep], scores[keep]
 
 
 def post_process(
