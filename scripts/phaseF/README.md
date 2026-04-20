@@ -45,13 +45,53 @@ works on CPU at ~5× slower).
 
 ### Running F1
 
+#### Option A — Colab free tier (recommended; no local GPU required)
+
+`autolabel_colab.ipynb` drives the whole run. The notebook is resumable
+via Drive — if Colab disconnects mid-run, reopening it and hitting Run
+All picks up where the previous session stopped.
+
+```bash
+# 1. Build the bundle (images + annotations + phaseF scripts → ~4 GB tar).
+#    Run once per dataset refresh; takes ~5–10 min.
+bash scripts/phaseF/prepare_colab_bundle.sh
+
+# 2. Upload two files to the ROOT of your Google Drive (MyDrive):
+#      /tmp/photoanalyzer_f1_bundle.tar
+#      scripts/phaseF/autolabel_colab.ipynb
+#    Drag-and-drop in the Drive web UI.
+
+# 3. In Drive: double-click autolabel_colab.ipynb → "Open with Google Colab".
+#    Runtime → Change runtime type → T4 GPU.
+#    Runtime → Run all. Walk away (~10h on T4).
+
+# 4. Download /content/drive/MyDrive/f1_outputs.tar from Drive to the repo
+#    root, then:
+tar -xf f1_outputs.tar       # yields data/pseudo_labels/
+```
+
+Resumable across disconnects: the notebook's cell 4 restores the
+previous Drive bundle at the start of each session, and cell 6 writes
+a fresh bundle at the end. Enable cell 7's periodic checkpoint if you
+want Drive updated mid-run.
+
+#### Option B — Local
+
 ```bash
 # Smoke-test on 20 images first
 yolo_env/bin/python scripts/phaseF/autolabel.py --limit 20
 
-# Full run (~4–8h on a 4090, resumable)
+# Full run (~5–10h on a 4090, resumable)
 yolo_env/bin/python scripts/phaseF/autolabel.py
+
+# Add --shuffle if you want early progress to sample all sources
+# (useful when running in batches you'll audit as you go).
+yolo_env/bin/python scripts/phaseF/autolabel.py --shuffle --limit 50
 ```
+
+On CPU the local run is ~18s/image → impractical for the full 36,975
+pool (would take ~185 h). Use CPU only for smoke tests and batch QA
+against Option A's outputs.
 
 Output layout:
 

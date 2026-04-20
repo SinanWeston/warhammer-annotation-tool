@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import random
 import sys
 import time
 import traceback
@@ -285,6 +286,13 @@ def parse_args() -> argparse.Namespace:
                     help="Only process the first N unlabelled images (smoke test).")
     ap.add_argument("--no-sahi", action="store_true",
                     help="Disable SAHI tiling for large images. Faster but drops recall on crowded scenes.")
+    ap.add_argument("--shuffle", action="store_true",
+                    help="Shuffle the job order (seeded) so early progress spans all sources and "
+                         "faction dirs, not just whichever rglob hits first. Recommended for CPU "
+                         "batch runs where you want quick diversity sampling.")
+    ap.add_argument("--shuffle-seed", type=int, default=42,
+                    help="Seed for --shuffle. Keep constant so subsequent batches continue the "
+                         "same deterministic order rather than reshuffling mid-run.")
     ap.add_argument("--device", default=None,
                     help="Override auto-picked device (cuda / cpu / mps).")
     return ap.parse_args()
@@ -306,6 +314,9 @@ def main() -> int:
     print(f"  {len(annotated)} already-annotated IDs (excluded)")
     jobs = iter_unlabelled(annotated)
     print(f"  {len(jobs)} unlabelled images to process (skips those already written)")
+    if args.shuffle:
+        random.Random(args.shuffle_seed).shuffle(jobs)
+        print(f"  --shuffle (seed={args.shuffle_seed}) → randomised job order")
     if args.limit:
         jobs = jobs[: args.limit]
         print(f"  --limit {args.limit} → processing {len(jobs)}")
