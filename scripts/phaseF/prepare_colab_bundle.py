@@ -100,18 +100,29 @@ def iter_image_targets(
     staging_root: Path,
     sample: int | None,
     shuffle_seed: int,
+    source: str | None,
 ) -> list[tuple[Path, Path]]:
     """Walk SRC_IMAGES and pair each input with its staged output path.
     Symlinks are resolved (CMON images live under scripts/cmon/images/
     via symlink) — we want the actual pixels in the bundle.
 
+    When `source` is set, only images whose parent-dir name equals it
+    are included — use e.g. `--source gw_shop` to bundle only the GW
+    Shop studio photos.
+
     When `sample` is set, replicate autolabel.py's shuffle (same seed)
-    and take the first N *unlabelled* images so Colab processes
-    exactly the bundled set.
+    and take the first N *unlabelled* images from the (optionally
+    source-filtered) pool so Colab processes exactly the bundled set.
     """
     all_paths: list[Path] = []
     for ext in IMG_EXTS:
         all_paths.extend(SRC_IMAGES.rglob(f"*{ext}"))
+
+    if source is not None:
+        # Layout is backend/training_data/<faction>/<source>/<file>, so
+        # parts[-2] is the source directory name. Filtering there skips
+        # the rglob descent into sibling sources.
+        all_paths = [p for p in all_paths if p.parts[-2] == source]
 
     if sample is not None:
         annotated = _load_annotated_ids()
@@ -144,6 +155,12 @@ def parse_args() -> argparse.Namespace:
         "--shuffle-seed", type=int, default=42,
         help="Shuffle seed, must match autolabel.py's --shuffle-seed (default 42).",
     )
+    ap.add_argument(
+        "--source", default=None,
+        help="Bundle only images whose source directory matches (e.g. 'gw_shop'). "
+             "Use when you want to auto-label one source at a time. Combines with "
+             "--sample if you also want to cap the count.",
+    )
     return ap.parse_args()
 
 
@@ -162,12 +179,14 @@ def main() -> int:
     # with --sample).
     staging = Path(tempfile.mkdtemp(prefix="phaseF-bundle-", dir="/tmp"))
     print(f"Staging in {staging}")
+    if args.source:
+        print(f"Source filter: {args.source}")
     if args.sample:
         print(f"Sampling {args.sample} images (shuffle seed {args.shuffle_seed})")
 
     try:
         # 1. Images (resized where needed).
-        jobs = iter_image_targets(staging, args.sample, args.shuffle_seed)
+        jobs = iter_image_targets(staging, args.sample, args.shuffle_seed, args.source)
         print(f"Resizing {len(jobs)} images to ≤{LONG_EDGE_CAP}px long edge …")
         n_resized = n_copied = n_err = 0
         total_in = total_out = 0

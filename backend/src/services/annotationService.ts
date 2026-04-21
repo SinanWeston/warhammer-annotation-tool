@@ -20,18 +20,25 @@ import logger from '../utils/logger'
 // space_marines:       all loyalist chapter marines collapsed for model accuracy
 // chaos_space_marines: all traitor legions collapsed for model accuracy
 const EXPORT_LABEL_REMAP: Record<string, string> = {
-  // Loyalist chapters → space_marines
+  // Loyalist chapters → space_marines (one codex in 10th ed).
   blood_angels:     'space_marines',
   dark_angels:      'space_marines',
   space_wolves:     'space_marines',
   black_templars:   'space_marines',
   deathwatch:       'space_marines',
   grey_knights:     'space_marines',
-  // Traitor legions → chaos_space_marines
-  death_guard:      'chaos_space_marines',
-  thousand_sons:    'chaos_space_marines',
-  world_eaters:     'chaos_space_marines',
-  emperors_children:'chaos_space_marines',
+  // Top-level renames (10th ed / historical drift). Without these the
+  // annotation corpus contained ~222 files whose faction slug bypassed
+  // the remap entirely and produced orphan class names at export — see
+  // STATUS.md 2026-04-18 training-data integrity audit.
+  custodes:         'adeptus_custodes',
+  eldar:            'aeldari',
+  genestealer_cult: 'genestealer_cults',
+  imperial_guard:   'astra_militarum',
+  // NOTE: death_guard / thousand_sons / world_eaters / emperors_children
+  // are NOT collapsed here. Each has its own 10th-ed codex and its own
+  // class in the deployed yolo11x_run2_best.pt (see runs/yolo11x_run2_best.classes.txt).
+  // Keeping them distinct so the model doesn't lose discrimination.
 }
 function remapExportLabel(label: string): string {
   return EXPORT_LABEL_REMAP[label] ?? label
@@ -83,7 +90,14 @@ export interface BboxAnnotationData {
     width: number
     height: number
   }
-  classLabel: string  // Unit name (e.g., "hormagaunt")
+  classLabel: string  // Faction slug (e.g., "space_marines"). Feeds YOLO
+                       // export — legacy name, semantically a faction.
+  unit_slug?: string   // Optional: canonical unit slug within the faction
+                       // (e.g., "intercessors"). Empty/absent = "I know
+                       // the faction but haven't identified the unit yet"
+                       // — same deferred-labelling pattern as the
+                       // warhammer-analyzer audit pile. Sourced from
+                       // scripts/data/units.json via the taxonomy endpoint.
   confidence?: number
   // AI prediction tracking
   validationAction?: 'accepted' | 'rejected' | 'redrawn'
@@ -106,14 +120,26 @@ export interface AnnotationProgress {
   totalImages: number
   annotatedImages: number
   percentComplete: number
-  byFaction: Record<string, { total: number; annotated: number }>
+  pendingImages: number
+  legacyImages: number
+  flaggedImages: number
+  byFaction: Record<string, { total: number; annotated: number; pending: number; legacy: number; flagged: number }>
 }
 
 export class AnnotationService {
   private trainingDataPath: string
   private annotationsPath: string
-  private get allowedSources(): string[] {
-    const sources = process.env.ANNOTATION_SOURCES ?? 'reddit,dakkadakka'
+  /** Sources the annotator browses, in priority order. Configured by
+   *  `ANNOTATION_SOURCES` env var (comma-separated). Public so the route
+   *  layer can surface the list to the frontend's source picker without
+   *  hardcoding it. */
+  get allowedSources(): string[] {
+    // `cmon` covers CoolMiniOrNot scenes symlinked in by
+    // `scripts/seed_cmon_for_annotator.py`. The script buckets each
+    // CMON scene under its best-guess faction (via
+    // photoanalyzer.label.weak.classify_title) and drops anything
+    // unclassifiable into backend/training_data/_unknown/cmon/.
+    const sources = process.env.ANNOTATION_SOURCES ?? 'reddit,dakkadakka,cmon'
     return sources.split(',').map(s => s.trim()).filter(Boolean)
   }
   public onAnnotationSaved: (() => void) | null = null
@@ -232,18 +258,32 @@ export class AnnotationService {
 
   /**
    * Get list of all images available for annotation
-   * Returns image metadata including path, faction, source
-   * Limited to perFactionLimit (110) images per faction for focused annotation
+   * Returns image metadata including path, faction, source.
+   *
+   * Capped at `perFactionLimit` (400) images per faction for focused
+   * annotation. When `sourceFilter` is provided, the scan walks ONLY
+   * those source subdirs — and the cap is spent entirely on the
+   * filtered source. That's the whole point: without this override, an
+   * abundant source like `ebay` would fill the 400-cap for a faction
+   * before the user's filtered source (`cmon`) got a look-in, and
+   * filtering to `cmon` would return zero images in that faction.
+   *
+   * `sourceFilter=undefined` uses the default walk (all sources in env
+   * priority order) and populates the cached unannotated list.
+   * `sourceFilter=Set(...)` bypasses the cache (cheap enough on demand).
    */
-  async getImageList(includeAnnotated: boolean = false): Promise<Array<{
+  async getImageList(
+    includeAnnotated: boolean = false,
+    sourceFilter?: Set<string>,
+  ): Promise<Array<{
     imageId: string
     imagePath: string
     faction: string
     source: string
     isAnnotated: boolean
   }>> {
-    // Return cached unannotated list when available — avoids full filesystem scan on every request
-    if (!includeAnnotated && this.imageListCache) {
+    // Cache fast-path only applies to the default scan (no source filter).
+    if (!includeAnnotated && !sourceFilter && this.imageListCache) {
       return this.imageListCache
     }
 
@@ -257,6 +297,13 @@ export class AnnotationService {
 
     // Track count per faction
     const factionCounts: Record<string, number> = {}
+
+    // Sources to walk: filter narrows the scan AND the cap budget — a
+    // call with sourceFilter={cmon} gets the whole 400-cap per faction
+    // spent on cmon, instead of being starved by ebay/isolation first.
+    const sourcesToWalk = sourceFilter
+      ? this.allowedSources.filter(s => sourceFilter.has(s))
+      : this.allowedSources
 
     try {
       const factions = await fs.readdir(this.trainingDataPath)
@@ -272,7 +319,7 @@ export class AnnotationService {
         factionCounts[faction] = 0
 
         // Check configured source subdirectories
-        for (const source of this.allowedSources) {
+        for (const source of sourcesToWalk) {
           const sourcePath = path.join(factionPath, source)
 
           try {
@@ -319,10 +366,16 @@ export class AnnotationService {
         }
       }
 
-      logger.info(`📋 Found ${images.length} images (${this.perFactionLimit}/faction, includeAnnotated: ${includeAnnotated})`)
+      logger.info(
+        `📋 Found ${images.length} images (${this.perFactionLimit}/faction, ` +
+        `includeAnnotated: ${includeAnnotated}` +
+        (sourceFilter ? `, sourceFilter: ${[...sourceFilter].join(',')}` : '') +
+        `)`
+      )
 
-      // Cache only the unannotated list — that's the hot path for concurrent annotators
-      if (!includeAnnotated) this.imageListCache = images
+      // Only cache the DEFAULT scan (no source filter). Filtered scans
+      // are rarer and each has its own cap math, so recomputing is fine.
+      if (!includeAnnotated && !sourceFilter) this.imageListCache = images
 
       return images
     } catch (error) {
@@ -336,7 +389,14 @@ export class AnnotationService {
    * When prioritize=true, delegates to active learning service for confidence-based ordering
    * Returns null if all images are annotated
    */
-  async getNextImage(prioritize: boolean = false, faction?: string, userId?: string, exclude?: string[]): Promise<{
+  async getNextImage(
+    prioritize: boolean = false,
+    faction?: string,
+    userId?: string,
+    exclude?: string[],
+    sources?: string[],
+    status: 'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'flagged' | 'all' = 'unannotated',
+  ): Promise<{
     imageId: string
     imagePath: string
     faction: string
@@ -345,10 +405,53 @@ export class AnnotationService {
   } | null> {
     this.cleanExpiredReservations()
 
-    let images = await this.getImageList(false)
+    // Pick the source list per status:
+    //   unannotated → existing fast-path (cache of un-touched images)
+    //   pending     → annotated-but-missing-unit_slug AND NOT legacy
+    //   legacy      → grandfathered incomplete (legacy_no_unit=true);
+    //                 surfaces pre-unit_slug work for backfill
+    //   all         → pending > legacy > unannotated (priority order)
+    // When the caller has specified a source filter, narrow the scan
+    // to just those sources AND spend the per-faction cap on them —
+    // otherwise an abundant source (ebay) saturates the cap first and
+    // a filter on a less-abundant source (cmon) returns nothing.
+    const sourceSet = sources && sources.length > 0 ? new Set(sources) : undefined
+
+    let images: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
+    if (status === 'pending') {
+      images = await this.getPendingImageList()
+    } else if (status === 'legacy') {
+      images = await this.getLegacyImageList()
+    } else if (status === 'pseudo') {
+      images = await this.getPseudoImageList()
+    } else if (status === 'flagged') {
+      // Browse-mode for the skip pile. Flagged images are normally
+      // excluded from the queue entirely (`if (isFlagged) continue` in
+      // getImageList); this filter is the only path that surfaces them.
+      images = await this.getFlaggedImageList()
+    } else if (status === 'all') {
+      const unann = await this.getImageList(false, sourceSet)
+      const pending = await this.getPendingImageList()
+      const legacy = await this.getLegacyImageList()
+      const seen = new Set<string>()
+      images = []
+      // Priority: active pending work → grandfathered backlog → fresh.
+      for (const img of pending) { if (!seen.has(img.imageId)) { seen.add(img.imageId); images.push(img) } }
+      for (const img of legacy)  { if (!seen.has(img.imageId)) { seen.add(img.imageId); images.push(img) } }
+      for (const img of unann)   { if (!seen.has(img.imageId)) { seen.add(img.imageId); images.push(img) } }
+    } else {
+      images = await this.getImageList(false, sourceSet)
+    }
     if (faction) {
       const factionSet = new Set(expandFaction(faction))
       images = images.filter(img => factionSet.has(img.faction))
+    }
+    // Source filter — same shape as the faction filter. Empty / undefined
+    // = no filter. The list of allowed sources is whatever `allowedSources`
+    // already enumerates; we just narrow within that.
+    if (sources && sources.length > 0) {
+      const sourceSet = new Set(sources)
+      images = images.filter(img => sourceSet.has(img.source))
     }
 
     // Filter out images reserved by a different user.
@@ -360,15 +463,22 @@ export class AnnotationService {
 
     if (images.length === 0) return null
 
-    // Only serve images that have pre-computed proposals, sorted by imageId so
-    // the same unit clusters together (imageId encodes faction + unit name).
-    const proposalIds = await this.getProposalIds()
-    const withProposals = images.filter(img => proposalIds.has(img.imageId))
-    if (withProposals.length > 0) {
-      withProposals.sort((a, b) => a.imageId.localeCompare(b.imageId))
-      images = withProposals
+    // For pending/legacy/flagged modes the user wants to revisit ALL
+    // matching items — they already know what they're looking for, no
+    // need to prioritise by DINO proposals. Sort stably by imageId.
+    if (status === 'pending' || status === 'legacy' || status === 'pseudo' || status === 'flagged') {
+      images.sort((a, b) => a.imageId.localeCompare(b.imageId))
+    } else {
+      // Only serve images that have pre-computed proposals, sorted by imageId
+      // so the same unit clusters together (imageId encodes faction + unit name).
+      const proposalIds = await this.getProposalIds()
+      const withProposals = images.filter(img => proposalIds.has(img.imageId))
+      if (withProposals.length > 0) {
+        withProposals.sort((a, b) => a.imageId.localeCompare(b.imageId))
+        images = withProposals
+      }
+      // If no proposals exist yet, fall through to the full list (first-run scenario)
     }
-    // If no proposals exist yet, fall through to the full list (first-run scenario)
 
     // Move session-skipped images to the back of the queue (must run after sort)
     if (exclude?.length) {
@@ -609,6 +719,12 @@ export class AnnotationService {
 
       // Invalidate image list cache and release reservation so other annotators can't be offered a done image
       this.imageListCache = null
+      // Pending/legacy/pseudo status may have changed (e.g. user filled in
+      // the last missing unit_slug, or a save removed the legacy_no_unit
+      // or pseudoLabelled flag). Invalidate all three buckets.
+      this.pendingListCache = null
+      this.legacyListCache = null
+      this.pseudoListCache = null
       this.clearReservation(annotation.imageId)
 
       // Invalidate dashboard cache
@@ -654,6 +770,141 @@ export class AnnotationService {
   }
 
   /**
+   * Classify an annotated image by its "completeness" relative to the
+   * unit_slug field. One disk read per call; callers batch through the
+   * higher-level list caches below.
+   *
+   * Returns:
+   *   'complete' — every bbox has a non-empty unit_slug
+   *   'pending'  — at least one bbox is missing unit_slug, file is NOT
+   *                flagged `legacy_no_unit`. The active work-queue for
+   *                the user to come back and finish.
+   *   'legacy'   — file has `legacy_no_unit: true` (grandfathered —
+   *                annotated before unit_slug existed). Surfaces in
+   *                its own filter so the user can batch-backfill when
+   *                they want to, without flooding Pending.
+   *   'empty'    — no bboxes (shouldn't normally be saved, but handle).
+   *   null       — no annotation file (image is still unannotated) or
+   *                JSON parse error.
+   */
+  async classifyAnnotation(imageId: string): Promise<
+    'complete' | 'pending' | 'legacy' | 'pseudo' | 'empty' | null
+  > {
+    const annotationPath = this.getAnnotationPath(imageId)
+    try {
+      const raw = await fs.readFile(annotationPath, 'utf-8')
+      const parsed = JSON.parse(raw) as {
+        annotations?: Array<{ unit_slug?: string }>
+        legacy_no_unit?: boolean
+        pseudoLabelled?: boolean
+      }
+      const anns = parsed.annotations ?? []
+      if (anns.length === 0) return 'empty'
+      // Pseudo-labelled annotations (Phase F1 auto-label output) go in
+      // their own bucket so the Pending queue stays clean. Saving via
+      // the annotator drops the pseudoLabelled flag, promoting them
+      // into pending/complete on the next pass.
+      if (parsed.pseudoLabelled === true) return 'pseudo'
+      const hasMissing = anns.some(a => !a.unit_slug || !String(a.unit_slug).trim())
+      if (!hasMissing) return 'complete'
+      return parsed.legacy_no_unit === true ? 'legacy' : 'pending'
+    } catch {
+      return null
+    }
+  }
+
+  /** Back-compat alias — callers that still import the old name. */
+  async isImagePending(imageId: string): Promise<boolean> {
+    return (await this.classifyAnnotation(imageId)) === 'pending'
+  }
+
+  /** Cached list of images in a given completion state (pending or
+   *  legacy). Built lazily on first request, invalidated whenever a
+   *  save lands. Shape mirrors imageListCache so the queue/filter path
+   *  is symmetric. */
+  private pendingListCache: Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }> | null = null
+  private legacyListCache: Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }> | null = null
+  private pseudoListCache: Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }> | null = null
+
+  async getPendingImageList(): Promise<Array<{
+    imageId: string
+    imagePath: string
+    faction: string
+    source: string
+    isAnnotated: boolean
+  }>> {
+    if (this.pendingListCache) return this.pendingListCache
+    const { pending } = await this._buildCompletionLists()
+    return pending
+  }
+
+  async getLegacyImageList(): Promise<Array<{
+    imageId: string
+    imagePath: string
+    faction: string
+    source: string
+    isAnnotated: boolean
+  }>> {
+    if (this.legacyListCache) return this.legacyListCache
+    const { legacy } = await this._buildCompletionLists()
+    return legacy
+  }
+
+  async getPseudoImageList(): Promise<Array<{
+    imageId: string
+    imagePath: string
+    faction: string
+    source: string
+    isAnnotated: boolean
+  }>> {
+    if (this.pseudoListCache) return this.pseudoListCache
+    const { pseudo } = await this._buildCompletionLists()
+    return pseudo
+  }
+
+  /** Walk every annotated image and bucket it into pending / legacy /
+   *  complete based on `classifyAnnotation`. One scan fills both
+   *  caches; subsequent calls return from cache until the next save
+   *  invalidates via saveAnnotation. */
+  private async _buildCompletionLists(): Promise<{
+    pending: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
+    legacy: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
+    pseudo: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
+  }> {
+    const all = await this.getImageList(true)
+    const pending: typeof all = []
+    const legacy: typeof all = []
+    const pseudo: typeof all = []
+    const BATCH = 32
+    for (let i = 0; i < all.length; i += BATCH) {
+      const batch = all.slice(i, i + BATCH)
+      const results = await Promise.all(batch.map(async (img) => {
+        if (!img.isAnnotated) return null
+        return { img, cls: await this.classifyAnnotation(img.imageId) }
+      }))
+      for (const r of results) {
+        if (!r) continue
+        if (r.cls === 'pending') pending.push(r.img)
+        else if (r.cls === 'legacy') legacy.push(r.img)
+        else if (r.cls === 'pseudo') pseudo.push(r.img)
+      }
+    }
+    this.pendingListCache = pending
+    this.legacyListCache = legacy
+    this.pseudoListCache = pseudo
+    return { pending, legacy, pseudo }
+  }
+
+  /**
    * Check if an image is flagged as unusable
    */
   async isImageFlagged(imageId: string): Promise<boolean> {
@@ -667,17 +918,114 @@ export class AnnotationService {
   }
 
   /**
-   * Flag an image as unusable (permanently skip it)
+   * Flag an image as unusable (permanently skip it). Writes a
+   * `<imageId>.skip.json` sidecar — the original image and any
+   * annotation JSON stay on disk. Invalidates caches so the queue
+   * reflects the new state on the next `/next` call.
    */
   async flagImage(imageId: string, reason?: string): Promise<void> {
     const flagPath = path.join(this.annotationsPath, `${imageId}.skip.json`)
     const flagData = {
       imageId,
       flaggedAt: new Date().toISOString(),
-      reason: reason || 'unusable'
+      reason: reason || 'unusable',
     }
     await fs.writeFile(flagPath, JSON.stringify(flagData, null, 2))
-    logger.info(`🚫 Flagged image ${imageId} as unusable`)
+    this.imageListCache = null
+    this.pendingListCache = null
+    this.legacyListCache = null
+    this.pseudoListCache = null
+    this.flaggedListCache = null
+    logger.info(`🚫 Flagged image ${imageId}: ${flagData.reason}`)
+  }
+
+  /**
+   * Un-flag a previously-flagged image. Deletes the `.skip.json`
+   * sidecar; the image returns to whichever queue it was in (typically
+   * unannotated unless there's also an annotation JSON).
+   * Idempotent — no-op if the image isn't flagged.
+   */
+  async unflagImage(imageId: string): Promise<void> {
+    const flagPath = path.join(this.annotationsPath, `${imageId}.skip.json`)
+    try {
+      await fs.unlink(flagPath)
+      this.imageListCache = null
+      this.pendingListCache = null
+      this.legacyListCache = null
+      this.pseudoListCache = null
+      this.flaggedListCache = null
+      logger.info(`↩ Un-flagged image ${imageId}`)
+    } catch (err: any) {
+      if (err.code === 'ENOENT') {
+        // Already not flagged — treat as idempotent success.
+        return
+      }
+      throw err
+    }
+  }
+
+  /** Cache of flagged (skip.json) entries keyed by imageId so the
+   *  `status=flagged` filter + unflag UI don't re-walk the filesystem
+   *  on every /next call. Invalidated on flag/unflag. */
+  private flaggedListCache: Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+    reason?: string; flaggedAt?: string
+  }> | null = null
+
+  async getFlaggedImageList(): Promise<Array<{
+    imageId: string
+    imagePath: string
+    faction: string
+    source: string
+    isAnnotated: boolean
+    reason?: string
+    flaggedAt?: string
+  }>> {
+    if (this.flaggedListCache) return this.flaggedListCache
+    const out: Array<{
+      imageId: string; imagePath: string; faction: string; source: string
+      isAnnotated: boolean; reason?: string; flaggedAt?: string
+    }> = []
+    try {
+      const files = await fs.readdir(this.annotationsPath)
+      const skipFiles = files.filter(f => f.endsWith('.skip.json'))
+      for (const file of skipFiles) {
+        const imageId = file.replace('.skip.json', '')
+        // Use the permanent path map populated on first scan. Falls
+        // back to a full scan if the map is empty (cold start).
+        let meta = this.imagePathMap.get(imageId)
+        if (!meta) {
+          // Warm the map by triggering a full list once.
+          await this.getImageList(true)
+          meta = this.imagePathMap.get(imageId)
+        }
+        if (!meta) continue   // orphan .skip.json — source image vanished
+        let reason: string | undefined
+        let flaggedAt: string | undefined
+        try {
+          const raw = await fs.readFile(path.join(this.annotationsPath, file), 'utf-8')
+          const parsed = JSON.parse(raw) as { reason?: string; flaggedAt?: string }
+          reason = parsed.reason
+          flaggedAt = parsed.flaggedAt
+        } catch {
+          // Malformed — we still list the image, just without reason.
+        }
+        out.push({
+          imageId,
+          imagePath: meta.imagePath,
+          faction: meta.faction,
+          source: meta.source,
+          isAnnotated: await this.isImageAnnotated(imageId),
+          reason,
+          flaggedAt,
+        })
+      }
+    } catch {
+      // annotations dir missing
+    }
+    this.flaggedListCache = out
+    return out
   }
 
   /**
@@ -717,18 +1065,39 @@ export class AnnotationService {
   async getProgress(): Promise<AnnotationProgress> {
     const allImages = await this.getImageList(true)
     const annotatedImages = allImages.filter(img => img.isAnnotated)
+    // Grab pending, legacy, and flagged buckets from their cached lists
+    // so we can surface per-faction counts in the dashboard without
+    // re-walking the filesystem three times.
+    const [pendingList, legacyList, flaggedList] = await Promise.all([
+      this.getPendingImageList(),
+      this.getLegacyImageList(),
+      this.getFlaggedImageList(),
+    ])
+    const pendingIds = new Set(pendingList.map(i => i.imageId))
+    const legacyIds  = new Set(legacyList.map(i => i.imageId))
 
-    const byFaction: Record<string, { total: number; annotated: number }> = {}
+    const byFaction: Record<string, { total: number; annotated: number; pending: number; legacy: number; flagged: number }> = {}
 
     for (const img of allImages) {
       const key = remapExportLabel(img.faction)
       if (!byFaction[key]) {
-        byFaction[key] = { total: 0, annotated: 0 }
+        byFaction[key] = { total: 0, annotated: 0, pending: 0, legacy: 0, flagged: 0 }
       }
       byFaction[key].total++
-      if (img.isAnnotated) {
-        byFaction[key].annotated++
+      if (img.isAnnotated) byFaction[key].annotated++
+      if (pendingIds.has(img.imageId)) byFaction[key].pending++
+      if (legacyIds.has(img.imageId))  byFaction[key].legacy++
+    }
+    // `allImages` is filtered by flagged at list-build time (the main
+    // getImageList skips `.skip.json`-flagged entries entirely). Walk
+    // the flagged list separately so the per-faction `flagged` count is
+    // accurate — otherwise the UI pill would always read 0.
+    for (const img of flaggedList) {
+      const key = remapExportLabel(img.faction)
+      if (!byFaction[key]) {
+        byFaction[key] = { total: 0, annotated: 0, pending: 0, legacy: 0, flagged: 0 }
       }
+      byFaction[key].flagged++
     }
 
     // Calculate total target using per-faction caps
@@ -740,7 +1109,10 @@ export class AnnotationService {
       totalImages: totalTarget,  // Show target, not raw count
       annotatedImages: annotatedImages.length,
       percentComplete: (annotatedImages.length / totalTarget) * 100,
-      byFaction
+      pendingImages: pendingList.length,
+      legacyImages: legacyList.length,
+      flaggedImages: flaggedList.length,
+      byFaction,
     }
   }
 

@@ -73,6 +73,145 @@ app.use(express.urlencoded({ limit: '100kb', extended: true }))
 /**
  * GET /api/annotate/images
  *
+ * Get the 40K taxonomy (20 canonical factions + their units) for the
+ * per-bbox faction + unit pickers. Sourced from scripts/data/units.json,
+ * which is the single source of truth wrapped by photoanalyzer.taxonomy
+ * on the Python side. Returned shape:
+ *
+ *     {
+ *       factions: ["adepta_sororitas", "adeptus_custodes", ...],
+ *       unitsByFaction: {
+ *         space_marines: [{ slug: "intercessors", name: "Intercessors" }, ...],
+ *         ...
+ *       }
+ *     }
+ *
+ * Cached in memory per server boot — units.json is ~300KB and changes
+ * rarely (new codex, new units). Manual restart picks up edits.
+ */
+let _taxonomyCache: { factions: string[]; unitsByFaction: Record<string, Array<{ slug: string; name: string; category?: string }>> } | null = null
+
+async function getTaxonomy() {
+  if (_taxonomyCache) return _taxonomyCache
+  const unitsPath = path.resolve(__dirname, '../../scripts/data/units.json')
+  const raw = await fs.readFile(unitsPath, 'utf-8')
+  const data = JSON.parse(raw) as { factions: Record<string, { units?: Array<{ name: string; category?: string }> }> }
+  // Slugify a unit name the same way photoanalyzer.taxonomy.slugify does —
+  // lowercase, strip Unicode curly quotes (Wahapedia uses them on
+  // possessives like "Lion El'jonson"), strip straight apostrophes,
+  // spaces → underscores. MUST match the Python exactly or round-trip
+  // through labels.csv silently breaks.
+  const slugify = (name: string): string =>
+    String(name || '')
+      .toLowerCase()
+      .replace(/\u2018/g, '')
+      .replace(/\u2019/g, '')
+      .replace(/'/g, '')
+      .replace(/ /g, '_')
+
+  const factions = Object.keys(data.factions || {})
+  const unitsByFaction: Record<string, Array<{ slug: string; name: string; category?: string }>> = {}
+  for (const f of factions) {
+    const body = data.factions[f] ?? {}
+    unitsByFaction[f] = (body.units || []).map(u => ({
+      slug: slugify(u.name),
+      name: u.name,
+      category: u.category,
+    }))
+  }
+  _taxonomyCache = { factions, unitsByFaction }
+  return _taxonomyCache
+}
+
+/**
+ * Build a small `meta` blob describing an image's provenance for the
+ * annotator UI. Always returns `filename`. For CMON-sourced images,
+ * follows the symlink at `imagePath` back to its real location, reads
+ * the adjacent manifest.json, and pulls out `title` / `artist` /
+ * `sourceUrl`. Manifests are parsed once per process; cache by
+ * resolved-real path so two views of the same CMON entry share.
+ */
+const _cmonManifestCache = new Map<string, {
+  title?: string; artist?: string; sourceUrl?: string
+  score?: number; votes?: number; tags?: string[]
+}>()
+
+async function buildImageMeta(imagePath: string): Promise<{
+  filename: string
+  title?: string
+  artist?: string
+  sourceUrl?: string
+  score?: number
+  votes?: number
+  tags?: string[]
+}> {
+  const filename = path.basename(imagePath)
+  // Only CMON imports are symlinks into scripts/cmon/images/*/<entry>/<view>.jpg.
+  // For non-CMON images we just return the filename.
+  let realPath = imagePath
+  try {
+    realPath = await (await import('fs')).promises.realpath(imagePath)
+  } catch {
+    return { filename }
+  }
+  if (!realPath.includes('/scripts/cmon/images/')) {
+    return { filename }
+  }
+  const entryDir = path.dirname(realPath)
+  const cached = _cmonManifestCache.get(entryDir)
+  if (cached) return { filename, ...cached }
+  try {
+    const raw = await fs.readFile(path.join(entryDir, 'manifest.json'), 'utf-8')
+    const m = JSON.parse(raw) as {
+      title?: string; tile_title?: string
+      artist?: string; tile_artist?: string
+      url?: string
+      score?: number | string
+      votes?: number | string
+      tags?: string[]
+    }
+    // CMON's `score` is 0–10 (community rating). `votes` is the count
+    // of raters. `tags` are free-form labels the submitter picked
+    // (often include "Science Fiction", "Warhammer 40k", "28mm", unit
+    // categories, etc). Useful for the annotator: high score + many
+    // votes = quality reference shot; tags sometimes hint at the unit
+    // when the title doesn't.
+    const scoreNum = typeof m.score === 'number' ? m.score : (m.score ? Number(m.score) : NaN)
+    const votesNum = typeof m.votes === 'number' ? m.votes : (m.votes ? Number(m.votes) : NaN)
+    const meta: { title?: string; artist?: string; sourceUrl?: string; score?: number; votes?: number; tags?: string[] } = {
+      title: m.title || m.tile_title || undefined,
+      artist: m.artist || m.tile_artist || undefined,
+      sourceUrl: m.url || undefined,
+    }
+    if (Number.isFinite(scoreNum)) meta.score = scoreNum
+    if (Number.isFinite(votesNum)) meta.votes = votesNum
+    if (Array.isArray(m.tags) && m.tags.length > 0) meta.tags = m.tags
+    _cmonManifestCache.set(entryDir, meta)
+    return { filename, ...meta }
+  } catch {
+    return { filename }
+  }
+}
+
+app.get('/api/annotate/taxonomy', async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  try {
+    const taxonomy = await getTaxonomy()
+    // Bundle the configured source list (e.g. ["ebay","isolation","cmon"])
+    // into the same response so the frontend's source picker doesn't
+    // need a second fetch and stays in lockstep with the env var.
+    res.json({
+      success: true,
+      data: { ...taxonomy, sources: annotationService.allowedSources },
+      requestId,
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+/**
+ *
  * Get list of all images with annotation status
  */
 app.get('/api/annotate/images', async (req: Request, res: Response, next: NextFunction) => {
@@ -115,9 +254,44 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
     const faction = req.query.faction as string | undefined
     const userId = req.query.userId as string | undefined
     const exclude = req.query.exclude ? (req.query.exclude as string).split(',') : undefined
-    log.info(`📷 Get next unannotated image (prioritize: ${prioritize}, faction: ${faction || 'all'}, user: ${userId || 'anonymous'})`)
+    // Source filter — comma-separated, validated against allowedSources
+    // so a typo'd `?source=cmonn` returns 400 rather than silently giving
+    // the unfiltered queue.
+    const allowed = new Set(annotationService.allowedSources)
+    let sources: string[] | undefined
+    if (req.query.source) {
+      sources = (req.query.source as string).split(',').map(s => s.trim()).filter(Boolean)
+      const bad = sources.filter(s => !allowed.has(s))
+      if (bad.length > 0) {
+        return res.status(400).json({
+          success: false,
+          error: `Unknown source(s): ${bad.join(', ')}. Allowed: ${[...allowed].join(', ')}`,
+          requestId,
+        })
+      }
+    }
+    // Status filter:
+    //   `unannotated` (default) — fresh images
+    //   `pending`  — annotated but missing unit_slug on at least one bbox
+    //   `legacy`   — grandfathered (annotated before unit_slug existed)
+    //   `pseudo`   — Phase F1 auto-labels awaiting human box review
+    //                (pseudoLabelled: true); saving promotes them out of this bucket
+    //   `flagged`  — images user marked unusable (`.skip.json` sidecar);
+    //                browse-mode so the user can review + un-flag
+    //   `all`      — pending > legacy > unannotated (flagged excluded)
+    const rawStatus = (req.query.status as string | undefined) ?? 'unannotated'
+    const STATUS_VALUES = ['unannotated', 'pending', 'legacy', 'pseudo', 'flagged', 'all'] as const
+    if (!STATUS_VALUES.includes(rawStatus as typeof STATUS_VALUES[number])) {
+      return res.status(400).json({
+        success: false,
+        error: `Invalid status '${rawStatus}'. Must be one of: ${STATUS_VALUES.join(', ')}.`,
+        requestId,
+      })
+    }
+    const status = rawStatus as typeof STATUS_VALUES[number]
+    log.info(`📷 Get next image (status: ${status}, prioritize: ${prioritize}, faction: ${faction || 'all'}, source: ${sources?.join(',') || 'all'}, user: ${userId || 'anonymous'})`)
 
-    const image = await annotationService.getNextImage(prioritize, faction, userId, exclude)
+    const image = await annotationService.getNextImage(prioritize, faction, userId, exclude, sources, status)
 
     if (!image) {
       log.info(`✅ No more images to annotate`)
@@ -133,10 +307,11 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
 
     // Include full image data in response to avoid a second round-trip.
     // Over ngrok this saves ~500ms per image load.
-    const [imageBuffer, metadata, annotation] = await Promise.all([
+    const [imageBuffer, metadata, annotation, meta] = await Promise.all([
       fs.readFile(image.imagePath),
       sharp(image.imagePath).metadata(),
       annotationService.getAnnotation(image.imageId),
+      buildImageMeta(image.imagePath),
     ])
     const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`
 
@@ -150,6 +325,7 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
           imageBase64,
           width: metadata.width || 0,
           height: metadata.height || 0,
+          meta,   // { filename, title?, artist?, sourceUrl? } — drives the UI header
         },
         annotation,
       },
@@ -192,10 +368,11 @@ app.get('/api/annotate/image/:imageId', async (req: Request, res: Response, next
     }
 
     // Read image and get metadata in parallel
-    const [imageBuffer, metadata, annotation] = await Promise.all([
+    const [imageBuffer, metadata, annotation, meta] = await Promise.all([
       fs.readFile(image.imagePath),
       sharp(image.imagePath).metadata(),
       annotationService.getAnnotation(imageId),
+      buildImageMeta(image.imagePath),
     ])
 
     const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`
@@ -211,7 +388,8 @@ app.get('/api/annotate/image/:imageId', async (req: Request, res: Response, next
           isAnnotated: !!annotation,
           imageBase64,
           width: metadata.width || 0,
-          height: metadata.height || 0
+          height: metadata.height || 0,
+          meta,
         },
         annotation
       },
@@ -339,6 +517,33 @@ app.post('/api/annotate/flag', express.json(), async (req: Request, res: Respons
     res.json({ success: true, data: { imageId, flagged: true }, requestId })
   } catch (error: any) {
     log.error(`🔴 Failed to flag image: ${error.message}`)
+    next(error)
+  }
+})
+
+/**
+ * POST /api/annotate/unflag
+ *
+ * Remove the flagged-unusable mark so the image returns to the queue.
+ * Idempotent — posting for an imageId that isn't flagged succeeds
+ * silently (no-op). The image itself is never affected, only the
+ * sidecar `<imageId>.skip.json` is deleted.
+ */
+app.post('/api/annotate/unflag', express.json(), async (req: Request, res: Response, next: NextFunction) => {
+  const requestId = (req as any).id
+  const log = createRequestLogger(requestId)
+
+  try {
+    const { imageId } = req.body
+    if (!imageId) {
+      res.status(400).json({ success: false, error: { message: 'imageId is required' } })
+      return
+    }
+    await annotationService.unflagImage(imageId)
+    log.info(`↩ Un-flagged image ${imageId}`)
+    res.json({ success: true, data: { imageId, flagged: false }, requestId })
+  } catch (error: any) {
+    log.error(`🔴 Failed to un-flag image: ${error.message}`)
     next(error)
   }
 })

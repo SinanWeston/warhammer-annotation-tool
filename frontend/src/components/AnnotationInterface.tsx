@@ -25,21 +25,76 @@ const FACTION_REMAP: Record<string, string> = {
 }
 const remapFaction = (f: string) => FACTION_REMAP[f] ?? f
 
+// Reverse-image-search engines. All accept a pasted clipboard image on
+// their landing/upload page; we can't use their `?image_url=` params
+// because the annotator runs on localhost and the engines fetch URLs
+// server-side. One-click copy-to-clipboard + new-tab is the next best
+// thing — paste with Ctrl+V / Cmd+V once the tab opens.
+const REVERSE_IMAGE_ENGINES = [
+  { name: 'Google Lens', url: 'https://lens.google.com/' },
+  { name: 'Yandex', url: 'https://yandex.com/images/' },
+  { name: 'Bing', url: 'https://www.bing.com/visualsearch' },
+] as const
+
+// Clipboard API only reliably accepts PNG across browsers, so re-encode
+// JPEG source frames via a throwaway canvas.
+async function imageDataUrlToPngBlob(dataUrl: string): Promise<Blob> {
+  const src = await fetch(dataUrl).then(r => r.blob())
+  if (src.type === 'image/png') return src
+  const img = new Image()
+  const objUrl = URL.createObjectURL(src)
+  try {
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve()
+      img.onerror = () => reject(new Error('decode failed'))
+      img.src = objUrl
+    })
+    const canvas = document.createElement('canvas')
+    canvas.width = img.naturalWidth
+    canvas.height = img.naturalHeight
+    const ctx = canvas.getContext('2d')
+    if (!ctx) throw new Error('no 2d context')
+    ctx.drawImage(img, 0, 0)
+    return await new Promise<Blob>((resolve, reject) =>
+      canvas.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png')
+    )
+  } finally {
+    URL.revokeObjectURL(objUrl)
+  }
+}
+
 interface ImageData {
   imageId: string
   imagePath: string
   faction: string
-  source: 'reddit' | 'dakkadakka'
+  /** Source bucket (matches the dirs under backend/training_data/<faction>/).
+   *  Was a literal union; broadened to string so new sources (cmon, etc.)
+   *  configured via ANNOTATION_SOURCES don't require a code edit. */
+  source: string
   imageBase64?: string
   width?: number
   height?: number
+  /** Provenance shown in the UI header. Always has filename; CMON-sourced
+   *  images also include the artist's title, score (0–10), vote count,
+   *  tags, and a link back to the source page. */
+  meta?: {
+    filename: string
+    title?: string
+    artist?: string
+    sourceUrl?: string
+    score?: number
+    votes?: number
+    tags?: string[]
+  }
 }
 
 interface AnnotationProgress {
   totalImages: number
   annotatedImages: number
   percentComplete: number
-  byFaction: Record<string, { total: number; annotated: number }>
+  pendingImages: number
+  legacyImages: number
+  byFaction: Record<string, { total: number; annotated: number; pending: number; legacy: number }>
 }
 
 interface QualityIssue {
@@ -59,6 +114,24 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   const [currentImage, setCurrentImage] = useState<ImageData | null>(null)
   const [annotations, setAnnotations] = useState<BboxAnnotation[]>([])
   const [progress, setProgress] = useState<AnnotationProgress | null>(null)
+  // 40K taxonomy (20 factions + units per faction + configured sources)
+  // for the per-bbox dropdowns and the source filter. Fetched once on
+  // mount via /api/annotate/taxonomy.
+  const [taxonomy, setTaxonomy] = useState<{
+    factions: string[]
+    unitsByFaction: Record<string, Array<{ slug: string; name: string; category?: string }>>
+    sources: string[]
+  } | null>(null)
+  // Source filter — null = "all sources" (default). Drives a query
+  // param on /api/annotate/next so the queue serves only images from
+  // that source (e.g. only `cmon` while you're working through CMON).
+  const [selectedSource, setSelectedSource] = useState<string | null>(null)
+  // Status filter for the queue:
+  //   'unannotated' — fresh images (default, original behaviour)
+  //   'pending'     — annotated but missing unit_slug on at least one
+  //                   bbox; lets the user fill in deferred labels later
+  //   'all'         — every image, pending first
+  const [selectedStatus, setSelectedStatus] = useState<'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'all'>('unannotated')
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -103,9 +176,33 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   // Faction filter state
   const [selectedFaction, setSelectedFaction] = useState<string | null>(null)
 
+  // Reverse-image-search transient feedback ("Copied — paste with Ctrl+V").
+  // Cleared after ~3s so the card doesn't sit with stale text.
+  const [reverseSearchStatus, setReverseSearchStatus] = useState<string | null>(null)
+
   // Fetch progress on mount
   useEffect(() => {
     fetchProgress()
+  }, [])
+
+  // Fetch the 40K taxonomy (factions + units) once per mount. Drives the
+  // per-bbox faction + unit dropdowns in BboxAnnotator. A failure here
+  // isn't fatal — the UI falls back to the old "classLabel = image's
+  // faction" behaviour without the unit picker, surfaced via a warning.
+  useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      try {
+        const res = await fetch(`${API_BASE}/api/annotate/taxonomy`)
+        const data = await res.json()
+        if (cancelled) return
+        if (data?.success && data?.data) setTaxonomy(data.data)
+        else console.warn('taxonomy fetch returned no data', data)
+      } catch (err) {
+        console.warn('taxonomy fetch failed:', err)
+      }
+    })()
+    return () => { cancelled = true }
   }, [])
 
   // Fetch annotation progress
@@ -161,6 +258,8 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       const params = new URLSearchParams()
       if (prioritize) params.set('prioritize', 'true')
       if (faction) params.set('faction', faction)
+      if (selectedSource) params.set('source', selectedSource)
+      if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
       const excludeIds = extraExclude ? new Set([...skippedIds, extraExclude]) : skippedIds
       if (excludeIds.size > 0) params.set('exclude', Array.from(excludeIds).join(','))
@@ -313,6 +412,8 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       const params = new URLSearchParams()
       if (prioritize) params.set('prioritize', 'true')
       if (selectedFaction) params.set('faction', selectedFaction)
+      if (selectedSource) params.set('source', selectedSource)
+      if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
       const qs = params.toString()
       const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
@@ -950,6 +1051,130 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         </div>
       </div>
 
+      {/* Status filter — three-way toggle for what's in the queue:
+            Unannotated (default) — fresh images you haven't touched
+            Pending               — annotated but a bbox is missing its
+                                    unit_slug (came back to fill in later)
+            All                   — both, pending first
+          Sits above Source so the conceptual order is "what kind of work,
+          on what corpus". Backend invalidates its pending-list cache on
+          every save, so the count reflects reality without manual reload. */}
+      <div style={{
+        marginBottom: '0.5rem',
+        padding: '0.75rem 1rem',
+        backgroundColor: '#1a1a1a',
+        borderRadius: '8px',
+        border: '1px solid #333',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem',
+        flexWrap: 'wrap',
+      }}>
+        <span style={{ color: '#aaa', fontSize: '0.9rem' }}>Status:</span>
+        {([
+          ['unannotated', 'Unannotated', 'Show fresh images you haven\'t saved an annotation for yet'],
+          ['pending',     `Pending${progress?.pendingImages ? ` (${progress.pendingImages})` : ''}`, 'Show annotated images where at least one bbox is missing its unit_slug — return here to fill them in'],
+          ['legacy',      `Legacy${progress?.legacyImages ? ` (${progress.legacyImages})` : ''}`, 'Grandfathered annotations from before unit_slug existed. Pick here when you want to backfill units on old corpus.'],
+          ['pseudo',      'Pseudo-labelled', 'Phase F1 auto-labels awaiting box review. Correct any wrong boxes, then save — that promotes the image out of this queue.'],
+          ['all',         'All',         'Show every image (pending > legacy > unannotated)'],
+        ] as const).map(([key, label, tooltip]) => {
+          const active = selectedStatus === key
+          return (
+            <button
+              key={key}
+              onClick={() => {
+                if (selectedStatus !== key) {
+                  setSelectedStatus(key)
+                  // Reload immediately so the queue reflects the new
+                  // status filter without waiting for the next save.
+                  loadNextImage()
+                }
+              }}
+              style={{
+                padding: '0.4rem 0.9rem',
+                backgroundColor: active ? '#a855f7' : '#2a2a2a',
+                color: '#fff',
+                border: '1px solid ' + (active ? '#a855f7' : '#444'),
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontSize: '0.9rem',
+              }}
+              title={tooltip}
+            >
+              {label}
+            </button>
+          )
+        })}
+      </div>
+
+      {/* Source filter — pick a single source (e.g. cmon) to narrow the
+          annotation queue. `All` clears the filter and serves images from
+          every configured source in priority order. The list comes from
+          /api/annotate/taxonomy → sources, which mirrors ANNOTATION_SOURCES. */}
+      {taxonomy?.sources && taxonomy.sources.length > 1 && (
+        <div style={{
+          marginBottom: '1.5rem',
+          padding: '0.75rem 1rem',
+          backgroundColor: '#1a1a1a',
+          borderRadius: '8px',
+          border: '1px solid #333',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem',
+          flexWrap: 'wrap',
+        }}>
+          <span style={{ color: '#aaa', fontSize: '0.9rem' }}>Source:</span>
+          <button
+            onClick={() => {
+              if (selectedSource !== null) {
+                setSelectedSource(null)
+                // Reload the queue with the cleared filter so the next
+                // image you see actually comes from any source.
+                loadNextImage()
+              }
+            }}
+            style={{
+              padding: '0.4rem 0.9rem',
+              backgroundColor: selectedSource === null ? '#10b981' : '#2a2a2a',
+              color: '#fff',
+              border: '1px solid ' + (selectedSource === null ? '#10b981' : '#444'),
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '0.9rem',
+              textTransform: 'capitalize',
+            }}
+            title="Show images from every configured source"
+          >
+            all
+          </button>
+          {taxonomy.sources.map(src => {
+            const active = selectedSource === src
+            return (
+              <button
+                key={src}
+                onClick={() => {
+                  setSelectedSource(src)
+                  loadNextImage()
+                }}
+                style={{
+                  padding: '0.4rem 0.9rem',
+                  backgroundColor: active ? '#10b981' : '#2a2a2a',
+                  color: '#fff',
+                  border: '1px solid ' + (active ? '#10b981' : '#444'),
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  textTransform: 'capitalize',
+                }}
+                title={`Only show images whose source folder is "${src}/"`}
+              >
+                {src}
+              </button>
+            )
+          })}
+        </div>
+      )}
+
       {/* Progress Stats */}
       {progress && (
         <div style={{
@@ -1002,6 +1227,43 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
                     transition: 'width 0.3s'
                   }} />
                 </div>
+                {/* Pending / legacy per-faction pills. Only render when
+                    non-zero so completed factions stay visually clean. */}
+                {(stats.pending > 0 || stats.legacy > 0) && (
+                  <div style={{
+                    marginTop: '0.5rem',
+                    display: 'flex',
+                    gap: '0.35rem',
+                    fontSize: '0.7rem',
+                  }}>
+                    {stats.pending > 0 && (
+                      <span
+                        title={`${stats.pending} image(s) have bboxes missing unit_slug — pick Status: Pending to revisit`}
+                        style={{
+                          padding: '0.1rem 0.4rem',
+                          borderRadius: '3px',
+                          backgroundColor: '#3b1f5a',
+                          color: '#c4a0ff',
+                        }}
+                      >
+                        {stats.pending} pending
+                      </span>
+                    )}
+                    {stats.legacy > 0 && (
+                      <span
+                        title={`${stats.legacy} annotation(s) from before unit_slug existed. Pick Status: Legacy to backfill.`}
+                        style={{
+                          padding: '0.1rem 0.4rem',
+                          borderRadius: '3px',
+                          backgroundColor: '#3a3a3a',
+                          color: '#999',
+                        }}
+                      >
+                        {stats.legacy} legacy
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
               )
             })}
@@ -1128,8 +1390,8 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
           border: '1px solid #333',
           marginBottom: '1rem'
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
+            <div style={{ minWidth: 0 }}>
               <div style={{ color: '#aaa', fontSize: '0.8rem' }}>Current Image:</div>
               <div style={{ color: '#fff', fontSize: '1rem', marginTop: '0.25rem' }}>
                 <span style={{ color: '#10b981', textTransform: 'capitalize' }}>
@@ -1138,14 +1400,157 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
                 {' '} / {currentImage.source}
                 {' '} / {currentImage.width}x{currentImage.height}
               </div>
+              {/* Provenance: filename always; CMON entries also include the
+                  artist's title + a clickable source link. Sits inside the
+                  current-image card so it scrolls with the rest of the
+                  metadata block. Title is the artist's own framing —
+                  often hints at the unit/scene before you start drawing. */}
+              {currentImage.meta && (
+                <div style={{
+                  marginTop: '0.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.15rem',
+                  fontSize: '0.85rem',
+                  color: '#bbb',
+                  minWidth: 0,
+                }}>
+                  <div style={{
+                    fontFamily: 'monospace',
+                    color: '#888',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '60ch',
+                  }} title={currentImage.meta.filename}>
+                    {currentImage.meta.filename}
+                  </div>
+                  {currentImage.meta.title && (
+                    <div style={{ color: '#fff' }}>
+                      <span style={{ color: '#888', fontSize: '0.75rem', marginRight: '0.4rem' }}>title</span>
+                      {currentImage.meta.sourceUrl ? (
+                        <a
+                          href={currentImage.meta.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#a855f7', textDecoration: 'none' }}
+                          title="Open source page in a new tab"
+                        >
+                          {currentImage.meta.title}
+                          <span style={{ marginLeft: '0.3rem', fontSize: '0.75rem' }}>↗</span>
+                        </a>
+                      ) : (
+                        currentImage.meta.title
+                      )}
+                      {currentImage.meta.artist && (
+                        <span style={{ color: '#888', marginLeft: '0.5rem', fontSize: '0.85rem' }}>
+                          by {currentImage.meta.artist}
+                        </span>
+                      )}
+                      {/* Community score (0–10). Prefix with vote count
+                          in a muted tone so low-sample-size scores read
+                          sceptically. High-score images are usually cleaner
+                          reference shots. */}
+                      {typeof currentImage.meta.score === 'number' && (
+                        <span style={{
+                          marginLeft: '0.6rem',
+                          fontSize: '0.8rem',
+                          color: currentImage.meta.score >= 7 ? '#fbbf24' : '#888',
+                        }} title={`CMON community score (${currentImage.meta.votes ?? '?'} votes)`}>
+                          ★ {currentImage.meta.score.toFixed(1)}
+                          {currentImage.meta.votes != null && (
+                            <span style={{ color: '#666', marginLeft: '0.25rem', fontSize: '0.75rem' }}>
+                              ({currentImage.meta.votes})
+                            </span>
+                          )}
+                        </span>
+                      )}
+                    </div>
+                  )}
+                  {currentImage.meta.tags && currentImage.meta.tags.length > 0 && (
+                    <div style={{
+                      marginTop: '0.2rem',
+                      display: 'flex',
+                      gap: '0.3rem',
+                      flexWrap: 'wrap',
+                    }}>
+                      {currentImage.meta.tags.slice(0, 10).map(t => (
+                        <span key={t} style={{
+                          padding: '0.05rem 0.35rem',
+                          backgroundColor: '#2a2a2a',
+                          borderRadius: '3px',
+                          color: '#888',
+                          fontSize: '0.7rem',
+                        }}>{t}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
 
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              {/* Reverse-image-search buttons: open the engine in a new
+                  tab (synchronously, to keep the popup inside the user
+                  gesture) then copy the scene to the clipboard as PNG.
+                  Disabled until the image has actually loaded. */}
+              <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
+                <span style={{ color: '#888', fontSize: '0.75rem', marginRight: '0.15rem' }}>Reverse search:</span>
+                {REVERSE_IMAGE_ENGINES.map(engine => (
+                  <button
+                    key={engine.name}
+                    type="button"
+                    disabled={!currentImage.imageBase64}
+                    title={`Open ${engine.name} in a new tab and copy the current scene to the clipboard. Paste with Ctrl+V (or Cmd+V) on the engine page.`}
+                    onClick={() => {
+                      const dataUrl = currentImage.imageBase64
+                      if (!dataUrl) return
+                      // Must submit the clipboard write *before* window.open,
+                      // otherwise the new tab steals focus and Chrome rejects
+                      // writes on unfocused documents. ClipboardItem accepts
+                      // a Promise<Blob>, so the browser holds the user gesture
+                      // while the PNG encoding resolves.
+                      const writePromise = navigator.clipboard.write([
+                        new ClipboardItem({ 'image/png': imageDataUrlToPngBlob(dataUrl) })
+                      ])
+                      window.open(engine.url, '_blank', 'noopener,noreferrer')
+                      setReverseSearchStatus(`Copying for ${engine.name}…`)
+                      writePromise
+                        .then(() => setReverseSearchStatus(`Copied — paste in ${engine.name} tab (Ctrl+V)`))
+                        .catch(err => {
+                          console.error('Reverse image clipboard copy failed:', err)
+                          setReverseSearchStatus(`Copy failed (${err?.name || 'error'}) — save the image manually and upload to ${engine.name}`)
+                        })
+                      window.setTimeout(() => setReverseSearchStatus(null), 5000)
+                    }}
+                    style={{
+                      padding: '0.35rem 0.65rem',
+                      backgroundColor: '#2a2a2a',
+                      border: '1px solid #444',
+                      borderRadius: '4px',
+                      fontSize: '0.8rem',
+                      color: currentImage.imageBase64 ? '#ddd' : '#666',
+                      cursor: currentImage.imageBase64 ? 'pointer' : 'not-allowed',
+                    }}
+                  >
+                    {engine.name}
+                  </button>
+                ))}
+              </div>
               <span style={{ padding: '0.5rem 1rem', backgroundColor: '#2a2a2a', borderRadius: '4px', fontSize: '0.9rem', color: '#aaa' }}>
                 {annotations.length} annotations
               </span>
             </div>
           </div>
+          {reverseSearchStatus && (
+            <div style={{
+              marginTop: '0.5rem',
+              fontSize: '0.8rem',
+              color: reverseSearchStatus.startsWith('Copy failed') ? '#f87171' : '#10b981',
+            }}>
+              {reverseSearchStatus}
+            </div>
+          )}
         </div>
       )}
 
@@ -1163,8 +1568,13 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
               const annIds = new Set(newAnns.map(a => a.id))
               setPredictions(prev => prev.filter(p => annIds.has(p.id)))
             }}
-            classLabels={[remapFaction(currentImage.faction)]}  // Use faction as default class
+            // Pass the full 20-faction list when the taxonomy has loaded
+            // so the user can override the image's default faction on any
+            // bbox. Falls back to the image's faction alone if the fetch
+            // failed (preserves the old behaviour).
+            classLabels={taxonomy?.factions ?? [remapFaction(currentImage.faction)]}
             defaultClass={remapFaction(currentImage.faction)}
+            unitsByFaction={taxonomy?.unitsByFaction}
             initialAnnotations={annotations}  // Pre-populate with AI suggestions or existing annotations
             onSaveRequested={saveAnnotations}  // Keyboard shortcut: S
             onSkipRequested={skipImage}  // Keyboard shortcut: K
