@@ -11,9 +11,13 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { apiToBbox, bboxToApi, type ApiAnnotation } from '../utils/annotationWire'
+import HeaderProgressCard from './annotation/HeaderProgressCard'
+import StatusFilterRow, { type AnnotatorStatus } from './annotation/StatusFilterRow'
+import SourceFilterRow from './annotation/SourceFilterRow'
+import FactionProgressGrid from './annotation/FactionProgressGrid'
 import BboxAnnotator from './BboxAnnotator'
 import QualityIssuesModal from './QualityIssuesModal'
-import { BboxAnnotation } from '../types'
+import { BboxAnnotation, type AnnotationProgress, type QualityIssue } from '../types'
 import { API_BASE } from '../lib/api'
 
 // Mirrors EXPORT_LABEL_REMAP in annotationService.ts — keep in sync.
@@ -89,21 +93,7 @@ interface ImageData {
   }
 }
 
-interface AnnotationProgress {
-  totalImages: number
-  annotatedImages: number
-  percentComplete: number
-  pendingImages: number
-  legacyImages: number
-  byFaction: Record<string, { total: number; annotated: number; pending: number; legacy: number }>
-}
-
-interface QualityIssue {
-  type: 'error' | 'warning'
-  code: string
-  message: string
-  bboxId?: string
-}
+// AnnotationProgress + QualityIssue are now exported from ../types.
 
 interface AnnotationInterfaceProps {
   editImageId?: string | null
@@ -132,7 +122,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   //   'pending'     — annotated but missing unit_slug on at least one
   //                   bbox; lets the user fill in deferred labels later
   //   'all'         — every image, pending first
-  const [selectedStatus, setSelectedStatus] = useState<'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'frozen_eval' | 'all'>('unannotated')
+  const [selectedStatus, setSelectedStatus] = useState<AnnotatorStatus>('unannotated')
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -889,346 +879,46 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
 
   return (
     <div className="annotation-interface" style={{ padding: '0.5rem', margin: '0 auto' }}>
-      {/* Header */}
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '2rem',
-        padding: '1.5rem',
-        backgroundColor: '#1a1a1a',
-        borderRadius: '12px',
-        border: '1px solid #333'
-      }}>
-        <div style={{ flex: 1 }}>
-          <h1 style={{ margin: 0, fontSize: '2rem', color: '#fff' }}>
-            🎨 Training Data Annotation
-          </h1>
-          {progress && (
-            <>
-              <div style={{ marginTop: '1rem', fontSize: '1.2rem', color: '#fff', fontWeight: 'bold' }}>
-                <span style={{ color: '#10b981', fontSize: '2rem' }}>{progress.annotatedImages.toLocaleString()}</span>
-                <span style={{ color: '#666', margin: '0 0.5rem' }}>/</span>
-                <span style={{ color: '#aaa' }}>{progress.totalImages.toLocaleString()}</span>
-                <span style={{ color: '#666', marginLeft: '1rem', fontSize: '1rem' }}>
-                  ({progress.percentComplete.toFixed(3)}% complete)
-                </span>
-              </div>
-              <div style={{ marginTop: '0.75rem', height: '8px', backgroundColor: '#333', borderRadius: '4px', overflow: 'hidden' }}>
-                <div style={{
-                  height: '100%',
-                  width: `${progress.percentComplete}%`,
-                  backgroundColor: '#10b981',
-                  transition: 'width 0.5s ease',
-                  boxShadow: '0 0 10px rgba(16, 185, 129, 0.5)'
-                }} />
-              </div>
-            </>
-          )}
-        </div>
+      <HeaderProgressCard
+        progress={progress}
+        prioritize={prioritize}
+        setPrioritize={setPrioritize}
+        confidenceScore={confidenceScore}
+        fetchingProgress={fetchingProgress}
+        fetchProgress={fetchProgress}
+        hasCurrentImage={!!currentImage}
+        loading={loading}
+        onStartAnnotating={() => loadNextImage()}
+      />
 
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          {/* Prioritize toggle */}
-          <label style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            cursor: 'pointer',
-            padding: '0.5rem 1rem',
-            backgroundColor: prioritize ? '#7c3aed30' : '#1a1a1a',
-            border: prioritize ? '1px solid #7c3aed' : '1px solid #333',
-            borderRadius: '8px',
-            fontSize: '0.85rem',
-            color: prioritize ? '#a78bfa' : '#888',
-            transition: 'all 0.2s'
-          }}>
-            <input
-              type="checkbox"
-              checked={prioritize}
-              onChange={e => setPrioritize(e.target.checked)}
-              style={{ accentColor: '#7c3aed' }}
-            />
-            Prioritize by confidence
-          </label>
+      <StatusFilterRow
+        selectedStatus={selectedStatus}
+        progress={progress}
+        onStatusChange={next => {
+          setSelectedStatus(next)
+          // NB: closure bug — loadNextImage sees stale selectedStatus.
+          // Commit 10 fixes this via useReducer + reload-via-effect.
+          loadNextImage()
+        }}
+      />
 
-          {/* Confidence badge */}
-          {confidenceScore !== null && prioritize && (
-            <span style={{
-              padding: '0.4rem 0.8rem',
-              backgroundColor: confidenceScore < 0.3 ? '#dc262640' : confidenceScore < 0.6 ? '#f59e0b40' : '#05966940',
-              color: confidenceScore < 0.3 ? '#fca5a5' : confidenceScore < 0.6 ? '#fcd34d' : '#6ee7b7',
-              borderRadius: '6px',
-              fontSize: '0.8rem',
-              fontWeight: 'bold'
-            }}>
-              Conf: {(confidenceScore * 100).toFixed(0)}%
-            </span>
-          )}
+      <SourceFilterRow
+        selectedSource={selectedSource}
+        taxonomy={taxonomy}
+        onSourceChange={next => {
+          setSelectedSource(next)
+          loadNextImage()
+        }}
+      />
 
-          <button
-            onClick={fetchProgress}
-            disabled={fetchingProgress}
-            style={{
-              padding: '0.75rem 1.5rem',
-              backgroundColor: '#374151',
-              color: '#fff',
-              border: '1px solid #4b5563',
-              borderRadius: '8px',
-              fontSize: '0.9rem',
-              cursor: fetchingProgress ? 'not-allowed' : 'pointer',
-              opacity: fetchingProgress ? 0.5 : 1,
-              transition: 'all 0.2s'
-            }}
-            onMouseEnter={(e) => {
-              if (!fetchingProgress) {
-                e.currentTarget.style.backgroundColor = '#4b5563'
-              }
-            }}
-            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#374151'}
-          >
-            {fetchingProgress ? '⏳ Updating...' : '🔄 Refresh Progress'}
-          </button>
-          {!currentImage && (
-            <button
-              onClick={() => loadNextImage()}
-              disabled={loading}
-              style={{
-                padding: '1rem 2rem',
-                backgroundColor: '#2563eb',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                fontSize: '1rem',
-                fontWeight: 'bold',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                opacity: loading ? 0.5 : 1
-              }}
-            >
-              {loading ? 'Loading...' : 'Start Annotating'}
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Status filter — three-way toggle for what's in the queue:
-            Unannotated (default) — fresh images you haven't touched
-            Pending               — annotated but a bbox is missing its
-                                    unit_slug (came back to fill in later)
-            All                   — both, pending first
-          Sits above Source so the conceptual order is "what kind of work,
-          on what corpus". Backend invalidates its pending-list cache on
-          every save, so the count reflects reality without manual reload. */}
-      <div style={{
-        marginBottom: '0.5rem',
-        padding: '0.75rem 1rem',
-        backgroundColor: '#1a1a1a',
-        borderRadius: '8px',
-        border: '1px solid #333',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.75rem',
-        flexWrap: 'wrap',
-      }}>
-        <span style={{ color: '#aaa', fontSize: '0.9rem' }}>Status:</span>
-        {([
-          ['unannotated', 'Unannotated', 'Show fresh images you haven\'t saved an annotation for yet'],
-          ['pending',     `Pending${progress?.pendingImages ? ` (${progress.pendingImages})` : ''}`, 'Show annotated images where at least one bbox is missing its unit_slug — return here to fill them in'],
-          ['legacy',      `Legacy${progress?.legacyImages ? ` (${progress.legacyImages})` : ''}`, 'Grandfathered annotations from before unit_slug existed. Pick here when you want to backfill units on old corpus.'],
-          ['pseudo',      'Pseudo-labelled', 'Phase F1 auto-labels awaiting box review. Correct any wrong boxes, then save — that promotes the image out of this queue.'],
-          ['frozen_eval', 'Frozen eval (200)', 'Phase C held-out scene benchmark. Browse-only review — do not retrain on these. Manifest: data/scene_benchmark/eval_200.json.'],
-          ['all',         'All',         'Show every image (pending > legacy > unannotated)'],
-        ] as const).map(([key, label, tooltip]) => {
-          const active = selectedStatus === key
-          return (
-            <button
-              key={key}
-              onClick={() => {
-                if (selectedStatus !== key) {
-                  setSelectedStatus(key)
-                  // Reload immediately so the queue reflects the new
-                  // status filter without waiting for the next save.
-                  loadNextImage()
-                }
-              }}
-              style={{
-                padding: '0.4rem 0.9rem',
-                backgroundColor: active ? '#a855f7' : '#2a2a2a',
-                color: '#fff',
-                border: '1px solid ' + (active ? '#a855f7' : '#444'),
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '0.9rem',
-              }}
-              title={tooltip}
-            >
-              {label}
-            </button>
-          )
-        })}
-      </div>
-
-      {/* Source filter — pick a single source (e.g. cmon) to narrow the
-          annotation queue. `All` clears the filter and serves images from
-          every configured source in priority order. The list comes from
-          /api/annotate/taxonomy → sources, which mirrors ANNOTATION_SOURCES. */}
-      {taxonomy?.sources && taxonomy.sources.length > 1 && (
-        <div style={{
-          marginBottom: '1.5rem',
-          padding: '0.75rem 1rem',
-          backgroundColor: '#1a1a1a',
-          borderRadius: '8px',
-          border: '1px solid #333',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.75rem',
-          flexWrap: 'wrap',
-        }}>
-          <span style={{ color: '#aaa', fontSize: '0.9rem' }}>Source:</span>
-          <button
-            onClick={() => {
-              if (selectedSource !== null) {
-                setSelectedSource(null)
-                // Reload the queue with the cleared filter so the next
-                // image you see actually comes from any source.
-                loadNextImage()
-              }
-            }}
-            style={{
-              padding: '0.4rem 0.9rem',
-              backgroundColor: selectedSource === null ? '#10b981' : '#2a2a2a',
-              color: '#fff',
-              border: '1px solid ' + (selectedSource === null ? '#10b981' : '#444'),
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontSize: '0.9rem',
-              textTransform: 'capitalize',
-            }}
-            title="Show images from every configured source"
-          >
-            all
-          </button>
-          {taxonomy.sources.map(src => {
-            const active = selectedSource === src
-            return (
-              <button
-                key={src}
-                onClick={() => {
-                  setSelectedSource(src)
-                  loadNextImage()
-                }}
-                style={{
-                  padding: '0.4rem 0.9rem',
-                  backgroundColor: active ? '#10b981' : '#2a2a2a',
-                  color: '#fff',
-                  border: '1px solid ' + (active ? '#10b981' : '#444'),
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '0.9rem',
-                  textTransform: 'capitalize',
-                }}
-                title={`Only show images whose source folder is "${src}/"`}
-              >
-                {src}
-              </button>
-            )
-          })}
-        </div>
-      )}
-
-      {/* Progress Stats */}
-      {progress && (
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-          gap: '1rem',
-          marginBottom: '2rem'
-        }}>
-          {Object.entries(progress.byFaction)
-            .sort((a, b) => b[1].total - a[1].total)
-            .map(([faction, stats]) => {
-              const isSelected = selectedFaction === faction
-              const isComplete = stats.annotated >= stats.total
-              return (
-              <div
-                key={faction}
-                onClick={() => {
-                  const newFaction = isSelected ? null : faction
-                  setSelectedFaction(newFaction)
-                  loadNextImage(newFaction)
-                }}
-                style={{
-                  padding: '1rem',
-                  backgroundColor: isSelected ? '#1a2a1a' : '#1a1a1a',
-                  borderRadius: '8px',
-                  border: isSelected ? '2px solid #10b981' : '1px solid #333',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s',
-                  opacity: isComplete && !isSelected ? 0.6 : 1
-                }}
-              >
-                <div style={{
-                  color: isSelected ? '#10b981' : '#aaa',
-                  fontSize: '0.8rem',
-                  marginBottom: '0.5rem',
-                  textTransform: 'capitalize',
-                  fontWeight: isSelected ? 'bold' : 'normal'
-                }}>
-                  {faction.replace(/_/g, ' ')}
-                  {isSelected && ' ●'}
-                </div>
-                <div style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 'bold' }}>
-                  {stats.annotated} / {stats.total}
-                </div>
-                <div style={{ marginTop: '0.5rem', height: '4px', backgroundColor: '#333', borderRadius: '2px', overflow: 'hidden' }}>
-                  <div style={{
-                    height: '100%',
-                    width: `${(stats.annotated / stats.total) * 100}%`,
-                    backgroundColor: isComplete ? '#059669' : '#10b981',
-                    transition: 'width 0.3s'
-                  }} />
-                </div>
-                {/* Pending / legacy per-faction pills. Only render when
-                    non-zero so completed factions stay visually clean. */}
-                {(stats.pending > 0 || stats.legacy > 0) && (
-                  <div style={{
-                    marginTop: '0.5rem',
-                    display: 'flex',
-                    gap: '0.35rem',
-                    fontSize: '0.7rem',
-                  }}>
-                    {stats.pending > 0 && (
-                      <span
-                        title={`${stats.pending} image(s) have bboxes missing unit_slug — pick Status: Pending to revisit`}
-                        style={{
-                          padding: '0.1rem 0.4rem',
-                          borderRadius: '3px',
-                          backgroundColor: '#3b1f5a',
-                          color: '#c4a0ff',
-                        }}
-                      >
-                        {stats.pending} pending
-                      </span>
-                    )}
-                    {stats.legacy > 0 && (
-                      <span
-                        title={`${stats.legacy} annotation(s) from before unit_slug existed. Pick Status: Legacy to backfill.`}
-                        style={{
-                          padding: '0.1rem 0.4rem',
-                          borderRadius: '3px',
-                          backgroundColor: '#3a3a3a',
-                          color: '#999',
-                        }}
-                      >
-                        {stats.legacy} legacy
-                      </span>
-                    )}
-                  </div>
-                )}
-              </div>
-              )
-            })}
-        </div>
-      )}
+      <FactionProgressGrid
+        progress={progress}
+        selectedFaction={selectedFaction}
+        onFactionToggle={next => {
+          setSelectedFaction(next)
+          loadNextImage(next)
+        }}
+      />
 
       {/* Selected Faction Indicator */}
       {selectedFaction && (

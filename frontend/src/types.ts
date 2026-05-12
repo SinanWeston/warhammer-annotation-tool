@@ -6,7 +6,13 @@ export interface BboxAnnotation {
   y: number  // Top-left Y (pixels)
   width: number  // Width (pixels)
   height: number  // Height (pixels)
-  classLabel: string  // Faction name (e.g., "tyranids", "space_marines")
+  classLabel: string  // Faction slug (e.g., "tyranids", "space_marines").
+                       // Legacy name — semantically always a faction;
+                       // feeds YOLO export unchanged.
+  unit_slug?: string   // Optional: canonical unit slug within the
+                       // faction (e.g., "intercessors"). Empty = "I
+                       // know the faction but haven't identified the
+                       // unit yet". Picker is scoped to classLabel.
   baseBbox?: {  // Optional base bbox (inner bbox for the miniature's base)
     x: number
     y: number
@@ -21,4 +27,34 @@ export interface BboxAnnotation {
   // Validation tracking for training data
   validationAction?: 'accepted' | 'rejected' | 'redrawn'  // What action user took
   originalPrediction?: boolean  // Was this originally an AI prediction?
+}
+
+/** Response of `GET /api/annotate/taxonomy`. The frontend fetches this
+ *  once on mount of the annotation interface and drives the per-bbox
+ *  faction + unit dropdowns from it, plus the source picker. */
+export interface Taxonomy {
+  factions: string[]
+  unitsByFaction: Record<string, Array<{ slug: string; name: string; category?: string }>>
+  sources: string[]   // ANNOTATION_SOURCES env, e.g. ["ebay","isolation","cmon"]
+}
+
+/** Response of `GET /api/annotate/progress`. Mirrors the backend's
+ *  `AnnotationProgress` interface in annotationService.ts — keep the
+ *  two in sync. */
+export interface AnnotationProgress {
+  totalImages: number
+  annotatedImages: number
+  percentComplete: number
+  pendingImages: number
+  legacyImages: number
+  byFaction: Record<string, { total: number; annotated: number; pending: number; legacy: number }>
+}
+
+/** Validation error/warning surface from /save responses + the
+ *  quality-issues modal. Mirrors backend's QualityIssue. */
+export interface QualityIssue {
+  type: 'error' | 'warning'
+  code: string
+  message: string
+  bboxId?: string
 }
