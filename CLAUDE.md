@@ -23,7 +23,10 @@ npm run build:backend          # → backend/dist/
 ```
 
 ## Key Architecture
-- **Command pattern** for undo/redo → `frontend/src/commands/`
+- **Command pattern** for undo/redo → `frontend/src/commands/` (AddModelBoxCommand, DeleteModelBoxCommand, ChangeClassCommand, ChangeUnitCommand; shared `BboxCommand` interface)
+- **Annotator sub-components** → `frontend/src/components/annotation/` (HeaderProgressCard, StatusFilterRow, SourceFilterRow, FactionProgressGrid, ImageProvenanceCard, PredictionValidationPanel). `AnnotationInterface.tsx` is the parent orchestrator; the file is ~1250L after the May 2026 decomposition.
+- **Filter state** → single `useReducer<FilterState, FilterAction>` in `AnnotationInterface.tsx`; status/faction/source/prioritize changes auto-fire `loadNextImage` via a reload-on-filters-change effect.
+- **Wire schema marshalling** → `frontend/src/utils/annotationWire.ts` (`apiToBbox` / `bboxToApi`). The backend's `modelBbox: {x,y,w,h}` ↔ canvas's flat `{x,y,w,h}` always round-trips through these helpers.
 - **Centralized coordinate transforms** → `frontend/src/utils/coordinates.ts`
 - **Two-tier validation**: errors block save, warnings inform
 - **YOLO-Pose export** for keypoint annotations (5 or 17 values per line)

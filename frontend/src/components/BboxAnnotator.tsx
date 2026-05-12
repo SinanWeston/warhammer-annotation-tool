@@ -146,7 +146,7 @@ export default function BboxAnnotator({
 }: BboxAnnotatorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const scrollContainerRef = useRef<HTMLDivElement>(null)
+  // scrollContainerRef was declared but never read — removed in commit 11.
 
   const [annotations, setAnnotations] = useState<BboxAnnotation[]>(initialAnnotations)
   const [selectedId, setSelectedId] = useState<string | null>(null)
@@ -1017,7 +1017,6 @@ export default function BboxAnnotator({
         {/* Canvas with scrollable zoom container */}
         <div ref={containerRef} style={{ flex: 1, minWidth: 0 }}>
           <div
-            ref={scrollContainerRef}
             onWheel={handleWheel}
             style={{
               maxHeight: '90vh',

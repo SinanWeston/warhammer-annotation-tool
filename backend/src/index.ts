@@ -221,36 +221,6 @@ app.get('/api/annotate/taxonomy', async (req: Request, res: Response, next: Next
 })
 
 /**
- *
- * Get list of all images with annotation status
- */
-app.get('/api/annotate/images', async (req: Request, res: Response, next: NextFunction) => {
-  const requestId = (req as any).id
-  const log = createRequestLogger(requestId)
-
-  try {
-    log.info(`📋 Get image list`)
-
-    const includeDetails = req.query.details === 'true'
-    const images = await annotationService.getImageList(includeDetails)
-
-    log.info(`✅ Retrieved ${images.length} images`)
-
-    res.json({
-      success: true,
-      data: {
-        images,
-        totalCount: images.length
-      },
-      requestId
-    })
-  } catch (error: any) {
-    log.error(`🔴 Failed to get image list: ${error.message}`)
-    next(error)
-  }
-})
-
-/**
  * GET /api/annotate/next
  *
  * Get next unannotated image
@@ -578,6 +548,10 @@ app.post('/api/annotate/unflag', express.json(), async (req: Request, res: Respo
  *
  * Returns active annotators and the images they currently have reserved.
  * Useful for the dashboard to show who is working on what.
+ *
+ * @deprecated 2026-05 audit: no frontend caller. Kept as a tooling-only
+ *   observability surface (curl + dashboard scripts). Remove only after
+ *   confirming no external tooling polls it.
  */
 app.get('/api/annotate/who', async (req: Request, res: Response) => {
   const reservations = annotationService.getActiveReservations()
@@ -605,6 +579,9 @@ app.get('/api/annotate/who', async (req: Request, res: Response) => {
  * Return the most recently loaded image per user, as tracked by
  * `recordSession` on /next and /image/:imageId. Exists so Claude Code
  * (or other tooling) can answer "what image is the live session on?".
+ *
+ * @deprecated 2026-05 audit: no frontend caller. Tooling-only. Same
+ *   keep-pending-confirmation status as /api/annotate/who.
  */
 app.get('/api/annotate/current-session', async (req: Request, res: Response) => {
   const userId = req.query.userId as string | undefined
