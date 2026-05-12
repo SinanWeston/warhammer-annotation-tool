@@ -17,12 +17,15 @@ def test_slugify_matches_existing_convention():
     assert t.slugify("Lion'el Johnson") == "lionel_johnson"
 
 
-def test_factions_returns_20_canonical_factions():
+def test_factions_returns_24_canonical_factions():
     fs = t.factions()
-    assert len(fs) == 20
-    # Spot-check known canonical slugs
+    # 20 codex factions + 4 Chaos sub-factions split out 2026-04-19
+    # (death_guard, thousand_sons, world_eaters, emperors_children).
+    assert len(fs) == 24
+    # Spot-check known canonical slugs (both pre- and post-split).
     for f in ["space_marines", "orks", "necrons", "aeldari", "adepta_sororitas",
-              "astra_militarum", "chaos_space_marines"]:
+              "astra_militarum", "chaos_space_marines",
+              "death_guard", "thousand_sons", "world_eaters", "emperors_children"]:
         assert f in fs
 
 
