@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "photoanalyzer"
+version = "0.1.0"
+description = "Warhammer 40K miniature recognition — detection, faction classification, and unit retrieval"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "UNLICENSED" }
+authors = [{ name = "Sinan" }]
+
+dependencies = [
+    "numpy>=1.26",
+    "Pillow>=10.0",
+    "PyYAML>=6.0",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+ml = [
+    "torch>=2.4",
+    "torchvision>=0.19",
+    "transformers>=4.49",         # SAM 3 / SAM 2 / OWLv2 visual-prompt
+    "ultralytics>=8.4",
+    "open-clip-torch>=2.24",
+    "faiss-cpu>=1.8",
+    "scikit-learn>=1.4",
+    "huggingface-hub>=0.26",
+]
+server = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "pydantic>=2.7",
+    "python-multipart>=0.0.9",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-cov>=5.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+photoanalyzer = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-v --tb=short"

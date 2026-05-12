@@ -97,9 +97,11 @@ training_results*.zip
 # Stray accidental paths
 backend/backend/
 
-# Python script build artifacts
+# Python build artifacts
 scripts/audit_report.json
-scripts/__pycache__/
+__pycache__/
+*.egg-info/
+*.pyc
 
 # Warhammer.com scraper recon dumps (large, regenerable)
 scripts/warhammer_com/recon/
