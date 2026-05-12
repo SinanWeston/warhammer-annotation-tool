@@ -116,6 +116,27 @@ export interface RejectedPrediction {
   confidence?: number
 }
 
+/** Status values accepted by `getNextImage` and `GET /api/annotate/next?status=`.
+ *  Mirrors STATUS_VALUES in backend/src/index.ts. */
+export type AnnotatorStatus =
+  | 'unannotated'
+  | 'pending'
+  | 'legacy'
+  | 'pseudo'
+  | 'flagged'
+  | 'frozen_eval'
+  | 'all'
+
+/** Row shape returned by every per-status picker helper. Same fields
+ *  as getImageList's element so they're freely interchangeable. */
+type QueueImage = {
+  imageId: string
+  imagePath: string
+  faction: string
+  source: string
+  isAnnotated: boolean
+}
+
 export interface AnnotationProgress {
   totalImages: number
   annotatedImages: number
@@ -209,6 +230,60 @@ export class AnnotationService {
     this.trainingDataPath = dataDir
     this.annotationsPath = annotDir
     this.proposalsPath = proposalsDir
+  }
+
+  /** Fetch the candidate queue for a given status filter. Each branch
+   *  returns the same `QueueImage[]` shape so downstream sort / dedup /
+   *  reservation logic doesn't care which branch produced it.
+   *
+   *  Per-status semantics:
+   *    unannotated → fast-path cache of fresh, un-touched images
+   *    pending     → annotated but missing unit_slug on ≥1 bbox
+   *    legacy      → grandfathered incomplete (legacy_no_unit=true)
+   *    pseudo      → Phase F1 auto-labels awaiting box review
+   *    flagged     → .skip.json sidecars (browse-only)
+   *    frozen_eval → Phase C held-out 200 (browse-only)
+   *    all         → pending > legacy > unannotated, deduped by id
+   */
+  private async _pickByStatus(
+    status: AnnotatorStatus,
+    sourceSet: Set<string> | undefined,
+  ): Promise<QueueImage[]> {
+    switch (status) {
+      case 'pending':     return this.getPendingImageList()
+      case 'legacy':      return this.getLegacyImageList()
+      case 'pseudo':      return this.getPseudoImageList()
+      case 'flagged':     return this.getFlaggedImageList()
+      case 'frozen_eval': return this._pickFrozenEval()
+      case 'all':         return this._pickAll(sourceSet)
+      case 'unannotated': return this.getImageList(false, sourceSet)
+    }
+  }
+
+  /** Phase C held-out 200. Source imageIds from the manifest, then
+   *  resolve through getImageList(true,…) so faction / source /
+   *  imagePath fields come back populated identically to other modes. */
+  private async _pickFrozenEval(): Promise<QueueImage[]> {
+    const frozenIds = await this.getFrozenEvalIds()
+    const full = await this.getImageList(true)
+    return full.filter(img => frozenIds.has(img.imageId))
+  }
+
+  /** Merged "everything" queue: pending → legacy → unannotated, deduped
+   *  by imageId. Priority order keeps the user on active backfill work
+   *  before fresh images appear. */
+  private async _pickAll(sourceSet: Set<string> | undefined): Promise<QueueImage[]> {
+    const [unann, pending, legacy] = await Promise.all([
+      this.getImageList(false, sourceSet),
+      this.getPendingImageList(),
+      this.getLegacyImageList(),
+    ])
+    const seen = new Set<string>()
+    const out: QueueImage[] = []
+    for (const img of pending) if (!seen.has(img.imageId)) { seen.add(img.imageId); out.push(img) }
+    for (const img of legacy)  if (!seen.has(img.imageId)) { seen.add(img.imageId); out.push(img) }
+    for (const img of unann)   if (!seen.has(img.imageId)) { seen.add(img.imageId); out.push(img) }
+    return out
   }
 
   /** Load the Phase C frozen-eval manifest once and cache the imageId set. */
@@ -465,7 +540,7 @@ export class AnnotationService {
     userId?: string,
     exclude?: string[],
     sources?: string[],
-    status: 'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'flagged' | 'frozen_eval' | 'all' = 'unannotated',
+    status: AnnotatorStatus = 'unannotated',
   ): Promise<{
     imageId: string
     imagePath: string
@@ -475,51 +550,13 @@ export class AnnotationService {
   } | null> {
     this.cleanExpiredReservations()
 
-    // Pick the source list per status:
-    //   unannotated → existing fast-path (cache of un-touched images)
-    //   pending     → annotated-but-missing-unit_slug AND NOT legacy
-    //   legacy      → grandfathered incomplete (legacy_no_unit=true);
-    //                 surfaces pre-unit_slug work for backfill
-    //   all         → pending > legacy > unannotated (priority order)
-    // When the caller has specified a source filter, narrow the scan
+    // Source filter: when the caller has specified one, narrow the scan
     // to just those sources AND spend the per-faction cap on them —
     // otherwise an abundant source (ebay) saturates the cap first and
     // a filter on a less-abundant source (cmon) returns nothing.
     const sourceSet = sources && sources.length > 0 ? new Set(sources) : undefined
 
-    let images: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
-    if (status === 'pending') {
-      images = await this.getPendingImageList()
-    } else if (status === 'legacy') {
-      images = await this.getLegacyImageList()
-    } else if (status === 'pseudo') {
-      images = await this.getPseudoImageList()
-    } else if (status === 'flagged') {
-      // Browse-mode for the skip pile. Flagged images are normally
-      // excluded from the queue entirely (`if (isFlagged) continue` in
-      // getImageList); this filter is the only path that surfaces them.
-      images = await this.getFlaggedImageList()
-    } else if (status === 'frozen_eval') {
-      // Phase C held-out 200. Source the imageIds from the manifest,
-      // then resolve each through getImageList(true,…) so faction /
-      // source / imagePath fields come back populated identically to
-      // the other modes.
-      const frozenIds = await this.getFrozenEvalIds()
-      const full = await this.getImageList(true)
-      images = full.filter(img => frozenIds.has(img.imageId))
-    } else if (status === 'all') {
-      const unann = await this.getImageList(false, sourceSet)
-      const pending = await this.getPendingImageList()
-      const legacy = await this.getLegacyImageList()
-      const seen = new Set<string>()
-      images = []
-      // Priority: active pending work → grandfathered backlog → fresh.
-      for (const img of pending) { if (!seen.has(img.imageId)) { seen.add(img.imageId); images.push(img) } }
-      for (const img of legacy)  { if (!seen.has(img.imageId)) { seen.add(img.imageId); images.push(img) } }
-      for (const img of unann)   { if (!seen.has(img.imageId)) { seen.add(img.imageId); images.push(img) } }
-    } else {
-      images = await this.getImageList(false, sourceSet)
-    }
+    let images = await this._pickByStatus(status, sourceSet)
     if (faction) {
       const factionSet = new Set(expandFaction(faction))
       images = images.filter(img => factionSet.has(img.faction))
