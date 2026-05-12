@@ -59,19 +59,28 @@ export const PIPELINE_CONFIG = {
     trigger_threshold: parseFloat(process.env.TRIANGULATION_THRESHOLD || '0.75'),
   },
 
-  // Labelling-mode config — drives the new crop-labelling endpoints.
+  // Labelling-mode config — drives the crop-labelling endpoints.
   // Paths resolve relative to the monorepo root (warhammer-analyzer/..).
+  //
+  // v1 (walking `scripts/phase1/crops/` + its own labels.csv) was retired in
+  // the 2026-04 audit sweep. Everything now reads from `data/labels.csv`
+  // (v2 schema, 13 columns) with per-source provenance in each row.
   labelling: {
     enabled: process.env.LABELLING_ENABLED !== 'false',
-    cropsDir:
-      process.env.LABELLING_CROPS_DIR ||
-      '../scripts/phase1/crops',
-    labelsCsv:
-      process.env.LABELLING_LABELS_CSV ||
-      '../scripts/phase1/labels.csv',
+    labelsCsvV2:
+      process.env.LABELLING_LABELS_CSV_V2 || '../data/labels.csv',
+    cropsRepoRoot:
+      process.env.LABELLING_REPO_ROOT || '..',  // repo root; crop_path is relative to this
+    cmonRoot:
+      process.env.LABELLING_CMON_ROOT || '../scripts/cmon',
+    // Cheatsheet feeds the LLM suggest prompt (allowed-units list per faction).
+    // Still a plain markdown file; the v1 location happens to be where the
+    // authoritative copy lives — keep until a dedicated replacement exists.
     cheatsheet:
       process.env.LABELLING_CHEATSHEET ||
       '../scripts/phase1/unit_slugs_cheatsheet.md',
+    unitsJson:
+      process.env.LABELLING_UNITS_JSON || '../scripts/data/units.json',
     suggestProvider: process.env.LABELLING_SUGGEST_PROVIDER || 'openrouter',
     suggestModel: process.env.LABELLING_SUGGEST_MODEL || 'anthropic/claude-sonnet-4.5',
   },

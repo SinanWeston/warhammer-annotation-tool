@@ -1,535 +1,2682 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Warhammer Labeller — Phase 1</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warhammer Labeller · v2</title>
   <style>
     :root {
-      --bg: #0f0f1a;
-      --bg-card: #1a1a2e;
-      --bg-pill: #242442;
-      --bg-pill-hover: #323256;
-      --accent: #b266ff;
-      --accent-strong: #9333ea;
-      --gold: #d4a050;
-      --good: #22c55e;
-      --bad: #ef4444;
-      --muted: #888;
-      --text: #e5e5e5;
-      --border: #333349;
+      --bg:         #0e0e16;
+      --bg-2:       #17172a;
+      --bg-3:       #1f2040;
+      --bg-hover:   #28294d;
+      --border:     #2d2e50;
+      --border-hi:  #3d3e6f;
+      --text:       #e6e6f2;
+      --muted:      #8a8aa8;
+      --faint:      #5c5c7a;
+      --accent:     #b266ff;
+      --accent-2:   #9333ea;
+      --gold:       #d4a050;
+      --good:       #34d399;
+      --bad:        #f87171;
+      --warn:       #fbbf24;
+      --radius:     8px;
+      --radius-lg:  12px;
+      --shadow:     0 4px 24px rgba(0, 0, 0, 0.35);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: inherit; }
+    /* Critical: the HTML `hidden` attribute uses the same CSS specificity as
+       class-based `display: flex` rules, so any `.foo { display: flex }` rule
+       silently wins over `<div hidden>` and renders hidden elements. Bumping
+       specificity here ensures `hidden` always wins. */
+    [hidden] { display: none !important; }
+    html, body { height: 100%; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
       line-height: 1.5;
+      font-size: 14px;
+      overflow: hidden;
     }
 
+    /* ── Layout ─────────────────────────────────────────────── */
+    #app {
+      display: grid;
+      grid-template-rows: 54px 1fr 58px;
+      height: 100vh;
+    }
     header {
-      padding: 16px 24px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      justify-content: space-between;
+      padding: 0 20px;
       gap: 20px;
-      flex-wrap: wrap;
+      background: var(--bg-2);
+      border-bottom: 1px solid var(--border);
     }
     header h1 {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 600;
       color: var(--gold);
       letter-spacing: 0.02em;
     }
     header h1 small {
-      font-size: 13px;
       color: var(--muted);
       font-weight: 400;
-      margin-left: 8px;
+      font-size: 11px;
+      margin-left: 6px;
     }
-    #progress-summary {
+    .header-controls {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      font-size: 13px;
       color: var(--muted);
-      font-size: 14px;
-      font-variant-numeric: tabular-nums;
     }
-    #progress-summary b { color: var(--text); }
+    .header-controls label { display: flex; gap: 6px; align-items: center; }
+    .header-controls select,
+    .header-controls input[type="text"] {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+    .header-controls input[type="text"] { width: 140px; }
+    .header-controls input[type="number"] { width: 60px; text-align: center; }
+    .progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 300px;
+      max-width: 400px;
+    }
+    .progress-bar {
+      height: 4px;
+      background: var(--bg);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      transition: width 0.4s ease;
+    }
+    .progress-text {
+      font-size: 11px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+    .progress-text b { color: var(--text); }
 
     main {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 24px;
       display: grid;
-      grid-template-columns: minmax(280px, 1fr) 340px;
-      gap: 24px;
-      align-items: start;
+      /* Right pane has a comfortable fixed width for the form; left pane
+         gets everything else so the crop image is as big as the window
+         allows. Minimum window widths are enforced by the existing
+         responsive rule at the bottom. */
+      grid-template-columns: 1fr minmax(380px, 460px);
+      gap: 0;
+      overflow: hidden;
     }
-    @media (max-width: 820px) { main { grid-template-columns: 1fr; } }
 
-    .panel {
-      background: var(--bg-card);
+    .pane-left {
+      /* Two-row grid: big image on top, scene strip (if present) below.
+         No scroll — pane is height-bounded, image auto-fits. */
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 12px;
+      padding: 18px 18px 12px;
+      border-right: 1px solid var(--border);
+      background: var(--bg);
+      overflow: hidden;
+      min-width: 0;
+      min-height: 0;
+    }
+    .pane-right {
+      background: var(--bg-2);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      padding: 16px 18px;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    footer {
+      padding: 0 20px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 12px;
+      color: var(--muted);
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    footer .shortcuts {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    footer .status {
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      min-width: 180px;
+      text-align: right;
+    }
+    footer .status.ok { color: var(--good); }
+    footer .status.error { color: var(--bad); }
+
+    kbd {
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 10px;
+      background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px;
+      border-bottom-width: 2px;
+      border-radius: 3px;
+      padding: 1px 5px;
+      color: var(--muted);
+      line-height: 1;
     }
 
-    .crop-viewer {
+    /* ── Crop image viewer ─────────────────────────────────── */
+    .crop-stage {
+      position: relative;
+      height: 100%;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-3);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .crop-stage img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      /* Render pixel-art-sharp when upscaling small crops; still smooth on
+         downscale. Falls back to browser default if unsupported. */
+      image-rendering: auto;
+      cursor: zoom-in;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .crop-stage .crop-meta-overlay {
+      position: absolute;
+      top: 10px;
+      left: 12px;
+      right: 12px;
+      pointer-events: none;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .crop-stage .crop-meta-overlay .badge {
+      background: rgba(15, 15, 28, 0.85);
+      backdrop-filter: blur(6px);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      pointer-events: auto;
+      font-variant-numeric: tabular-nums;
+    }
+    .badge.hot { color: var(--gold); border-color: var(--gold); }
+    .badge.ok  { color: var(--good); border-color: var(--good); }
+    .badge.warn { color: var(--warn); border-color: var(--warn); }
+    .badge.dim { color: var(--muted); }
+
+    /* Zoom-mode overlay */
+    .zoom-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    .zoom-backdrop img {
+      max-width: 95vw;
+      max-height: 95vh;
+      object-fit: contain;
+    }
+
+    /* Redraw modal — user draws new bboxes on the source scene image */
+    .redraw-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.94);
+      z-index: 150;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
+      justify-content: center;
+      padding: 28px;
     }
-    .crop-frame {
-      background: #000;
+    .redraw-header {
+      width: 100%;
+      max-width: 1600px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text);
+      margin-bottom: 10px;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .redraw-header h2 { font-size: 16px; color: var(--gold); font-weight: 600; }
+    .redraw-header .subtitle { color: var(--muted); font-size: 13px; }
+
+    /* View tabs — one per unique view_idx when the instance has multiple */
+    .redraw-tabs {
+      width: 100%;
+      max-width: 1600px;
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .redraw-tab {
+      padding: 6px 14px;
+      background: var(--bg-3);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px 6px 0 0;
+      border-bottom-color: transparent;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: inherit;
+      font-variant-numeric: tabular-nums;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .redraw-tab:hover { background: var(--bg-hover); color: var(--text); }
+    .redraw-tab.active {
+      background: var(--bg-2);
+      color: var(--text);
+      border-color: var(--accent);
+      border-bottom-color: var(--bg-2);
+      transform: translateY(1px);
+    }
+    .redraw-tab .badge-n {
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      padding: 1px 6px;
+      font-size: 10px;
+      font-weight: 600;
+      min-width: 18px;
+      text-align: center;
+    }
+    .redraw-tab .badge-n[data-empty="true"] {
+      background: var(--bg);
+      color: var(--faint);
+    }
+    .redraw-canvas-wrap {
+      position: relative;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
       border-radius: 8px;
       overflow: hidden;
-      max-width: 100%;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 300px;
     }
-    .crop-frame img {
+    .redraw-canvas-wrap canvas {
       display: block;
-      max-width: 100%;
-      max-height: 480px;
-      height: auto;
+      cursor: crosshair;
+      max-width: 90vw;
+      max-height: calc(100vh - 220px);
     }
-
-    .crop-meta {
-      text-align: center;
+    .redraw-footer {
+      width: 100%;
+      max-width: 1600px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .redraw-info {
       color: var(--muted);
-      font-size: 13px;
-      font-variant-numeric: tabular-nums;
+      font-size: 12.5px;
+      line-height: 1.5;
     }
-    .crop-meta .faction {
-      color: var(--gold);
-      font-weight: 600;
-      margin-right: 8px;
-    }
-
-    .nav-row {
+    .redraw-info b { color: var(--text); }
+    .redraw-actions {
       display: flex;
       gap: 10px;
-      width: 100%;
-      justify-content: center;
+    }
+    .redraw-actions button {
+      padding: 10px 18px;
+      font-size: 13px;
+    }
+
+    /* Scene-context strip — slim row under the main image */
+    .scene-strip {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 6px 10px;
+      max-height: 88px;
+    }
+    .scene-strip img {
+      height: 74px;
+      width: auto;
+      max-width: 160px;
+      object-fit: contain;
+      border-radius: 4px;
+      cursor: zoom-in;
+      background: var(--bg-3);
+      flex-shrink: 0;
+    }
+    .scene-strip .scene-info {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      font-size: 12px;
+    }
+    .scene-strip .scene-info h3 {
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+    .scene-strip .scene-info .name { color: var(--gold); font-weight: 600; font-size: 13px; }
+
+    /* ── Form / label UI ────────────────────────────────────── */
+    .form-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+    }
+    .suggest-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: rgba(147, 51, 234, 0.12);
+      border: 1px solid rgba(147, 51, 234, 0.4);
+      border-radius: var(--radius);
+      font-size: 13px;
+    }
+    .suggest-pill .icon { font-size: 18px; }
+    .suggest-pill .label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .suggest-pill .value { color: var(--accent); font-weight: 600; }
+    .suggest-pill .rule { color: var(--faint); font-size: 11px; margin-left: auto; font-family: 'SF Mono', Consolas, monospace; }
+    .suggest-pill.conflict { background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.5); }
+    .suggest-pill.conflict .value { color: var(--warn); }
+    .suggest-pill.absent { opacity: 0.5; border-style: dashed; }
+
+    .form-row { display: flex; flex-direction: column; gap: 6px; }
+    .form-row label.field-label {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .form-row label.field-label kbd { margin-left: auto; }
+
+    .form-row select,
+    .form-row input[type="text"] {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 14px;
+    }
+    .form-row select:focus,
+    .form-row input[type="text"]:focus,
+    .form-row select:hover {
+      outline: none;
+      border-color: var(--accent);
+      background: var(--bg-3);
+    }
+
+    /* Combobox for unit slug */
+    .combobox {
+      position: relative;
+    }
+    .combobox-list {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: var(--bg-3);
+      border: 1px solid var(--border-hi);
+      border-radius: var(--radius);
+      max-height: 260px;
+      overflow-y: auto;
+      z-index: 20;
+      box-shadow: var(--shadow);
+    }
+    .combobox-item {
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      gap: 10px;
+      align-items: baseline;
+      font-family: 'SF Mono', Consolas, monospace;
+      font-size: 13px;
+    }
+    .combobox-item:hover,
+    .combobox-item.active {
+      background: var(--bg-hover);
+    }
+    .combobox-item .slug { color: var(--text); font-weight: 500; }
+    .combobox-item .name { color: var(--muted); font-size: 11px; font-family: inherit; }
+    .combobox-item .role {
+      margin-left: auto;
+      color: var(--faint);
+      font-size: 10px;
+      text-transform: uppercase;
+      font-family: inherit;
+    }
+    .combobox-item[hidden] { display: none; }
+    .combobox-empty {
+      padding: 10px 12px;
+      color: var(--faint);
+      font-style: italic;
+      font-size: 12px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .actions .save-primary,
+    .actions .save-siblings { grid-column: 1 / -1; }
+    .actions .save-siblings {
+      background: rgba(147, 51, 234, 0.12);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .actions .save-siblings:hover:not(:disabled) {
+      background: var(--accent);
+      color: #fff;
     }
     button {
       font-family: inherit;
-      font-size: 14px;
-      padding: 8px 16px;
-      border-radius: 6px;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: var(--bg-pill);
+      background: var(--bg);
       color: var(--text);
       cursor: pointer;
-      transition: background 0.15s;
+      transition: background 0.12s, border-color 0.12s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
-    button:hover:not(:disabled) { background: var(--bg-pill-hover); }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
-
+    button:hover:not(:disabled) { background: var(--bg-hover); border-color: var(--border-hi); }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
     button.primary {
-      background: var(--accent-strong);
-      border-color: var(--accent-strong);
+      background: var(--accent-2);
+      border-color: var(--accent-2);
       color: #fff;
       font-weight: 600;
     }
-    button.primary:hover:not(:disabled) { background: var(--accent); }
+    button.primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); }
+    button.danger { color: var(--bad); }
+    button.danger:hover:not(:disabled) { background: rgba(248, 113, 113, 0.08); border-color: var(--bad); }
+    button.warn { color: var(--warn); }
+    button.warn:hover:not(:disabled) { background: rgba(251, 191, 36, 0.08); border-color: var(--warn); }
 
-    .suggest-area {
+    /* .sibling-toggle was the old checkbox-based flow; now replaced by an
+       explicit "Save all N siblings" button (see .actions .save-siblings). */
+
+    /* ── Context panel ─────────────────────────────────────── */
+    .context {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
-    .suggest-area h2 {
+    .context h2 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .context .card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
       font-size: 13px;
+    }
+    .context .title-line {
+      color: var(--gold);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 1.3;
+    }
+    .context .artist-line { color: var(--accent); }
+    .context .score-line { font-variant-numeric: tabular-nums; color: var(--good); }
+    .context .tags {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .context .tag-chip {
+      display: inline-block;
+      background: var(--bg-3);
+      border-radius: 3px;
+      padding: 2px 7px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .context .description {
+      color: var(--text);
+      opacity: 0.85;
+      font-size: 12.5px;
+      font-style: italic;
+      max-height: 12em;
+      overflow-y: auto;
+      line-height: 1.5;
+      padding: 6px 0;
+      border-top: 1px dashed var(--border);
+      border-bottom: 1px dashed var(--border);
+    }
+    .context a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 12px;
+    }
+    .context a:hover { text-decoration: underline; }
+
+    /* ── Session tracker ───────────────────────────────────── */
+    .tracker {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 12.5px;
+    }
+    .tracker h3 {
+      font-size: 11px;
       text-transform: uppercase;
       color: var(--muted);
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-    }
-
-    .top-suggestion {
-      padding: 14px;
-      background: rgba(147, 51, 234, 0.1);
-      border: 1px solid rgba(147, 51, 234, 0.4);
-      border-radius: 8px;
-    }
-    .top-suggestion .slug {
-      font-family: 'SF Mono', Consolas, monospace;
-      font-size: 18px;
-      color: var(--accent);
+      letter-spacing: 0.06em;
       font-weight: 600;
-      word-break: break-word;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .top-suggestion .conf {
-      color: var(--muted);
-      font-size: 12px;
-      margin-left: 8px;
+    .tracker h3 .tracker-goal { color: var(--accent); font-family: 'SF Mono', Consolas, monospace; }
+    .tracker-bar {
+      height: 6px;
+      background: var(--bg-3);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .tracker-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-2), var(--accent));
+      transition: width 0.3s ease;
+      width: 0%;
+    }
+    .tracker-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 12px;
       font-variant-numeric: tabular-nums;
     }
-    .top-suggestion .reason {
+    .tracker-stats .stat {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+    .tracker-stats .stat .k { color: var(--muted); }
+    .tracker-stats .stat.good .v { color: var(--good); font-weight: 600; }
+    .tracker-stats .stat.warn .v { color: var(--warn); font-weight: 600; }
+    .tracker-stats .stat.bad .v  { color: var(--bad);  font-weight: 600; }
+    .tracker-stats .stat.accent .v { color: var(--accent); font-weight: 600; }
+    .tracker-factions {
+      border-top: 1px dashed var(--border);
+      padding-top: 8px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+    .tracker-factions .chip {
+      display: inline-block;
+      background: var(--bg-3);
       color: var(--text);
-      font-size: 13px;
-      margin-top: 8px;
-      opacity: 0.8;
+      border-radius: 3px;
+      padding: 1px 6px;
+      margin: 0 4px 2px 0;
+      font-size: 10px;
+    }
+    .tracker-factions .chip b { color: var(--accent); margin-left: 3px; }
+    .tracker-elapsed { color: var(--faint); font-size: 10px; text-align: right; }
+
+    /* ── Siblings ribbon ───────────────────────────────────── */
+    .siblings {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .siblings-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .siblings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(54px, 1fr));
+      gap: 6px;
+    }
+    .siblings-grid .thumb {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+      background: var(--bg-3);
+      border-radius: 4px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.1s;
+    }
+    .siblings-grid .thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .siblings-grid .thumb:hover { border-color: var(--accent); }
+    .siblings-grid .thumb.active { border-color: var(--gold); }
+    .siblings-grid .thumb.labelled::after {
+      content: '✓';
+      position: absolute;
+      bottom: 2px;
+      right: 3px;
+      font-size: 10px;
+      color: var(--good);
+      background: rgba(0, 0, 0, 0.55);
+      border-radius: 2px;
+      padding: 0 3px;
+    }
+
+    /* ── Empty state ───────────────────────────────────────── */
+    .empty {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--faint);
       font-style: italic;
     }
 
-    .pill-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-    .pill {
-      font-family: 'SF Mono', Consolas, monospace;
-      font-size: 12px;
-      padding: 5px 10px;
-      background: var(--bg-pill);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      cursor: pointer;
-      color: var(--text);
-    }
-    .pill:hover { background: var(--bg-pill-hover); }
-    .pill.selected {
-      background: var(--accent-strong);
-      border-color: var(--accent);
-      color: #fff;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-family: 'SF Mono', Consolas, monospace;
-      font-size: 13px;
-    }
-    input[type="text"]:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    label.small-label {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
-    }
-
-    .status-line {
-      min-height: 20px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .status-line.success { color: var(--good); }
-    .status-line.error { color: var(--bad); }
-
-    .footer-actions {
-      display: flex;
-      gap: 8px;
-      margin-top: 6px;
-    }
-    .footer-actions button { flex: 1; }
-
+    /* Spinner */
     .spinner {
       display: inline-block;
-      width: 14px;
-      height: 14px;
-      border: 2px solid var(--muted);
-      border-top-color: var(--accent);
+      width: 12px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-top-color: transparent;
       border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      animation: spin 0.75s linear infinite;
       vertical-align: middle;
       margin-right: 6px;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    kbd {
-      font-family: 'SF Mono', Consolas, monospace;
-      font-size: 11px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      padding: 1px 5px;
-      color: var(--muted);
+    /* Responsive: shrink the right pane a bit on narrow screens; stack on very narrow */
+    @media (max-width: 1280px) {
+      main { grid-template-columns: 1fr minmax(360px, 420px); }
+    }
+    @media (max-width: 960px) {
+      main { grid-template-columns: 1fr minmax(340px, 380px); }
+      .form-section { padding: 12px; }
+    }
+    @media (max-width: 760px) {
+      main { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+      .pane-left { border-right: none; border-bottom: 1px solid var(--border); }
     }
   </style>
 </head>
 <body>
+<div id="app">
   <header>
-    <h1>Warhammer Labeller <small>Phase 1 · scripts/phase1/labels.csv</small></h1>
-    <div id="progress-summary">Loading…</div>
+    <h1>Warhammer Labeller <small>v2 · data/labels.csv</small></h1>
+    <div class="header-controls">
+      <label>source
+        <select id="filter-source">
+          <option value="">all</option>
+          <option value="cmon" selected>cmon</option>
+          <option value="annotation">annotation</option>
+          <option value="gw_shop">gw_shop</option>
+          <option value="dakka">dakka</option>
+          <option value="reddit">reddit</option>
+          <option value="wh_community">wh_community</option>
+          <option value="user_photo">user_photo</option>
+        </select>
+      </label>
+      <label>queue
+        <select id="filter-queue">
+          <option value="unlabelled" selected>unlabelled</option>
+          <option value="all">all</option>
+          <option value="audit">audit pile</option>
+        </select>
+      </label>
+      <label>labeller <input type="text" id="labeller-name" placeholder="your name" autocomplete="off" /></label>
+      <label title="Session target (blank = no goal)">goal <input type="number" id="session-goal" min="0" step="10" placeholder="∞" /></label>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-text" id="progress-text">loading…</div>
+    </div>
   </header>
 
   <main>
-    <section class="panel crop-viewer">
-      <div class="crop-frame">
+    <section class="pane pane-left">
+      <div class="crop-stage" id="crop-stage">
         <img id="crop-img" alt="crop" />
+        <div class="crop-meta-overlay" id="crop-meta-overlay"></div>
       </div>
-      <div class="crop-meta">
-        <span class="faction" id="crop-faction"></span>
-        <span id="crop-filename"></span>
-        <br />
-        <span id="crop-position"></span>
-      </div>
-      <div class="nav-row">
-        <button id="btn-prev" title="Previous (←)">← Prev</button>
-        <button id="btn-skip" title="Skip (Space)">Skip</button>
-        <button id="btn-next" title="Next (→)">Next →</button>
-      </div>
-    </section>
 
-    <aside class="panel suggest-area">
-      <div>
-        <h2>AI suggestion</h2>
-        <div id="top-suggestion" class="top-suggestion">
-          <span class="spinner"></span><span class="slug">loading…</span>
+      <div class="scene-strip" id="scene-strip" hidden>
+        <img id="scene-img" alt="scene context" />
+        <div class="scene-info">
+          <h3>Source scene</h3>
+          <div class="name" id="scene-title"></div>
+          <div><span id="scene-hint" style="color:var(--muted)">click to enlarge</span></div>
         </div>
       </div>
 
-      <div>
-        <h2>Alternatives (click to select)</h2>
-        <div id="alternatives-pills" class="pill-group"></div>
+    </section>
+
+    <aside class="pane-right">
+      <!-- Form lives in the right pane so the left pane is image-dominant. -->
+      <div class="form-section">
+        <div id="suggest-pill" class="suggest-pill absent">
+          <span class="icon">·</span>
+          <span><span class="label">weak-sup</span> <span class="value" id="suggest-value">no suggestion</span></span>
+          <span class="rule" id="suggest-rule"></span>
+        </div>
+
+        <div class="form-row">
+          <label class="field-label" for="faction-picker">Faction <kbd>f</kbd></label>
+          <select id="faction-picker">
+            <option value="">-- select faction --</option>
+          </select>
+        </div>
+
+        <div class="form-row combobox">
+          <label class="field-label" for="unit-input">Unit slug <kbd>s</kbd></label>
+          <input id="unit-input" type="text" placeholder="type to search units…" autocomplete="off" />
+          <div class="combobox-list" id="unit-list" hidden></div>
+        </div>
+
+        <div class="form-row">
+          <label class="field-label" for="notes-input">Notes (optional)</label>
+          <input id="notes-input" type="text" placeholder="" autocomplete="off" />
+        </div>
+
+        <div class="actions">
+          <button id="btn-save" class="primary save-primary" title="Save this crop and advance (Enter)">💾 Save <kbd>↵</kbd></button>
+          <button id="btn-save-siblings" class="save-siblings" hidden title="Apply the same label to this crop + every sibling (A)">🔁 Save + all <span id="btn-save-siblings-count">0</span> siblings <kbd>a</kbd></button>
+          <button id="btn-skip" title="Skip for now (Space)">⏭ Skip <kbd>␣</kbd></button>
+          <button id="btn-audit" title="Leave blank — visit again later (T)">📝 Audit <kbd>t</kbd></button>
+          <button id="btn-edit-bbox" title="Nudge this crop's bbox (E) — keeps faction/unit, just moves the box. Faction + slug fields in the modal are optional.">🎯 Edit bbox <kbd>e</kbd></button>
+          <button id="btn-redraw" title="Replace every bbox on this view (D) — marks all existing crops bad, you draw new ones">✏ Redraw <kbd>d</kbd></button>
+          <button id="btn-bad" class="danger" title="Mark this crop as bad (B) — hides it from the unlabelled queue, keeps it in the CSV for audit">🚫 Bad <kbd>b</kbd></button>
+          <button id="btn-unknown" class="warn" title="Mark as unknown (U)">❓ Unknown <kbd>u</kbd></button>
+        </div>
       </div>
 
-      <div>
-        <label for="slug-input" class="small-label">Or type your own slug</label>
-        <input id="slug-input" type="text" placeholder="e.g. legionaries" autocomplete="off" />
+      <div class="context" id="context-panel" hidden>
+        <h2>Source context</h2>
+        <div class="card">
+          <div class="title-line" id="ctx-title"></div>
+          <div><span class="artist-line" id="ctx-artist"></span> <span class="score-line" id="ctx-score" style="margin-left:10px"></span></div>
+          <div class="tags" id="ctx-tags"></div>
+          <div class="description" id="ctx-desc" hidden></div>
+          <a id="ctx-link" href="#" target="_blank" rel="noopener">Open on source ↗</a>
+        </div>
       </div>
 
-      <div>
-        <label for="notes-input" class="small-label">Notes (optional)</label>
-        <input id="notes-input" type="text" placeholder="" autocomplete="off" />
+      <div class="siblings" id="siblings-panel" hidden>
+        <div class="siblings-header">
+          <span>Sibling views of this mini</span>
+          <span id="siblings-count-header"></span>
+        </div>
+        <div class="siblings-grid" id="siblings-grid"></div>
       </div>
 
-      <div class="footer-actions">
-        <button id="btn-save" class="primary" title="Save and advance (Enter)">Save &amp; next</button>
-        <button id="btn-refresh" title="Re-ask AI">Re-suggest</button>
-      </div>
-
-      <div id="status" class="status-line" aria-live="polite"></div>
-
-      <div style="font-size:11px;color:var(--muted);line-height:1.8;margin-top:4px;border-top:1px solid var(--border);padding-top:10px">
-        <kbd>←</kbd> / <kbd>→</kbd> prev/next &nbsp;•&nbsp;
-        <kbd>Space</kbd> skip &nbsp;•&nbsp;
-        <kbd>Enter</kbd> save &nbsp;•&nbsp;
-        <kbd>R</kbd> re-suggest
+      <div class="tracker" id="tracker">
+        <h3>
+          <span>Session tracker</span>
+          <span class="tracker-goal" id="tracker-goal-text">—</span>
+        </h3>
+        <div class="tracker-bar"><div class="tracker-bar-fill" id="tracker-bar-fill"></div></div>
+        <div class="tracker-stats">
+          <div class="stat good"><span class="k">✓ confirmed</span><span class="v" id="tracker-confirmed">0</span></div>
+          <div class="stat warn"><span class="k">❓ unknown</span><span class="v" id="tracker-unknown">0</span></div>
+          <div class="stat bad"><span class="k">🚫 bad</span><span class="v" id="tracker-bad">0</span></div>
+          <div class="stat accent"><span class="k">✏ redraws</span><span class="v" id="tracker-redraws">0</span></div>
+          <div class="stat"><span class="k">📝 audit</span><span class="v" id="tracker-audit">0</span></div>
+        </div>
+        <div class="tracker-factions" id="tracker-factions"></div>
+        <div class="tracker-elapsed" id="tracker-elapsed"></div>
       </div>
     </aside>
   </main>
 
-  <script>
-    const API = window.location.origin.includes(':3003')
-      ? 'http://localhost:3002'
-      : ''  // when served by the backend itself
+  <!-- Redraw modal: draw corrected bboxes on the source scene photo(s). -->
+  <div class="redraw-modal" id="redraw-modal" hidden>
+    <div class="redraw-header">
+      <h2>Redraw bounding boxes</h2>
+      <span class="subtitle" id="redraw-subtitle"></span>
+    </div>
+    <div class="redraw-tabs" id="redraw-tabs" hidden></div>
+    <div class="redraw-canvas-wrap">
+      <canvas id="redraw-canvas"></canvas>
+    </div>
+    <div class="redraw-footer">
+      <div class="redraw-info">
+        <div>click-and-drag to draw a box · click an existing box to delete it · <kbd>Esc</kbd> cancel</div>
+        <div>
+          <span style="color:#34d399">■</span> your box (thin outer = +5% padding auto-added on save)
+          · <span style="color:#ef4444">▣</span> YOLO
+          · <span style="color:#fbbf24">▣</span> prior redraw
+        </div>
+        <div>boxes drawn: <b id="redraw-box-count">0</b> · <span id="redraw-refs-note"></span></div>
+        <div style="color:var(--muted);font-size:12px">
+          saving creates new unlabelled crops from your green boxes and marks existing crops on these views as <b>__bad_crop__</b> (hidden from the unlabelled queue; kept in the CSV for audit).
+        </div>
+      </div>
+      <div class="redraw-actions">
+        <button id="redraw-clear">Clear all</button>
+        <button id="redraw-just-bad" class="danger">Mark bad only (no redraw)</button>
+        <button id="redraw-cancel">Cancel</button>
+        <button id="redraw-save" class="primary">Save N redraws</button>
+      </div>
+    </div>
+  </div>
 
-    const state = {
-      crops: [],
-      idx: 0,
-      currentSuggestion: null,
-      selectedSlug: '',
+  <!-- Edit-bbox modal: one crop at a time, drag-resize its box, optional label -->
+  <div class="redraw-modal" id="edit-modal" hidden>
+    <div class="redraw-header">
+      <h2>Edit this crop's bounding box</h2>
+      <span class="subtitle" id="edit-subtitle"></span>
+    </div>
+    <div class="redraw-canvas-wrap">
+      <canvas id="edit-canvas"></canvas>
+    </div>
+    <div class="redraw-footer">
+      <div class="redraw-info" style="flex:1;min-width:0">
+        <div>
+          drag the <b style="color:#34d399">green box</b> to move ·
+          drag any corner/edge <b style="color:#34d399">handle</b> to resize ·
+          <kbd>Esc</kbd> cancel
+        </div>
+        <div style="color:var(--muted);font-size:12px">
+          siblings on this view shown in red for context — they are NOT touched on save.
+          Thin outline = +5% padding auto-added on save.
+        </div>
+        <div class="edit-fields" style="display:flex;gap:10px;align-items:end;margin-top:8px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:180px">
+            <label class="field-label" for="edit-faction">Faction (optional)</label>
+            <select id="edit-faction"><option value="">— leave unchanged —</option></select>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:3px;min-width:220px;flex:1">
+            <label class="field-label" for="edit-slug">Unit slug (optional)</label>
+            <input id="edit-slug" type="text" placeholder="leave blank to defer to audit pile" autocomplete="off" />
+          </div>
+        </div>
+      </div>
+      <div class="redraw-actions" style="align-self:flex-end">
+        <button id="edit-reset" title="Reset box back to its original coords">↩ Reset</button>
+        <button id="edit-cancel">Cancel</button>
+        <button id="edit-save" class="primary">Save <kbd>↵</kbd></button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="shortcuts">
+      <span><kbd>↵</kbd> save</span>
+      <span><kbd>␣</kbd> skip</span>
+      <span><kbd>Esc</kbd> exit input</span>
+      <span><kbd>←</kbd><kbd>→</kbd> prev/next</span>
+      <span><kbd>s</kbd> unit search</span>
+      <span><kbd>f</kbd> faction</span>
+      <span><kbd>a</kbd> apply to siblings</span>
+      <span><kbd>e</kbd> edit bbox</span>
+      <span><kbd>d</kbd> redraw (all on view)</span>
+      <span><kbd>b</kbd> bad crop</span>
+      <span><kbd>u</kbd> unknown</span>
+      <span><kbd>t</kbd> audit later</span>
+      <span><kbd>[</kbd><kbd>]</kbd> sibling nav</span>
+      <span><kbd>r</kbd> re-ask AI</span>
+    </div>
+    <div class="status" id="status-line" aria-live="polite" aria-atomic="true">&nbsp;</div>
+  </footer>
+</div>
+
+<script>
+  // ── Config ─────────────────────────────────────────────────────────
+  const API = window.location.origin.includes(':3003') ? 'http://localhost:3002' : ''
+  const LS_KEY_LABELLER = 'labeller_name_v2'
+  const LS_KEY_SOURCE = 'label_source_filter_v2'
+  const LS_KEY_UNLABELLED = 'label_unlabelled_only_v2'   // legacy — migrated to queueMode
+  const LS_KEY_QUEUE = 'label_queue_mode_v2'
+  const LS_KEY_GOAL = 'label_session_goal_v2'
+
+  // Migrate the old "unlabelled only" checkbox preference to the 3-way queue mode.
+  const _legacyUnlab = localStorage.getItem(LS_KEY_UNLABELLED)
+  if (_legacyUnlab != null && localStorage.getItem(LS_KEY_QUEUE) == null) {
+    localStorage.setItem(LS_KEY_QUEUE, _legacyUnlab === 'true' ? 'unlabelled' : 'all')
+  }
+
+  // ── State ─────────────────────────────────────────────────────────
+  const state = {
+    crops: [],
+    idx: 0,
+    factions: [],
+    unitsByFaction: new Map(),   // faction → array of {slug, name, category, role}
+    sourceFilter: localStorage.getItem(LS_KEY_SOURCE) ?? 'cmon',
+    // queueMode: 'unlabelled' | 'all' | 'audit'
+    queueMode: localStorage.getItem(LS_KEY_QUEUE) ?? 'unlabelled',
+    labellerName: localStorage.getItem(LS_KEY_LABELLER) ?? '',
+    comboOpen: false,
+    comboItems: [],   // filtered units matching query
+    comboActive: -1,  // index of keyboard-selected item
+    loadSeq: 0,       // monotonic counter — drop stale fetch responses
+    busy: false,      // guards save/markStatus/submitRedraws during transitions
+    loadBusy: false,  // separate guard for loadCrops — otherwise a filter
+                      // change mid-save would flip `busy` back to false early
+                      // and expose the save to re-entry from the next Enter
+    confirmedThisSession: 0,  // progress counter that doesn't get stale mid-session
+    session: {
+      goal: parseInt(localStorage.getItem(LS_KEY_GOAL) || '0', 10) || 0,
+      start: Date.now(),
+      confirmed: 0,
+      bad: 0,
+      unknown: 0,
+      audit: 0,
+      redraws: 0,
+      byFaction: Object.create(null),   // canonical_faction → count
+    },
+  }
+
+  const $ = (id) => document.getElementById(id)
+  const on = (el, ev, fn) => el.addEventListener(ev, fn)
+  // HTML-entity-escape a string for safe insertion into either text content
+  // or a double-quoted attribute. Also escapes `'` for defence-in-depth in
+  // case any future template switches to single-quoted attributes.
+  const esc = (s) => String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+  const setStatus = (text, kind = '') => { const el = $('status-line'); el.textContent = text; el.className = 'status ' + kind }
+
+  // ── Session tracker ──────────────────────────────────────────────
+  function recordAction({ kind, faction }) {
+    // kind ∈ { confirmed, bad, unknown, audit, redraw }
+    const s = state.session
+    if (kind === 'confirmed') s.confirmed += 1
+    else if (kind === 'bad') s.bad += 1
+    else if (kind === 'unknown') s.unknown += 1
+    else if (kind === 'audit') s.audit += 1
+    else if (kind === 'redraw') s.redraws += 1
+    if (kind === 'confirmed' && faction) {
+      s.byFaction[faction] = (s.byFaction[faction] || 0) + 1
     }
+    renderTracker()
+  }
 
-    const $ = (id) => document.getElementById(id)
-    const setStatus = (text, klass = '') => {
-      const el = $('status')
-      el.textContent = text
-      el.className = 'status-line' + (klass ? ' ' + klass : '')
+  function fmtElapsed(ms) {
+    const s = Math.max(0, Math.round(ms / 1000))
+    const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), ss = s % 60
+    if (h) return `${h}h ${m}m ${ss}s`
+    if (m) return `${m}m ${ss}s`
+    return `${ss}s`
+  }
+
+  function renderTracker() {
+    const s = state.session
+    const total = s.confirmed + s.bad + s.unknown  // things that left the queue
+    const goal = s.goal
+    // Goal text + bar fill
+    if (goal > 0) {
+      $('tracker-goal-text').textContent = `${total}/${goal}`
+      const pct = Math.min(100, Math.round((total / goal) * 100))
+      $('tracker-bar-fill').style.width = pct + '%'
+    } else {
+      $('tracker-goal-text').textContent = `${total} saved`
+      // Without a goal, the bar doesn't fill — keep it empty but still visible
+      $('tracker-bar-fill').style.width = '0%'
     }
-
-    function updateProgress() {
-      const labelled = state.crops.filter((c) => c.labelled).length
-      $('progress-summary').innerHTML =
-        `<b>${labelled}</b> / <b>${state.crops.length}</b> labelled · ` +
-        `viewing <b>${state.idx + 1}</b>`
+    $('tracker-confirmed').textContent = s.confirmed
+    $('tracker-bad').textContent = s.bad
+    $('tracker-unknown').textContent = s.unknown
+    $('tracker-redraws').textContent = s.redraws
+    $('tracker-audit').textContent = s.audit
+    // Faction breakdown
+    const facs = Object.entries(s.byFaction).sort((a, b) => b[1] - a[1])
+    const fel = $('tracker-factions')
+    if (facs.length) {
+      fel.innerHTML = facs.map(([f, n]) =>
+        `<span class="chip">${esc(f)}<b>${n}</b></span>`
+      ).join('')
+    } else {
+      fel.innerHTML = ''
     }
+    // Elapsed + rate
+    const elapsedMs = Date.now() - s.start
+    const ratePerMin = total > 0 && elapsedMs > 0
+      ? (total / (elapsedMs / 60000)).toFixed(1)
+      : '—'
+    $('tracker-elapsed').textContent =
+      total > 0 ? `${fmtElapsed(elapsedMs)} elapsed · ~${ratePerMin}/min` : ''
+  }
 
-    function findFirstUnlabelled(fromIdx = 0) {
-      for (let i = fromIdx; i < state.crops.length; i++) {
-        if (!state.crops[i].labelled) return i
-      }
-      return fromIdx
-    }
+  // ── Bootstrap ─────────────────────────────────────────────────────
+  async function boot() {
+    // Persist labeller name + filter prefs
+    $('labeller-name').value = state.labellerName
+    $('filter-source').value = state.sourceFilter
+    $('filter-queue').value = state.queueMode
+    $('session-goal').value = state.session.goal || ''
+    renderTracker()
+    // Tick the elapsed-time display once a second so the rate stays live
+    setInterval(renderTracker, 1000)
 
-    async function loadCrops() {
-      const res = await fetch(`${API}/api/labelling/crops`)
+    await loadFactions()
+    await loadCrops()
+  }
+
+  async function loadFactions() {
+    try {
+      const res = await fetch(`${API}/api/labelling/factions`)
       const json = await res.json()
-      if (!json.success) throw new Error(json.error || 'Failed to load crops')
+      state.factions = (json.success && json.data.factions) || []
+      const sel = $('faction-picker')
+      while (sel.options.length > 1) sel.remove(1)
+      for (const f of state.factions) {
+        const o = document.createElement('option')
+        o.value = f; o.textContent = f
+        sel.appendChild(o)
+      }
+    } catch (err) {
+      console.warn('loadFactions failed', err)
+    }
+  }
+
+  async function loadUnitsFor(faction) {
+    if (!faction) return []
+    if (state.unitsByFaction.has(faction)) return state.unitsByFaction.get(faction)
+    try {
+      const res = await fetch(`${API}/api/labelling/units?faction=${encodeURIComponent(faction)}`)
+      const json = await res.json()
+      const units = (json.success && json.data.units) || []
+      state.unitsByFaction.set(faction, units)
+      return units
+    } catch (err) {
+      console.warn('loadUnits failed', err)
+      return []
+    }
+  }
+
+  async function loadCrops({ jumpToPath } = {}) {
+    const seq = ++state.loadSeq
+    state.loadBusy = true
+    const params = new URLSearchParams()
+    if (state.sourceFilter) params.set('source', state.sourceFilter)
+    if (state.queueMode === 'unlabelled') params.set('unlabelled', 'true')
+    else if (state.queueMode === 'audit') params.set('audit', 'true')
+    setStatus('loading crops…')
+    try {
+      const res = await fetch(`${API}/api/labelling/crops?${params.toString()}`)
+      const json = await res.json()
+      // Drop stale response — user changed filter mid-flight.
+      if (seq !== state.loadSeq) return
+      if (!json.success) throw new Error(json.error || 'Failed')
       state.crops = json.data.crops
-      state.idx = findFirstUnlabelled(0)
-      updateProgress()
-      await renderCurrent()
-    }
+      state.confirmedThisSession = 0   // reset when queue reloads
 
-    async function renderCurrent() {
-      const crop = state.crops[state.idx]
-      if (!crop) {
-        setStatus('No crops available', 'error')
+      // Positioning priority: explicit jump (e.g. "land on the crop I just
+      // drew") > URL hash > top of queue.
+      const hashMatch = /(?:^|&)crop=([a-z0-9]+)/i.exec(location.hash.slice(1))
+      let target = -1
+      if (jumpToPath) {
+        target = state.crops.findIndex((c) => c.crop_path === jumpToPath)
+      }
+      if (target < 0 && hashMatch) {
+        target = state.crops.findIndex((c) => c.id === hashMatch[1])
+      }
+      state.idx = target >= 0 ? target : 0
+
+      renderProgress(json.data)
+      if (!state.crops.length) {
+        setStatus('no crops match the filter', 'ok')
+        emptyAll()
         return
       }
-      $('crop-img').src = `${API}/api/labelling/crops/${crop.id}/image`
-      $('crop-faction').textContent = crop.faction
-      $('crop-filename').textContent = crop.filename
-      $('crop-position').textContent =
-        `${state.idx + 1} of ${state.crops.length}` +
-        (crop.labelled ? ` · already labelled as "${crop.unit_slug}"` : '')
-      $('slug-input').value = crop.unit_slug || ''
-      $('notes-input').value = crop.notes || ''
-      state.selectedSlug = crop.unit_slug || ''
-      $('alternatives-pills').innerHTML = '<span style="color:var(--muted);font-size:12px">loading…</span>'
-      $('top-suggestion').innerHTML = '<span class="spinner"></span><span class="slug">asking the AI…</span>'
-      updateProgress()
       setStatus('')
-      fetchSuggestion(crop.id)
+      await renderCurrent()
+    } catch (err) {
+      if (seq === state.loadSeq) setStatus(`load failed: ${err.message}`, 'error')
+    } finally {
+      if (seq === state.loadSeq) state.loadBusy = false
+    }
+  }
+
+  function renderProgress(data) {
+    // Queue-local progress: how far through the current in-memory list we are.
+    // Combined with session counter (increments on every save/skip/status).
+    const queueLen = state.crops.length
+    const viewing = queueLen ? state.idx + 1 : 0
+    const pct = queueLen ? Math.round(((state.idx + 1) / queueLen) * 100) : 0
+    $('progress-fill').style.width = pct + '%'
+    const { total, labelled, unlabelled } = data || {}
+    const global = (total != null)
+      ? ` · <b>${labelled}</b> confirmed in source (${unlabelled} remaining)`
+      : ''
+    const sess = state.confirmedThisSession > 0
+      ? ` · <b>${state.confirmedThisSession}</b> this session`
+      : ''
+    $('progress-text').innerHTML = `viewing <b>${viewing}</b>/${queueLen} in queue${sess}${global}`
+  }
+
+  function emptyAll() {
+    $('crop-img').removeAttribute('src')
+    $('crop-meta-overlay').innerHTML = ''
+    $('scene-strip').hidden = true
+    $('context-panel').hidden = true
+    $('siblings-panel').hidden = true
+    // empty-right element removed in v2 layout; no-op
+    $('progress-text').textContent = '0 in queue'
+    $('progress-fill').style.width = '0%'
+  }
+
+  // ── Render current crop ───────────────────────────────────────────
+  async function renderCurrent() {
+    const crop = state.crops[state.idx]
+    if (!crop) { emptyAll(); return }
+    persistPosition(crop.id)
+
+    $('crop-img').src = `${API}/api/labelling/crops/${crop.id}/image`
+    renderMetaOverlay(crop)
+    renderSuggestPill(crop)
+
+    // Faction picker — sync to crop's faction + load its units
+    const faction = crop.faction || ''
+    $('faction-picker').value = faction
+    await loadUnitsFor(faction)
+    $('unit-input').value = crop.unit_slug || ''
+
+    // Show/hide the "Save + all N siblings" button based on whether this
+    // crop actually has siblings. The button text includes the count so
+    // there's no ambiguity about what it'll do.
+    const sibCount = crop.context?.siblings?.length || 0
+    if (sibCount > 0) {
+      $('btn-save-siblings').hidden = false
+      $('btn-save-siblings-count').textContent = sibCount
+    } else {
+      $('btn-save-siblings').hidden = true
     }
 
-    async function fetchSuggestion(cropId) {
-      try {
-        const res = await fetch(`${API}/api/labelling/crops/${cropId}/suggest`, { method: 'POST' })
-        const json = await res.json()
-        if (!json.success) throw new Error(json.error || 'suggest failed')
-        // If the user navigated elsewhere while we were waiting, bail.
-        if (state.crops[state.idx].id !== cropId) return
-        state.currentSuggestion = json.data
-        renderSuggestion(json.data)
-      } catch (err) {
-        $('top-suggestion').innerHTML =
-          `<span style="color:var(--bad);font-size:13px">AI suggestion failed: ${err.message}</span>`
-        $('alternatives-pills').innerHTML = ''
-      }
-    }
+    // Notes — fresh each save
+    $('notes-input').value = ''
 
-    function renderSuggestion(data) {
-      const top = data.top
-      const topHtml = `
-        <span class="slug">${top.unit}</span>
-        <span class="conf">${top.confidence != null ? (top.confidence * 100).toFixed(0) + '%' : ''}</span>
-        ${top.reasoning ? `<div class="reason">${escapeHtml(top.reasoning)}</div>` : ''}
-      `
-      $('top-suggestion').innerHTML = topHtml
-      $('top-suggestion').style.cursor = 'pointer'
-      $('top-suggestion').onclick = () => pickSlug(top.unit)
+    // Context + siblings + scene
+    const ctx = crop.context
+    if (ctx) {
+      $('context-panel').hidden = false
+      $('ctx-title').textContent = ctx.title || '(untitled)'
+      $('ctx-artist').textContent = ctx.artist ? `by ${ctx.artist}` : ''
+      $('ctx-score').textContent = ctx.score != null ? `★ ${ctx.score}/10` : ''
+      const tagsEl = $('ctx-tags')
+      tagsEl.innerHTML = (ctx.tags || []).map((t) => `<span class="tag-chip">${esc(t)}</span>`).join('')
+      const desc = (ctx.description || '').trim()
+      $('ctx-desc').textContent = desc
+      $('ctx-desc').hidden = !desc
+      // Only accept http(s) URLs — the source_url comes from a scraper
+      // manifest, so a `javascript:` or `data:` URL would mean data poisoning,
+      // but either way never hand the browser something clickable that runs code.
+      const safeUrl = /^https?:\/\//i.test(ctx.source_url || '') ? ctx.source_url : ''
+      $('ctx-link').href = safeUrl || '#'
+      $('ctx-link').style.display = safeUrl ? 'inline' : 'none'
 
-      // Build pills: top first (marked selected if matches input), then alternatives.
-      const currentInput = $('slug-input').value.trim()
-      const allPills = [top.unit, ...data.alternatives.map((a) => a.unit)].filter(
-        (v, i, arr) => v && arr.indexOf(v) === i
-      )
-      $('alternatives-pills').innerHTML = allPills
-        .map((slug) => {
-          const sel = slug === currentInput ? 'selected' : ''
-          return `<span class="pill ${sel}" data-slug="${escapeHtml(slug)}">${escapeHtml(slug)}</span>`
-        })
-        .join('')
-      for (const el of document.querySelectorAll('.pill')) {
-        el.addEventListener('click', () => pickSlug(el.dataset.slug))
-      }
-    }
-
-    function pickSlug(slug) {
-      // Clicking a currently-selected pill deselects it.
-      if ($('slug-input').value.trim() === slug) {
-        $('slug-input').value = ''
-        state.selectedSlug = ''
+      // Scene strip
+      if (ctx.scene_url) {
+        $('scene-strip').hidden = false
+        $('scene-img').src = `${API}${ctx.scene_url}`
+        $('scene-title').textContent = ctx.title || ''
       } else {
-        $('slug-input').value = slug
-        state.selectedSlug = slug
+        $('scene-strip').hidden = true
       }
-      syncPillHighlight()
-    }
 
-    /** Highlight whichever pill matches the current input value (none if no match). */
-    function syncPillHighlight() {
-      const current = $('slug-input').value.trim()
-      for (const p of document.querySelectorAll('.pill')) {
-        p.classList.toggle('selected', !!current && p.dataset.slug === current)
-      }
-    }
-
-    async function saveCurrent() {
-      const crop = state.crops[state.idx]
-      const slug = $('slug-input').value.trim()
-      const notes = $('notes-input').value.trim()
-      if (!slug) {
-        setStatus('Enter a unit slug first', 'error')
-        return
-      }
-      setStatus('Saving…')
-      try {
-        const res = await fetch(`${API}/api/labelling/crops/${crop.id}/label`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ unit_slug: slug, notes }),
-        })
-        const json = await res.json()
-        if (!json.success) throw new Error(json.error || 'save failed')
-        crop.labelled = true
-        crop.unit_slug = slug
-        crop.notes = notes
-        setStatus(`Saved ${slug}`, 'success')
-        updateProgress()
-        // Advance to the next unlabelled.
-        const next = findFirstUnlabelled(state.idx + 1)
-        if (next !== state.idx) {
-          state.idx = next
-          await renderCurrent()
-        } else if (state.crops.every((c) => c.labelled)) {
-          setStatus('🎉 All crops labelled!', 'success')
+      // Siblings
+      const siblings = ctx.siblings || []
+      if (siblings.length) {
+        $('siblings-panel').hidden = false
+        $('siblings-count-header').textContent = `${siblings.length} other view${siblings.length === 1 ? '' : 's'}`
+        const grid = $('siblings-grid')
+        grid.innerHTML = siblings.map((s) => {
+          const active = s.id === crop.id ? 'active' : ''
+          const labelled = s.labelled ? 'labelled' : ''
+          // Every interpolation passes through esc() — unit_slug in particular
+          // can be anything stored in the CSV, including chars that would
+          // break the enclosing title="…" attribute if left raw.
+          const titleText = `view ${s.view_idx}${s.unit_slug ? ' · ' + s.unit_slug : ''}`
+          return `<div class="thumb ${active} ${labelled}" data-sibling-id="${esc(s.id)}" title="${esc(titleText)}">
+            <img src="${API}/api/labelling/crops/${encodeURIComponent(s.id)}/image" alt="sibling" loading="lazy" />
+          </div>`
+        }).join('')
+        for (const el of grid.querySelectorAll('.thumb')) {
+          el.onclick = () => jumpToSibling(el.dataset.siblingId)
         }
-      } catch (err) {
-        setStatus(`Save failed: ${err.message}`, 'error')
+      } else {
+        $('siblings-panel').hidden = true
       }
+    } else {
+      $('context-panel').hidden = true
+      $('siblings-panel').hidden = true
+      $('scene-strip').hidden = true
     }
 
-    function escapeHtml(s) {
-      return String(s)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-    }
+    closeCombobox()
+    // Don't ask LLM automatically — it's failing on credits. User presses R.
+    setStatus('')
+  }
 
-    // Keep pill highlight in sync with typed input.
-    $('slug-input').addEventListener('input', syncPillHighlight)
+  function renderMetaOverlay(crop) {
+    const host = $('crop-meta-overlay')
+    const bits = []
+    bits.push(`<span class="badge dim">#${state.idx + 1}/${state.crops.length}</span>`)
+    bits.push(`<span class="badge">${esc(crop.source)}</span>`)
+    if (crop.category && crop.category !== 'unknown') bits.push(`<span class="badge dim">${esc(crop.category)}</span>`)
+    if (crop.view_idx != null) bits.push(`<span class="badge dim">view ${crop.view_idx}</span>`)
+    if (crop.labelled) bits.push(`<span class="badge ok">✓ confirmed</span>`)
+    host.innerHTML = bits.join('')
+  }
 
-    // Nav handlers
-    $('btn-prev').onclick = () => {
-      if (state.idx > 0) { state.idx--; renderCurrent() }
+  function renderSuggestPill(crop) {
+    const pill = $('suggest-pill')
+    const s = crop.suggestion
+    if (!s) {
+      pill.className = 'suggest-pill absent'
+      $('suggest-value').textContent = crop.faction || '(no pre-fill)'
+      $('suggest-rule').textContent = ''
+      return
     }
-    $('btn-next').onclick = () => {
-      if (state.idx < state.crops.length - 1) { state.idx++; renderCurrent() }
-    }
-    $('btn-skip').onclick = () => {
-      if (state.idx < state.crops.length - 1) { state.idx++; renderCurrent() }
-    }
-    $('btn-save').onclick = saveCurrent
-    $('btn-refresh').onclick = () => fetchSuggestion(state.crops[state.idx].id)
+    const isConflict = s.flag === 'title_detector_conflict'
+    pill.className = 'suggest-pill' + (isConflict ? ' conflict' : '')
+    const faction = crop.faction || '(none)'
+    const unit = crop.unit_slug ? ' / ' + crop.unit_slug : ''
+    $('suggest-value').textContent = `${faction}${unit}`
+    const confPct = s.confidence != null ? ` · ${(s.confidence * 100).toFixed(0)}%` : ''
+    const rule = s.rule ? ` · ${s.rule}` : ''
+    const conflictTag = isConflict && s.detector_faction
+      ? ` · detector disagrees (${s.detector_faction})` : ''
+    $('suggest-rule').textContent = `${s.kind}:${s.origin}${confPct}${rule}${conflictTag}`
+  }
 
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.target.tagName === 'INPUT') {
-        if (e.key === 'Enter') { e.preventDefault(); saveCurrent() }
-        return
-      }
-      switch (e.key) {
-        case 'ArrowLeft': $('btn-prev').click(); break
-        case 'ArrowRight': $('btn-next').click(); break
-        case ' ': e.preventDefault(); $('btn-skip').click(); break
-        case 'Enter': e.preventDefault(); saveCurrent(); break
-        case 'r': case 'R': $('btn-refresh').click(); break
-      }
+  // ── Unit combobox ─────────────────────────────────────────────────
+  function openCombobox() {
+    state.comboOpen = true
+    $('unit-list').hidden = false
+    filterCombobox()
+  }
+  function closeCombobox() {
+    state.comboOpen = false
+    $('unit-list').hidden = true
+    state.comboActive = -1
+  }
+  function filterCombobox() {
+    // Reset state BEFORE any early return — otherwise stale comboItems can
+    // survive a faction change and Enter/arrow will pick from the wrong faction.
+    state.comboItems = []
+    state.comboActive = -1
+    const faction = $('faction-picker').value
+    if (!faction) {
+      $('unit-list').innerHTML = '<div class="combobox-empty">pick a faction first</div>'
+      return
+    }
+    const units = state.unitsByFaction.get(faction) || []
+    const q = $('unit-input').value.trim().toLowerCase()
+    // Ranked matches: exact > prefix > substring. Cap at 50.
+    const scored = units.map((u) => {
+      const slug = u.slug.toLowerCase()
+      const name = u.name.toLowerCase()
+      let score = 0
+      if (!q) score = 1
+      else if (slug === q || name === q) score = 4
+      else if (slug.startsWith(q) || name.startsWith(q)) score = 3
+      else if (slug.includes(q) || name.includes(q)) score = 2
+      else score = 0
+      return { u, score }
     })
+    const matches = scored.filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score || a.u.name.localeCompare(b.u.name))
+      .slice(0, 80)
+    state.comboItems = matches.map((x) => x.u)
+    state.comboActive = matches.length ? 0 : -1
+    if (!matches.length) {
+      $('unit-list').innerHTML = '<div class="combobox-empty">no units match</div>'
+      return
+    }
+    $('unit-list').innerHTML = matches.map((x, i) => {
+      const role = x.u.role || x.u.category || ''
+      return `<div class="combobox-item ${i === 0 ? 'active' : ''}" data-idx="${i}">
+        <span class="slug">${esc(x.u.slug)}</span>
+        <span class="name">${esc(x.u.name)}</span>
+        <span class="role">${esc(role)}</span>
+      </div>`
+    }).join('')
+    for (const el of $('unit-list').querySelectorAll('.combobox-item')) {
+      // preventDefault on mousedown stops the input from blurring during the
+      // click, which would otherwise fire closeCombobox() before this onclick
+      // handler gets to run. Without this, clicking an item looks like a no-op.
+      el.onmousedown = (e) => e.preventDefault()
+      el.onclick = () => pickComboItem(parseInt(el.dataset.idx, 10))
+    }
+  }
+  function pickComboItem(idx) {
+    const u = state.comboItems[idx]
+    if (!u) return
+    $('unit-input').value = u.slug
+    closeCombobox()
+    // Drop focus so keyboard shortcuts (a/b/u/Enter/etc.) work immediately
+    // without the user having to Escape out of the input first.
+    $('unit-input').blur()
+  }
+  function moveComboActive(delta) {
+    if (!state.comboItems.length) return
+    state.comboActive = (state.comboActive + delta + state.comboItems.length) % state.comboItems.length
+    for (const el of $('unit-list').querySelectorAll('.combobox-item')) {
+      el.classList.toggle('active', parseInt(el.dataset.idx, 10) === state.comboActive)
+    }
+    const activeEl = $('unit-list').querySelector('.combobox-item.active')
+    if (activeEl) activeEl.scrollIntoView({ block: 'nearest' })
+  }
 
-    loadCrops().catch((err) => setStatus(`Failed to load: ${err.message}`, 'error'))
-  </script>
+  on($('unit-input'), 'focus', openCombobox)
+  on($('unit-input'), 'input', () => { if (!state.comboOpen) openCombobox(); filterCombobox() })
+  on($('unit-input'), 'keydown', (e) => {
+    if (!state.comboOpen) openCombobox()
+    if (e.key === 'ArrowDown') { e.preventDefault(); moveComboActive(1) }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); moveComboActive(-1) }
+    else if (e.key === 'Escape') {
+      // Esc in the combobox: close AND blur so global shortcuts work next.
+      closeCombobox()
+      e.target.blur()
+    }
+    else if (e.key === 'Enter') {
+      // Enter in unit input: if combobox open and an item is active, pick it;
+      // otherwise fall through to form save.
+      if (state.comboOpen && state.comboActive >= 0) {
+        e.preventDefault()
+        pickComboItem(state.comboActive)
+      }
+      // Save happens on a second Enter (after combo closes) via the global handler
+    }
+  })
+  on($('unit-input'), 'blur', () => setTimeout(closeCombobox, 120))
+
+  // ── Faction picker: reload units when changed ────────────────────
+  on($('faction-picker'), 'change', async () => {
+    const f = $('faction-picker').value
+    if (f) await loadUnitsFor(f)
+    $('unit-input').value = ''
+    if (state.comboOpen) filterCombobox()
+  })
+
+  // ── Filters ──────────────────────────────────────────────────────
+  on($('filter-source'), 'change', async (e) => {
+    state.sourceFilter = e.target.value
+    localStorage.setItem(LS_KEY_SOURCE, state.sourceFilter)
+    await loadCrops()
+  })
+  on($('filter-queue'), 'change', async (e) => {
+    state.queueMode = e.target.value
+    localStorage.setItem(LS_KEY_QUEUE, state.queueMode)
+    await loadCrops()
+  })
+  on($('labeller-name'), 'input', (e) => {
+    state.labellerName = e.target.value.trim()
+    localStorage.setItem(LS_KEY_LABELLER, state.labellerName)
+  })
+  on($('session-goal'), 'input', (e) => {
+    const n = parseInt(e.target.value, 10)
+    state.session.goal = Number.isFinite(n) && n > 0 ? n : 0
+    localStorage.setItem(LS_KEY_GOAL, String(state.session.goal))
+    renderTracker()
+  })
+
+  // ── Save / skip / bad / unknown ──────────────────────────────────
+  async function postLabel(body) {
+    const crop = state.crops[state.idx]
+    if (!crop) return null
+    const res = await fetch(`${API}/api/labelling/crops/${crop.id}/label`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    })
+    const json = await res.json()
+    if (!json.success) throw new Error(json.error || 'save failed')
+    return json.data
+  }
+
+  /**
+   * After a save, flip `labelled` to true for the labelled crop AND every
+   * sibling we bulk-updated, everywhere they appear in the in-memory state:
+   *   - top-level queue entries (crop.labelled)
+   *   - each queue entry's context.siblings list
+   * So when the user jumps back to a neighbouring crop, the ribbon thumbs
+   * show the green ✓ without a full reload.
+   */
+  function propagateLabelled(justSaved, serverData, copyToSiblings) {
+    const ids = new Set([justSaved.id])
+    if (copyToSiblings && justSaved.context?.siblings) {
+      for (const s of justSaved.context.siblings) ids.add(s.id)
+    }
+    const unit = serverData.unit_slug
+    const faction = serverData.faction
+    for (const c of state.crops) {
+      if (ids.has(c.id)) {
+        c.labelled = true
+        c.unit_slug = unit
+        if (faction) c.faction = faction
+      }
+      if (c.context?.siblings) {
+        for (const s of c.context.siblings) {
+          if (ids.has(s.id)) {
+            s.labelled = true
+            s.unit_slug = unit
+          }
+        }
+      }
+    }
+  }
+
+  async function saveCurrent(copyToSiblings = false) {
+    if (state.busy) return
+    const crop = state.crops[state.idx]
+    if (!crop) return
+    const savedIdx = state.idx   // anchor for auto-advance
+    const slug = $('unit-input').value.trim().toLowerCase()
+    const faction = $('faction-picker').value.trim()
+    const notes = $('notes-input').value.trim()
+
+    if (!slug) {
+      // When the user has picked a faction but can't identify the unit,
+      // treat Save as "defer to audit pile". This keeps the faction they
+      // DID know, flags the row for a second pass, and advances — so you
+      // can keep moving through the queue without getting stuck.
+      if (faction) {
+        setStatus(`faction "${faction}" saved — unit deferred to audit pile`)
+        return markStatus('audit')
+      }
+      setStatus('pick a faction (f) or enter a slug (s) — or b for bad crop, u for unknown', 'error')
+      return
+    }
+    if (!faction) {
+      setStatus('pick a faction first (f)', 'error')
+      $('faction-picker').focus()
+      return
+    }
+    state.busy = true
+    setStatus('saving…')
+    try {
+      const body = {
+        unit_slug: slug, faction, notes,
+        labeller: state.labellerName || 'human',
+        copy_to_siblings: copyToSiblings,
+      }
+      const data = await postLabel(body)
+      crop.labelled = true
+      crop.unit_slug = data.unit_slug
+      crop.faction = data.faction
+      state.confirmedThisSession += 1 + (data.copied_to || 0)
+      propagateLabelled(crop, data, copyToSiblings)
+      // Tracker: each confirmed save counts once, plus N for copied siblings
+      const fac = data.faction || ''
+      for (let i = 0; i < 1 + (data.copied_to || 0); i++) recordAction({ kind: 'confirmed', faction: fac })
+      const copied = data.copied_to ? ` (+${data.copied_to} siblings)` : ''
+      setStatus(`✓ saved ${crop.faction}/${crop.unit_slug}${copied}`, 'ok')
+      // Only auto-advance when the user hasn't manually navigated away
+      // during the save. Arrow keys don't check state.busy, so a fast user
+      // can scroll past a save in flight — in that case we'd rather keep
+      // them where they are than jump one past their current position.
+      if (state.idx === savedIdx) advance()
+    } catch (err) {
+      setStatus(`save failed: ${err.message}`, 'error')
+    } finally {
+      state.busy = false
+    }
+  }
+
+  async function markStatus(status) {
+    if (state.busy) return
+    const crop = state.crops[state.idx]
+    if (!crop) return
+    const savedIdx = state.idx
+    state.busy = true
+    setStatus(`marking as ${status}…`)
+    try {
+      const body = {
+        status,
+        faction: $('faction-picker').value.trim() || undefined,
+        notes: $('notes-input').value.trim(),
+        labeller: state.labellerName || 'human',
+      }
+      const data = await postLabel(body)
+      crop.labelled = true
+      crop.unit_slug = data.unit_slug
+      if (data.faction) crop.faction = data.faction
+      state.confirmedThisSession += 1
+      propagateLabelled(crop, data, false)
+      // Tracker: route to the matching bucket per status.
+      if (status === 'bad_crop') recordAction({ kind: 'bad' })
+      else if (status === 'unknown') recordAction({ kind: 'unknown' })
+      else if (status === 'audit') recordAction({ kind: 'audit' })
+      else recordAction({ kind: 'confirmed' })
+      const label = status === 'audit' ? 'audit pile' : status
+      setStatus(`✓ marked as ${label}`, 'ok')
+      if (state.idx === savedIdx) advance()
+    } catch (err) {
+      setStatus(`failed: ${err.message}`, 'error')
+    } finally {
+      state.busy = false
+    }
+  }
+
+  function advance() {
+    // Drop focus from any input so keyboard shortcuts work immediately on the
+    // next crop (user was typing in notes/unit → after save they shouldn't
+    // have to Escape before pressing b/a/u).
+    if (document.activeElement && typeof document.activeElement.blur === 'function') {
+      document.activeElement.blur()
+    }
+    if (state.idx < state.crops.length - 1) {
+      state.idx += 1
+      renderCurrent().then(focusDefault).catch(() => {})
+    } else {
+      // In "unlabelled" or "audit" mode the queue is a live filter — refetch
+      // to pick up newly-eligible rows (e.g. the crop we just saved fell out
+      // of the queue; a sibling on another view became the new candidate).
+      // In "all" mode there's nothing to refetch into; just announce the end.
+      if (state.queueMode !== 'all') {
+        loadCrops()
+      } else {
+        setStatus('🎉 reached end of queue', 'ok')
+      }
+    }
+  }
+
+  /** Park focus on the save button after an auto-advance, so the next keypress
+   *  lands somewhere with a visible outline and screen readers announce it. */
+  function focusDefault() {
+    const el = document.activeElement
+    if (el && el !== document.body && el !== document.documentElement) return
+    $('btn-save').focus({ preventScroll: true })
+  }
+
+  function persistPosition(id) {
+    const h = `#crop=${id}`
+    if (location.hash !== h) history.replaceState(null, '', h)
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────
+  function navRelative(delta) {
+    const ni = state.idx + delta
+    if (ni < 0 || ni >= state.crops.length) return
+    state.idx = ni
+    renderCurrent()
+  }
+
+  function jumpToSibling(sid) {
+    const i = state.crops.findIndex((c) => c.id === sid)
+    if (i >= 0) { state.idx = i; renderCurrent() }
+    else setStatus('sibling not in current filter', 'error')
+  }
+
+  function jumpSiblingDir(delta) {
+    const crop = state.crops[state.idx]
+    if (!crop || !crop.context?.siblings?.length) return
+    const iid = crop.instance_id
+    if (!iid) return   // guard against null-matching across unrelated rows
+    const all = state.crops
+      .map((c, i) => ({ i, c }))
+      .filter((x) => x.c.instance_id && x.c.instance_id === iid)
+      .sort((a, b) => (a.c.view_idx ?? 0) - (b.c.view_idx ?? 0))
+    if (all.length <= 1) return
+    const here = all.findIndex((x) => x.i === state.idx)
+    if (here < 0) return
+    const next = all[(here + delta + all.length) % all.length]
+    state.idx = next.i
+    renderCurrent()
+  }
+
+  // ── Re-ask AI (R) ────────────────────────────────────────────────
+  async function reAskAI() {
+    const crop = state.crops[state.idx]
+    if (!crop) return
+    setStatus('asking AI…')
+    try {
+      const res = await fetch(`${API}/api/labelling/crops/${crop.id}/suggest`, { method: 'POST' })
+      const json = await res.json()
+      if (!json.success) throw new Error(json.error || 'AI failed')
+      const s = json.data
+      $('unit-input').value = s.top.unit || ''
+      setStatus(`AI: ${s.top.unit} (${s.top.confidence != null ? (s.top.confidence*100).toFixed(0)+'%' : '?'})`, 'ok')
+    } catch (err) {
+      setStatus(`AI failed: ${err.message}`, 'error')
+    }
+  }
+
+  // ── Redraw modal — canvas bbox drawing ──────────────────────────
+  // Ported (simplified) from frontend/src/components/BboxAnnotator.tsx: drop
+  // resize handles, undo/redo, and labels — just draw rectangles, click to
+  // delete, submit to POST /redraw.
+  // Multi-view redraw: each unique view_idx in the instance gets its own tab.
+  // Tabs share the canvas; switching tabs swaps the backing image + boxes.
+  const redraw = {
+    open: false,
+    canvas: null, ctx: null,
+    scale: 1,       // CSS-px / image-px for the ACTIVE view (DPR-independent)
+    cssW: 0, cssH: 0,  // current canvas size in CSS pixels (what the user sees)
+    drawing: null,  // {startImgX, startImgY, currentImgX, currentImgY}
+    activeViewIdx: 0,   // which entry in `views` is being edited
+    views: [],      // [{view_idx, sceneUrl, img, naturalW, naturalH, boxes, repCropId}]
+    instanceId: '',
+    cropId: '',     // the crop that was clicked to open the modal (for history only)
+  }
+
+  const curView = () => redraw.views[redraw.activeViewIdx] || null
+
+  function openRedrawModal(crop) {
+    if (!crop || !crop.context?.scene_url) {
+      setStatus('no source scene available — falling back to plain bad_crop', 'error')
+      markStatus('bad_crop')
+      return
+    }
+    redraw.open = true
+    redraw.cropId = crop.id
+    redraw.instanceId = crop.instance_id
+    redraw.drawing = null
+
+    // Build one tab per source photo in the CMON entry. We use total_views
+    // (from the manifest) rather than the sibling list because some photos
+    // have zero detector crops — those would otherwise be invisible even
+    // though they may contain un-detected minis the user wants to redraw.
+    const clickedViewIdx = crop.view_idx ?? 0
+    const totalViews = Math.max(
+      crop.context?.total_views || 0,
+      clickedViewIdx + 1,
+    )
+    const instForUrl = encodeURIComponent(crop.instance_id)
+    // Collect every existing crop row on this instance — we'll attach them
+    // per view below as `refs` so the canvas can show the user what they're
+    // about to replace. Without this, a redrawer sees a blank scene and has
+    // no idea where the YOLO detector originally placed each crop.
+    const allForInstance = state.crops.filter((c) => c.instance_id === crop.instance_id)
+    redraw.views = []
+    for (let vi = 0; vi < totalViews; vi++) {
+      const refs = []
+      for (const c of allForInstance) {
+        const cv = c.view_idx ?? 0
+        if (cv !== vi) continue
+        if ((c.unit_slug || '').startsWith('__')) continue   // skip sentinels (bad_crop etc.)
+        // bbox=x,y,w,h only lives in notes for human_redraw rows today.
+        // Everything else renders as a sidebar reference with no overlay.
+        const m = /\bbbox=(\d+),(\d+),(\d+),(\d+)/.exec(c.notes || '')
+        refs.push({
+          id: c.id,
+          crop_path: c.crop_path,
+          unit_slug: c.unit_slug || '',
+          labelled: !!c.labelled,
+          origin: (c.suggested_by || 'yolo').startsWith('human_redraw') ? 'human_redraw' : 'yolo',
+          bbox: m ? { x: +m[1], y: +m[2], w: +m[3], h: +m[4] } : null,
+        })
+      }
+      redraw.views.push({
+        view_idx: vi,
+        sceneUrl: `${API}/api/labelling/scenes/${instForUrl}/${vi}/image`,
+        img: null,
+        naturalW: 0,
+        naturalH: 0,
+        boxes: [],
+        refs,
+      })
+    }
+    redraw.activeViewIdx = redraw.views.findIndex((v) => v.view_idx === clickedViewIdx)
+    if (redraw.activeViewIdx < 0) redraw.activeViewIdx = 0
+
+    $('redraw-modal').hidden = false
+    $('redraw-subtitle').textContent =
+      `${crop.context.title || crop.instance_id} · ${redraw.views.length} view${redraw.views.length === 1 ? '' : 's'}`
+    $('redraw-tabs').hidden = redraw.views.length <= 1
+
+    renderRedrawTabs()
+    loadRedrawImage(redraw.activeViewIdx)
+  }
+
+  function closeRedrawModal() {
+    redraw.open = false
+    $('redraw-modal').hidden = true
+    redraw.views = []
+    redraw.drawing = null
+  }
+
+  function loadRedrawImage(viewIdx) {
+    const v = redraw.views[viewIdx]
+    if (!v) return
+    if (v.img) {
+      // already loaded — just swap
+      fitRedrawCanvas()
+      renderRedraw()
+      return
+    }
+    const img = new Image()
+    img.onload = () => {
+      v.img = img
+      v.naturalW = img.naturalWidth
+      v.naturalH = img.naturalHeight
+      if (redraw.views[redraw.activeViewIdx] === v) {
+        fitRedrawCanvas()
+        renderRedraw()
+      }
+    }
+    img.onerror = () => setStatus(`scene for view ${v.view_idx} failed to load`, 'error')
+    img.src = v.sceneUrl
+  }
+
+  function switchToView(viewIdx) {
+    // Commit any in-progress drag so it doesn't leak into the other view's canvas
+    redraw.drawing = null
+    redraw.activeViewIdx = viewIdx
+    renderRedrawTabs()
+    loadRedrawImage(viewIdx)
+  }
+
+  function renderRedrawTabs() {
+    const host = $('redraw-tabs')
+    host.innerHTML = ''
+    if (redraw.views.length <= 1) return
+    for (let i = 0; i < redraw.views.length; i++) {
+      const v = redraw.views[i]
+      const active = i === redraw.activeViewIdx ? 'active' : ''
+      const count = v.boxes.length
+      const btn = document.createElement('button')
+      btn.className = `redraw-tab ${active}`
+      btn.dataset.viewIdx = i
+      btn.innerHTML =
+        `view ${v.view_idx} <span class="badge-n" data-empty="${count === 0}">${count}</span>`
+      btn.onclick = () => switchToView(i)
+      host.appendChild(btn)
+    }
+  }
+
+  function fitRedrawCanvas() {
+    const v = curView()
+    if (!v || !v.img) return
+    const maxW = Math.min(1600, Math.floor(window.innerWidth * 0.9))
+    const maxH = Math.floor(window.innerHeight - 260)
+    const scale = Math.min(maxW / v.naturalW, maxH / v.naturalH, 1)
+    redraw.scale = scale
+    const canvas = $('redraw-canvas')
+    // DPI-aware sizing: the backing store is multiplied by devicePixelRatio
+    // so the image renders crisply on retina displays, while the CSS size
+    // stays in CSS pixels. Mouse math uses getBoundingClientRect (CSS px)
+    // and the `scale` value above, so coordinate handling is unaffected —
+    // ctx.scale(dpr, dpr) takes care of translating draw calls back up.
+    const dpr = window.devicePixelRatio || 1
+    const cssW = Math.round(v.naturalW * scale)
+    const cssH = Math.round(v.naturalH * scale)
+    canvas.width = Math.round(cssW * dpr)
+    canvas.height = Math.round(cssH * dpr)
+    canvas.style.width = cssW + 'px'
+    canvas.style.height = cssH + 'px'
+    redraw.canvas = canvas
+    redraw.cssW = cssW
+    redraw.cssH = cssH
+    redraw.ctx = canvas.getContext('2d')
+    // setTransform ensures we reset any prior scale before applying the new
+    // dpr (otherwise a resize mid-session would double-scale the next draw).
+    redraw.ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  }
+
+  function renderRedraw() {
+    const v = curView()
+    const { ctx, scale, cssW, cssH } = redraw
+    if (!v || !v.img || !ctx) return
+    // ctx is pre-scaled by dpr in fitRedrawCanvas, so all draw coords live in
+    // CSS pixels. Using backing-store dimensions here would over-paint by dpr.
+    ctx.clearRect(0, 0, cssW, cssH)
+    ctx.drawImage(v.img, 0, 0, cssW, cssH)
+
+    // Existing crops on this view: dashed red for YOLO-detector boxes, dashed
+    // amber for prior human_redraw boxes. These aren't interactive — drawing
+    // a new box doesn't delete them (that happens server-side via the
+    // mark-bad pass on save).
+    for (const r of (v.refs || [])) {
+      if (!r.bbox) continue   // bbox unknown (not stored in notes for YOLO crops)
+      const x = r.bbox.x * scale, y = r.bbox.y * scale
+      const w = r.bbox.w * scale, h = r.bbox.h * scale
+      ctx.setLineDash([4, 3])
+      ctx.lineWidth = 2
+      ctx.strokeStyle = r.origin === 'human_redraw'
+        ? 'rgba(251, 191, 36, 0.85)'   // amber
+        : 'rgba(239, 68, 68, 0.85)'    // red
+      ctx.strokeRect(x, y, w, h)
+      ctx.setLineDash([])
+      // Label with unit_slug on top edge for orientation
+      if (r.unit_slug) {
+        ctx.font = '11px ui-monospace, monospace'
+        const label = r.unit_slug
+        const labelW = ctx.measureText(label).width + 8
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.75)'
+        ctx.fillRect(x, Math.max(0, y - 15), labelW, 14)
+        ctx.fillStyle = '#fff'
+        ctx.fillText(label, x + 4, Math.max(11, y - 4))
+      }
+    }
+
+    for (const b of v.boxes) {
+      // Thin outer rectangle = the actual region that will be cropped on
+      // save. The backend adds 5% padding on the longer side (matches
+      // scripts/extract_cmon_crops.py so YOLO-extracted crops and human
+      // redraws have consistent framing downstream). Without this preview
+      // the saved crop looks 10% larger than the drawn box — "the bbox
+      // doesn't look like what I drew."
+      const pad = Math.max(b.w, b.h) * 0.05
+      const px0 = Math.max(0, b.x - pad)
+      const py0 = Math.max(0, b.y - pad)
+      const px1 = Math.min(v.naturalW, b.x + b.w + pad)
+      const py1 = Math.min(v.naturalH, b.y + b.h + pad)
+      ctx.strokeStyle = 'rgba(52, 211, 153, 0.45)'
+      ctx.lineWidth = 1
+      ctx.setLineDash([2, 3])
+      ctx.strokeRect(px0 * scale, py0 * scale, (px1 - px0) * scale, (py1 - py0) * scale)
+      ctx.setLineDash([])
+
+      // Solid inner rectangle = exactly what the user drew.
+      const x = b.x * scale, y = b.y * scale, w = b.w * scale, h = b.h * scale
+      ctx.strokeStyle = 'rgba(52, 211, 153, 0.95)'
+      ctx.lineWidth = 2
+      ctx.fillStyle = 'rgba(52, 211, 153, 0.15)'
+      ctx.fillRect(x, y, w, h)
+      ctx.strokeRect(x, y, w, h)
+    }
+
+    if (redraw.drawing) {
+      const { startImgX, startImgY, currentImgX, currentImgY } = redraw.drawing
+      const x0 = Math.min(startImgX, currentImgX) * scale
+      const y0 = Math.min(startImgY, currentImgY) * scale
+      const x1 = Math.max(startImgX, currentImgX) * scale
+      const y1 = Math.max(startImgY, currentImgY) * scale
+      ctx.strokeStyle = 'rgba(251, 191, 36, 0.95)'
+      ctx.setLineDash([6, 4])
+      ctx.lineWidth = 2
+      ctx.strokeRect(x0, y0, x1 - x0, y1 - y0)
+      ctx.setLineDash([])
+    }
+
+    // Footer counters: N boxes on current view, + total across all views
+    const totalBoxes = redraw.views.reduce((sum, x) => sum + x.boxes.length, 0)
+    const viewsWithBoxes = redraw.views.filter((x) => x.boxes.length > 0).length
+    $('redraw-box-count').textContent =
+      redraw.views.length > 1
+        ? `${v.boxes.length} in view ${v.view_idx} · ${totalBoxes} across ${viewsWithBoxes} view${viewsWithBoxes === 1 ? '' : 's'}`
+        : `${v.boxes.length}`
+
+    // What's about to happen on save: the existing refs on every view-with-
+    // -boxes get marked bad. Tell the user up front so they know the green
+    // boxes aren't just additions — they REPLACE the red/amber ones.
+    const refsOnBoxedViews = redraw.views
+      .filter((x) => x.boxes.length > 0)
+      .reduce((sum, x) => sum + (x.refs?.length || 0), 0)
+    const withBbox = redraw.views
+      .filter((x) => x.boxes.length > 0)
+      .reduce((sum, x) => sum + (x.refs || []).filter((r) => r.bbox).length, 0)
+    const withoutBbox = refsOnBoxedViews - withBbox
+    const note = $('redraw-refs-note')
+    if (totalBoxes === 0) {
+      note.textContent = 'draw a box to begin — existing crops will be marked bad when you save'
+    } else if (refsOnBoxedViews === 0) {
+      note.textContent = 'no existing crops on affected views — this adds fresh crops only'
+    } else {
+      const bits = []
+      if (withBbox) bits.push(`${withBbox} shown on canvas`)
+      if (withoutBbox) bits.push(`${withoutBbox} unpositioned (bbox not stored)`)
+      note.textContent = `${refsOnBoxedViews} existing crop${refsOnBoxedViews === 1 ? '' : 's'} will be marked bad (${bits.join(', ')})`
+    }
+
+    const label = viewsWithBoxes > 1
+      ? `Save redraws across ${viewsWithBoxes} views`
+      : `Save ${totalBoxes} redraw${totalBoxes === 1 ? '' : 's'}`
+    $('redraw-save').textContent = label
+    $('redraw-save').disabled = totalBoxes === 0
+    renderRedrawTabs()
+  }
+
+  function canvasPosFromEvent(e) {
+    const rect = redraw.canvas.getBoundingClientRect()
+    return { dx: e.clientX - rect.left, dy: e.clientY - rect.top }
+  }
+
+  function screenToImage(dx, dy) {
+    return { x: dx / redraw.scale, y: dy / redraw.scale }
+  }
+
+  function hitTestBox(imgX, imgY) {
+    const v = curView()
+    if (!v) return -1
+    for (let i = v.boxes.length - 1; i >= 0; i--) {
+      const b = v.boxes[i]
+      if (imgX >= b.x && imgX <= b.x + b.w && imgY >= b.y && imgY <= b.y + b.h) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  function onRedrawMouseDown(e) {
+    if (!redraw.open) return
+    const v = curView()
+    if (!v || !v.img) return
+    const { dx, dy } = canvasPosFromEvent(e)
+    const { x: ix, y: iy } = screenToImage(dx, dy)
+
+    const hit = hitTestBox(ix, iy)
+    if (hit >= 0) {
+      v.boxes.splice(hit, 1)
+      renderRedraw()
+      return
+    }
+
+    // Clamp start coords to image bounds. Without this, a mousedown slightly
+    // outside the canvas (negative CSS offset from getBoundingClientRect
+    // rounding) stores negative image coords; the backend then clamps them
+    // to 0 at crop time, silently shrinking the user's box.
+    const sx = Math.max(0, Math.min(v.naturalW, ix))
+    const sy = Math.max(0, Math.min(v.naturalH, iy))
+    redraw.drawing = { startImgX: sx, startImgY: sy, currentImgX: sx, currentImgY: sy }
+    renderRedraw()
+  }
+
+  function onRedrawMouseMove(e) {
+    if (!redraw.open || !redraw.drawing) return
+    const v = curView()
+    if (!v) return
+    const { dx, dy } = canvasPosFromEvent(e)
+    const { x: ix, y: iy } = screenToImage(dx, dy)
+    redraw.drawing.currentImgX = Math.max(0, Math.min(v.naturalW, ix))
+    redraw.drawing.currentImgY = Math.max(0, Math.min(v.naturalH, iy))
+    renderRedraw()
+  }
+
+  function onRedrawMouseUp() {
+    if (!redraw.open || !redraw.drawing) return
+    const v = curView()
+    if (!v) { redraw.drawing = null; return }
+    const { startImgX, startImgY, currentImgX, currentImgY } = redraw.drawing
+    redraw.drawing = null
+    const x = Math.min(startImgX, currentImgX)
+    const y = Math.min(startImgY, currentImgY)
+    const w = Math.abs(currentImgX - startImgX)
+    const h = Math.abs(currentImgY - startImgY)
+    if (w * redraw.scale < 10 || h * redraw.scale < 10) {
+      renderRedraw()
+      return
+    }
+    v.boxes.push({
+      id: `box-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      x, y, w, h,
+    })
+    renderRedraw()
+  }
+
+  async function submitRedraws() {
+    if (!redraw.open) return
+    const viewsWithBoxes = redraw.views.filter((v) => v.boxes.length > 0)
+    if (!viewsWithBoxes.length) return
+    state.busy = true
+    const totalBoxes = viewsWithBoxes.reduce((sum, v) => sum + v.boxes.length, 0)
+    setStatus(`saving ${totalBoxes} redraws across ${viewsWithBoxes.length} view${viewsWithBoxes.length === 1 ? '' : 's'}…`)
+
+    let totalCreated = 0
+    let totalMarkedBad = 0
+    let errors = 0
+    const markedBadPaths = []
+    const createdPaths = []
+    try {
+      // Fire one POST per view to the per-scene endpoint, which works even
+      // for views that have no existing crops (detector emitted zero boxes).
+      // Sequential so labels.csv isn't hit by overlapping writers.
+      const instForUrl = encodeURIComponent(redraw.instanceId)
+      // Look up the clicked crop to know which view it lives on. Only THAT
+      // view should force-replace the clicked crop — redraws on other views
+      // inside the same modal session target different regions entirely.
+      const clickedCrop = state.crops.find((c) => c.id === redraw.cropId)
+      const clickedViewIdx = clickedCrop ? clickedCrop.view_idx : null
+      for (const v of viewsWithBoxes) {
+        const bboxes = v.boxes.map(({ x, y, w, h }) => ({ x, y, w, h }))
+        const body = {
+          bboxes,
+          labeller: state.labellerName || 'human',
+        }
+        if (v.view_idx === clickedViewIdx && redraw.cropId) {
+          body.replace_crop_id = redraw.cropId
+        }
+        try {
+          const res = await fetch(
+            `${API}/api/labelling/scenes/${instForUrl}/${v.view_idx}/redraw`,
+            {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(body),
+            }
+          )
+          const json = await res.json()
+          if (!json.success) throw new Error(json.error || 'redraw failed')
+          const d = json.data
+          totalCreated += d.created.length
+          for (const c of d.created || []) {
+            if (c && c.crop_path) createdPaths.push(c.crop_path)
+          }
+          if (Array.isArray(d.marked_bad)) {
+            totalMarkedBad += d.marked_bad.length
+            markedBadPaths.push(...d.marked_bad)
+          } else {
+            totalMarkedBad += 1
+          }
+        } catch (err) {
+          errors++
+          console.warn(`view ${v.view_idx} redraw failed:`, err)
+        }
+      }
+
+      const msg = errors
+        ? `partial: ${totalCreated} redrawn, ${totalMarkedBad} marked bad, ${errors} view(s) failed`
+        : `✓ ${totalCreated} redrawn across ${viewsWithBoxes.length} view${viewsWithBoxes.length === 1 ? '' : 's'}; ${totalMarkedBad} old crops marked bad`
+      setStatus(msg, errors ? 'error' : 'ok')
+      // Tracker: bad crops (original detector ones) + new redraws awaiting labels
+      for (let i = 0; i < totalMarkedBad; i++) recordAction({ kind: 'bad' })
+      for (let i = 0; i < totalCreated; i++) recordAction({ kind: 'redraw' })
+      // Update in-memory state before the reload so the sibling ribbon and
+      // any lingering references don't flash stale "unlabelled" marks for
+      // the crops we just marked bad. loadCrops will replace state.crops
+      // wholesale a moment later, but the paint in between would be wrong.
+      propagateMarkedBad(markedBadPaths)
+      closeRedrawModal()
+      // Don't call advance(): the redrawn crop is now labelled (bad), so
+      // the unlabelled-only queue filter will drop it. Instead jump to the
+      // FIRST crop we just drew so the user sees their new region right
+      // away and can start labelling it — that's the point of redrawing.
+      // Falls back to URL hash → top of queue if the new path isn't in
+      // the refetched list (shouldn't happen, but queueMode filters could
+      // in theory exclude it).
+      await loadCrops({ jumpToPath: createdPaths[0] })
+    } finally {
+      state.busy = false
+    }
+  }
+
+  /** After a redraw marks a batch of crops as bad, reflect that on the
+   *  in-memory state so the UI doesn't show them as unlabelled for the few
+   *  hundred ms it takes for loadCrops to finish. Matches by crop_path since
+   *  the backend response only carries paths (ids are md5 hashes of paths,
+   *  and we have the path→id mapping already in state.crops). */
+  function propagateMarkedBad(cropPaths) {
+    if (!cropPaths || !cropPaths.length) return
+    const pathSet = new Set(cropPaths)
+    for (const c of state.crops) {
+      if (pathSet.has(c.crop_path)) {
+        c.labelled = true
+        c.unit_slug = '__bad_crop__'
+      }
+    }
+  }
+
+  // Wire redraw modal controls
+  on($('redraw-canvas'), 'mousedown', onRedrawMouseDown)
+  on($('redraw-canvas'), 'mousemove', onRedrawMouseMove)
+  on($('redraw-canvas'), 'mouseup',   onRedrawMouseUp)
+  on($('redraw-canvas'), 'mouseleave', onRedrawMouseUp)
+  on($('redraw-clear'),  'click', (e) => {
+    e.preventDefault()
+    const v = curView()
+    if (v) v.boxes = []
+    renderRedraw()
+  })
+  on($('redraw-cancel'), 'click', (e) => { e.preventDefault(); closeRedrawModal() })
+  on($('redraw-just-bad'), 'click', (e) => {
+    e.preventDefault()
+    closeRedrawModal()
+    markStatus('bad_crop')
+  })
+  on($('redraw-save'), 'click', (e) => { e.preventDefault(); submitRedraws() })
+  window.addEventListener('resize', () => {
+    if (redraw.open && curView()?.img) { fitRedrawCanvas(); renderRedraw() }
+  })
+
+  // ── Edit-bbox modal — nudge ONE crop's box, siblings untouched ──────
+  // Unlike redraw (which invalidates the whole view), this operation
+  // re-extracts just the clicked crop's JPEG at the new coords and
+  // updates the row's notes with bbox=x,y,w,h. Faction + unit_slug in the
+  // modal are optional — leave blank to defer to audit pile.
+  const edit = {
+    open: false,
+    cropId: null, instanceId: '', viewIdx: 0,
+    sceneUrl: '',
+    img: null, naturalW: 0, naturalH: 0,
+    scale: 1, cssW: 0, cssH: 0,
+    canvas: null, ctx: null,
+    box: null,       // { x, y, w, h } in image-pixel space — the editable one
+    origBox: null,   // snapshot for the Reset button
+    refs: [],        // siblings on same view — rendered dim red for context
+    drag: null,      // null | { mode, startImg: {x,y}, startBox: {...} }
+    pendingBboxFromNotes: null,
+    origFaction: '', origSlug: '',
+  }
+
+  function openEditModal(crop) {
+    if (!crop) return
+    if (!crop.context?.scene_url) {
+      setStatus('edit only works for crops with a source scene (CMON)', 'error')
+      return
+    }
+    edit.open = true
+    edit.cropId = crop.id
+    edit.instanceId = crop.instance_id
+    edit.viewIdx = crop.view_idx ?? 0
+    edit.sceneUrl = `${API}${crop.context.scene_url}`
+    edit.img = null; edit.naturalW = 0; edit.naturalH = 0
+    edit.drag = null; edit.box = null; edit.origBox = null
+    edit.origFaction = crop.faction || ''
+    edit.origSlug = (crop.unit_slug || '').startsWith('__') ? '' : (crop.unit_slug || '')
+
+    // YOLO-extracted crops don't store bbox coords anywhere, so we fall
+    // back to a centered default and tell the user to drag it into place.
+    const m = /\bbbox=(\d+),(\d+),(\d+),(\d+)/.exec(crop.notes || '')
+    edit.pendingBboxFromNotes = m ? { x: +m[1], y: +m[2], w: +m[3], h: +m[4] } : null
+
+    // Siblings on the same view — shown as dim red outlines for context.
+    edit.refs = []
+    for (const c of state.crops) {
+      if (c.id === crop.id) continue
+      if (c.instance_id !== crop.instance_id) continue
+      const cv = c.view_idx ?? 0
+      if (cv !== edit.viewIdx) continue
+      if ((c.unit_slug || '').startsWith('__')) continue
+      const mm = /\bbbox=(\d+),(\d+),(\d+),(\d+)/.exec(c.notes || '')
+      edit.refs.push({
+        unit_slug: c.unit_slug || '',
+        bbox: mm ? { x: +mm[1], y: +mm[2], w: +mm[3], h: +mm[4] } : null,
+      })
+    }
+
+    // Populate faction select with the canonical 20 + pre-select the crop's faction.
+    const facSel = $('edit-faction')
+    facSel.innerHTML = '<option value="">— leave unchanged —</option>'
+    for (const f of state.factions) {
+      const o = document.createElement('option')
+      o.value = f; o.textContent = f
+      if (f === edit.origFaction) o.selected = true
+      facSel.appendChild(o)
+    }
+    $('edit-slug').value = edit.origSlug
+
+    $('edit-modal').hidden = false
+    $('edit-subtitle').textContent =
+      `${crop.context.title || crop.instance_id} · view ${edit.viewIdx}`
+    loadEditImage()
+  }
+
+  function closeEditModal() {
+    edit.open = false
+    $('edit-modal').hidden = true
+    edit.drag = null; edit.box = null; edit.img = null
+  }
+
+  function loadEditImage() {
+    const img = new Image()
+    img.onload = () => {
+      if (!edit.open) return   // modal closed mid-load
+      edit.img = img
+      edit.naturalW = img.naturalWidth
+      edit.naturalH = img.naturalHeight
+      if (edit.pendingBboxFromNotes) {
+        edit.box = { ...edit.pendingBboxFromNotes }
+      } else {
+        // No stored bbox — centre a 40%-sized box so the user has something
+        // to grab and drag into place.
+        const w0 = Math.round(edit.naturalW * 0.4)
+        const h0 = Math.round(edit.naturalH * 0.4)
+        edit.box = {
+          x: Math.round((edit.naturalW - w0) / 2),
+          y: Math.round((edit.naturalH - h0) / 2),
+          w: w0, h: h0,
+        }
+        setStatus('bbox position unknown for this crop — drag the green box over the subject, then Save', 'error')
+      }
+      edit.origBox = { ...edit.box }
+      fitEditCanvas()
+      renderEdit()
+    }
+    img.onerror = () => setStatus(`scene failed to load: ${edit.sceneUrl}`, 'error')
+    img.src = edit.sceneUrl
+  }
+
+  function fitEditCanvas() {
+    if (!edit.img) return
+    const maxW = Math.min(1600, Math.floor(window.innerWidth * 0.9))
+    const maxH = Math.floor(window.innerHeight - 320)
+    const scale = Math.min(maxW / edit.naturalW, maxH / edit.naturalH, 1)
+    edit.scale = scale
+    const canvas = $('edit-canvas')
+    const dpr = window.devicePixelRatio || 1
+    const cssW = Math.round(edit.naturalW * scale)
+    const cssH = Math.round(edit.naturalH * scale)
+    canvas.width = Math.round(cssW * dpr)
+    canvas.height = Math.round(cssH * dpr)
+    canvas.style.width = cssW + 'px'
+    canvas.style.height = cssH + 'px'
+    edit.canvas = canvas
+    edit.cssW = cssW; edit.cssH = cssH
+    edit.ctx = canvas.getContext('2d')
+    edit.ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+  }
+
+  function getEditHandlePositions(box, scale) {
+    const x = box.x * scale, y = box.y * scale
+    const w = box.w * scale, h = box.h * scale
+    return [
+      ['nw', x,         y        ],
+      ['n',  x + w / 2, y        ],
+      ['ne', x + w,     y        ],
+      ['e',  x + w,     y + h / 2],
+      ['se', x + w,     y + h    ],
+      ['s',  x + w / 2, y + h    ],
+      ['sw', x,         y + h    ],
+      ['w',  x,         y + h / 2],
+    ]
+  }
+
+  function renderEdit() {
+    const { ctx, scale, cssW, cssH, img, refs, box } = edit
+    if (!ctx || !img) return
+    ctx.clearRect(0, 0, cssW, cssH)
+    ctx.drawImage(img, 0, 0, cssW, cssH)
+    // Siblings: dim red, non-interactive
+    for (const r of (refs || [])) {
+      if (!r.bbox) continue
+      ctx.setLineDash([3, 2])
+      ctx.lineWidth = 1
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.35)'
+      ctx.strokeRect(r.bbox.x * scale, r.bbox.y * scale, r.bbox.w * scale, r.bbox.h * scale)
+      ctx.setLineDash([])
+      if (r.unit_slug) {
+        ctx.font = '10px ui-monospace, monospace'
+        const label = r.unit_slug
+        const labelW = ctx.measureText(label).width + 6
+        const lx = r.bbox.x * scale
+        const ly = Math.max(0, r.bbox.y * scale - 12)
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.55)'
+        ctx.fillRect(lx, ly, labelW, 12)
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.7)'
+        ctx.fillText(label, lx + 3, ly + 9)
+      }
+    }
+    if (!box) return
+    // Padded outline — matches backend extraction (+5% of longer side)
+    const pad = Math.max(box.w, box.h) * 0.05
+    const px0 = Math.max(0, box.x - pad)
+    const py0 = Math.max(0, box.y - pad)
+    const px1 = Math.min(edit.naturalW, box.x + box.w + pad)
+    const py1 = Math.min(edit.naturalH, box.y + box.h + pad)
+    ctx.setLineDash([2, 3])
+    ctx.lineWidth = 1
+    ctx.strokeStyle = 'rgba(52, 211, 153, 0.45)'
+    ctx.strokeRect(px0 * scale, py0 * scale, (px1 - px0) * scale, (py1 - py0) * scale)
+    ctx.setLineDash([])
+    // The editable box
+    const x = box.x * scale, y = box.y * scale
+    const w = box.w * scale, h = box.h * scale
+    ctx.fillStyle = 'rgba(52, 211, 153, 0.15)'
+    ctx.fillRect(x, y, w, h)
+    ctx.strokeStyle = 'rgba(52, 211, 153, 0.95)'
+    ctx.lineWidth = 2
+    ctx.strokeRect(x, y, w, h)
+    // Handles
+    const hs = 10
+    ctx.fillStyle = '#ffffff'
+    ctx.strokeStyle = 'rgba(52, 211, 153, 1)'
+    ctx.lineWidth = 1.5
+    for (const [, cx, cy] of getEditHandlePositions(box, scale)) {
+      ctx.fillRect(cx - hs / 2, cy - hs / 2, hs, hs)
+      ctx.strokeRect(cx - hs / 2, cy - hs / 2, hs, hs)
+    }
+  }
+
+  function editCanvasPos(e) {
+    const rect = edit.canvas.getBoundingClientRect()
+    return { dx: e.clientX - rect.left, dy: e.clientY - rect.top }
+  }
+
+  function hitTestEditHandle(dx, dy) {
+    if (!edit.box) return null
+    const HIT = 12
+    for (const [dir, cx, cy] of getEditHandlePositions(edit.box, edit.scale)) {
+      if (Math.abs(dx - cx) <= HIT && Math.abs(dy - cy) <= HIT) return dir
+    }
+    return null
+  }
+
+  function isInsideEditBox(dx, dy) {
+    if (!edit.box) return false
+    const x = edit.box.x * edit.scale
+    const y = edit.box.y * edit.scale
+    const w = edit.box.w * edit.scale
+    const h = edit.box.h * edit.scale
+    return dx >= x && dx <= x + w && dy >= y && dy <= y + h
+  }
+
+  function onEditMouseDown(e) {
+    if (!edit.open || !edit.box) return
+    const { dx, dy } = editCanvasPos(e)
+    const handle = hitTestEditHandle(dx, dy)
+    const ix = dx / edit.scale, iy = dy / edit.scale
+    if (handle) {
+      edit.drag = { mode: 'resize-' + handle, startImg: { x: ix, y: iy }, startBox: { ...edit.box } }
+      return
+    }
+    if (isInsideEditBox(dx, dy)) {
+      edit.drag = { mode: 'move', startImg: { x: ix, y: iy }, startBox: { ...edit.box } }
+    }
+    // Outside = no-op. This modal is a move/resize tool, not a draw tool.
+  }
+
+  function onEditMouseMove(e) {
+    if (!edit.open || !edit.drag) return
+    const { dx, dy } = editCanvasPos(e)
+    const ix = Math.max(0, Math.min(edit.naturalW, dx / edit.scale))
+    const iy = Math.max(0, Math.min(edit.naturalH, dy / edit.scale))
+    const { mode, startImg, startBox } = edit.drag
+    let nb = { ...startBox }
+    if (mode === 'move') {
+      const deltaX = ix - startImg.x
+      const deltaY = iy - startImg.y
+      nb.x = Math.max(0, Math.min(edit.naturalW - nb.w, Math.round(startBox.x + deltaX)))
+      nb.y = Math.max(0, Math.min(edit.naturalH - nb.h, Math.round(startBox.y + deltaY)))
+    } else if (mode.startsWith('resize-')) {
+      const dir = mode.slice('resize-'.length)
+      let x1 = startBox.x, y1 = startBox.y
+      let x2 = startBox.x + startBox.w, y2 = startBox.y + startBox.h
+      if (dir.includes('n')) y1 = Math.round(iy)
+      if (dir.includes('s')) y2 = Math.round(iy)
+      if (dir.includes('w')) x1 = Math.round(ix)
+      if (dir.includes('e')) x2 = Math.round(ix)
+      // Normalise if the drag crossed the opposite edge
+      nb.x = Math.min(x1, x2)
+      nb.y = Math.min(y1, y2)
+      nb.w = Math.abs(x2 - x1)
+      nb.h = Math.abs(y2 - y1)
+    }
+    edit.box = nb
+    renderEdit()
+  }
+
+  function onEditMouseUp() {
+    if (!edit.open) return
+    edit.drag = null
+    if (edit.box && (edit.box.w < 5 || edit.box.h < 5)) {
+      // Box got squashed to ~zero. Restore the most recent non-degenerate
+      // version so the user doesn't have to cancel + reopen.
+      if (edit.origBox) edit.box = { ...edit.origBox }
+      renderEdit()
+    }
+  }
+
+  async function submitEdit() {
+    if (!edit.open || !edit.box) return
+    if (state.busy) return
+    state.busy = true
+    const pinnedId = edit.cropId
+    setStatus('saving bbox…')
+    try {
+      const body = {
+        bbox: {
+          x: Math.round(edit.box.x), y: Math.round(edit.box.y),
+          w: Math.round(edit.box.w), h: Math.round(edit.box.h),
+        },
+        labeller: state.labellerName || 'human',
+      }
+      const fac = $('edit-faction').value.trim()
+      const slug = $('edit-slug').value.trim().toLowerCase()
+      if (fac) body.faction = fac
+      if (slug) body.unit_slug = slug
+      else if (fac) body.status = 'audit'    // faction set but no slug → defer
+
+      const res = await fetch(`${API}/api/labelling/crops/${pinnedId}/bbox`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      const json = await res.json()
+      if (!json.success) throw new Error(json.error || 'edit failed')
+      const data = json.data
+
+      const crop = state.crops.find((c) => c.id === pinnedId)
+      if (crop) {
+        if (data.unit_slug) crop.unit_slug = data.unit_slug
+        else if (data.status === 'audit') crop.unit_slug = ''
+        if (data.faction) crop.faction = data.faction
+        crop.notes = data.notes
+        crop.labelled = !!(crop.unit_slug && !crop.unit_slug.startsWith('__'))
+      }
+
+      const msg = data.status === 'confirmed'
+        ? `✓ edited + saved ${data.faction}/${data.unit_slug}`
+        : data.status === 'audit'
+        ? `✓ bbox edited, row deferred to audit pile`
+        : `✓ bbox edited (label unchanged)`
+      setStatus(msg, 'ok')
+
+      closeEditModal()
+      // Bust the <img> cache for the main crop so the retouched JPEG loads.
+      if (state.crops[state.idx]?.id === pinnedId) {
+        $('crop-img').src = `${API}/api/labelling/crops/${pinnedId}/image?v=${Date.now()}`
+      }
+      // If the row's queue-visibility just changed, refetch so the UI
+      // filter reflects reality. In 'all' mode queue contents don't depend
+      // on labelled-ness, so just stay put.
+      if (data.status === 'confirmed' || data.status === 'audit') {
+        if (state.queueMode !== 'all') await loadCrops({ jumpToPath: crop?.crop_path })
+      }
+    } catch (err) {
+      setStatus(`edit failed: ${err.message}`, 'error')
+    } finally {
+      state.busy = false
+    }
+  }
+
+  // Wire edit modal controls
+  on($('btn-edit-bbox'), 'click', (e) => { e.preventDefault(); openEditModal(state.crops[state.idx]) })
+  on($('edit-cancel'),   'click', (e) => { e.preventDefault(); closeEditModal() })
+  on($('edit-save'),     'click', (e) => { e.preventDefault(); submitEdit() })
+  on($('edit-reset'),    'click', (e) => {
+    e.preventDefault()
+    if (edit.origBox) { edit.box = { ...edit.origBox }; renderEdit() }
+  })
+  on($('edit-canvas'), 'mousedown',  onEditMouseDown)
+  on($('edit-canvas'), 'mousemove',  onEditMouseMove)
+  on($('edit-canvas'), 'mouseup',    onEditMouseUp)
+  on($('edit-canvas'), 'mouseleave', onEditMouseUp)
+  window.addEventListener('resize', () => {
+    if (edit.open && edit.img) { fitEditCanvas(); renderEdit() }
+  })
+
+  // ── Zoom ─────────────────────────────────────────────────────────
+  function openZoom(imgSrc) {
+    const back = document.createElement('div')
+    back.className = 'zoom-backdrop'
+    const zoomed = document.createElement('img')
+    zoomed.src = imgSrc
+    zoomed.alt = 'zoomed'
+    back.appendChild(zoomed)
+    const closeZoom = () => { back.remove(); document.removeEventListener('keydown', escListener) }
+    const escListener = (e) => { if (e.key === 'Escape') { e.preventDefault(); closeZoom() } }
+    back.onclick = closeZoom
+    document.addEventListener('keydown', escListener)
+    document.body.appendChild(back)
+  }
+  on($('crop-img'), 'click', () => openZoom($('crop-img').src))
+  on($('scene-img'), 'click', () => openZoom($('scene-img').src))
+
+  // ── Button click handlers (so mouse users work, not just keyboard) ────
+  on($('btn-save'), 'click', (e) => { e.preventDefault(); saveCurrent(false) })
+  on($('btn-save-siblings'), 'click', (e) => { e.preventDefault(); saveCurrent(true) })
+  on($('btn-skip'), 'click', (e) => { e.preventDefault(); advance() })
+  on($('btn-bad'), 'click', (e) => { e.preventDefault(); markStatus('bad_crop') })
+  on($('btn-redraw'), 'click', (e) => { e.preventDefault(); openRedrawModal(state.crops[state.idx]) })
+  on($('btn-unknown'), 'click', (e) => { e.preventDefault(); markStatus('unknown') })
+  on($('btn-audit'), 'click', (e) => { e.preventDefault(); markStatus('audit') })
+
+  // ── Global keyboard ──────────────────────────────────────────────
+  // Enter semantics are subtle:
+  //   - combobox open: Enter is handled inside the combobox (picks item)
+  //   - focus in notes-input: Enter saves (common expectation)
+  //   - focus in faction-picker (native select): Enter lets browser confirm the
+  //     select, then our Enter saves (next keypress)
+  //   - focus in unit-input with combobox closed: Enter saves
+  //   - focus elsewhere / on body: Enter saves
+  // The global handler below handles all cases EXCEPT combobox-open, which
+  // the input's own keydown handler intercepts first with preventDefault.
+  document.addEventListener('keydown', (e) => {
+    const tag = e.target.tagName
+    const id = e.target.id
+    const inEditable = tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA'
+
+    // Escape hierarchy:
+    //   1. Redraw modal open → close it
+    //   2. Combobox open (in editable field) → close + blur
+    //   3. Editable field focused → blur it
+    if (e.key === 'Escape') {
+      if (redraw.open) { e.preventDefault(); closeRedrawModal(); return }
+      if (edit.open)   { e.preventDefault(); closeEditModal();   return }
+      if (inEditable && typeof e.target.blur === 'function') {
+        e.preventDefault()
+        e.target.blur()
+        if (state.comboOpen) closeCombobox()
+      }
+      return
+    }
+
+    // Edit modal up: Enter saves, everything else passes to the inputs
+    // inside the modal (faction select, slug text). No main-queue shortcuts.
+    if (edit.open) {
+      if (e.key === 'Enter') {
+        // Don't fire if an autocomplete inside edit-slug already handled it
+        // (future-proof — not wired today, but cheap).
+        if (e.defaultPrevented) return
+        e.preventDefault()
+        submitEdit()
+      }
+      return
+    }
+
+    // When the redraw modal is up, the mouse is the primary tool; swallow
+    // everything else so stray hotkeys don't trigger saves underneath the modal.
+    if (redraw.open) return
+
+    // Enter → save, unless another listener already handled it (combobox
+    // pick calls e.preventDefault, which flips e.defaultPrevented — so we
+    // can't fall through and double-fire a save on the same keystroke).
+    if (e.key === 'Enter') {
+      if (e.defaultPrevented) return
+      if (state.comboOpen && state.comboActive >= 0 && id === 'unit-input') return
+      // Don't fire from fields the user types into: labeller name, source
+      // filter, session-goal (number input). All of these would be annoying
+      // to have Enter trigger a save out from under you.
+      if (id === 'labeller-name' || id === 'filter-source' || id === 'session-goal') return
+      e.preventDefault()
+      saveCurrent()
+      return
+    }
+
+    // All other shortcuts only fire when not typing into a free-text input.
+    const isFreeTextInput = inEditable && (tag === 'INPUT' || tag === 'TEXTAREA')
+    if (isFreeTextInput) return
+    // Printable keys inside a <select> trigger the browser's native
+    // letter-jump (e.g. `b` jumps to the first faction starting with "b").
+    // We DON'T want to layer our own shortcut on top — pressing `b` in
+    // faction-picker used to jump AND open the redraw modal simultaneously.
+    if (tag === 'SELECT' && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) return
+
+    switch (e.key) {
+      case 'ArrowLeft': e.preventDefault(); navRelative(-1); break
+      case 'ArrowRight': e.preventDefault(); navRelative(+1); break
+      case ' ': e.preventDefault(); advance(); break
+      case 's': case 'S': e.preventDefault(); $('unit-input').focus(); break
+      case 'f': case 'F': e.preventDefault(); $('faction-picker').focus(); break
+      case 'a': case 'A': e.preventDefault(); saveCurrent(true); break
+      case 'b': case 'B': e.preventDefault(); markStatus('bad_crop'); break
+      case 'd': case 'D': e.preventDefault(); openRedrawModal(state.crops[state.idx]); break
+      case 'e': case 'E': e.preventDefault(); openEditModal(state.crops[state.idx]); break
+      case 'u': case 'U': e.preventDefault(); markStatus('unknown'); break
+      case 't': case 'T': e.preventDefault(); markStatus('audit'); break
+      case 'r': case 'R': e.preventDefault(); reAskAI(); break
+      case '[': e.preventDefault(); jumpSiblingDir(-1); break
+      case ']': e.preventDefault(); jumpSiblingDir(+1); break
+    }
+  })
+
+  // ── Boot ─────────────────────────────────────────────────────────
+  boot().catch((err) => setStatus(`init failed: ${err.message}`, 'error'))
+</script>
 </body>
 </html>

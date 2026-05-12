@@ -21,10 +21,17 @@ import {
   resolveCropPath,
   suggestForCrop,
   saveLabel,
+  listFactions,
+  listUnitsForFaction,
+  resolveSceneImagePath,
+  redrawCrops,
+  redrawSceneView,
+  editCropBbox,
   selfCheck as labellingSelfCheck,
 } from './services/labellingService.js'
 import { getServerConfig, validateConfig } from './config/pipeline.js'
 import { logger } from './utils/logger.js'
+import { VALID_SOURCES } from './services/labelsCsvService.js'
 
 // ─── Startup validation ──────────────────────────────────────────────
 
@@ -35,12 +42,30 @@ if (configErrors.length) {
   process.exit(1)
 }
 
-const { port, maxUploadBytes } = getServerConfig()
+const { port, maxUploadBytes, frontendPort } = getServerConfig()
 
 // ─── Middleware ───────────────────────────────────────────────────────
 
 const app = express()
-app.use(cors())
+// Tight CORS: only the bundled static-file server (and the API itself, so
+// tools like curl hitting the API on the same port keep working) are
+// allowed. Wide-open CORS + mutating endpoints meant any page open in the
+// user's browser could silently POST to /api/labelling/.../label and
+// poison the CSV — classic localhost drive-by.
+const allowedOrigins = new Set([
+  `http://localhost:${frontendPort}`,
+  `http://127.0.0.1:${frontendPort}`,
+  `http://localhost:${port}`,
+  `http://127.0.0.1:${port}`,
+])
+app.use(cors({
+  origin: (origin, cb) => {
+    // No Origin header (same-origin fetches, curl) — allow.
+    if (!origin) return cb(null, true)
+    if (allowedOrigins.has(origin)) return cb(null, true)
+    cb(new Error(`CORS blocked: ${origin}`))
+  },
+}))
 app.use(express.json({ limit: '2mb' }))
 
 const upload = multer({
@@ -167,7 +192,38 @@ app.get('/api/labelling/status', async (req, res, next) => {
 
 app.get('/api/labelling/crops', async (req, res, next) => {
   try {
-    const crops = await listCrops()
+    const rawSource = req.query.source || null
+    let sourceFilter = null
+    if (rawSource) {
+      const parts = String(rawSource).split(',').map((s) => s.trim()).filter(Boolean)
+      const bad = parts.filter((p) => !VALID_SOURCES.has(p))
+      if (bad.length) {
+        return res.status(400).json({
+          success: false, requestId: req.id,
+          error: `unknown source(s): ${bad.join(', ')}. valid: ${[...VALID_SOURCES].join(', ')}`,
+        })
+      }
+      sourceFilter = parts
+    }
+    const unlabelledOnly = req.query.unlabelled === 'true'
+    const auditOnly = req.query.audit === 'true'
+    // Clamp limit to a sane upper bound — a runaway ?limit=1e9 would otherwise
+    // allocate a huge response and read the entire CSV into JSON.
+    let limit = null
+    if (req.query.limit != null && req.query.limit !== '') {
+      const n = parseInt(req.query.limit, 10)
+      if (!Number.isInteger(n) || n <= 0) {
+        return res.status(400).json({
+          success: false, requestId: req.id,
+          error: 'limit must be a positive integer',
+        })
+      }
+      limit = Math.min(n, 5000)
+    }
+    // withContext defaults on; expensive for large lists without filters, but
+    // the manifest cache makes repeat calls cheap.
+    const withContext = req.query.context !== 'false'
+    const crops = await listCrops({ sourceFilter, unlabelledOnly, auditOnly, limit, withContext })
     const unlabelled = crops.filter((c) => !c.labelled).length
     res.json({
       success: true,
@@ -176,9 +232,55 @@ app.get('/api/labelling/crops', async (req, res, next) => {
         total: crops.length,
         labelled: crops.length - unlabelled,
         unlabelled,
-        crops: crops.map(({ absPath, ...rest }) => rest), // don't leak absolute paths
+        crops: crops.map(({ absPath, ...rest }) => rest),
       },
     })
+  } catch (err) {
+    next(err)
+  }
+})
+
+app.get('/api/labelling/factions', async (req, res, next) => {
+  try {
+    const factions = await listFactions()
+    res.json({ success: true, requestId: req.id, data: { factions } })
+  } catch (err) {
+    next(err)
+  }
+})
+
+app.get('/api/labelling/units', async (req, res, next) => {
+  try {
+    const faction = String(req.query.faction || '').trim()
+    if (!faction) {
+      return res.status(400).json({
+        success: false, requestId: req.id,
+        error: 'query param `faction` required',
+      })
+    }
+    const units = await listUnitsForFaction(faction)
+    res.json({ success: true, requestId: req.id, data: { faction, units } })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Serve the original CMON scene image for a given (instance_id, view_idx).
+// URL shape: /api/labelling/scenes/cmon:475293/0/image
+app.get('/api/labelling/scenes/:instance_id/:view_idx/image', async (req, res, next) => {
+  try {
+    const inst = decodeURIComponent(req.params.instance_id)
+    const viewIdx = parseInt(req.params.view_idx, 10)
+    if (!Number.isInteger(viewIdx) || viewIdx < 0) {
+      return res.status(400).json({ success: false, error: 'invalid view_idx' })
+    }
+    const abs = await resolveSceneImagePath(inst, viewIdx)
+    if (!abs) {
+      return res.status(404).json({
+        success: false, error: `no scene for ${inst} view=${viewIdx}`,
+      })
+    }
+    res.sendFile(abs)
   } catch (err) {
     next(err)
   }
@@ -204,9 +306,52 @@ app.post('/api/labelling/crops/:id/suggest', async (req, res, next) => {
 
 app.post('/api/labelling/crops/:id/label', async (req, res, next) => {
   try {
-    const { unit_slug, notes } = req.body || {}
-    const saved = await saveLabel(req.params.id, { unit_slug, notes })
+    const { unit_slug, notes, faction, labeller, status, copy_to_siblings } = req.body || {}
+    const saved = await saveLabel(req.params.id, {
+      unit_slug, notes, faction, labeller, status, copy_to_siblings,
+    })
     res.json({ success: true, requestId: req.id, data: saved })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Redraw bboxes (per-crop variant): mark the original crop as bad + extract
+// new crops from the source scene. Kept for backward-compat with older UI.
+app.post('/api/labelling/crops/:id/redraw', async (req, res, next) => {
+  try {
+    const { bboxes, labeller } = req.body || {}
+    const result = await redrawCrops(req.params.id, bboxes, labeller)
+    res.json({ success: true, requestId: req.id, data: result })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Edit the bbox of a single crop in-place. Unlike redraw this does NOT
+// mark siblings bad — it rewrites just the clicked row's JPEG + notes.
+// Body: { bbox: {x,y,w,h}, labeller?, faction?, unit_slug?, status? }
+app.patch('/api/labelling/crops/:id/bbox', async (req, res, next) => {
+  try {
+    const { bbox, labeller, faction, unit_slug, status } = req.body || {}
+    const result = await editCropBbox(req.params.id, bbox, { labeller, faction, unit_slug, status })
+    res.json({ success: true, requestId: req.id, data: result })
+  } catch (err) {
+    next(err)
+  }
+})
+
+// Redraw bboxes (per-scene variant): works on any (instance, view) even when
+// no crops exist for that view. Used by the multi-view redraw modal.
+app.post('/api/labelling/scenes/:instance_id/:view_idx/redraw', async (req, res, next) => {
+  try {
+    const inst = decodeURIComponent(req.params.instance_id)
+    const vi = parseInt(req.params.view_idx, 10)
+    const { bboxes, labeller, replace_crop_id } = req.body || {}
+    const result = await redrawSceneView(inst, vi, bboxes, labeller, {
+      replaceCropId: replace_crop_id,
+    })
+    res.json({ success: true, requestId: req.id, data: result })
   } catch (err) {
     next(err)
   }
@@ -235,7 +380,7 @@ app.listen(port, () => {
   logger.info(`   Providers: ${process.env.DETECTION_PROVIDER || 'openrouter'} (detection), multi-tier ${process.env.ENABLE_MULTI_TIER !== 'false' ? 'on' : 'off'}`)
   labellingSelfCheck().then((s) => {
     if (s.enabled && s.healthy) {
-      logger.info(`   Labelling: enabled (${s.cropsDir})`)
+      logger.info(`   Labelling: enabled (${s.labelsCsvV2})`)
     } else if (s.enabled) {
       logger.warn(`   Labelling: enabled but ${s.reason}`)
     }
