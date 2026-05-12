@@ -28,27 +28,60 @@ from pathlib import Path
 PSEUDO_BOXES = Path("data/pseudo_labels/boxes")
 ANN_DIR = Path("backend/training_data_annotations")
 MANIFEST = Path("data/pseudo_labels/imported_manifest.json")
-ANNOTATED_BY = "pseudo-grounding-dino-v1"
+# Legacy tag for Grounding-DINO-only pseudo runs. The ensemble pipeline
+# sets richer tags per-image based on tier breakdown; see `tag_for()`.
+ANNOTATED_BY_LEGACY = "pseudo-grounding-dino-v1"
+ANNOTATED_BY = ANNOTATED_BY_LEGACY  # back-compat for existing callers
+
+
+def tag_for(has_auto: bool, has_review: bool) -> str:
+    """Tag an ensemble-pipeline import by the tier mix in its boxes.
+    auto-only → `pseudo-ensemble-auto-v1` (light review).
+    mixed     → `pseudo-ensemble-mixed-v1` (surfaces in review queue).
+    review-only → `pseudo-ensemble-review-v1` (all low-confidence)."""
+    if has_auto and has_review:
+        return "pseudo-ensemble-mixed-v1"
+    if has_auto:
+        return "pseudo-ensemble-auto-v1"
+    return "pseudo-ensemble-review-v1"
+
+
+def _extract_boxes(pseudo: dict) -> list[dict]:
+    """Normalise old and new pseudo schemas to a uniform box list.
+
+    Legacy schema (pre-ensemble): {boxes_xywh: [[x,y,w,h]...], scores: [...]}.
+    Ensemble schema: {boxes: [{xywh:[...], score, supporters:[...],
+                               refinement_iou}...], detectors_used:[...]}.
+    Output is a list of dicts with keys: xywh, score, supporters,
+    refinement_iou.
+    """
+    if isinstance(pseudo.get("boxes"), list):
+        # New ensemble schema.
+        out = []
+        for b in pseudo["boxes"]:
+            out.append({
+                "xywh": b["xywh"],
+                "score": float(b.get("score", 0.0)),
+                "supporters": tuple(b.get("supporters") or ()),
+                "refinement_iou": float(b.get("refinement_iou", 0.0)),
+            })
+        return out
+    # Legacy schema.
+    out = []
+    for xywh, score in zip(pseudo.get("boxes_xywh", []), pseudo.get("scores", [])):
+        out.append({
+            "xywh": list(xywh),
+            "score": float(score),
+            "supporters": ("grounding-dino",),
+            "refinement_iou": 0.0,
+        })
+    return out
 
 
 def convert(pseudo: dict) -> dict:
     """Map our per-image pseudo-label JSON onto the annotator's schema."""
     faction = pseudo.get("faction") or "_unknown"
-    annotations = []
-    for box, score in zip(pseudo.get("boxes_xywh", []), pseudo.get("scores", [])):
-        x, y, w, h = box
-        annotations.append({
-            "id": f"pseudo-{uuid.uuid4().hex[:12]}",
-            "modelBbox": {"x": x, "y": y, "width": w, "height": h},
-            # BboxAnnotator requires classLabel on every bbox. Tier 1 is
-            # class-agnostic so we fall back to the image's faction; the
-            # user can re-class per-bbox if a given photo is multi-faction.
-            "classLabel": faction,
-            # Retain the auto-labeler's confidence as a debug crumb —
-            # non-standard but harmless; the frontend just ignores
-            # unknown fields.
-            "pseudoScore": round(float(score), 4),
-        })
+
     # Normalise imagePath to absolute. Colab's bundle produced paths like
     # `backend/training_data/...` (relative to the bundle root); the
     # annotator backend serves by absolute path. Use abspath (which does
@@ -59,18 +92,80 @@ def convert(pseudo: dict) -> dict:
     import os
     raw_path = pseudo["imagePath"]
     abs_path = raw_path if os.path.isabs(raw_path) else os.path.abspath(raw_path)
+
+    # Rescale pseudo coords if the pseudo run was against a downscaled
+    # copy (prepare_colab_bundle.py caps long-edge at 1333 for tarball
+    # size). The annotator serves the full-resolution original, so coords
+    # in 1333-space would land in the top-left corner of a 2560-wide image.
+    # Compare the pseudo's recorded width/height against the actual file.
+    pseudo_w = pseudo.get("width")
+    pseudo_h = pseudo.get("height")
+    actual_w = actual_h = None
+    try:
+        from PIL import Image as _PILImage
+        with _PILImage.open(abs_path) as _im:
+            actual_w, actual_h = _im.size
+    except Exception:
+        pass
+
+    sx = sy = 1.0
+    if actual_w and actual_h and pseudo_w and pseudo_h:
+        if (actual_w, actual_h) != (pseudo_w, pseudo_h):
+            sx = actual_w / pseudo_w
+            sy = actual_h / pseudo_h
+
+    boxes_norm = _extract_boxes(pseudo)
+    annotations = []
+    has_auto = has_review = False
+    for b in boxes_norm:
+        x, y, w, h = b["xywh"]
+        supporters = b["supporters"]
+        agreement = len(supporters)
+        if agreement >= 2:
+            has_auto = True
+        elif agreement == 1:
+            has_review = True
+        annotations.append({
+            "id": f"pseudo-{uuid.uuid4().hex[:12]}",
+            "modelBbox": {
+                "x": x * sx, "y": y * sy,
+                "width": w * sx, "height": h * sy,
+            },
+            # BboxAnnotator requires classLabel on every bbox. Tier 1 is
+            # class-agnostic so we fall back to the image's faction; the
+            # user can re-class per-bbox if a given photo is multi-faction.
+            "classLabel": faction,
+            # Confidence + ensemble provenance, non-standard but harmless —
+            # the frontend ignores unknown fields. Downstream review tools
+            # use `supporters` / `agreement_count` to prioritise queues.
+            "pseudoScore": round(float(b["score"]), 4),
+            "supporters": list(supporters),
+            "agreement_count": agreement,
+            "refinement_iou": round(float(b["refinement_iou"]), 4),
+        })
+
+    # Tag by tier — auto-only / review-only / mixed. Legacy Grounding-DINO
+    # imports (no supporter info) get the legacy tag for back-compat.
+    if any(a.get("supporters") for a in annotations):
+        annotated_by = tag_for(has_auto, has_review)
+    else:
+        annotated_by = ANNOTATED_BY_LEGACY
+
     return {
         "imageId": pseudo["imageId"],
         "imagePath": abs_path,
         "faction": faction,
         "source": pseudo.get("source"),
-        "width": pseudo.get("width"),
-        "height": pseudo.get("height"),
+        # Use actual image dims when we have them; fall back to pseudo's
+        # recorded values if the file couldn't be opened.
+        "width": actual_w or pseudo_w,
+        "height": actual_h or pseudo_h,
         "annotations": annotations,
         "rejectedPredictions": [],
         "redrawnPredictions": [],
         "annotatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "annotatedBy": ANNOTATED_BY,
+        "annotatedBy": annotated_by,
+        "detectors_used": pseudo.get("detectors_used", []),
         # Marker — downstream training MUST filter by this. A human save
         # via the annotator overwrites `annotatedBy` with the user's name
         # and drops this field, promoting the annotation to reviewed.
@@ -115,7 +210,8 @@ def main() -> int:
             except Exception:
                 skipped_gold.append(img_id)
                 continue
-        if not pseudo.get("boxes_xywh"):
+        # Accept both legacy (boxes_xywh) and ensemble (boxes) schemas.
+        if not pseudo.get("boxes_xywh") and not pseudo.get("boxes"):
             skipped_empty.append(img_id)
             continue
         record = convert(pseudo)

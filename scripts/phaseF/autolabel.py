@@ -50,6 +50,12 @@ OUT_ROOT = Path("data/pseudo_labels")
 BOX_DIR = OUT_ROOT / "boxes"
 MANIFEST_PATH = OUT_ROOT / "manifest.json"
 ERROR_LOG = OUT_ROOT / "errors.log"
+# Written by prepare_colab_bundle.py before the tarball ships. Maps
+# bundle-relative image path → [orig_w, orig_h]. When present, we scale
+# detections from the (downscaled) processed image back up to original-
+# space so pseudo-label JSONs carry full-resolution coords. Missing or
+# empty manifest → assume the image on disk IS the original (local runs).
+ORIGINAL_DIMS_PATH = OUT_ROOT / "original_dims.json"
 
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 
@@ -222,7 +228,10 @@ def post_process(
 
 
 def process_one(
-    detector: Detector, job: ImageJob, use_sahi: bool
+    detector: Detector,
+    job: ImageJob,
+    use_sahi: bool,
+    original_dims: dict[str, list[int]] | None = None,
 ) -> dict:
     image = Image.open(job.path).convert("RGB")
     w, h = image.size
@@ -234,6 +243,27 @@ def process_one(
         boxes_xyxy, scores = detector.detect(image)
         mode = "whole"
     boxes_xyxy, scores = post_process(boxes_xyxy, scores, w, h)
+
+    # If the caller shipped a downscaled mirror (Colab bundle), scale
+    # detections back into the ORIGINAL image's coordinate system so the
+    # annotator — which opens the original full-resolution file — draws
+    # boxes in the right place. Lookup key is the bundle-relative path
+    # (e.g. "backend/training_data/drukhari/dakkadakka/dakka_455943.jpg").
+    # Local runs on full-res originals have empty / missing manifest and
+    # we fall through unchanged.
+    orig_w, orig_h = w, h
+    if original_dims:
+        key = str(job.path)
+        dims = original_dims.get(key)
+        if dims and len(dims) == 2 and dims[0] and dims[1]:
+            orig_w, orig_h = dims
+            if (orig_w, orig_h) != (w, h) and len(boxes_xyxy):
+                sx = orig_w / w
+                sy = orig_h / h
+                boxes_xyxy = boxes_xyxy.copy()
+                boxes_xyxy[:, [0, 2]] *= sx
+                boxes_xyxy[:, [1, 3]] *= sy
+
     # Persist in [x, y, w, h] (COCO-style) to simplify RF-DETR training.
     boxes_xywh = boxes_xyxy.copy()
     if len(boxes_xywh):
@@ -244,8 +274,12 @@ def process_one(
         "imagePath": str(job.path),
         "faction": job.faction,
         "source": job.source,
-        "width": w,
-        "height": h,
+        "width": orig_w,
+        "height": orig_h,
+        # Record processing dims too — handy for debugging and for the
+        # importer as a sanity check.
+        "processed_width": w,
+        "processed_height": h,
         "mode": mode,
         "boxes_xywh": boxes_xywh.round(2).tolist(),
         "scores": scores.round(4).tolist(),
@@ -340,6 +374,19 @@ def main() -> int:
         print("Nothing to do.")
         return 0
 
+    # Load the original-dims manifest if the bundle shipped one. Missing
+    # or empty → local run on full-res originals, no rescaling needed.
+    original_dims: dict[str, list[int]] | None = None
+    if ORIGINAL_DIMS_PATH.exists():
+        try:
+            original_dims = json.loads(ORIGINAL_DIMS_PATH.read_text())
+            print(f"  original_dims.json: {len(original_dims)} entries (will scale coords to originals)")
+        except Exception as e:
+            print(f"  original_dims.json present but unreadable ({e}) — assuming no rescale")
+            original_dims = None
+    else:
+        print("  no original_dims.json — assuming images on disk are full-resolution originals")
+
     print("Loading detector…")
     detector = Detector(args.model, device)
 
@@ -352,7 +399,11 @@ def main() -> int:
             if out_path.exists():
                 continue
             try:
-                result = process_one(detector, job, use_sahi=not args.no_sahi)
+                result = process_one(
+                    detector, job,
+                    use_sahi=not args.no_sahi,
+                    original_dims=original_dims,
+                )
                 out_path.write_text(json.dumps(result))
                 n_done += 1
             except Exception as e:

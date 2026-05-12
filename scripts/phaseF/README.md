@@ -1,118 +1,265 @@
 # Phase F — Tier 1 detector bootstrap
 
-Auto-label the ~37k unlabelled images in `backend/training_data/`, fine-tune
-RF-DETR-Medium on the union with the 929 gold annotations, then tighten the
+Auto-label the unlabelled images in `backend/training_data/`, fine-tune
+RF-DETR-Medium on the union with the gold annotations, then tighten the
 result with one round of human review on the disagreement set. See
-`STRATEGY.md` §3.1 for the full rationale; this directory holds the code.
+`STRATEGY.md` §3.1 for the architectural rationale; this directory holds
+the code.
 
-## Sub-phase layout
+## Sub-phase status
 
 | Step | Script | Status |
 |---|---|---|
-| F1 · Auto-label | `autolabel.py` (+ `setup.sh`) | scaffold ready, not yet run |
+| F1 · Auto-label | `autolabel_ensemble.py` | **shipping pipeline** — see below |
+| F1 · Bench | `bench_ensemble.py` | runs on the 200-img Phase C frozen eval |
+| F1 · Sync helper | `sync.sh` | replaces all manual file shuffling to/from Drive |
 | F2 · Train RF-DETR v1 | `train_rfdetr_v1.py` | not written |
 | F3 · Self-relabel + human review | `find_disagreements.py` | not written |
 | F4 · Train RF-DETR v2 + Nano | `train_rfdetr_v2.py` | not written |
 
-## F1 — Auto-label with Grounding DINO
+---
 
-**Why Grounding DINO, not Grounded-SAM-2?** The strategy doc names Grounded-SAM-2
-because SAM 2's mask refinement yields slightly tighter boxes. In practice the
-accuracy delta for single-class "figurine" detection is ~1–2 mAP and Grounded-SAM-2
-requires compiling CUDA Deformable-Attention kernels (frequent install pain).
-Grounding DINO via Hugging Face Transformers is a clean `pip install` and
-outputs the same boxes. If F1's pseudo-label quality disappoints in F2 training,
-upgrading to Grounded-SAM-2 is a one-day swap.
+## Architecture (locked 2026-04-25)
 
-Prompt + thresholds are fixed per the April 2026 reference:
+**SAM 3 detection + SAM 2 mask refinement.** That's the entire pipeline.
 
-- Prompt: `painted miniature . figurine . tabletop model .` (lowercase,
-  dot-separated, trailing period — this is how Grounding DINO expects
-  multi-concept prompts)
-- box_threshold = 0.25, text_threshold = 0.20
-- SAHI tiling for images > 1200 px on the long edge: 640² slices, 0.2 overlap
-- Class-agnostic NMS at IoU 0.5
-- Drop boxes < 0.5% or > 80% of image area (terrain artefacts and framing mis-fires)
+The ensemble plan we initially shipped (SAM 3 + Grounding DINO + OWLv2 visual,
+with agreement voting) was simplified after the first Phase C benchmark
+showed SAM 3 outperforming the next-best detector by 3× on dense scenes.
+Adding weaker votes degraded precision. See `docs/PHASE_F1_HANDOFF.md`
+for the measurement detail.
 
-### One-time setup
-
-```bash
-scripts/phaseF/setup.sh    # installs transformers, supervision, torchvision into yolo_env
+```
+Image ─► SAM 3 (text prompt: "painted miniature")
+            │
+            ▼
+       SAM 2 box-prompted segmentation → tight bbox from mask
+            │  drop boxes whose refined IoU with the original < 0.10
+            ▼
+       Pseudo-label JSON (original-resolution coords)
 ```
 
-Needs a GPU with ~6 GB VRAM for `grounding-dino-base` (larger `grounding-dino-tiny`
-works on CPU at ~5× slower).
+Module layout under `src/photoanalyzer/detect/ensemble/`:
 
-### Running F1
+| Module | Role |
+|---|---|
+| `sam3.py` | SAM 3 detector — gated, needs `HUGGINGFACE_HUB_TOKEN` in env |
+| `sam2_refine.py` | Mask-based bbox refinement + low-IoU FP filter |
+| `voting.py` | Multi-detector orchestrator (degenerate to 1-supporter for SAM 3 only) |
+| `dinox.py` | Grounding DINO wrapper — kept available for fallback / experimentation |
+| `owlv2_visual.py` | OWLv2 image-conditioned — kept available, not in default pipeline |
+| `../sahi.py` | Shared SAHI tiling + post-process |
 
-#### Option A — Colab free tier (recommended; no local GPU required)
+Thresholds:
+- SAM 3 confidence threshold: 0.25
+- NMS IoU: 0.5
+- SAHI: images > 1200 px long edge, 640² slices, 0.2 overlap
+- SAM 2 refinement: drop candidates whose refined IoU with the original < 0.10
 
-`autolabel_colab.ipynb` drives the whole run. The notebook is resumable
-via Drive — if Colab disconnects mid-run, reopening it and hitting Run
-All picks up where the previous session stopped.
+---
 
-```bash
-# 1. Build the bundle (images + annotations + phaseF scripts → ~4 GB tar).
-#    Run once per dataset refresh; takes ~5–10 min.
-bash scripts/phaseF/prepare_colab_bundle.sh
-
-# 2. Upload two files to the ROOT of your Google Drive (MyDrive):
-#      /tmp/photoanalyzer_f1_bundle.tar
-#      scripts/phaseF/autolabel_colab.ipynb
-#    Drag-and-drop in the Drive web UI.
-
-# 3. In Drive: double-click autolabel_colab.ipynb → "Open with Google Colab".
-#    Runtime → Change runtime type → T4 GPU.
-#    Runtime → Run all. Walk away (~10h on T4).
-
-# 4. Download /content/drive/MyDrive/f1_outputs.tar from Drive to the repo
-#    root, then:
-tar -xf f1_outputs.tar       # yields data/pseudo_labels/
-```
-
-Resumable across disconnects: the notebook's cell 4 restores the
-previous Drive bundle at the start of each session, and cell 6 writes
-a fresh bundle at the end. Enable cell 7's periodic checkpoint if you
-want Drive updated mid-run.
-
-#### Option B — Local
+## Daily workflow — one command
 
 ```bash
-# Smoke-test on 20 images first
-yolo_env/bin/python scripts/phaseF/autolabel.py --limit 20
-
-# Full run (~5–10h on a 4090, resumable)
-yolo_env/bin/python scripts/phaseF/autolabel.py
-
-# Add --shuffle if you want early progress to sample all sources
-# (useful when running in batches you'll audit as you go).
-yolo_env/bin/python scripts/phaseF/autolabel.py --shuffle --limit 50
+bash scripts/phaseF/sync.sh full 50
 ```
 
-On CPU the local run is ~18s/image → impractical for the full 36,975
-pool (would take ~185 h). Use CPU only for smoke tests and batch QA
-against Option A's outputs.
+Builds a fresh 50-image stratified Phase C bundle, deletes any stale
+outputs from Drive, uploads bundle + notebook, polls Drive every 30s
+for results, auto-pulls + extracts + prints the markdown report.
 
-Output layout:
+Three minutes after launching this you'll see a "Run All in Colab"
+prompt. Open the notebook in Colab (Drive → right-click → Open with
+Colaboratory) and click **Runtime → Run all**. That's the only manual
+step. Walk away. Come back to a report.
+
+Other entry points:
+
+```bash
+bash scripts/phaseF/sync.sh push      # build + upload only
+bash scripts/phaseF/sync.sh pull      # download + extract + show report
+bash scripts/phaseF/sync.sh status    # what's currently on Drive
+bash scripts/phaseF/sync.sh roundtrip # push, wait for Enter, pull (interactive)
+```
+
+`full N` is the standard. `push`/`pull` exist for debugging and partial flows.
+
+---
+
+## One-time setup
+
+### 1. Python environment
+
+```bash
+yolo_env/bin/pip install -e '.[ml]'
+```
+
+This pulls `transformers ≥ 4.49` (needed for SAM 3 / SAM 2 / OWLv2 visual)
+and the rest of the ML extras.
+
+### 2. HuggingFace gated-model access
+
+SAM 3 is gated. You need to:
+- Accept the licence at https://huggingface.co/facebook/sam3 (Meta reviews
+  the request — typically a few hours).
+- Generate a Read-scope token at https://huggingface.co/settings/tokens.
+- Add to `.env` (already gitignored):
+  ```
+  HUGGINGFACE_HUB_TOKEN=hf_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  ```
+
+The token also has to be set as a Colab Secret named
+`HUGGINGFACE_HUB_TOKEN` for the notebook to download SAM 3 there
+(left sidebar key icon → "+ Add new secret" → toggle "Notebook access" on).
+
+SAM 2 (`facebook/sam2-hiera-large`) is **not** gated — the same token
+works but no licence acceptance is needed.
+
+### 3. Google Drive sync (rclone)
+
+```bash
+yolo_env/bin/rclone config create gdrive drive scope=drive
+```
+
+Walks you through an OAuth flow (browser opens, sign in, Allow). The
+remote is named `gdrive` and persists in `~/.config/rclone/rclone.conf`
+indefinitely. Re-do this only if you revoke the OAuth grant.
+
+### 4. OWLv2 exemplar set (only if you re-enable OWLv2 in the pipeline)
+
+```bash
+yolo_env/bin/python scripts/phaseF/build_exemplar_set.py
+```
+
+Produces `data/exemplars/` (~30 stratified gold crops + manifest). The
+default pipeline doesn't use these any more, but they're shipped in
+the Colab bundle so the OWLv2 detector path keeps working if you flip
+it back on.
+
+---
+
+## Bundle internals — what `sync.sh push` ships
+
+The Colab bundle (`~/Downloads/photoanalyzer_f1_bundle.tar`, ~20 MB for
+50 images) contains:
+
+| Path inside tar | Why |
+|---|---|
+| `backend/training_data/<faction>/<source>/*.jpg` | The actual image files for this run, downscaled to ≤ 1333 px long-edge |
+| `backend/training_data_annotations/*.json` | Gold annotations (used by `bench_ensemble.py` as ground truth) |
+| `data/scene_benchmark/eval_200.json` | Phase C frozen-eval manifest |
+| `data/exemplars/` | OWLv2 visual prompts |
+| `data/pseudo_labels/original_dims.json` | Coord rescale manifest — every image's pre-downscale (orig_w, orig_h). The ensemble auto-rescales output coords back to originals. |
+| `src/photoanalyzer/` | Library — imported by the bench/autolabel scripts |
+| `scripts/phaseF/` | The Python drivers + this README |
+| `PHASE_C_BENCH_MODE` (when `--phase-c`) | Empty marker file — tells cell 13 to run `bench_ensemble.py` instead of `autolabel_ensemble.py` |
+
+The notebook's cell 13 routes between **bench mode** (when the marker is
+present) and **autolabel mode** (no marker) based on this file.
+
+---
+
+## Bench mode vs autolabel mode
+
+`prepare_colab_bundle.py` has two distinct flows:
+
+| Bundle type | Flag | Contents | Notebook does |
+|---|---|---|---|
+| **Bench bundle** | `--phase-c [--phase-c-limit N]` | The 200 Phase C eval images (or a stratified subset) | Run `bench_ensemble.py`, score against gold annotations, emit a markdown report |
+| **Autolabel bundle** | `--sample N` or full | N unlabelled images from `backend/training_data/` | Run `autolabel_ensemble.py`, emit pseudo-label JSONs |
+
+The user-facing `sync.sh full` always uses the bench flow because that's
+the loop you iterate on. For the actual production 17k run we'll switch
+to an autolabel bundle (separate command — see "Full 17k production run"
+below).
+
+---
+
+## Full 17k production run
+
+Once benchmarks are happy:
+
+```bash
+# Bigger bundle. ~5 GB after downscaling. Allow 20–30 GB GPU-hours on Colab.
+yolo_env/bin/python scripts/phaseF/prepare_colab_bundle.py
+bash scripts/phaseF/sync.sh push
+# Now click Run All in Colab — this run takes ~10 hrs on T4 (Colab will
+# disconnect; the notebook is resumable across sessions via the
+# f1_outputs.tar checkpoint).
+bash scripts/phaseF/sync.sh pull
+# After enough sessions to cover all 17k, import to the annotator:
+yolo_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py
+```
+
+Across multiple Colab sessions the notebook's cell 11 restores prior
+outputs from Drive on each new session, so the autolabel runner skips
+images already labelled. A periodic checkpoint cell (cell 17) can be
+uncommented to mirror outputs to Drive every 30 minutes for safety.
+
+---
+
+## Output layout
+
+After `sync.sh pull` extracts `f1_outputs.tar` into the repo:
 
 ```
 data/pseudo_labels/
-├── boxes/<imageId>.json         # one file per image — {boxes: [[x,y,w,h], ...], scores: [...]}
-├── manifest.json                 # {n_done, n_images_with_boxes, mean_boxes_per_image, ...}
-└── errors.log                    # any image-level failures (corrupt files etc.)
+├── boxes/<imageId>.json          # per-image pseudo-labels (ensemble schema)
+├── manifest.json                 # {n_images_processed, mode, ...}
+├── original_dims.json            # round-trip from the bundle
+└── errors.log                    # per-image failures from the runner
+
+docs/benchmarks/<date>-phaseF1-ensemble.md   # bench report (only in bench mode)
 ```
 
-The runner is **resumable**: images whose `boxes/<imageId>.json` already
-exists are skipped. Safe to kill with Ctrl-C and rerun.
+Per-image pseudo JSON (ensemble schema):
 
-### Excluded from labelling
+```json
+{
+  "imageId": "...",
+  "imagePath": "backend/training_data/<faction>/<source>/<file>",
+  "width": 2592, "height": 1944,
+  "detectors_used": ["sam3"],
+  "mode": "ensemble",
+  "boxes": [
+    {
+      "xywh": [x, y, w, h],
+      "score": 0.87,
+      "supporters": ["sam3"],
+      "refinement_iou": 0.92,
+      "tier": "auto"
+    },
+    ...
+  ]
+}
+```
 
-- All 929 already-annotated image IDs (gold labels take precedence)
-- Implicitly, the 200 Phase C eval images (subset of the 929)
+---
 
-### When to stop F1 and move to F2
+## Edge cases & recovery
 
-Rough rule of thumb: if ≥ 90% of images have at least one box drawn and mean
-boxes-per-image lands in the 1–8 range (not 0, not 50+), the pseudo-labels are
-healthy. Check `manifest.json` after a full pass; if not, reconsider prompt /
-threshold before feeding F2.
+- **Watcher polling forever**: cell 13 errored. Open Colab tab, find the
+  red cell, paste the traceback into chat (Claude can patch + re-push
+  without you re-uploading manually).
+- **Wrong notebook served by Drive**: Drive caches old versions for ~30s
+  after upload. `sync.sh push` waits for the upload to complete but
+  Drive's rendering may lag. Force-refresh the Drive tab (Ctrl-Shift-R).
+- **`sync.sh` says rclone remote `gdrive` not configured**: re-run the
+  OAuth step from "One-time setup".
+- **Coord-space drift**: every pseudo JSON's `width`/`height` should
+  match the actual image file's dimensions. Mismatch ⇒ bug in the
+  rescale path. `import_pseudo_to_annotator.py` rescales as a safety
+  net before writing into the annotator.
+- **Out of free Colab GPU hours**: paid Pro is ~$10/month; Modal is
+  the cleanest paid alternative if you want to skip Drive entirely
+  (see `docs/PHASE_F1_HANDOFF.md`).
+
+---
+
+## Excluded from labelling
+
+- All currently-annotated image IDs (gold labels take precedence).
+- Phase C eval images (subset of the gold corpus, never trained on).
+
+The runner skips these via `load_annotated_ids()` filtering on
+`pseudoLabelled != true`.
