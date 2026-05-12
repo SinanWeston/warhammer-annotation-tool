@@ -58,3 +58,30 @@ export interface QualityIssue {
   message: string
   bboxId?: string
 }
+
+/** Image payload returned by /api/annotate/{next,image/:id}. The
+ *  `imageBase64` and dimensions only land once the route has read the
+ *  file off disk; the basic identity (imageId, paths, faction, source)
+ *  is always present. NB: not named `ImageData` to avoid shadowing the
+ *  DOM's built-in ImageData. */
+export interface AnnotatorImage {
+  imageId: string
+  imagePath: string
+  faction: string
+  source: string
+  imageBase64?: string
+  width?: number
+  height?: number
+  /** Provenance: always has filename. CMON-sourced images also include
+   *  the artist's title, score (0–10), vote count, tags, and a link
+   *  back to the source page. */
+  meta?: {
+    filename: string
+    title?: string
+    artist?: string
+    sourceUrl?: string
+    score?: number
+    votes?: number
+    tags?: string[]
+  }
+}

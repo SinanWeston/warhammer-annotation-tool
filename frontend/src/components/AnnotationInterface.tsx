@@ -15,9 +15,10 @@ import HeaderProgressCard from './annotation/HeaderProgressCard'
 import StatusFilterRow, { type AnnotatorStatus } from './annotation/StatusFilterRow'
 import SourceFilterRow from './annotation/SourceFilterRow'
 import FactionProgressGrid from './annotation/FactionProgressGrid'
+import ImageProvenanceCard from './annotation/ImageProvenanceCard'
 import BboxAnnotator from './BboxAnnotator'
 import QualityIssuesModal from './QualityIssuesModal'
-import { BboxAnnotation, type AnnotationProgress, type QualityIssue } from '../types'
+import { BboxAnnotation, type AnnotationProgress, type AnnotatorImage, type QualityIssue } from '../types'
 import { API_BASE } from '../lib/api'
 
 // Mirrors EXPORT_LABEL_REMAP in annotationService.ts — keep in sync.
@@ -30,68 +31,8 @@ const FACTION_REMAP: Record<string, string> = {
 }
 const remapFaction = (f: string) => FACTION_REMAP[f] ?? f
 
-// Reverse-image-search engines. All accept a pasted clipboard image on
-// their landing/upload page; we can't use their `?image_url=` params
-// because the annotator runs on localhost and the engines fetch URLs
-// server-side. One-click copy-to-clipboard + new-tab is the next best
-// thing — paste with Ctrl+V / Cmd+V once the tab opens.
-const REVERSE_IMAGE_ENGINES = [
-  { name: 'Google Lens', url: 'https://lens.google.com/' },
-  { name: 'Yandex', url: 'https://yandex.com/images/' },
-  { name: 'Bing', url: 'https://www.bing.com/visualsearch' },
-] as const
-
-// Clipboard API only reliably accepts PNG across browsers, so re-encode
-// JPEG source frames via a throwaway canvas.
-async function imageDataUrlToPngBlob(dataUrl: string): Promise<Blob> {
-  const src = await fetch(dataUrl).then(r => r.blob())
-  if (src.type === 'image/png') return src
-  const img = new Image()
-  const objUrl = URL.createObjectURL(src)
-  try {
-    await new Promise<void>((resolve, reject) => {
-      img.onload = () => resolve()
-      img.onerror = () => reject(new Error('decode failed'))
-      img.src = objUrl
-    })
-    const canvas = document.createElement('canvas')
-    canvas.width = img.naturalWidth
-    canvas.height = img.naturalHeight
-    const ctx = canvas.getContext('2d')
-    if (!ctx) throw new Error('no 2d context')
-    ctx.drawImage(img, 0, 0)
-    return await new Promise<Blob>((resolve, reject) =>
-      canvas.toBlob(b => b ? resolve(b) : reject(new Error('toBlob failed')), 'image/png')
-    )
-  } finally {
-    URL.revokeObjectURL(objUrl)
-  }
-}
-
-interface ImageData {
-  imageId: string
-  imagePath: string
-  faction: string
-  /** Source bucket (matches the dirs under backend/training_data/<faction>/).
-   *  Was a literal union; broadened to string so new sources (cmon, etc.)
-   *  configured via ANNOTATION_SOURCES don't require a code edit. */
-  source: string
-  imageBase64?: string
-  width?: number
-  height?: number
-  /** Provenance shown in the UI header. Always has filename; CMON-sourced
-   *  images also include the artist's title, score (0–10), vote count,
-   *  tags, and a link back to the source page. */
-  meta?: {
-    filename: string
-    title?: string
-    artist?: string
-    sourceUrl?: string
-    score?: number
-    votes?: number
-    tags?: string[]
-  }
-}
+// REVERSE_IMAGE_ENGINES + imageDataUrlToPngBlob now live in
+// annotation/ImageProvenanceCard.tsx. ImageData moved to ../types.
 
 // AnnotationProgress + QualityIssue are now exported from ../types.
 
@@ -102,7 +43,7 @@ interface AnnotationInterfaceProps {
 }
 
 export default function AnnotationInterface({ editImageId, onEditComplete, annotatorName }: AnnotationInterfaceProps = {}) {
-  const [currentImage, setCurrentImage] = useState<ImageData | null>(null)
+  const [currentImage, setCurrentImage] = useState<AnnotatorImage | null>(null)
   const [annotations, setAnnotations] = useState<BboxAnnotation[]>([])
   const [progress, setProgress] = useState<AnnotationProgress | null>(null)
   // 40K taxonomy (20 factions + units per faction + configured sources)
@@ -154,7 +95,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   const [confidenceScore, setConfidenceScore] = useState<number | null>(null)
 
   // Preload queue — up to 3 images buffered ahead so "next" is instant
-  type PreloadedEntry = { image: ImageData; annotations: BboxAnnotation[]; confidenceScore?: number }
+  type PreloadedEntry = { image: AnnotatorImage; annotations: BboxAnnotation[]; confidenceScore?: number }
   const [preloadQueue, setPreloadQueue] = useState<PreloadedEntry[]>([])
 
   // Session stats
@@ -169,10 +110,6 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
 
   // Faction filter state
   const [selectedFaction, setSelectedFaction] = useState<string | null>(null)
-
-  // Reverse-image-search transient feedback ("Copied — paste with Ctrl+V").
-  // Cleared after ~3s so the card doesn't sit with stale text.
-  const [reverseSearchStatus, setReverseSearchStatus] = useState<string | null>(null)
 
   // Fetch progress on mount
   useEffect(() => {
@@ -1031,177 +968,12 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         </div>
       )}
 
-      {/* Current Image Info */}
       {currentImage && (
-        <div style={{
-          padding: '1rem',
-          backgroundColor: '#1a1a1a',
-          borderRadius: '8px',
-          border: '1px solid #333',
-          marginBottom: '1rem'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '1rem' }}>
-            <div style={{ minWidth: 0 }}>
-              <div style={{ color: '#aaa', fontSize: '0.8rem' }}>Current Image:</div>
-              <div style={{ color: '#fff', fontSize: '1rem', marginTop: '0.25rem' }}>
-                <span style={{ color: '#10b981', textTransform: 'capitalize' }}>
-                  {remapFaction(currentImage.faction).replace(/_/g, ' ')}
-                </span>
-                {' '} / {currentImage.source}
-                {' '} / {currentImage.width}x{currentImage.height}
-              </div>
-              {/* Provenance: filename always; CMON entries also include the
-                  artist's title + a clickable source link. Sits inside the
-                  current-image card so it scrolls with the rest of the
-                  metadata block. Title is the artist's own framing —
-                  often hints at the unit/scene before you start drawing. */}
-              {currentImage.meta && (
-                <div style={{
-                  marginTop: '0.5rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.15rem',
-                  fontSize: '0.85rem',
-                  color: '#bbb',
-                  minWidth: 0,
-                }}>
-                  <div style={{
-                    fontFamily: 'monospace',
-                    color: '#888',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap',
-                    maxWidth: '60ch',
-                  }} title={currentImage.meta.filename}>
-                    {currentImage.meta.filename}
-                  </div>
-                  {currentImage.meta.title && (
-                    <div style={{ color: '#fff' }}>
-                      <span style={{ color: '#888', fontSize: '0.75rem', marginRight: '0.4rem' }}>title</span>
-                      {currentImage.meta.sourceUrl ? (
-                        <a
-                          href={currentImage.meta.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ color: '#a855f7', textDecoration: 'none' }}
-                          title="Open source page in a new tab"
-                        >
-                          {currentImage.meta.title}
-                          <span style={{ marginLeft: '0.3rem', fontSize: '0.75rem' }}>↗</span>
-                        </a>
-                      ) : (
-                        currentImage.meta.title
-                      )}
-                      {currentImage.meta.artist && (
-                        <span style={{ color: '#888', marginLeft: '0.5rem', fontSize: '0.85rem' }}>
-                          by {currentImage.meta.artist}
-                        </span>
-                      )}
-                      {/* Community score (0–10). Prefix with vote count
-                          in a muted tone so low-sample-size scores read
-                          sceptically. High-score images are usually cleaner
-                          reference shots. */}
-                      {typeof currentImage.meta.score === 'number' && (
-                        <span style={{
-                          marginLeft: '0.6rem',
-                          fontSize: '0.8rem',
-                          color: currentImage.meta.score >= 7 ? '#fbbf24' : '#888',
-                        }} title={`CMON community score (${currentImage.meta.votes ?? '?'} votes)`}>
-                          ★ {currentImage.meta.score.toFixed(1)}
-                          {currentImage.meta.votes != null && (
-                            <span style={{ color: '#666', marginLeft: '0.25rem', fontSize: '0.75rem' }}>
-                              ({currentImage.meta.votes})
-                            </span>
-                          )}
-                        </span>
-                      )}
-                    </div>
-                  )}
-                  {currentImage.meta.tags && currentImage.meta.tags.length > 0 && (
-                    <div style={{
-                      marginTop: '0.2rem',
-                      display: 'flex',
-                      gap: '0.3rem',
-                      flexWrap: 'wrap',
-                    }}>
-                      {currentImage.meta.tags.slice(0, 10).map(t => (
-                        <span key={t} style={{
-                          padding: '0.05rem 0.35rem',
-                          backgroundColor: '#2a2a2a',
-                          borderRadius: '3px',
-                          color: '#888',
-                          fontSize: '0.7rem',
-                        }}>{t}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            <div style={{ display: 'flex', gap: '0.5rem', flexShrink: 0, alignItems: 'center', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
-              {/* Reverse-image-search buttons: open the engine in a new
-                  tab (synchronously, to keep the popup inside the user
-                  gesture) then copy the scene to the clipboard as PNG.
-                  Disabled until the image has actually loaded. */}
-              <div style={{ display: 'flex', gap: '0.3rem', alignItems: 'center' }}>
-                <span style={{ color: '#888', fontSize: '0.75rem', marginRight: '0.15rem' }}>Reverse search:</span>
-                {REVERSE_IMAGE_ENGINES.map(engine => (
-                  <button
-                    key={engine.name}
-                    type="button"
-                    disabled={!currentImage.imageBase64}
-                    title={`Open ${engine.name} in a new tab and copy the current scene to the clipboard. Paste with Ctrl+V (or Cmd+V) on the engine page.`}
-                    onClick={() => {
-                      const dataUrl = currentImage.imageBase64
-                      if (!dataUrl) return
-                      // Must submit the clipboard write *before* window.open,
-                      // otherwise the new tab steals focus and Chrome rejects
-                      // writes on unfocused documents. ClipboardItem accepts
-                      // a Promise<Blob>, so the browser holds the user gesture
-                      // while the PNG encoding resolves.
-                      const writePromise = navigator.clipboard.write([
-                        new ClipboardItem({ 'image/png': imageDataUrlToPngBlob(dataUrl) })
-                      ])
-                      window.open(engine.url, '_blank', 'noopener,noreferrer')
-                      setReverseSearchStatus(`Copying for ${engine.name}…`)
-                      writePromise
-                        .then(() => setReverseSearchStatus(`Copied — paste in ${engine.name} tab (Ctrl+V)`))
-                        .catch(err => {
-                          console.error('Reverse image clipboard copy failed:', err)
-                          setReverseSearchStatus(`Copy failed (${err?.name || 'error'}) — save the image manually and upload to ${engine.name}`)
-                        })
-                      window.setTimeout(() => setReverseSearchStatus(null), 5000)
-                    }}
-                    style={{
-                      padding: '0.35rem 0.65rem',
-                      backgroundColor: '#2a2a2a',
-                      border: '1px solid #444',
-                      borderRadius: '4px',
-                      fontSize: '0.8rem',
-                      color: currentImage.imageBase64 ? '#ddd' : '#666',
-                      cursor: currentImage.imageBase64 ? 'pointer' : 'not-allowed',
-                    }}
-                  >
-                    {engine.name}
-                  </button>
-                ))}
-              </div>
-              <span style={{ padding: '0.5rem 1rem', backgroundColor: '#2a2a2a', borderRadius: '4px', fontSize: '0.9rem', color: '#aaa' }}>
-                {annotations.length} annotations
-              </span>
-            </div>
-          </div>
-          {reverseSearchStatus && (
-            <div style={{
-              marginTop: '0.5rem',
-              fontSize: '0.8rem',
-              color: reverseSearchStatus.startsWith('Copy failed') ? '#f87171' : '#10b981',
-            }}>
-              {reverseSearchStatus}
-            </div>
-          )}
-        </div>
+        <ImageProvenanceCard
+          image={currentImage}
+          displayFaction={remapFaction(currentImage.faction)}
+          annotationCount={annotations.length}
+        />
       )}
 
       {/* Annotator */}
