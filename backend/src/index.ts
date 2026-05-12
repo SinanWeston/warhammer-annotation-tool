@@ -28,6 +28,16 @@ annotationService.onAnnotationSaved = () => {
   dashboardStatsService.invalidateCache()
 }
 
+// In-memory record of the image each user most recently loaded. Lets tooling
+// (e.g. `GET /api/annotate/current-session`) observe what the live annotator
+// is looking at. Resets on restart; last writer wins per userId.
+type SessionEntry = { imageId: string; userId: string; source: 'next' | 'direct'; at: number }
+const sessionState = new Map<string, SessionEntry>()
+function recordSession(userId: string | undefined, imageId: string, source: 'next' | 'direct') {
+  const key = userId || 'anonymous'
+  sessionState.set(key, { imageId, userId: key, source, at: Date.now() })
+}
+
 const app = express()
 const port = process.env.PORT || 3001
 
@@ -278,9 +288,12 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
     //                (pseudoLabelled: true); saving promotes them out of this bucket
     //   `flagged`  — images user marked unusable (`.skip.json` sidecar);
     //                browse-mode so the user can review + un-flag
+    //   `frozen_eval` — Phase C held-out 200; browse-only review surface
+    //                (saving still works, but the manifest is the source of
+    //                truth — see data/scene_benchmark/eval_200.json)
     //   `all`      — pending > legacy > unannotated (flagged excluded)
     const rawStatus = (req.query.status as string | undefined) ?? 'unannotated'
-    const STATUS_VALUES = ['unannotated', 'pending', 'legacy', 'pseudo', 'flagged', 'all'] as const
+    const STATUS_VALUES = ['unannotated', 'pending', 'legacy', 'pseudo', 'flagged', 'frozen_eval', 'all'] as const
     if (!STATUS_VALUES.includes(rawStatus as typeof STATUS_VALUES[number])) {
       return res.status(400).json({
         success: false,
@@ -316,12 +329,19 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
     const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`
 
     log.info(`✅ Next image: ${image.imageId}`)
+    recordSession(userId, image.imageId, 'next')
+
+    // If the annotation has a canonical faction (user-corrected), let it
+    // win over the folder-derived one for display. File paths stay put;
+    // only the label seen by the UI / downstream consumers is updated.
+    const effectiveFaction = annotation?.faction || image.faction
 
     res.json({
       success: true,
       data: {
         image: {
           ...image,
+          faction: effectiveFaction,
           imageBase64,
           width: metadata.width || 0,
           height: metadata.height || 0,
@@ -377,7 +397,11 @@ app.get('/api/annotate/image/:imageId', async (req: Request, res: Response, next
 
     const imageBase64 = `data:image/jpeg;base64,${imageBuffer.toString('base64')}`
 
+    // Annotation-derived faction wins over folder-derived when present.
+    const effectiveFaction = annotation?.faction || image.faction
+
     log.info(`✅ Image data loaded: ${imageId}`)
+    recordSession(req.query.userId as string | undefined, imageId, 'direct')
 
     res.json({
       success: true,
@@ -385,6 +409,7 @@ app.get('/api/annotate/image/:imageId', async (req: Request, res: Response, next
         image: {
           imageId,
           ...image,
+          faction: effectiveFaction,
           isAnnotated: !!annotation,
           imageBase64,
           width: metadata.width || 0,
@@ -571,6 +596,28 @@ app.get('/api/annotate/who', async (req: Request, res: Response) => {
         expiresInMs: r.expiresAt - Date.now()
       }))
     }
+  })
+})
+
+/**
+ * GET /api/annotate/current-session
+ *
+ * Return the most recently loaded image per user, as tracked by
+ * `recordSession` on /next and /image/:imageId. Exists so Claude Code
+ * (or other tooling) can answer "what image is the live session on?".
+ */
+app.get('/api/annotate/current-session', async (req: Request, res: Response) => {
+  const userId = req.query.userId as string | undefined
+  const entries = Array.from(sessionState.values()).sort((a, b) => b.at - a.at)
+  const current = userId
+    ? sessionState.get(userId) ?? null
+    : entries[0] ?? null
+  res.json({
+    success: true,
+    data: {
+      current,
+      all: entries,
+    },
   })
 })
 

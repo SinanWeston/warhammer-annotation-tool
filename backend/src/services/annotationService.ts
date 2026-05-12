@@ -145,10 +145,33 @@ export class AnnotationService {
   public onAnnotationSaved: (() => void) | null = null
 
   // Image list cache — avoids walking 25k files on every request.
-  // Stores only the unannotated list (the hot path). Cleared on every save.
+  // Two variants: unannotated-only (the hot path for `/next?status=unannotated`)
+  // and include-annotated (used by getProgress, _buildCompletionLists, export).
+  // Both are cleared on every save.
   private imageListCache: Array<{
     imageId: string; imagePath: string
     faction: string; source: string; isAnnotated: boolean
+  }> | null = null
+  private imageListCacheAll: Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }> | null = null
+  // In-flight promise guards — when a save invalidates the caches and the
+  // frontend immediately fires prefetch + progress + loadNext in parallel,
+  // all three would otherwise kick off their own full fs walk. Coalesce
+  // them onto a single rebuild promise.
+  private imageListInFlight: Promise<Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }>> | null = null
+  private imageListAllInFlight: Promise<Array<{
+    imageId: string; imagePath: string
+    faction: string; source: string; isAnnotated: boolean
+  }>> | null = null
+  private completionListsInFlight: Promise<{
+    pending: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
+    legacy: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
+    pseudo: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
   }> | null = null
 
   // Permanent path map — populated during any getImageList() scan, never cleared.
@@ -167,6 +190,11 @@ export class AnnotationService {
   private readonly PROPOSAL_CACHE_TTL_MS = 60 * 1000  // 60 seconds
   private proposalsPath: string
 
+  // Phase C frozen-eval manifest, lazily loaded once per process. The 200
+  // imageIds in data/scene_benchmark/eval_200.json are the held-out test
+  // set — `?status=frozen_eval` cycles only these for visual review.
+  private frozenEvalIds: Set<string> | null = null
+
   constructor() {
     // All paths configurable via env — allows running a parallel clean-reference instance
     const dataDir = process.env.TRAINING_DATA_PATH
@@ -181,6 +209,16 @@ export class AnnotationService {
     this.trainingDataPath = dataDir
     this.annotationsPath = annotDir
     this.proposalsPath = proposalsDir
+  }
+
+  /** Load the Phase C frozen-eval manifest once and cache the imageId set. */
+  private async getFrozenEvalIds(): Promise<Set<string>> {
+    if (this.frozenEvalIds) return this.frozenEvalIds
+    const manifestPath = path.join(__dirname, '../../../data/scene_benchmark/eval_200.json')
+    const raw = await fs.readFile(manifestPath, 'utf-8')
+    const manifest = JSON.parse(raw) as { images: Array<{ imageId: string }> }
+    this.frozenEvalIds = new Set(manifest.images.map(im => im.imageId))
+    return this.frozenEvalIds
   }
 
   /** Load the set of imageIds that have pre-computed DINO proposals. */
@@ -283,10 +321,39 @@ export class AnnotationService {
     isAnnotated: boolean
   }>> {
     // Cache fast-path only applies to the default scan (no source filter).
-    if (!includeAnnotated && !sourceFilter && this.imageListCache) {
-      return this.imageListCache
+    if (!sourceFilter) {
+      if (!includeAnnotated && this.imageListCache) return this.imageListCache
+      if (includeAnnotated && this.imageListCacheAll) return this.imageListCacheAll
+      // In-flight coalescing: if a rebuild is already running, piggy-back
+      // on it instead of kicking off a second full fs walk.
+      if (!includeAnnotated && this.imageListInFlight) return this.imageListInFlight
+      if (includeAnnotated && this.imageListAllInFlight) return this.imageListAllInFlight
     }
 
+    const scanPromise = this._scanImageList(includeAnnotated, sourceFilter)
+    if (!sourceFilter) {
+      if (includeAnnotated) this.imageListAllInFlight = scanPromise
+      else this.imageListInFlight = scanPromise
+      try {
+        return await scanPromise
+      } finally {
+        if (includeAnnotated) this.imageListAllInFlight = null
+        else this.imageListInFlight = null
+      }
+    }
+    return scanPromise
+  }
+
+  private async _scanImageList(
+    includeAnnotated: boolean,
+    sourceFilter?: Set<string>,
+  ): Promise<Array<{
+    imageId: string
+    imagePath: string
+    faction: string
+    source: string
+    isAnnotated: boolean
+  }>> {
     const images: Array<{
       imageId: string
       imagePath: string
@@ -375,7 +442,10 @@ export class AnnotationService {
 
       // Only cache the DEFAULT scan (no source filter). Filtered scans
       // are rarer and each has its own cap math, so recomputing is fine.
-      if (!includeAnnotated && !sourceFilter) this.imageListCache = images
+      if (!sourceFilter) {
+        if (includeAnnotated) this.imageListCacheAll = images
+        else this.imageListCache = images
+      }
 
       return images
     } catch (error) {
@@ -395,7 +465,7 @@ export class AnnotationService {
     userId?: string,
     exclude?: string[],
     sources?: string[],
-    status: 'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'flagged' | 'all' = 'unannotated',
+    status: 'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'flagged' | 'frozen_eval' | 'all' = 'unannotated',
   ): Promise<{
     imageId: string
     imagePath: string
@@ -429,6 +499,14 @@ export class AnnotationService {
       // excluded from the queue entirely (`if (isFlagged) continue` in
       // getImageList); this filter is the only path that surfaces them.
       images = await this.getFlaggedImageList()
+    } else if (status === 'frozen_eval') {
+      // Phase C held-out 200. Source the imageIds from the manifest,
+      // then resolve each through getImageList(true,…) so faction /
+      // source / imagePath fields come back populated identically to
+      // the other modes.
+      const frozenIds = await this.getFrozenEvalIds()
+      const full = await this.getImageList(true)
+      images = full.filter(img => frozenIds.has(img.imageId))
     } else if (status === 'all') {
       const unann = await this.getImageList(false, sourceSet)
       const pending = await this.getPendingImageList()
@@ -466,7 +544,7 @@ export class AnnotationService {
     // For pending/legacy/flagged modes the user wants to revisit ALL
     // matching items — they already know what they're looking for, no
     // need to prioritise by DINO proposals. Sort stably by imageId.
-    if (status === 'pending' || status === 'legacy' || status === 'pseudo' || status === 'flagged') {
+    if (status === 'pending' || status === 'legacy' || status === 'pseudo' || status === 'flagged' || status === 'frozen_eval') {
       images.sort((a, b) => a.imageId.localeCompare(b.imageId))
     } else {
       // Only serve images that have pre-computed proposals, sorted by imageId
@@ -705,6 +783,20 @@ export class AnnotationService {
       // Create directory if it doesn't exist
       await fs.mkdir(annotationDir, { recursive: true })
 
+      // If every bbox agrees on one non-empty classLabel, promote it to
+      // the annotation's canonical `faction`. This decouples "where the
+      // file lives on disk" (folder-derived, immutable) from "what
+      // faction it really is" (user-labelled). Mixed-army shots keep
+      // whatever the caller sent (typically the folder default).
+      const labels = new Set(
+        (annotation.annotations ?? [])
+          .map(a => (a.classLabel ?? '').trim())
+          .filter(Boolean),
+      )
+      if (labels.size === 1) {
+        annotation.faction = [...labels][0]
+      }
+
       // Save annotation as JSON
       await fs.writeFile(
         annotationPath,
@@ -717,11 +809,28 @@ export class AnnotationService {
       const aiAccepted = annotation.annotations.filter(a => a.originalPrediction).length
       logger.info(`✅ Saved annotation for ${annotation.imageId} (${annotation.annotations.length} boxes, ${aiAccepted} AI-accepted, ${rejectedCount} rejected, ${redrawnCount} redrawn)`)
 
-      // Invalidate image list cache and release reservation so other annotators can't be offered a done image
-      this.imageListCache = null
-      // Pending/legacy/pseudo status may have changed (e.g. user filled in
-      // the last missing unit_slug, or a save removed the legacy_no_unit
-      // or pseudoLabelled flag). Invalidate all three buckets.
+      // Update imageList caches incrementally — saves a ~700ms full fs
+      // rescan per save. The saved image's identity and metadata are
+      // known, so we can surgically remove it from the unannotated list
+      // and mark it annotated in the all-list.
+      if (this.imageListCache) {
+        this.imageListCache = this.imageListCache.filter(
+          img => img.imageId !== annotation.imageId,
+        )
+      }
+      if (this.imageListCacheAll) {
+        const entry = this.imageListCacheAll.find(
+          img => img.imageId === annotation.imageId,
+        )
+        if (entry) entry.isAnnotated = true
+      }
+      // Pending/legacy/pseudo bucket membership may have changed — a
+      // save can move an image between buckets (e.g. pseudo → pending
+      // when a F1 review saves without unit_slugs, or pending → complete
+      // when the last unit_slug is filled in). Invalidate the three
+      // buckets so `_buildCompletionLists` re-classifies; thanks to the
+      // preserved imageListCacheAll above, that rebuild skips the fs
+      // walk and just re-reads annotation JSONs (~200ms).
       this.pendingListCache = null
       this.legacyListCache = null
       this.pseudoListCache = null
@@ -872,36 +981,47 @@ export class AnnotationService {
   }
 
   /** Walk every annotated image and bucket it into pending / legacy /
-   *  complete based on `classifyAnnotation`. One scan fills both
+   *  complete based on `classifyAnnotation`. One scan fills all three
    *  caches; subsequent calls return from cache until the next save
-   *  invalidates via saveAnnotation. */
+   *  invalidates via saveAnnotation. Concurrent callers (e.g. progress
+   *  endpoint fires getPending+getLegacy+getFlagged in Promise.all) share
+   *  a single in-flight promise instead of each doing their own scan. */
   private async _buildCompletionLists(): Promise<{
     pending: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
     legacy: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
     pseudo: Array<{ imageId: string; imagePath: string; faction: string; source: string; isAnnotated: boolean }>
   }> {
-    const all = await this.getImageList(true)
-    const pending: typeof all = []
-    const legacy: typeof all = []
-    const pseudo: typeof all = []
-    const BATCH = 32
-    for (let i = 0; i < all.length; i += BATCH) {
-      const batch = all.slice(i, i + BATCH)
-      const results = await Promise.all(batch.map(async (img) => {
-        if (!img.isAnnotated) return null
-        return { img, cls: await this.classifyAnnotation(img.imageId) }
-      }))
-      for (const r of results) {
-        if (!r) continue
-        if (r.cls === 'pending') pending.push(r.img)
-        else if (r.cls === 'legacy') legacy.push(r.img)
-        else if (r.cls === 'pseudo') pseudo.push(r.img)
+    if (this.completionListsInFlight) return this.completionListsInFlight
+    const build = (async () => {
+      const all = await this.getImageList(true)
+      const pending: typeof all = []
+      const legacy: typeof all = []
+      const pseudo: typeof all = []
+      const BATCH = 32
+      for (let i = 0; i < all.length; i += BATCH) {
+        const batch = all.slice(i, i + BATCH)
+        const results = await Promise.all(batch.map(async (img) => {
+          if (!img.isAnnotated) return null
+          return { img, cls: await this.classifyAnnotation(img.imageId) }
+        }))
+        for (const r of results) {
+          if (!r) continue
+          if (r.cls === 'pending') pending.push(r.img)
+          else if (r.cls === 'legacy') legacy.push(r.img)
+          else if (r.cls === 'pseudo') pseudo.push(r.img)
+        }
       }
+      this.pendingListCache = pending
+      this.legacyListCache = legacy
+      this.pseudoListCache = pseudo
+      return { pending, legacy, pseudo }
+    })()
+    this.completionListsInFlight = build
+    try {
+      return await build
+    } finally {
+      this.completionListsInFlight = null
     }
-    this.pendingListCache = pending
-    this.legacyListCache = legacy
-    this.pseudoListCache = pseudo
-    return { pending, legacy, pseudo }
   }
 
   /**
@@ -931,10 +1051,26 @@ export class AnnotationService {
       reason: reason || 'unusable',
     }
     await fs.writeFile(flagPath, JSON.stringify(flagData, null, 2))
-    this.imageListCache = null
-    this.pendingListCache = null
-    this.legacyListCache = null
-    this.pseudoListCache = null
+    // Flagged images are excluded from the image lists entirely (the
+    // main getImageList skips anything with a .skip.json sidecar). Remove
+    // the image surgically from each cache instead of nuking them all.
+    if (this.imageListCache) {
+      this.imageListCache = this.imageListCache.filter(img => img.imageId !== imageId)
+    }
+    if (this.imageListCacheAll) {
+      this.imageListCacheAll = this.imageListCacheAll.filter(img => img.imageId !== imageId)
+    }
+    if (this.pendingListCache) {
+      this.pendingListCache = this.pendingListCache.filter(img => img.imageId !== imageId)
+    }
+    if (this.legacyListCache) {
+      this.legacyListCache = this.legacyListCache.filter(img => img.imageId !== imageId)
+    }
+    if (this.pseudoListCache) {
+      this.pseudoListCache = this.pseudoListCache.filter(img => img.imageId !== imageId)
+    }
+    // flaggedListCache now has a new entry; rebuild lazily on next read
+    // (the browse-flagged flow is cold-cache tolerant and reads it once).
     this.flaggedListCache = null
     logger.info(`🚫 Flagged image ${imageId}: ${flagData.reason}`)
   }
@@ -950,6 +1086,7 @@ export class AnnotationService {
     try {
       await fs.unlink(flagPath)
       this.imageListCache = null
+      this.imageListCacheAll = null
       this.pendingListCache = null
       this.legacyListCache = null
       this.pseudoListCache = null

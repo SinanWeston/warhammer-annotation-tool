@@ -131,7 +131,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   //   'pending'     — annotated but missing unit_slug on at least one
   //                   bbox; lets the user fill in deferred labels later
   //   'all'         — every image, pending first
-  const [selectedStatus, setSelectedStatus] = useState<'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'all'>('unannotated')
+  const [selectedStatus, setSelectedStatus] = useState<'unannotated' | 'pending' | 'legacy' | 'pseudo' | 'frozen_eval' | 'all'>('unannotated')
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -152,8 +152,11 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   // Edit mode state
   const [editMode, setEditMode] = useState(false)
 
-  // History for back navigation
-  const [previousImageId, setPreviousImageId] = useState<string | null>(null)
+  // History stack for back navigation — each `loadNextImage` pushes the
+  // departing image onto the stack, each `goBack` pops the top. Capped
+  // to avoid unbounded memory; recent history is what matters.
+  const [history, setHistory] = useState<string[]>([])
+  const MAX_HISTORY = 50
 
   // Active learning state
   const [prioritize, setPrioritize] = useState(false)
@@ -225,9 +228,16 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   // Load next image. factionOverride lets callers pass a faction directly
   // (e.g. when clicking a faction card, before state has updated).
   const loadNextImage = async (factionOverride?: string | null, extraExclude?: string) => {
-    // Remember current image for back navigation
+    // Push current image onto history stack for back navigation.
+    // Dedupe to avoid double-pushes if loadNextImage fires twice on the
+    // same image (prefetch race), and cap at MAX_HISTORY.
     if (currentImage) {
-      setPreviousImageId(currentImage.imageId)
+      setHistory(prev => {
+        const last = prev[prev.length - 1]
+        if (last === currentImage.imageId) return prev
+        const next = [...prev, currentImage.imageId]
+        return next.length > MAX_HISTORY ? next.slice(-MAX_HISTORY) : next
+      })
     }
 
     setError(null)
@@ -261,7 +271,20 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (selectedSource) params.set('source', selectedSource)
       if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
-      const excludeIds = extraExclude ? new Set([...skippedIds, extraExclude]) : skippedIds
+      // Build the exclude set. Normally just skippedIds (+ optional one-off).
+      // frozen_eval is a fixed-list browse mode: the 200 manifest images
+      // are already annotated, so saving doesn't drop them from the queue
+      // and "next" would otherwise cycle back to image-0 forever. Treat
+      // session history + current as exclude so each "next" actually advances.
+      const excludeIds: Set<string> = (() => {
+        const ids = new Set(skippedIds)
+        if (extraExclude) ids.add(extraExclude)
+        if (selectedStatus === 'frozen_eval') {
+          history.forEach(id => ids.add(id))
+          if (currentImage) ids.add(currentImage.imageId)
+        }
+        return ids
+      })()
       if (excludeIds.size > 0) params.set('exclude', Array.from(excludeIds).join(','))
       const qs = params.toString()
       const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
@@ -349,11 +372,13 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
     }
   }
 
-  // Go back to previous image
+  // Go back one step in the history stack. Repeat presses walk further
+  // back; each loadSpecificImage call keeps the remaining history intact.
   const goBack = () => {
-    if (!previousImageId) return
-    loadSpecificImage(previousImageId)
-    setPreviousImageId(null)
+    if (history.length === 0) return
+    const prev = history[history.length - 1]
+    setHistory(h => h.slice(0, -1))
+    loadSpecificImage(prev)
   }
 
   // Load specific image when editImageId prop is provided
@@ -415,6 +440,17 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (selectedSource) params.set('source', selectedSource)
       if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
+      // Mirror loadNextImage's exclude logic for frozen_eval so the
+      // preloaded "next" is actually the next manifest image, not a
+      // cached copy of the current head.
+      if (selectedStatus === 'frozen_eval') {
+        const ids = new Set(skippedIds)
+        history.forEach(id => ids.add(id))
+        if (currentImage) ids.add(currentImage.imageId)
+        if (ids.size > 0) params.set('exclude', Array.from(ids).join(','))
+      } else if (skippedIds.size > 0) {
+        params.set('exclude', Array.from(skippedIds).join(','))
+      }
       const qs = params.toString()
       const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
       const response = await fetch(url)
@@ -553,15 +589,13 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         // Prefetch now — current image is saved so /api/annotate/next will skip it
         prefetchNextImage()
 
-        // Update progress and load next image
-        await fetchProgress()
+        // Fire progress refresh in parallel; don't block the next-image swap on it.
+        fetchProgress()
         if (editMode) {
           setEditMode(false)
           onEditComplete?.()
         }
-        setTimeout(() => {
-          loadNextImage()
-        }, 300)
+        loadNextImage()
       } else {
         // Check for validation errors
         if (data.errors && data.warnings) {
@@ -841,8 +875,8 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (data.success) {
         setSuccess('🚫 Image flagged as unusable — loading next...')
         setAnnotations([])
-        await fetchProgress()
-        setTimeout(() => loadNextImage(), 300)
+        fetchProgress()
+        loadNextImage()
       } else {
         setError(`Failed to flag: ${data.error?.message || 'Unknown error'}`)
       }
@@ -1076,6 +1110,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
           ['pending',     `Pending${progress?.pendingImages ? ` (${progress.pendingImages})` : ''}`, 'Show annotated images where at least one bbox is missing its unit_slug — return here to fill them in'],
           ['legacy',      `Legacy${progress?.legacyImages ? ` (${progress.legacyImages})` : ''}`, 'Grandfathered annotations from before unit_slug existed. Pick here when you want to backfill units on old corpus.'],
           ['pseudo',      'Pseudo-labelled', 'Phase F1 auto-labels awaiting box review. Correct any wrong boxes, then save — that promotes the image out of this queue.'],
+          ['frozen_eval', 'Frozen eval (200)', 'Phase C held-out scene benchmark. Browse-only review — do not retrain on these. Manifest: data/scene_benchmark/eval_200.json.'],
           ['all',         'All',         'Show every image (pending > legacy > unannotated)'],
         ] as const).map(([key, label, tooltip]) => {
           const active = selectedStatus === key
@@ -1776,22 +1811,22 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
           {/* Back Button */}
           <button
             onClick={goBack}
-            disabled={!previousImageId || loading || saving}
+            disabled={history.length === 0 || loading || saving}
             style={{
               padding: '1rem 1.5rem',
-              backgroundColor: previousImageId ? '#4b5563' : '#1f2937',
+              backgroundColor: history.length > 0 ? '#4b5563' : '#1f2937',
               color: '#fff',
               border: 'none',
               borderRadius: '8px',
               fontSize: '1rem',
               fontWeight: 'bold',
-              cursor: !previousImageId || loading || saving ? 'not-allowed' : 'pointer',
-              opacity: !previousImageId || loading || saving ? 0.3 : 1,
+              cursor: history.length === 0 || loading || saving ? 'not-allowed' : 'pointer',
+              opacity: history.length === 0 || loading || saving ? 0.3 : 1,
               transition: 'all 0.2s'
             }}
-            title="Go back to previous image (B)"
+            title={`Go back to previous image (B) — ${history.length} in history`}
           >
-            ← Back (B)
+            ← Back (B){history.length > 1 ? ` ×${history.length}` : ''}
           </button>
 
           {/* AI Predict Button */}
