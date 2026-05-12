@@ -9,7 +9,7 @@
  * - Navigation (next/previous/skip)
  */
 
-import { useState, useEffect, useRef } from 'react'
+import { useEffect, useReducer, useRef, useState } from 'react'
 import { apiToBbox, bboxToApi, type ApiAnnotation } from '../utils/annotationWire'
 import HeaderProgressCard from './annotation/HeaderProgressCard'
 import StatusFilterRow, { type AnnotatorStatus } from './annotation/StatusFilterRow'
@@ -35,6 +35,42 @@ const remapFaction = (f: string) => FACTION_REMAP[f] ?? f
 // REVERSE_IMAGE_ENGINES + imageDataUrlToPngBlob now live in
 // annotation/ImageProvenanceCard.tsx. ImageData moved to ../types.
 
+/** Filter state for the annotation queue. Lives in one reducer so a
+ *  single user gesture (pill click) mutates atomically and a downstream
+ *  effect can react to the new combination — previously the four
+ *  setState calls + immediate loadNextImage created a closure-stale-state
+ *  bug where the request URL used the OLD selectedStatus. */
+interface FilterState {
+  status: AnnotatorStatus
+  faction: string | null
+  source: string | null
+  prioritize: boolean
+}
+
+type FilterAction =
+  | { type: 'SET_STATUS', status: AnnotatorStatus }
+  | { type: 'SET_FACTION', faction: string | null }
+  | { type: 'SET_SOURCE', source: string | null }
+  | { type: 'SET_PRIORITIZE', value: boolean }
+  | { type: 'RESET' }
+
+const INITIAL_FILTERS: FilterState = {
+  status: 'unannotated',
+  faction: null,
+  source: null,
+  prioritize: false,
+}
+
+function filtersReducer(state: FilterState, action: FilterAction): FilterState {
+  switch (action.type) {
+    case 'SET_STATUS':     return { ...state, status: action.status }
+    case 'SET_FACTION':    return { ...state, faction: action.faction }
+    case 'SET_SOURCE':     return { ...state, source: action.source }
+    case 'SET_PRIORITIZE': return { ...state, prioritize: action.value }
+    case 'RESET':          return INITIAL_FILTERS
+  }
+}
+
 // AnnotationProgress + QualityIssue are now exported from ../types.
 
 interface AnnotationInterfaceProps {
@@ -55,16 +91,22 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
     unitsByFaction: Record<string, Array<{ slug: string; name: string; category?: string }>>
     sources: string[]
   } | null>(null)
-  // Source filter — null = "all sources" (default). Drives a query
-  // param on /api/annotate/next so the queue serves only images from
-  // that source (e.g. only `cmon` while you're working through CMON).
-  const [selectedSource, setSelectedSource] = useState<string | null>(null)
-  // Status filter for the queue:
-  //   'unannotated' — fresh images (default, original behaviour)
-  //   'pending'     — annotated but missing unit_slug on at least one
-  //                   bbox; lets the user fill in deferred labels later
-  //   'all'         — every image, pending first
-  const [selectedStatus, setSelectedStatus] = useState<AnnotatorStatus>('unannotated')
+  // Queue filters (status / faction / source / prioritize) live in a
+  // single reducer so a single user gesture mutates them atomically and
+  // the dependent loadNextImage call sees the NEW values via effect.
+  // Previously these were 4 separate useStates and pill onClicks called
+  // loadNextImage immediately after setState → React 18 batches the
+  // state, but loadNextImage's closure captured the OLD selectedStatus,
+  // so the first /next after a pill click went out with stale params.
+  // Now: dispatch sets state; an effect watches the reducer and fires
+  // loadNextImage once the new state has settled.
+  const [filters, dispatchFilters] = useReducer(filtersReducer, INITIAL_FILTERS)
+  const { status: selectedStatus, faction: selectedFaction, source: selectedSource, prioritize } = filters
+  // Bridge setters for code paths that haven't been migrated to dispatch yet.
+  const setSelectedStatus = (next: AnnotatorStatus) => dispatchFilters({ type: 'SET_STATUS', status: next })
+  const setSelectedSource = (next: string | null) => dispatchFilters({ type: 'SET_SOURCE', source: next })
+  const setPrioritize = (next: boolean) => dispatchFilters({ type: 'SET_PRIORITIZE', value: next })
+  const setSelectedFaction = (next: string | null) => dispatchFilters({ type: 'SET_FACTION', faction: next })
   const [loading, setLoading] = useState(false)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -91,8 +133,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   const [history, setHistory] = useState<string[]>([])
   const MAX_HISTORY = 50
 
-  // Active learning state
-  const [prioritize, setPrioritize] = useState(false)
+  // Active learning state (prioritize is now in `filters`; only the score remains here).
   const [confidenceScore, setConfidenceScore] = useState<number | null>(null)
 
   // Preload queue — up to 3 images buffered ahead so "next" is instant
@@ -109,8 +150,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   const annotationsRef = useRef(annotations)
   annotationsRef.current = annotations
 
-  // Faction filter state
-  const [selectedFaction, setSelectedFaction] = useState<string | null>(null)
+  // Faction filter — now in `filters` reducer.
 
   // Fetch progress on mount
   useEffect(() => {
@@ -304,6 +344,23 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       setLoading(false)
     }
   }
+
+  // Reload-on-filters-change. Holds a ref to the latest loadNextImage
+  // so the effect doesn't need it as a dep (which would re-fire on
+  // every render). filtersInitedRef skips the first render — mounting
+  // shouldn't auto-load; that's still gated on the user clicking
+  // "Start Annotating". Subsequent filter changes (status pill, source
+  // pill, faction card, prioritize toggle) get exactly one reload.
+  const loadNextImageRef = useRef(loadNextImage)
+  loadNextImageRef.current = loadNextImage
+  const filtersInitedRef = useRef(false)
+  useEffect(() => {
+    if (!filtersInitedRef.current) {
+      filtersInitedRef.current = true
+      return
+    }
+    loadNextImageRef.current()
+  }, [filters])
 
   // Go back one step in the history stack. Repeat presses walk further
   // back; each loadSpecificImage call keeps the remaining history intact.
@@ -857,10 +914,10 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         progress={progress}
         onStatusChange={next => {
           if (!confirmDiscardReviewState()) return
+          // dispatch only — the reload-on-filters-change effect fires
+          // loadNextImage once the new state has settled, so the request
+          // URL sees the up-to-date status.
           setSelectedStatus(next)
-          // NB: closure bug — loadNextImage sees stale selectedStatus.
-          // Commit 10 fixes this via useReducer + reload-via-effect.
-          loadNextImage()
         }}
       />
 
@@ -870,7 +927,6 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         onSourceChange={next => {
           if (!confirmDiscardReviewState()) return
           setSelectedSource(next)
-          loadNextImage()
         }}
       />
 
@@ -880,7 +936,6 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         onFactionToggle={next => {
           if (!confirmDiscardReviewState()) return
           setSelectedFaction(next)
-          loadNextImage(next)
         }}
       />
 

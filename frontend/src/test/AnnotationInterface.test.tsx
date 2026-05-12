@@ -114,22 +114,19 @@ describe('AnnotationInterface — smoke', () => {
     await screen.findByText(/test_001\.jpg/)
   })
 
-  it('changing the status pill triggers /next', async () => {
-    // NB: the current pill onClick fires loadNextImage immediately after
-    // setSelectedStatus, so the first /next call after the click goes out
-    // with the STALE status (React 18 doesn't sync state inside handlers).
-    // This test pins the looser behaviour — clicking a pill triggers a
-    // /next call. Commit 10 (useReducer + reload-via-effect) tightens
-    // this to assert the new status reaches the URL.
+  it('changing the status pill re-queries /next with the new ?status=', async () => {
+    // After commit 10's useReducer + reload-on-filters-effect the pill
+    // click drops the closure-bug — the request URL sees the new status.
     render(<AnnotationInterface />)
     await screen.findByRole('button', { name: /unannotated/i })
-    const callsBeforeClick = fetchMock.calls.filter(c => c.url.includes('/next')).length
     const pendingPill = screen.getByRole('button', { name: /^pending/i })
     fireEvent.click(pendingPill)
 
     await waitFor(() => {
-      const callsAfterClick = fetchMock.calls.filter(c => c.url.includes('/next')).length
-      expect(callsAfterClick).toBeGreaterThan(callsBeforeClick)
+      const pendingNext = fetchMock.calls.find(
+        c => c.url.includes('/api/annotate/next') && c.url.includes('status=pending'),
+      )
+      expect(pendingNext).toBeTruthy()
     })
   })
 
