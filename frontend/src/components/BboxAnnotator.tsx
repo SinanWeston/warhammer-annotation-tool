@@ -15,14 +15,26 @@
 import { useState, useRef, useEffect } from 'react'
 import { BboxAnnotation } from '../types'
 import { screenToImage, scaleBbox, fitScale } from '../utils/coordinates'
+import {
+  AddModelBoxCommand,
+  DeleteModelBoxCommand,
+  ChangeClassCommand,
+  ChangeUnitCommand,
+  type BboxCommand,
+} from '../commands'
 
 interface BboxAnnotatorProps {
   imageUrl: string
   imageWidth: number
   imageHeight: number
   onAnnotationsChange: (annotations: BboxAnnotation[]) => void
-  classLabels: string[]  // Available class labels
+  classLabels: string[]  // Available faction slugs (20 canonical)
   defaultClass?: string
+  /** Per-faction unit lists keyed by faction slug. When provided, the
+   *  picker below the canvas renders a unit dropdown scoped to the
+   *  currently-selected bbox's `classLabel`. Optional — if absent, the
+   *  UI degrades to faction-only (the pre-taxonomy behaviour). */
+  unitsByFaction?: Record<string, Array<{ slug: string; name: string; category?: string }>>
   initialAnnotations?: BboxAnnotation[]  // Pre-populated annotations (e.g., from AI)
   onSaveRequested?: () => void  // Called when user presses save shortcut
   onSkipRequested?: () => void  // Called when user presses skip shortcut
@@ -55,6 +67,17 @@ interface ResizingState {
 
 const HANDLE_SIZE = 8 // px in screen space
 const HANDLE_HIT_SIZE = 12 // px — slightly larger hit target for easier grabbing
+
+/** Deterministic per-faction HSL colour. Same string → same hue across
+ *  images + sessions, so the brain learns "space_marines = blue-ish" etc.
+ *  70% saturation / 55% lightness reads well on the dark canvas bg. */
+function factionStrokeColour(faction: string): string {
+  let h = 0
+  for (let i = 0; i < faction.length; i++) {
+    h = (h * 31 + faction.charCodeAt(i)) >>> 0
+  }
+  return `hsl(${h % 360}, 70%, 55%)`
+}
 
 const HANDLE_CURSORS: Record<ResizeHandle, string> = {
   nw: 'nwse-resize', ne: 'nesw-resize', sw: 'nesw-resize', se: 'nwse-resize',
@@ -103,53 +126,7 @@ function getHandleAtPoint(
 // COMMAND PATTERN FOR UNDO/REDO
 // ═══════════════════════════════════════════════════════════
 
-interface Command {
-  execute(annotations: BboxAnnotation[]): BboxAnnotation[]
-  undo(annotations: BboxAnnotation[]): BboxAnnotation[]
-  description: string
-}
-
-class AddModelBoxCommand implements Command {
-  constructor(private bbox: BboxAnnotation) {}
-
-  execute(annotations: BboxAnnotation[]): BboxAnnotation[] {
-    return [...annotations, this.bbox]
-  }
-
-  undo(annotations: BboxAnnotation[]): BboxAnnotation[] {
-    return annotations.filter(a => a.id !== this.bbox.id)
-  }
-
-  description = 'Add model box'
-}
-
-class DeleteModelBoxCommand implements Command {
-  constructor(private bbox: BboxAnnotation) {}
-
-  execute(annotations: BboxAnnotation[]): BboxAnnotation[] {
-    return annotations.filter(a => a.id !== this.bbox.id)
-  }
-
-  undo(annotations: BboxAnnotation[]): BboxAnnotation[] {
-    return [...annotations, this.bbox]
-  }
-
-  description = 'Delete model box'
-}
-
-class ChangeClassCommand implements Command {
-  constructor(private boxId: string, private oldClass: string, private newClass: string) {}
-
-  execute(annotations: BboxAnnotation[]): BboxAnnotation[] {
-    return annotations.map(a => a.id === this.boxId ? { ...a, classLabel: this.newClass } : a)
-  }
-
-  undo(annotations: BboxAnnotation[]): BboxAnnotation[] {
-    return annotations.map(a => a.id === this.boxId ? { ...a, classLabel: this.oldClass } : a)
-  }
-
-  description = 'Change class'
-}
+// Command classes now live in ../commands/. The base interface is BboxCommand.
 
 export default function BboxAnnotator({
   imageUrl,
@@ -158,6 +135,7 @@ export default function BboxAnnotator({
   onAnnotationsChange,
   classLabels,
   defaultClass = 'miniature',
+  unitsByFaction,
   initialAnnotations = [],
   onSaveRequested,
   onSkipRequested,
@@ -181,6 +159,7 @@ export default function BboxAnnotator({
   useEffect(() => {
     setAnnotations(initialAnnotations)
   }, [initialAnnotations])
+
   const [drawing, setDrawing] = useState<DrawingState>({
     isDrawing: false,
     startX: 0,
@@ -191,14 +170,20 @@ export default function BboxAnnotator({
   const [scale, setScale] = useState(1)  // Fit-to-container scale
   const [zoom, setZoom] = useState(1)    // User zoom level (CSS transform)
   const [currentClass, setCurrentClass] = useState(defaultClass)
+  // Default unit_slug for newly-drawn bboxes. Mirrors `currentClass` —
+  // when no bbox is selected, the unit picker writes here, and the next
+  // bbox you draw inherits both faction + unit. Empty string = "no
+  // default; new bboxes get unit_slug undefined" (the existing audit-
+  // pile pattern).
+  const [currentUnit, setCurrentUnit] = useState<string>('')
   const [imageLoaded, setImageLoaded] = useState(false)
 
   // Undo/Redo stacks
-  const [undoStack, setUndoStack] = useState<Command[]>([])
-  const [redoStack, setRedoStack] = useState<Command[]>([])
+  const [undoStack, setUndoStack] = useState<BboxCommand[]>([])
+  const [redoStack, setRedoStack] = useState<BboxCommand[]>([])
 
   // Execute a command and add to undo stack
-  const executeCommand = (command: Command) => {
+  const executeCommand = (command: BboxCommand) => {
     const newAnnotations = command.execute(annotations)
     setAnnotations(newAnnotations)
     onAnnotationsChange(newAnnotations)
@@ -308,40 +293,48 @@ export default function BboxAnnotator({
       const isSelected = box.id === selectedId
       const isHighlighted = box.id === highlightedId
 
-      // Color coding:
-      // - Cyan:   Highlighted from validation panel hover
-      // - Purple: AI prediction (pending — not yet validated)
-      // - Green:  Accepted AI prediction (correct ✓)
-      // - Red:    Manual annotation
-      let color = '#ff0000'  // Default red for manual
+      // Color coding priority (highest wins):
+      // - Cyan:         Highlighted from validation panel hover
+      // - Bright green: User-selected (so selection is always visible)
+      // - Purple:       AI prediction (pending — not yet validated)
+      // - Green:        Accepted AI prediction (correct ✓) / validated
+      // - Per-faction:  Default manual annotation — one stable hue per
+      //                 `classLabel` so multi-faction scenes read at a
+      //                 glance. Cached thumbs stay visually consistent
+      //                 across images (space_marines always blue-ish etc).
+      let color = factionStrokeColour(box.classLabel || 'manual')
       if (isHighlighted) {
         color = '#00ffff'  // Cyan for highlighted from panel
+      } else if (isSelected) {
+        color = '#00ff00'  // Bright green for selected — always win
       } else if (box.isAccepted) {
         color = '#22c55e'  // Green for accepted predictions
       } else if (box.isPrediction) {
-        color = isSelected ? '#a855f7' : '#7c3aed'  // Purple for pending AI predictions
+        color = '#7c3aed'  // Purple for pending AI predictions
       } else if (box.validated) {
         color = '#10b981'  // Green for validated
-      } else if (isSelected) {
-        color = '#00ff00'  // Bright green for selected
       }
 
       // Draw bbox with thicker line for predictions
       drawBox(ctx, scaledBox, color, isSelected || box.isPrediction)
 
-      // Build label text
+      // Build label text. When a unit_slug is set we render it alongside
+      // the faction so at-a-glance you see both halves of the label
+      // (e.g. "space_marines / intercessors"). Empty unit stays hidden.
+      const factionText = box.classLabel.replace(/_/g, ' ')
+      const unitText = box.unit_slug ? ` / ${box.unit_slug.replace(/_/g, ' ')}` : ''
       let labelText = ''
       if (box.isAccepted) {
         // Accepted prediction: show ✓ and class
         const confidence = box.confidence ? ` ${Math.round(box.confidence * 100)}%` : ''
-        labelText = `✓ ${box.classLabel.replace(/_/g, ' ')}${confidence}`
+        labelText = `✓ ${factionText}${unitText}${confidence}`
       } else if (box.isPrediction) {
         // Pending prediction: show number, class, and confidence
         const predIndex = boxes.filter(b => b.isPrediction).indexOf(box) + 1
         const confidence = box.confidence ? ` ${Math.round(box.confidence * 100)}%` : ''
-        labelText = `#${predIndex} ${box.classLabel.replace(/_/g, ' ')}${confidence}`
+        labelText = `#${predIndex} ${factionText}${unitText}${confidence}`
       } else {
-        labelText = box.classLabel.replace(/_/g, ' ')
+        labelText = `${factionText}${unitText}`
       }
 
       // Draw label background for better visibility
@@ -613,7 +606,10 @@ export default function BboxAnnotator({
       y: Math.min(startImage.y, endImage.y),
       width: Math.abs(endImage.x - startImage.x),
       height: Math.abs(endImage.y - startImage.y),
-      classLabel: currentClass
+      classLabel: currentClass,
+      // Inherit the default unit if one's been picked (new bbox starts
+      // pre-labelled). Omit when blank so the JSON stays clean.
+      ...(currentUnit ? { unit_slug: currentUnit } : {}),
     }
 
     // Use command pattern for undo/redo
@@ -636,16 +632,47 @@ export default function BboxAnnotator({
   }
 
   const handleClassChange = (newClass: string) => {
-    setCurrentClass(newClass)
+    if (newClass !== currentClass) {
+      setCurrentClass(newClass)
+      // Clear the default unit when the default faction changes — the
+      // old unit isn't valid under the new faction.
+      setCurrentUnit('')
+    }
 
-    // Update selected box via command pattern for undo support
+    // Update selected box via command pattern for undo support.
+    // If the box already had a unit_slug, clear it — a unit from faction A
+    // isn't meaningful under faction B. The user picks the new unit from
+    // the unit dropdown if desired. Two separate commands keeps undo
+    // granular: you can undo the faction change and get the unit back.
     if (selectedId) {
       const box = annotations.find(a => a.id === selectedId)
       if (box && box.classLabel !== newClass) {
-        const command = new ChangeClassCommand(selectedId, box.classLabel, newClass)
-        executeCommand(command)
+        const factionCmd = new ChangeClassCommand(selectedId, box.classLabel, newClass)
+        executeCommand(factionCmd)
+        if (box.unit_slug) {
+          const unitCmd = new ChangeUnitCommand(selectedId, box.unit_slug, undefined)
+          executeCommand(unitCmd)
+        }
       }
     }
+  }
+
+  /** Change the unit_slug of the currently-selected bbox, OR — when
+   *  no bbox is selected — set the default unit for the next bbox you
+   *  draw (mirrors how the faction picker writes to `currentClass`).
+   *  Empty string means "clear" (the deferred-labelling pattern). */
+  const handleUnitChange = (newUnit: string) => {
+    if (!selectedId) {
+      // No bbox selected → write the default for new draws.
+      setCurrentUnit(newUnit)
+      return
+    }
+    const box = annotations.find(a => a.id === selectedId)
+    if (!box) return
+    const normalised = newUnit || undefined
+    if (box.unit_slug === normalised) return
+    const cmd = new ChangeUnitCommand(selectedId, box.unit_slug, normalised)
+    executeCommand(cmd)
   }
 
   // Keyboard shortcuts
@@ -766,25 +793,103 @@ export default function BboxAnnotator({
         border: '1px solid #333'
       }}>
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-          {/* Class selector */}
-          <div>
-            <label style={{ marginRight: '0.5rem', color: '#aaa' }}>Class:</label>
-            <select
-              value={currentClass}
-              onChange={(e) => handleClassChange(e.target.value)}
-              style={{
-                padding: '0.5rem',
-                backgroundColor: '#2a2a2a',
-                color: '#fff',
-                border: '1px solid #444',
-                borderRadius: '4px'
-              }}
-            >
-              {classLabels.map(label => (
-                <option key={label} value={label}>{label}</option>
-              ))}
-            </select>
-          </div>
+          {/* Faction (class) + unit pickers. When a bbox is selected we
+              show and edit THAT bbox's faction + unit — so you can label
+              different minis in a multi-faction scene independently.
+              When nothing is selected the dropdowns set the default
+              class/unit for the next bbox you draw.
+              `unitsByFaction` is optional: if the taxonomy endpoint
+              hasn't loaded yet, the unit picker simply doesn't render. */}
+          {(() => {
+            const selectedBox = selectedId
+              ? annotations.find(a => a.id === selectedId) ?? null
+              : null
+            const effectiveFaction = selectedBox?.classLabel ?? currentClass
+            // Bbox selected → that bbox's unit. Nothing selected → the
+            // default that pre-populates new draws.
+            const effectiveUnit = selectedBox ? (selectedBox.unit_slug ?? '') : currentUnit
+            const factionUnits = unitsByFaction?.[effectiveFaction] ?? []
+            return (
+              <>
+                <div>
+                  <label style={{ marginRight: '0.5rem', color: '#aaa' }}>Faction:</label>
+                  <select
+                    value={effectiveFaction}
+                    onChange={(e) => handleClassChange(e.target.value)}
+                    style={{
+                      padding: '0.5rem',
+                      backgroundColor: '#2a2a2a',
+                      color: '#fff',
+                      border: '1px solid #444',
+                      borderRadius: '4px',
+                      minWidth: '180px',
+                    }}
+                  >
+                    {classLabels.map(label => (
+                      <option key={label} value={label}>{label}</option>
+                    ))}
+                  </select>
+                </div>
+                {unitsByFaction && (() => {
+                  // Native <select>. Previously a <datalist>-backed
+                  // typeahead, but datalist is unreliable in practice —
+                  // Chromium sometimes refuses to pop the suggestion
+                  // list for larger option sets, which made the 329
+                  // space_marines units effectively invisible. A plain
+                  // select is universally supported, scrollable, and
+                  // the browser's native first-letter-jump ("in" →
+                  // first "In…" option) covers the search use case.
+                  //
+                  // units.json has a few duplicate entries per faction
+                  // (same slug appearing twice with different
+                  // categories). Dedupe by slug so React keys are
+                  // unique and the dropdown isn't cluttered.
+                  const dedupedUnits = Array.from(
+                    new Map(factionUnits.map(u => [u.slug, u])).values()
+                  )
+                  return (
+                    <div>
+                      <label style={{ marginRight: '0.5rem', color: '#aaa' }}>
+                        Unit <span style={{ color: '#666', fontSize: '0.85rem' }}>(optional)</span>:
+                      </label>
+                      <select
+                        value={effectiveUnit}
+                        onChange={(e) => handleUnitChange(e.target.value)}
+                        title={selectedBox
+                          ? `Pick a unit for the selected bbox (${dedupedUnits.length} ${effectiveFaction} units). Type first letters to jump.`
+                          : `Set the default unit for the NEXT bbox you draw. Click an existing bbox to set ITS unit instead.`}
+                        style={{
+                          padding: '0.5rem',
+                          backgroundColor: '#2a2a2a',
+                          color: '#fff',
+                          border: '1px solid #444',
+                          borderRadius: '4px',
+                          minWidth: '260px',
+                          maxWidth: '360px',
+                        }}
+                      >
+                        <option value="">— defer / none —</option>
+                        {dedupedUnits.map(u => (
+                          <option key={u.slug} value={u.slug}>
+                            {u.name}{u.category ? ` · ${u.category}` : ''}
+                          </option>
+                        ))}
+                      </select>
+                      {!selectedBox && currentUnit && (
+                        <span style={{
+                          marginLeft: '0.5rem',
+                          fontSize: '0.75rem',
+                          color: '#a855f7',
+                        }} title="New bboxes you draw will start with this unit pre-selected">
+                          applies to next draw
+                        </span>
+                      )}
+                    </div>
+                  )
+                })()}
+              </>
+            )
+          })()}
 
           {/* Zoom controls */}
           <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
