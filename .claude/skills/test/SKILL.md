@@ -5,28 +5,38 @@ description: Run all TypeScript and Python test suites for photoanalyzer. Use wh
 
 # Run photoanalyzer Tests
 
-## Unit Tests (TypeScript/Jest)
+## Frontend Smoke Tests (Vitest + RTL)
+
+**Location**: `frontend/src/test/`
+
+```bash
+cd frontend && npm test           # one-shot run
+cd frontend && npm run test:watch # watch mode
+```
+
+**Coverage** (5 tests, intentionally minimal — guardrails against regressing
+load-bearing flows during the Big Refactor; per-component tests land
+alongside component extractions):
+- `AnnotationInterface.test.tsx` — mount → /progress + /taxonomy, "Start
+  Annotating" → /next, status-pill triggers /next, save POST wire shape.
+- `BboxAnnotator.test.tsx` — faction-edit gotcha (no bbox selected →
+  no mutation).
+
+## Backend Unit Tests (Vitest)
 
 **Location**: `backend/src/services/__tests__/annotationService.validation.test.ts`
 
 ```bash
-# Run all tests
 cd backend && npm test
-
-# Run specific test file
-npm test -- annotationService.validation.test.ts
-
-# Run with coverage
-npm test -- --coverage
 ```
 
-**Coverage**: 28 test cases covering:
-- Bbox out of bounds (4 tests)
-- Bbox too small (2 tests)
-- Base outside model (6 tests)
-- Duplicate boxes (3 tests)
-- Complex scenarios (5 tests)
-- IoU calculation (6 tests)
+**Status**: Backend's `vitest@^0.34` is stale and incompatible with current
+jsdom (html-encoding-sniffer ESM/CJS error). Tests don't currently run end
+to end; see TODO.md "Frontend vitest infrastructure" note for the bump
+path. The frontend bumped to vitest@4.x in May 2026.
+
+**Coverage** (when the version is fixed): 28 test cases covering bbox
+bounds, size, base-outside-model, duplicates, complex scenarios, IoU.
 
 ## Unit Tests (Python/pytest)
 
