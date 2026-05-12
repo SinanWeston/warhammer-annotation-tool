@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Review Tool</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; height: 100vh; display: flex; flex-direction: column; }
+.header { padding: 12px 20px; background: #16213e; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #333; }
+.header h1 { font-size: 18px; font-weight: 500; }
+.progress { font-size: 14px; color: #aaa; }
+.main { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 12px; min-height: 0; }
+.image-container { flex: 1; display: flex; align-items: center; justify-content: center; min-height: 0; }
+.image-container img { max-width: 90vw; max-height: calc(100vh - 280px); object-fit: contain; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+.info { text-align: center; font-size: 14px; color: #aaa; }
+.info .faction { color: #4fc3f7; font-weight: 600; }
+.info .cosine { color: #81c784; }
+.info .article { color: #999; font-size: 12px; margin-top: 4px; }
+.vote-badge { text-align: center; min-height: 36px; }
+.vote-badge .badge { font-size: 16px; font-weight: 700; padding: 6px 20px; border-radius: 8px; display: inline-block; }
+.badge-yes { background: #1b5e20; color: #a5d6a7; border: 2px solid #4caf50; }
+.badge-no { background: #b71c1c; color: #ef9a9a; border: 2px solid #ef5350; }
+.badge-mixed { background: #e65100; color: #ffcc80; border: 2px solid #ff9800; }
+.badge-skip { background: #444; color: #aaa; border: 2px solid #777; }
+.badge-none { color: #555; font-size: 14px; font-weight: 400; }
+.buttons { display: flex; gap: 20px; padding: 12px; justify-content: center; }
+.btn { padding: 14px 44px; font-size: 18px; font-weight: 600; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; }
+.btn:hover { transform: scale(1.05); }
+.btn:active { transform: scale(0.95); }
+.btn-yes { background: #2e7d32; color: white; box-shadow: 0 4px 12px rgba(46,125,50,0.4); }
+.btn-no { background: #c62828; color: white; box-shadow: 0 4px 12px rgba(198,40,40,0.4); }
+.btn-mixed { background: #e65100; color: white; box-shadow: 0 4px 12px rgba(230,81,0,0.4); }
+.btn-skip { background: #555; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+.nav-row { display: flex; gap: 12px; justify-content: center; align-items: center; padding-bottom: 8px; }
+.nav-btn { padding: 8px 20px; font-size: 14px; background: #333; color: #ccc; border: 1px solid #555; border-radius: 8px; cursor: pointer; }
+.nav-btn:hover { background: #444; }
+.keyboard-hint { font-size: 12px; color: #555; text-align: center; padding-bottom: 6px; }
+.stats { display: flex; gap: 24px; font-size: 13px; color: #888; }
+.stats .yes-count { color: #81c784; }
+.stats .no-count { color: #ef9a9a; }
+.done { text-align: center; padding: 40px; }
+.done h2 { color: #4fc3f7; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Miniature Review</h1>
+  <div class="stats">
+    <span>✓ Mini: <span class="yes-count" id="yesCount">0</span></span>
+    <span>✗ Not: <span class="no-count" id="noCount">0</span></span>
+    <span class="progress" id="progress">Loading...</span>
+  </div>
+</div>
+
+<div class="main" id="mainArea">
+  <div class="image-container">
+    <img id="currentImage" src="" alt="Loading...">
+  </div>
+  <div class="info">
+    <span class="faction" id="factionLabel"></span>
+    &nbsp;·&nbsp;
+    <span class="cosine" id="cosineLabel"></span>
+    &nbsp;·&nbsp;
+    <span id="indexLabel"></span>
+    <div class="article" id="articleLabel"></div>
+  </div>
+  <div class="vote-badge" id="voteBadge"></div>
+</div>
+
+<div class="buttons">
+  <button class="btn btn-no" onclick="vote('no')">✗ Not a Mini (N)</button>
+  <button class="btn btn-mixed" onclick="vote('mixed')">◐ Mixed (M)</button>
+  <button class="btn btn-skip" onclick="vote('skip')">Skip (S)</button>
+  <button class="btn btn-yes" onclick="vote('yes')">✓ Miniature (Y)</button>
+</div>
+<div class="nav-row">
+  <button class="nav-btn" onclick="goBack()">← Back</button>
+  <button class="nav-btn" onclick="goForward()">Forward →</button>
+  <button class="nav-btn" onclick="jumpToNextUnvoted()">Next Unvoted ⏭</button>
+</div>
+<div class="keyboard-hint">Y = mini · N = not · M = mixed · S = skip · ← → = browse · Tab = next unvoted</div>
+
+<script>
+let images = [];
+let currentIdx = 0;
+let votes = {};
+let yesCount = 0;
+let noCount = 0;
+
+async function loadImages() {
+  const resp = await fetch('/api/images');
+  images = await resp.json();
+  const vResp = await fetch('/api/votes');
+  votes = await vResp.json();
+  yesCount = Object.values(votes).filter(v => v === 'yes').length;
+  noCount = Object.values(votes).filter(v => v === 'no').length;
+  currentIdx = images.findIndex(img => !votes[img.path]);
+  if (currentIdx < 0) currentIdx = 0;
+  updateUI();
+}
+
+function updateUI() {
+  document.getElementById('yesCount').textContent = yesCount;
+  document.getElementById('noCount').textContent = noCount;
+  const reviewed = Object.keys(votes).length;
+  document.getElementById('progress').textContent = `${reviewed} / ${images.length} reviewed`;
+
+  if (currentIdx >= images.length) {
+    document.getElementById('mainArea').innerHTML = '<div class="done"><h2>All done!</h2><p>Results saved to state/review_votes.json</p></div>';
+    return;
+  }
+
+  const img = images[currentIdx];
+  document.getElementById('currentImage').src = '/image?path=' + encodeURIComponent(img.path);
+  document.getElementById('factionLabel').textContent = img.faction || 'unknown';
+  document.getElementById('cosineLabel').textContent = 'cos ' + img.cosine.toFixed(3);
+  document.getElementById('indexLabel').textContent = `#${currentIdx + 1}`;
+  document.getElementById('articleLabel').textContent = img.article;
+
+  const badge = document.getElementById('voteBadge');
+  const v = votes[img.path];
+  if (v === 'yes') {
+    badge.innerHTML = '<span class="badge badge-yes">✓ MINIATURE</span>';
+  } else if (v === 'no') {
+    badge.innerHTML = '<span class="badge badge-no">✗ NOT A MINI</span>';
+  } else if (v === 'mixed') {
+    badge.innerHTML = '<span class="badge badge-mixed">◐ MIXED (text overlay / multi-panel)</span>';
+  } else if (v === 'skip') {
+    badge.innerHTML = '<span class="badge badge-skip">⊘ SKIPPED</span>';
+  } else {
+    badge.innerHTML = '<span class="badge-none">— not yet voted —</span>';
+  }
+}
+
+async function vote(v) {
+  if (currentIdx >= images.length) return;
+  const img = images[currentIdx];
+  const prev = votes[img.path];
+  votes[img.path] = v;
+  if (v === 'yes') yesCount++;
+  if (v === 'no') noCount++;
+  if (prev === 'yes') yesCount--;
+  if (prev === 'no') noCount--;
+
+  await fetch('/api/vote', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({path: img.path, vote: v})
+  });
+
+  // Just advance by 1 — no skipping. User controls navigation.
+  currentIdx++;
+  updateUI();
+}
+
+function goBack() {
+  if (currentIdx > 0) { currentIdx--; updateUI(); }
+}
+
+function goForward() {
+  if (currentIdx < images.length - 1) { currentIdx++; updateUI(); }
+}
+
+function jumpToNextUnvoted() {
+  for (let i = currentIdx + 1; i < images.length; i++) {
+    if (!votes[images[i].path]) { currentIdx = i; updateUI(); return; }
+  }
+  // Wrap around
+  for (let i = 0; i < currentIdx; i++) {
+    if (!votes[images[i].path]) { currentIdx = i; updateUI(); return; }
+  }
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'y' || e.key === 'Y') vote('yes');
+  else if (e.key === 'n' || e.key === 'N') vote('no');
+  else if (e.key === 'm' || e.key === 'M') vote('mixed');
+  else if (e.key === 's' || e.key === 'S') vote('skip');
+  else if (e.key === 'ArrowLeft') goBack();
+  else if (e.key === 'ArrowRight') goForward();
+  else if (e.key === 'Tab') { e.preventDefault(); jumpToNextUnvoted(); }
+});
+
+loadImages();
+</script>
+</body>
+</html>

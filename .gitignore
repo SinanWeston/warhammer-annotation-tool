@@ -107,8 +107,11 @@ __pycache__/
 scripts/warhammer_com/recon/
 scripts/warhammer_com/images/
 scripts/warhammer_com/state/
+scripts/warhammer_com/data/
+scripts/warhammer_com/logs/
 scripts/warhammer_community/images/
 scripts/warhammer_community/state/
+scripts/warhammer_community/logs/
 
 # CMON scraper dumps (recon HTML, images, browser profile, logs — all large/regenerable)
 scripts/cmon/recon/

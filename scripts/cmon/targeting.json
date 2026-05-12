@@ -1,0 +1,37 @@
+{
+  "_description": "CMON scrape scope. Read by the walker. Fixed filter values come from the cmon_recon.py dump at scripts/cmon/recon/browse/html.html (select options).",
+  "base_url": "https://www.coolminiornot.com",
+  "listing_path": "/browse",
+  "listing_raw_path": "/browse/raw",
+  "fixed_filters": {
+    "setting_id": 1,
+    "manufacturer_id": 125,
+    "regaverageMin": 1,
+    "regaverageMax": 10,
+    "sort": "regaverage",
+    "auction": 1,
+    "view": "tiles"
+  },
+  "filter_meaning": {
+    "setting_id=1": "Warhammer 40k",
+    "manufacturer_id=125": "Games Workshop",
+    "regaverageMin/Max": "Full score range 1-10 (unscored entries naturally excluded — they have no regaverage)",
+    "sort=regaverage": "Sort by Score (descending)",
+    "auction=1": "Exclude auctions",
+    "_dropped_voted": "voted=2 is CMON's per-user 'Voted Already' filter — useless for anonymous scraping",
+    "_dropped_type_id": "type_id is now null on the 'all' run so we grab Single + Squad + Diorama + Bust + Terrain in one pass. Type is still captured per-entry in manifest.json tags."
+  },
+  "runs": [
+    {"name": "all",     "type_id": null, "label": "All types", "status": "queued"},
+    {"name": "single",  "type_id": 1,    "label": "Single",    "status": "partial"},
+    {"name": "squad",   "type_id": 2,    "label": "Squad",     "status": "queued"},
+    {"name": "bust",    "type_id": 5,    "label": "Bust",      "status": "queued"},
+    {"name": "diorama", "type_id": 3,    "label": "Diorama",   "status": "queued"},
+    {"name": "terrain", "type_id": 4,    "label": "Terrain",   "status": "queued"}
+  ],
+  "_notes": [
+    "2026-04-16: scope expanded — score floor dropped from 6 to 1, type filter dropped. 'all' run is the authoritative corpus going forward.",
+    "Per-type runs remain available for targeted backfill if needed.",
+    "CMON's type_id enumeration is only 5 values — no 'Vehicle' or 'Group'. Vehicles fall under Single or Squad."
+  ]
+}
