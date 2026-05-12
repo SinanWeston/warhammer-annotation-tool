@@ -10,6 +10,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react'
+import { apiToBbox, bboxToApi, type ApiAnnotation } from '../utils/annotationWire'
 import BboxAnnotator from './BboxAnnotator'
 import QualityIssuesModal from './QualityIssuesModal'
 import { BboxAnnotation } from '../types'
@@ -305,15 +306,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       let newAnnotations: BboxAnnotation[] = []
 
       if (data.data.annotation?.annotations) {
-        newAnnotations = data.data.annotation.annotations.map((ann: any) => ({
-          id: ann.id,
-          x: ann.modelBbox.x,
-          y: ann.modelBbox.y,
-          width: ann.modelBbox.width,
-          height: ann.modelBbox.height,
-          classLabel: ann.classLabel,
-          baseBbox: ann.baseBbox
-        }))
+        newAnnotations = (data.data.annotation.annotations as ApiAnnotation[]).map(apiToBbox)
       }
 
       setCurrentImage(imageInfo)
@@ -344,15 +337,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         let newAnnotations: BboxAnnotation[] = []
 
         if (imageData.data.annotation && imageData.data.annotation.annotations) {
-          newAnnotations = imageData.data.annotation.annotations.map((ann: any) => ({
-            id: ann.id,
-            x: ann.modelBbox.x,
-            y: ann.modelBbox.y,
-            width: ann.modelBbox.width,
-            height: ann.modelBbox.height,
-            classLabel: ann.classLabel,
-            baseBbox: ann.baseBbox
-          }))
+          newAnnotations = (imageData.data.annotation.annotations as ApiAnnotation[]).map(apiToBbox)
         }
 
         setCurrentImage(imageData.data.image)
@@ -461,15 +446,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       const imageInfo = data.data.image
       let newAnnotations: BboxAnnotation[] = []
       if (data.data.annotation?.annotations) {
-        newAnnotations = data.data.annotation.annotations.map((ann: any) => ({
-          id: ann.id,
-          x: ann.modelBbox.x,
-          y: ann.modelBbox.y,
-          width: ann.modelBbox.width,
-          height: ann.modelBbox.height,
-          classLabel: ann.classLabel,
-          baseBbox: ann.baseBbox
-        }))
+        newAnnotations = (data.data.annotation.annotations as ApiAnnotation[]).map(apiToBbox)
       }
 
       setPreloadQueue(prev => [...prev, {
@@ -515,45 +492,11 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         source: currentImage.source,
         width: currentImage.width || 0,
         height: currentImage.height || 0,
-        annotations: allAnnotations.map(ann => ({
-          id: ann.id,
-          modelBbox: {
-            x: ann.x,
-            y: ann.y,
-            width: ann.width,
-            height: ann.height
-          },
-          baseBbox: ann.baseBbox,
-          classLabel: ann.classLabel,
-          // Include AI metadata for training
-          confidence: ann.confidence,
-          validationAction: ann.validationAction,
-          originalPrediction: ann.originalPrediction
-        })),
-        // Store rejected predictions separately for hard negative mining
-        rejectedPredictions: rejectedPredictions.map(ann => ({
-          id: ann.id,
-          modelBbox: {
-            x: ann.x,
-            y: ann.y,
-            width: ann.width,
-            height: ann.height
-          },
-          classLabel: ann.classLabel,
-          confidence: ann.confidence
-        })),
-        // Store redrawn predictions to track where AI was wrong
-        redrawnPredictions: redrawnPredictions.map(ann => ({
-          id: ann.id,
-          modelBbox: {
-            x: ann.x,
-            y: ann.y,
-            width: ann.width,
-            height: ann.height
-          },
-          classLabel: ann.classLabel,
-          confidence: ann.confidence
-        })),
+        annotations: allAnnotations.map(bboxToApi),
+        // Rejected predictions kept for hard negative mining.
+        rejectedPredictions: rejectedPredictions.map(bboxToApi),
+        // Redrawn predictions kept to track where AI was wrong.
+        redrawnPredictions: redrawnPredictions.map(bboxToApi),
         annotatedAt: new Date().toISOString(),
         annotatedBy: annotatorName || 'anonymous'
       }
@@ -770,27 +713,9 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         source: currentImage.source,
         width: currentImage.width || 0,
         height: currentImage.height || 0,
-        annotations: allAnnotations.map(ann => ({
-          id: ann.id,
-          modelBbox: { x: ann.x, y: ann.y, width: ann.width, height: ann.height },
-          baseBbox: ann.baseBbox,
-          classLabel: ann.classLabel,
-          confidence: ann.confidence,
-          validationAction: ann.validationAction,
-          originalPrediction: ann.originalPrediction
-        })),
-        rejectedPredictions: rejectedPredictions.map(ann => ({
-          id: ann.id,
-          modelBbox: { x: ann.x, y: ann.y, width: ann.width, height: ann.height },
-          classLabel: ann.classLabel,
-          confidence: ann.confidence
-        })),
-        redrawnPredictions: redrawnPredictions.map(ann => ({
-          id: ann.id,
-          modelBbox: { x: ann.x, y: ann.y, width: ann.width, height: ann.height },
-          classLabel: ann.classLabel,
-          confidence: ann.confidence
-        })),
+        annotations: allAnnotations.map(bboxToApi),
+        rejectedPredictions: rejectedPredictions.map(bboxToApi),
+        redrawnPredictions: redrawnPredictions.map(bboxToApi),
         annotatedAt: new Date().toISOString(),
         annotatedBy: annotatorName || 'anonymous'
       }
