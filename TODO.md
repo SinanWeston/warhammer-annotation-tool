@@ -136,7 +136,7 @@ Ordered by impact and risk. Honest disagreements noted inline.
 
 | Suggestion | Why skip |
 |------------|----------|
-| Split SPEC.md into SPEC + REFERENCE | One well-structured doc beats two half-synced docs |
+| Rewrite SPEC.md | Deleted in 2026-05 — pre-pivot architecture (end-to-end YOLO, 900-class softmax) directly contradicted STRATEGY.md. STRATEGY.md is the truth. |
 | Monitoring stack (Prometheus/Grafana) | Over-engineering for solo localhost. Winston + `tail -f` is sufficient |
 | Validation as data-driven rule array | Working code with 28 tests. Refactoring for elegance, not need |
 | Image licensing in spec | Valid legal concern, wrong document. One-liner in README |
@@ -236,5 +236,5 @@ After sessions 1-3: annotations are safer, export is tested, AI-assist is fast, 
 ### Still outstanding from the sweep
 
 - [ ] **AnnotationInterface split** — 1,515 lines, 16 `useState` calls. Pure-function extraction (coordinates) is done; the component split is a real refactor that needs manual UI testing. Defer until next canvas change.
-- [ ] **`BASE_OUTSIDE_MODEL` validation** — spec'd in SPEC.md §6.1 ("errors block save: base outside model"), 5 tests skipped in `annotationService.validation.test.ts`. Implementation missing from `annotationService.validateAnnotation()`.
+- [ ] **`BASE_OUTSIDE_MODEL` validation** — rule: errors block save when the inner `baseBbox` extends outside the outer `modelBbox`. 5 tests skipped in `annotationService.validation.test.ts`. Implementation missing from `annotationService.validateAnnotation()`.
 - [ ] **Frontend vitest infrastructure** — `jsdom`/`vitest 0.34` dep conflict with `html-encoding-sniffer` (ESM/CJS). Either upgrade vitest to ≥1.x or pin jsdom. Blocking frontend component tests.

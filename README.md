@@ -212,7 +212,6 @@ See `TESTING.md` for comprehensive testing documentation.
 - **README.md** — This file (quick start guide)
 - **STRATEGY.md** — **Guiding star.** Architectural direction for the CV pipeline (detection + retrieval, not end-to-end YOLO). Consult before any modelling change.
 - **OVERVIEW.md** — High-level project overview (components, dataset, tech stack)
-- **SPEC.md** — Technical specification (architecture, data models, API)
 - **TODO.md** — Current improvement plan, tiered by priority
 - **DEPLOY.md** — Multi-user deployment via ngrok
 - **CLAUDE.md** — Developer guidance for Claude Code
