@@ -16,6 +16,7 @@ import StatusFilterRow, { type AnnotatorStatus } from './annotation/StatusFilter
 import SourceFilterRow from './annotation/SourceFilterRow'
 import FactionProgressGrid from './annotation/FactionProgressGrid'
 import ImageProvenanceCard from './annotation/ImageProvenanceCard'
+import PredictionValidationPanel from './annotation/PredictionValidationPanel'
 import BboxAnnotator from './BboxAnnotator'
 import QualityIssuesModal from './QualityIssuesModal'
 import { BboxAnnotation, type AnnotationProgress, type AnnotatorImage, type QualityIssue } from '../types'
@@ -153,6 +154,26 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
     }
   }
 
+  /** Guard for navigation away from an image with unsaved review state.
+   *
+   *  When the user has reviewed AI predictions (rejected or redrawn boxes)
+   *  but hasn't pressed Save, that buffer lives only in `processedPredictions`
+   *  RAM state. The next `setCurrentImage` resets it — the rejection
+   *  metadata vanishes silently and never makes it to the /save payload
+   *  for hard-negative-mining.
+   *
+   *  Returns true when it's safe to proceed (no pending review state, or
+   *  the user confirmed they want to discard). Returns false to cancel.
+   */
+  const confirmDiscardReviewState = (): boolean => {
+    if (processedPredictions.length === 0) return true
+    return window.confirm(
+      `You have ${processedPredictions.length} unsaved review action(s) ` +
+      `(rejected or redrawn AI predictions) for this image. Navigating ` +
+      `away will discard them. Continue?`,
+    )
+  }
+
   // Load next image. factionOverride lets callers pass a faction directly
   // (e.g. when clicking a faction card, before state has updated).
   const loadNextImage = async (factionOverride?: string | null, extraExclude?: string) => {
@@ -288,6 +309,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   // back; each loadSpecificImage call keeps the remaining history intact.
   const goBack = () => {
     if (history.length === 0) return
+    if (!confirmDiscardReviewState()) return
     const prev = history[history.length - 1]
     setHistory(h => h.slice(0, -1))
     loadSpecificImage(prev)
@@ -697,6 +719,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   // Skip current image without saving anything — image stays unannotated
   const skipImage = async () => {
     if (!currentImage) return
+    if (!confirmDiscardReviewState()) return
 
     setError(null)
     setSuccess(null)
@@ -712,6 +735,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
   // Flag image as permanently unusable
   const flagImage = async () => {
     if (!currentImage) return
+    if (!confirmDiscardReviewState()) return
 
     setSaving(true)
     setError(null)
@@ -832,6 +856,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         selectedStatus={selectedStatus}
         progress={progress}
         onStatusChange={next => {
+          if (!confirmDiscardReviewState()) return
           setSelectedStatus(next)
           // NB: closure bug — loadNextImage sees stale selectedStatus.
           // Commit 10 fixes this via useReducer + reload-via-effect.
@@ -843,6 +868,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         selectedSource={selectedSource}
         taxonomy={taxonomy}
         onSourceChange={next => {
+          if (!confirmDiscardReviewState()) return
           setSelectedSource(next)
           loadNextImage()
         }}
@@ -852,6 +878,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         progress={progress}
         selectedFaction={selectedFaction}
         onFactionToggle={next => {
+          if (!confirmDiscardReviewState()) return
           setSelectedFaction(next)
           loadNextImage(next)
         }}
@@ -1008,180 +1035,18 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         </div>
       )}
 
-      {/* AI Prediction Validation Panel */}
-      {currentImage && predictions.length > 0 && (
-        <div style={{
-          padding: '1.5rem',
-          backgroundColor: '#1e293b',
-          borderRadius: '8px',
-          border: '2px solid #3b82f6',
-          marginBottom: '1rem'
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <h3 style={{ margin: 0, color: '#fff' }}>🤖 AI Predictions - Validate Each Box</h3>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                onClick={() => acceptHighConfidencePredictions()}
-                style={{
-                  padding: '0.4rem 0.75rem',
-                  backgroundColor: '#0d9488',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '6px',
-                  fontSize: '0.8rem',
-                  cursor: 'pointer'
-                }}
-                title="Accept predictions with >80% confidence"
-              >
-                ✓ Accept High Conf
-              </button>
-              <button
-                onClick={acceptAllPredictions}
-                style={{
-                  padding: '0.4rem 0.75rem',
-                  backgroundColor: '#059669',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '6px',
-                  fontSize: '0.8rem',
-                  cursor: 'pointer',
-                  fontWeight: 'bold'
-                }}
-                title="Accept all remaining predictions and save (Enter)"
-              >
-                ✓ Accept All
-              </button>
-              <button
-                onClick={rejectAllPredictions}
-                style={{
-                  padding: '0.4rem 0.75rem',
-                  backgroundColor: '#dc2626',
-                  color: '#fff',
-                  border: 'none',
-                  borderRadius: '6px',
-                  fontSize: '0.8rem',
-                  cursor: 'pointer'
-                }}
-                title="Reject all remaining predictions"
-              >
-                ✗ Reject All
-              </button>
-            </div>
-          </div>
-
-          {/* Keyboard shortcut legend */}
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            marginBottom: '0.75rem',
-            padding: '0.5rem 0.75rem',
-            backgroundColor: '#0f172a',
-            borderRadius: '4px',
-            fontSize: '0.75rem',
-            color: '#64748b',
-            flexWrap: 'wrap'
-          }}>
-            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>Tab</kbd> cycle</span>
-            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>A</kbd> accept</span>
-            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>W</kbd> wrong</span>
-            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>R</kbd> redraw</span>
-            <span><kbd style={{ color: '#94a3b8', backgroundColor: '#1e293b', padding: '1px 5px', borderRadius: '3px', border: '1px solid #334155' }}>Enter</kbd> accept all + save</span>
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {predictions.map((pred, idx) => {
-              const isHighlighted = pred.id === highlightedPrediction
-              return (
-                <div
-                  key={pred.id}
-                  onMouseEnter={() => setHighlightedPrediction(pred.id)}
-                  onMouseLeave={() => setHighlightedPrediction(null)}
-                  onClick={() => setHighlightedPrediction(pred.id)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '1rem',
-                    padding: '0.75rem 1rem',
-                    backgroundColor: isHighlighted ? '#1e3a5f' : '#0f172a',
-                    borderRadius: '6px',
-                    border: isHighlighted ? '2px solid #00ffff' : '1px solid #334155',
-                    cursor: 'pointer',
-                    transition: 'all 0.15s ease'
-                  }}
-                >
-                  <span style={{
-                    color: isHighlighted ? '#00ffff' : '#94a3b8',
-                    fontWeight: 'bold',
-                    minWidth: '30px',
-                    fontSize: '1.1rem'
-                  }}>
-                    #{idx + 1}
-                  </span>
-                  <span style={{ color: '#fff', flex: 1 }}>
-                    {pred.classLabel.replace(/_/g, ' ')}
-                    <span style={{ color: '#64748b', marginLeft: '0.5rem' }}>
-                      ({((pred.confidence || 0) * 100).toFixed(0)}% conf)
-                    </span>
-                  </span>
-
-                  {/* Green - Accept */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); acceptPrediction(pred.id); }}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      backgroundColor: '#059669',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '6px',
-                      fontSize: '1rem',
-                      cursor: 'pointer',
-                      fontWeight: 'bold'
-                    }}
-                    title="Correct - Accept this box"
-                  >
-                    ✓ Correct
-                  </button>
-
-                  {/* Yellow - Redraw */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); redrawPrediction(pred.id); }}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      backgroundColor: '#eab308',
-                      color: '#000',
-                      border: 'none',
-                      borderRadius: '6px',
-                      fontSize: '1rem',
-                      cursor: 'pointer',
-                      fontWeight: 'bold'
-                    }}
-                    title="Redraw - Delete and draw manually"
-                  >
-                    ✎ Redraw
-                  </button>
-
-                  {/* Red - Wrong */}
-                  <button
-                    onClick={(e) => { e.stopPropagation(); rejectPrediction(pred.id); }}
-                    style={{
-                      padding: '0.5rem 1rem',
-                      backgroundColor: '#dc2626',
-                      color: '#fff',
-                      border: 'none',
-                      borderRadius: '6px',
-                      fontSize: '1rem',
-                      cursor: 'pointer',
-                      fontWeight: 'bold'
-                    }}
-                    title="Wrong - Remove this box"
-                  >
-                    ✗ Wrong
-                  </button>
-                </div>
-              )
-            })}
-          </div>
-        </div>
+      {currentImage && (
+        <PredictionValidationPanel
+          predictions={predictions}
+          highlightedId={highlightedPrediction}
+          setHighlightedId={setHighlightedPrediction}
+          onAccept={acceptPrediction}
+          onReject={rejectPrediction}
+          onRedraw={redrawPrediction}
+          onAcceptAll={acceptAllPredictions}
+          onRejectAll={rejectAllPredictions}
+          onAcceptHighConf={acceptHighConfidencePredictions}
+        />
       )}
 
       {/* Action Buttons */}
