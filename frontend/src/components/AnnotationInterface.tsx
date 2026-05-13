@@ -260,17 +260,18 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (selectedSource) params.set('source', selectedSource)
       if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
-      // Build the exclude set. Normally just skippedIds (+ optional one-off).
-      // frozen_eval is a fixed-list browse mode: the 200 manifest images
-      // are already annotated, so saving doesn't drop them from the queue
-      // and "next" would otherwise cycle back to image-0 forever. Treat
-      // session history + current as exclude so each "next" actually advances.
+      // Build the exclude set. "Next" always means "different from current":
+      // pending/legacy/pseudo/flagged/frozen_eval queues sort the same
+      // images deterministically, so a save that doesn't flip the bucket
+      // (e.g. saving a pending image without filling in unit_slug) would
+      // otherwise re-serve the head forever. Excluding currentImage makes
+      // Save & Next always advance.
       const excludeIds: Set<string> = (() => {
         const ids = new Set(skippedIds)
         if (extraExclude) ids.add(extraExclude)
+        if (currentImage) ids.add(currentImage.imageId)
         if (selectedStatus === 'frozen_eval') {
           history.forEach(id => ids.add(id))
-          if (currentImage) ids.add(currentImage.imageId)
         }
         return ids
       })()
@@ -431,17 +432,12 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (selectedSource) params.set('source', selectedSource)
       if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
-      // Mirror loadNextImage's exclude logic for frozen_eval so the
-      // preloaded "next" is actually the next manifest image, not a
-      // cached copy of the current head.
-      if (selectedStatus === 'frozen_eval') {
-        const ids = new Set(skippedIds)
-        history.forEach(id => ids.add(id))
-        if (currentImage) ids.add(currentImage.imageId)
-        if (ids.size > 0) params.set('exclude', Array.from(ids).join(','))
-      } else if (skippedIds.size > 0) {
-        params.set('exclude', Array.from(skippedIds).join(','))
-      }
+      // Mirror loadNextImage's exclude logic — "next" means "different
+      // from current" so pending/legacy/pseudo/flagged saves advance.
+      const ids = new Set(skippedIds)
+      if (currentImage) ids.add(currentImage.imageId)
+      if (selectedStatus === 'frozen_eval') history.forEach(id => ids.add(id))
+      if (ids.size > 0) params.set('exclude', Array.from(ids).join(','))
       const qs = params.toString()
       const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
       const response = await fetch(url)
