@@ -84,4 +84,16 @@ export interface AnnotatorImage {
     votes?: number
     tags?: string[]
   }
+  /** Optional active-learning hint — sent when prioritize-by-confidence
+   *  mode is on. */
+  confidenceScore?: number
+  /** gw_walk-only — present only when status=gw_walk. The raw folder name
+   *  from the GW shop scrape (e.g. `ael_shining_spear_feature`). Used by
+   *  the walkthrough UI as a label hint when the folder isn't mapped to
+   *  a canonical unit_slug yet. */
+  gwFolderSlug?: string | null
+  /** gw_walk-only — canonical unit_slug pre-fill from
+   *  `scripts/data/gw_slug_canonical_map.json`. Null/empty = unmapped;
+   *  the user picks from the dropdown. */
+  suggestedUnitSlug?: string | null
 }

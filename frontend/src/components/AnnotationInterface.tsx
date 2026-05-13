@@ -296,6 +296,28 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
 
       if (data.data.annotation?.annotations) {
         newAnnotations = (data.data.annotation.annotations as ApiAnnotation[]).map(apiToBbox)
+      } else if (selectedStatus === 'gw_walk') {
+        // GW walkthrough pre-fill — drop a centered 90%-of-image bbox the
+        // user MUST verify + tighten before saving. classLabel pre-fills
+        // from the folder-derived faction; unit_slug from the canonical
+        // map (or empty if the folder isn't mapped yet). The whole point
+        // is the user catches mistakes; the pre-fill is a fast starting
+        // point, not a finished label.
+        const w = imageInfo.width || 0
+        const h = imageInfo.height || 0
+        if (w > 0 && h > 0) {
+          const insetX = Math.round(w * 0.05)
+          const insetY = Math.round(h * 0.05)
+          newAnnotations = [{
+            id: `gw_prefill_${Date.now()}`,
+            x: insetX,
+            y: insetY,
+            width: w - insetX * 2,
+            height: h - insetY * 2,
+            classLabel: imageInfo.faction,
+            unit_slug: imageInfo.suggestedUnitSlug || undefined,
+          }]
+        }
       }
 
       setCurrentImage(imageInfo)

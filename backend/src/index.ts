@@ -146,6 +146,46 @@ const _cmonManifestCache = new Map<string, {
   score?: number; votes?: number; tags?: string[]
 }>()
 
+// gw_shop folder_slug → canonical unit_slug, loaded once on first use.
+// Lives at scripts/data/gw_slug_canonical_map.json; built by
+// scripts/build_gw_slug_map.py. Empty-string values mean unmapped — the
+// walkthrough UI shows a blank slug and the user picks from the
+// taxonomy dropdown.
+let _gwSlugMap: Map<string, string> | null = null
+async function loadGwSlugMap(): Promise<Map<string, string>> {
+  if (_gwSlugMap) return _gwSlugMap
+  const mapPath = path.join(__dirname, '../../scripts/data/gw_slug_canonical_map.json')
+  try {
+    const raw = await fs.readFile(mapPath, 'utf-8')
+    const obj = JSON.parse(raw) as Record<string, string>
+    _gwSlugMap = new Map(Object.entries(obj))
+  } catch (e) {
+    logger.warn(`gw_slug_canonical_map.json not found at ${mapPath}; walkthrough pre-fill disabled`)
+    _gwSlugMap = new Map()
+  }
+  return _gwSlugMap
+}
+
+/** Parse a gw_shop symlink filename → folder_slug. Filenames look like
+ *  `ael_shining_spear__99120104071_AELShiningSpearLead.jpg` — everything
+ *  before the `__` is the gw_shop folder name. */
+function parseGwFolderSlug(filename: string): string | null {
+  const sep = filename.indexOf('__')
+  if (sep < 0) return null
+  return filename.slice(0, sep)
+}
+
+/** Look up the canonical unit_slug for a gw_shop image. Returns null if
+ *  the image isn't a gw_shop file or the mapping is missing/empty. */
+async function suggestedUnitSlugForGwImage(imagePath: string, faction: string): Promise<string | null> {
+  const filename = path.basename(imagePath)
+  const folderSlug = parseGwFolderSlug(filename)
+  if (!folderSlug) return null
+  const map = await loadGwSlugMap()
+  const canonical = map.get(`${faction}/${folderSlug}`)
+  return canonical || null
+}
+
 async function buildImageMeta(imagePath: string): Promise<{
   filename: string
   title?: string
@@ -262,8 +302,12 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
     //                (saving still works, but the manifest is the source of
     //                truth — see data/scene_benchmark/eval_200.json)
     //   `all`      — pending > legacy > unannotated (flagged excluded)
+    //   `gw_walk`  — Phase B reference walkthrough — gw_shop images sorted
+    //                by folder_slug so the user walks unit-by-unit;
+    //                response carries a suggested_unit_slug pre-fill from
+    //                scripts/data/gw_slug_canonical_map.json
     const rawStatus = (req.query.status as string | undefined) ?? 'unannotated'
-    const STATUS_VALUES = ['unannotated', 'pending', 'legacy', 'pseudo', 'flagged', 'frozen_eval', 'all'] as const
+    const STATUS_VALUES = ['unannotated', 'pending', 'legacy', 'pseudo', 'flagged', 'frozen_eval', 'all', 'gw_walk'] as const
     if (!STATUS_VALUES.includes(rawStatus as typeof STATUS_VALUES[number])) {
       return res.status(400).json({
         success: false,
@@ -306,6 +350,17 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
     // only the label seen by the UI / downstream consumers is updated.
     const effectiveFaction = annotation?.faction || image.faction
 
+    // gw_walk pre-fill — derive folder_slug from the symlink filename,
+    // look up canonical unit_slug. UI uses this to populate the unit
+    // dropdown so the user just confirms + tightens the bbox. Empty
+    // string ↔ no mapping yet; UI shows the raw folder_slug as a hint.
+    let suggestedUnitSlug: string | null = null
+    let gwFolderSlug: string | null = null
+    if (status === 'gw_walk') {
+      gwFolderSlug = parseGwFolderSlug(path.basename(image.imagePath))
+      suggestedUnitSlug = await suggestedUnitSlugForGwImage(image.imagePath, image.faction)
+    }
+
     res.json({
       success: true,
       data: {
@@ -316,6 +371,9 @@ app.get('/api/annotate/next', async (req: Request, res: Response, next: NextFunc
           width: metadata.width || 0,
           height: metadata.height || 0,
           meta,   // { filename, title?, artist?, sourceUrl? } — drives the UI header
+          // gw_walk-only: walkthrough hints. Both null for other statuses.
+          gwFolderSlug,
+          suggestedUnitSlug,
         },
         annotation,
       },

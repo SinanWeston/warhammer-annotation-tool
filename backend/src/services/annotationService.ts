@@ -126,6 +126,7 @@ export type AnnotatorStatus =
   | 'flagged'
   | 'frozen_eval'
   | 'all'
+  | 'gw_walk'
 
 /** Row shape returned by every per-status picker helper. Same fields
  *  as getImageList's element so they're freely interchangeable. */
@@ -244,6 +245,9 @@ export class AnnotationService {
    *    flagged     → .skip.json sidecars (browse-only)
    *    frozen_eval → Phase C held-out 200 (browse-only)
    *    all         → pending > legacy > unannotated, deduped by id
+   *    gw_walk     → Phase B reference walkthrough — gw_shop images only,
+   *                  sorted by folder_slug then filename so the user
+   *                  walks unit-by-unit; unannotated AND unflagged
    */
   private async _pickByStatus(
     status: AnnotatorStatus,
@@ -257,7 +261,25 @@ export class AnnotationService {
       case 'frozen_eval': return this._pickFrozenEval()
       case 'all':         return this._pickAll(sourceSet)
       case 'unannotated': return this.getImageList(false, sourceSet)
+      case 'gw_walk':     return this._pickGwWalk()
+      default: {
+        const _exhaustive: never = status
+        throw new Error(`Unhandled status: ${_exhaustive}`)
+      }
     }
+  }
+
+  /** Phase B reference walkthrough. Walks training_data/{faction}/gw_shop/
+   *  symlinks, sorted so the user sees images grouped by unit folder
+   *  (lead → feature → stock for the same product appear consecutively).
+   *  Filters out already-annotated and flagged-as-unusable images. */
+  private async _pickGwWalk(): Promise<QueueImage[]> {
+    const all = await this.getImageList(true)
+    const gwOnly = all.filter(img => img.source === 'gw_shop' && !img.isAnnotated)
+    // Imageids come from the symlink filename, which encodes the gw_shop
+    // folder slug as `{folder}__{rest}`. Sorting by imageId therefore
+    // groups every variant of one product (lead/feature/stock) together.
+    return [...gwOnly].sort((a, b) => a.imageId.localeCompare(b.imageId))
   }
 
   /** Phase C held-out 200. Source imageIds from the manifest, then

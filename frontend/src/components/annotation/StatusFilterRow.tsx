@@ -31,6 +31,7 @@ export type AnnotatorStatus =
   | 'flagged'
   | 'frozen_eval'
   | 'all'
+  | 'gw_walk'
 
 interface Props {
   selectedStatus: AnnotatorStatus
@@ -105,6 +106,11 @@ export default function StatusFilterRow({ selectedStatus, onStatusChange, progre
       key: 'all',
       label: 'All',
       tooltip: 'Every image, in priority order: pending > legacy > unannotated. Flagged excluded.',
+    },
+    {
+      key: 'gw_walk',
+      label: 'GW Walkthrough',
+      tooltip: 'Phase B reference walkthrough — walk gw_shop images unit-by-unit. unit_slug pre-fills from scripts/data/gw_slug_canonical_map.json; you verify + tighten the bbox + save.',
     },
   ]
 
