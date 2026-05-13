@@ -260,19 +260,19 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (selectedSource) params.set('source', selectedSource)
       if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
-      // Build the exclude set. "Next" always means "different from current":
-      // pending/legacy/pseudo/flagged/frozen_eval queues sort the same
-      // images deterministically, so a save that doesn't flip the bucket
-      // (e.g. saving a pending image without filling in unit_slug) would
-      // otherwise re-serve the head forever. Excluding currentImage makes
-      // Save & Next always advance.
+      // Build the exclude set. "Next" always means "different from current",
+      // and for sticky-queue modes (anything except 'unannotated') it also
+      // means "different from anything we've seen this session". Pending /
+      // legacy / pseudo / flagged / frozen_eval / all queues sort the same
+      // images deterministically and may keep an item in the queue after a
+      // save (e.g. pending stays pending until every bbox has a unit_slug),
+      // so without history-exclude the user cycles through the same N items.
+      // 'unannotated' is the only mode where save auto-drains the queue.
       const excludeIds: Set<string> = (() => {
         const ids = new Set(skippedIds)
         if (extraExclude) ids.add(extraExclude)
         if (currentImage) ids.add(currentImage.imageId)
-        if (selectedStatus === 'frozen_eval') {
-          history.forEach(id => ids.add(id))
-        }
+        if (selectedStatus !== 'unannotated') history.forEach(id => ids.add(id))
         return ids
       })()
       if (excludeIds.size > 0) params.set('exclude', Array.from(excludeIds).join(','))
@@ -433,10 +433,11 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
       if (selectedStatus !== 'unannotated') params.set('status', selectedStatus)
       if (annotatorName) params.set('userId', annotatorName)
       // Mirror loadNextImage's exclude logic — "next" means "different
-      // from current" so pending/legacy/pseudo/flagged saves advance.
+      // from current", and for sticky-queue modes also "not in session
+      // history" so we don't cycle through the same N pending items.
       const ids = new Set(skippedIds)
       if (currentImage) ids.add(currentImage.imageId)
-      if (selectedStatus === 'frozen_eval') history.forEach(id => ids.add(id))
+      if (selectedStatus !== 'unannotated') history.forEach(id => ids.add(id))
       if (ids.size > 0) params.set('exclude', Array.from(ids).join(','))
       const qs = params.toString()
       const url = `${API_BASE}/api/annotate/next${qs ? '?' + qs : ''}`
