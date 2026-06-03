@@ -40,22 +40,26 @@ def main() -> None:
 
     ds = fo.load_dataset(args.name)
 
-    # attach embeddings by filepath
-    fp_to_vec = {fp: embeddings[i] for i, fp in enumerate(filepaths)}
-    n_set = 0
-    for s in ds.iter_samples(progress=True, autosave=True):
-        v = fp_to_vec.get(s.filepath)
-        if v is not None:
-            s["embedding"] = v
-            n_set += 1
-    print(f"attached embeddings to {n_set}/{len(ds)} samples")
+    # attach embeddings by filepath (skip if already attached on a prior run)
+    already = ds.exists("embedding").count()
+    if already == len(ds):
+        print(f"embeddings already attached ({already}); skipping attach")
+    else:
+        fp_to_vec = {fp: embeddings[i] for i, fp in enumerate(filepaths)}
+        n_set = 0
+        for s in ds.iter_samples(progress=True, autosave=True):
+            v = fp_to_vec.get(s.filepath)
+            if v is not None:
+                s["embedding"] = v
+                n_set += 1
+        print(f"attached embeddings to {n_set}/{len(ds)} samples")
 
     view = ds.exists("embedding")
     emb_field = "embedding"
 
     # 1) near-duplicates
     print("computing near-duplicates...")
-    dup_index = fob.compute_near_duplicates(view, embeddings=emb_field, thresh=args.dup_thresh)
+    dup_index = fob.compute_near_duplicates(view, embeddings=emb_field, threshold=args.dup_thresh)
     dup_ids = set(dup_index.duplicate_ids)
     for s in view.select(list(dup_ids)).iter_samples(autosave=True):
         s.tags.append("dup")
