@@ -107,6 +107,22 @@ def main():
     gallery_factions = [str(x) for x in g["factions"]]
     model_id = str(g["model_id"])
 
+    # Staleness check: embed_gallery.py stamps the .npz with a sha256 of
+    # the input labels.csv. If the CSV has been updated since the gallery
+    # was built, classifier accuracy will be against stale gallery
+    # embeddings. Warn but don't abort — good enough for interactive use.
+    stamped_sha = str(g["source_csv_sha256"]) if "source_csv_sha256" in g.files else ""
+    labels_csv = PHASE3 / "labels.csv"
+    if labels_csv.exists() and stamped_sha:
+        import hashlib
+        h = hashlib.sha256()
+        with labels_csv.open("rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        if h.hexdigest() != stamped_sha:
+            print(f"⚠ gallery_embeddings.npz is stale vs current labels.csv — "
+                  f"re-run build_gallery.py + embed_gallery.py for fresh results.")
+
     device = "cuda:0" if torch.cuda.is_available() else "cpu"
     processor = AutoImageProcessor.from_pretrained(model_id)
     model = AutoModel.from_pretrained(model_id).to(device).eval()

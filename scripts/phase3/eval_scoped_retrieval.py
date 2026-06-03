@@ -129,6 +129,31 @@ def main():
     gallery_units = np.array([str(x) for x in g["units"]])
     model_id = str(g["model_id"])
 
+    # Staleness check: embed_gallery.py stamps the .npz with a sha256 of
+    # the input labels.csv. If the CSV has been updated since, the gallery
+    # is stale and retrieval metrics will be against out-of-date data.
+    # Warn loudly; don't abort (eval against a slightly-stale gallery is
+    # still useful for debugging).
+    stamped_sha = str(g["source_csv_sha256"]) if "source_csv_sha256" in g.files else ""
+    stamped_rows = int(g["row_count"][0]) if "row_count" in g.files else -1
+    stamped_at = str(g["built_at"]) if "built_at" in g.files else "(unstamped)"
+    labels_csv = REPO_ROOT / "scripts" / "phase3" / "labels.csv"
+    if labels_csv.exists() and stamped_sha:
+        import hashlib
+        h = hashlib.sha256()
+        with labels_csv.open("rb") as f:
+            for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                h.update(chunk)
+        current_sha = h.hexdigest()
+        if current_sha != stamped_sha:
+            print(f"\n⚠ STALE GALLERY: gallery_embeddings.npz was built from a labels.csv"
+                  f" with sha {stamped_sha[:16]}… (built at {stamped_at}, {stamped_rows} rows)")
+            print(f"  current labels.csv sha: {current_sha[:16]}…")
+            print(f"  → re-run scripts/phase3/build_gallery.py + embed_gallery.py before trusting results.\n")
+    elif not stamped_sha:
+        print("⚠ gallery_embeddings.npz was built before the staleness-stamp feature — "
+              "treat results with caution and rebuild for clean provenance.")
+
     device = args.device or ("cuda:0" if torch.cuda.is_available() else "cpu")
     processor = AutoImageProcessor.from_pretrained(model_id)
     embedder = AutoModel.from_pretrained(model_id).to(device).eval()

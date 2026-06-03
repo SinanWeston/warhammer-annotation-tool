@@ -6,8 +6,9 @@
 ultralytics>=8.4           # YOLO training + inference
 torch>=2.4                 # PyTorch (YOLO, DINO)
 torchvision>=0.19          # vision transforms
-transformers>=4.40         # Grounding DINO (scripts/grounding_dino_propose.py)
+transformers>=4.49         # SAM 3, SAM 2, OWLv2 visual-prompt, Grounding DINO
 accelerate>=0.30           # transformers accelerator
+huggingface-hub>=0.26      # gated-model auth for SAM 3 / SAM 2
 
 # ─── Dataset augmentation ─────────────────────────────────────
 albumentations>=1.4        # scripts/augment_dataset.py
@@ -28,6 +29,8 @@ flickrapi>=2.4             # Flickr
 icrawler>=0.6              # Bing/Google fallback
 python-dotenv>=1.0
 cloudscraper>=1.2          # eBay anti-bot
+playwright>=1.44           # scripts/scrape_ebay.py + scripts/warhammer_com/
+playwright-stealth>=1.0.6  # scripts/warhammer_com/ stealth evasions for AWS WAF
 
 # ─── Quality & dedup ──────────────────────────────────────────
 open-clip-torch>=2.24      # CLIP quality scoring
@@ -36,3 +39,14 @@ imagehash>=4.3             # perceptual hash dedup
 # ─── Inference server (optional, for FastAPI refactor) ────────
 fastapi>=0.110
 uvicorn>=0.29
+python-multipart>=0.0.9    # FastAPI multipart form uploads
+pydantic>=2.7              # request/response schemas
+
+# ─── photoanalyzer library (src/photoanalyzer) ────────────────
+# These are library-level deps the package will use.
+faiss-cpu>=1.8             # ANN index for retrieval gallery
+scikit-learn>=1.4          # linear probe Tier 2 classifier
+
+# ─── Test infra ───────────────────────────────────────────────
+pytest>=8.0
+pytest-cov>=5.0

@@ -21,13 +21,27 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import hashlib
 import sys
+import datetime as _dt
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 PHASE3 = REPO_ROOT / "scripts" / "phase3"
 GALLERY_DIR = PHASE3 / "gallery"
+LABELS_CSV = PHASE3 / "labels.csv"
 OUT_PATH = PHASE3 / "gallery_embeddings.npz"
+
+
+def _sha256_of_file(p: Path) -> str:
+    """Hex sha256 of a file's bytes. Used to stamp the embedding cache with
+    the exact CSV that produced it — eval scripts can compare against the
+    current CSV's hash to detect staleness."""
+    h = hashlib.sha256()
+    with p.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
 
 DEFAULT_MODEL = "facebook/dinov3-vitb16-pretrain-lvd1689m"
 FALLBACK_MODEL = "facebook/dinov2-base"
@@ -50,8 +64,17 @@ def walk_gallery() -> list[tuple[str, str, str, Path]]:
     out = []
     for faction_dir in sorted(p for p in GALLERY_DIR.iterdir() if p.is_dir()):
         faction = faction_dir.name
+        # Defensive: sentinel-named faction dirs would only appear if an
+        # upstream bug slipped a `__bad_crop__` row through build_gallery.
+        # Fail loudly so we don't embed + retrieve against garbage.
+        if faction.startswith("__") and faction.endswith("__"):
+            sys.exit(f"Gallery contains sentinel faction dir '{faction}' at {faction_dir} — "
+                     f"upstream build_gallery should have filtered it. Aborting.")
         for unit_dir in sorted(p for p in faction_dir.iterdir() if p.is_dir()):
             unit = unit_dir.name
+            if unit.startswith("__") and unit.endswith("__"):
+                sys.exit(f"Gallery contains sentinel unit dir '{unit}' under {faction_dir} — "
+                         f"upstream build_gallery should have filtered it. Aborting.")
             for img in sorted(unit_dir.iterdir()):
                 if img.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
                     out.append((faction, unit, str(img.relative_to(REPO_ROOT)), img))
@@ -121,6 +144,13 @@ def main():
 
     embeddings = np.concatenate(all_embeds, axis=0).astype(np.float32)
 
+    # Stamp the .npz with metadata so eval scripts can detect staleness.
+    # If phase3/labels.csv changes after this was built, callers loading
+    # the .npz will see a sha mismatch and warn (see check_embeddings_fresh
+    # in eval_scoped_retrieval.py + classify_faction_knn.py).
+    csv_sha = _sha256_of_file(LABELS_CSV) if LABELS_CSV.exists() else ""
+    built_at = _dt.datetime.now(tz=_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
     out_path = Path(args.out)
     np.savez(
         out_path,
@@ -129,9 +159,13 @@ def main():
         factions=np.array(factions),
         units=np.array(units),
         model_id=np.array(actual_model),
+        source_csv_sha256=np.array(csv_sha),
+        row_count=np.array([embeddings.shape[0]]),
+        built_at=np.array(built_at),
     )
     print(f"\nWrote {out_path.relative_to(REPO_ROOT)}")
     print(f"  shape={embeddings.shape}  dtype={embeddings.dtype}")
+    print(f"  source_csv_sha256={csv_sha[:16]}…  rows={embeddings.shape[0]}  built_at={built_at}")
 
 
 if __name__ == "__main__":

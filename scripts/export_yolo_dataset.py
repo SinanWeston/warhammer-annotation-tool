@@ -25,6 +25,19 @@ def main():
     parser.add_argument("--balanced", action="store_true", help="Cap each faction at min count")
     parser.add_argument("--balanced-cap", type=int, default=None, help="Custom per-faction cap")
     parser.add_argument("--output", type=str, default=None, help="Output directory")
+    parser.add_argument(
+        "--deployed-classes", type=str, default=None,
+        help=("Path to a pinned .classes.txt (produced by scripts/pin_pt_classes.py). "
+              "If set, the export aborts when the generated class list disagrees with "
+              "this pin — protects against silently shifting class indices out from "
+              "under the deployed .pt. Use --allow-class-shift to force a new export."),
+    )
+    parser.add_argument(
+        "--allow-class-shift", action="store_true",
+        help=("Bypass the --deployed-classes diff check. ONLY use this when you are "
+              "deliberately retraining the model on a new class list. A silent bypass "
+              "here means inference would map predictions to the wrong units."),
+    )
     args = parser.parse_args()
 
     project_root = Path(__file__).parent.parent
@@ -143,6 +156,34 @@ def main():
         export_entry(entry, "train")
     for entry in val_set:
         export_entry(entry, "val")
+
+    # Class-list drift check (see scripts/pin_pt_classes.py).
+    # If a --deployed-classes pin was provided, refuse to write a data.yaml
+    # whose class order disagrees with what the deployed .pt was trained on.
+    # Silently mismatched class indices would cause inference to map
+    # predictions to the wrong unit without any error.
+    if args.deployed_classes:
+        pinned_path = Path(args.deployed_classes)
+        if not pinned_path.exists():
+            print(f"ERROR: --deployed-classes path does not exist: {pinned_path}")
+            sys.exit(1)
+        pinned = [line.strip() for line in pinned_path.read_text().splitlines() if line.strip()]
+        if pinned != classes:
+            added = [c for c in classes if c not in pinned]
+            removed = [c for c in pinned if c not in classes]
+            reordered = (not added and not removed and pinned != classes)
+            print("\n✗ Class-list drift detected vs deployed pin:")
+            print(f"    pin:       {pinned}")
+            print(f"    generated: {classes}")
+            if added:    print(f"    + added in generated: {added}")
+            if removed:  print(f"    - missing from generated: {removed}")
+            if reordered: print("    ! same set, different order (would shift indices)")
+            if not args.allow_class_shift:
+                print("\nRefusing to overwrite data.yaml. If you are deliberately retraining")
+                print("on a new class list, pass --allow-class-shift. After retraining, run")
+                print("scripts/pin_pt_classes.py against the NEW .pt to refresh the pin.")
+                sys.exit(1)
+            print("  (continuing because --allow-class-shift was passed)")
 
     # Write data.yaml
     yaml_content = f"""# YOLO Dataset Configuration

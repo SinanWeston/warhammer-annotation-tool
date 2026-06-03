@@ -11,11 +11,16 @@ Companion to [../STRATEGY.md](../STRATEGY.md). Full bibliography and working lin
 
 ## Open-vocabulary / prompt-driven detection
 
-- [T-Rex2 — IDEA Research, ECCV 2024](https://arxiv.org/abs/2403.14610) · [GitHub](https://github.com/IDEA-Research/T-Rex) — text + visual prompt synergy; +5.6 AP over text on ODinW, +9.2 on Roboflow100.
-- [OWLv2 — Google, 2023](https://arxiv.org/abs/2306.09683) — image-conditioned detection; strong zero-shot AP on LVIS.
-- [Grounding DINO — IDEA, 2023](https://arxiv.org/abs/2303.05499) — already integrated in this codebase via `scripts/grounding_dino_propose.py`.
-- [Grounded-SAM — 2024](https://arxiv.org/abs/2401.14159) — Grounding DINO feeds SAM for mask-level segmentation.
-- [YOLO-World — 2024](https://arxiv.org/abs/2401.17270) — real-time open-vocabulary, weaker than Grounding DINO but fast.
+- [T-Rex2 — IDEA Research, ECCV 2024](https://arxiv.org/abs/2403.14610) · [GitHub](https://github.com/IDEA-Research/T-Rex) — text + visual prompt synergy; +5.6 AP over text on ODinW, +9.2 on Roboflow100. **License caution: non-commercial**; check before shipping.
+- [OWLv2 — Google, 2023](https://arxiv.org/abs/2306.09683) — image-conditioned detection; strong zero-shot AP on LVIS. Used in Phase F1 ensemble (visual-prompt mode with 30 gold exemplars).
+- [Grounding DINO — IDEA, 2023](https://arxiv.org/abs/2303.05499) — text-prompt workhorse in Phase F1 ensemble.
+- [DINO-X — IDEA Research, 2024 (arXiv 2411.14347)](https://arxiv.org/abs/2411.14347) — Apache-2.0; best open-weights text-prompt detector: 56.0 AP on COCO, 59.8 AP on LVIS-minival, 63.3 AP on LVIS rare classes. Preferred over Grounding DINO when DeepDataSpace API access is provisioned.
+- [LLMDet — CVPR 2025 highlight (arXiv 2501.18954)](https://arxiv.org/abs/2501.18954) — LLM-supervised open-vocab; +3.3–14.3 AP on LVIS rare classes. Apache-2.0 alternative to DINO-X.
+- [SAM 3 — Meta, Nov 2025 (arXiv 2511.16719)](https://arxiv.org/abs/2511.16719) — concept-exhaustive detection + segmentation. Zero-shot mask AP 47.0 on LVIS (vs 38.5 previous best). Primary pseudo-labeller in Phase F1 ensemble. License: SAM License (permissive; commercial use OK, no "competing foundation models" clause, no share-alike on outputs — correction to STRATEGY.md's earlier characterisation, per cv-researcher April 2026 review).
+- [Vision-Language Model Detection & Segmentation review, April 2025 (arXiv 2504.09480)](https://arxiv.org/abs/2504.09480) — documents the 15–25 AP drop VLM detectors suffer on dense scenes; motivated our Phase F1 ensemble rebuild.
+- [Grounded-SAM-2 — IDEA-Research](https://github.com/IDEA-Research/Grounded-SAM-2) — Apache-2.0 orchestration layer for detector + SAM 2 mask refinement. Inspired Phase F1's architecture.
+- [Grounded-SAM — 2024](https://arxiv.org/abs/2401.14159) — Grounding DINO + SAM 1 predecessor.
+- [YOLO-World — 2024](https://arxiv.org/abs/2401.17270) — real-time open-vocabulary. **License caution: AGPL-3.0** — excluded from our stack.
 
 ## Counting in crowded scenes
 

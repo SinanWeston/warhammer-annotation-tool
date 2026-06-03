@@ -27,6 +27,9 @@ LABELS_CSV = PHASE3 / "labels.csv"
 GALLERY_DIR = PHASE3 / "gallery"
 QUERIES_DIR = PHASE3 / "queries"
 
+sys.path.insert(0, str(REPO_ROOT / "src"))
+from photoanalyzer.label.schema import is_sentinel  # noqa: E402
+
 
 def main():
     if not LABELS_CSV.exists():
@@ -41,6 +44,7 @@ def main():
     gallery_count = 0
     query_count = 0
     missing: list[str] = []
+    skipped_sentinel = 0
 
     with LABELS_CSV.open() as f:
         for row in csv.DictReader(f):
@@ -52,6 +56,13 @@ def main():
             unit = row["unit_slug"].strip()
             split = row["split"].strip()
             if not unit or not split:
+                continue
+            # Defensive sentinel filter: a row with split='gallery' and
+            # unit_slug='__bad_crop__' would otherwise create a literal
+            # directory named `__bad_crop__/` under gallery. Sentinels live
+            # in the CSV for audit trail — they must never reach training.
+            if is_sentinel(unit):
+                skipped_sentinel += 1
                 continue
             target_root = GALLERY_DIR if split == "gallery" else QUERIES_DIR
             target_dir = target_root / faction / unit
@@ -65,6 +76,8 @@ def main():
 
     print(f"Gallery: {gallery_count} crops → {GALLERY_DIR.relative_to(REPO_ROOT)}")
     print(f"Queries: {query_count} crops → {QUERIES_DIR.relative_to(REPO_ROOT)}")
+    if skipped_sentinel:
+        print(f"Skipped {skipped_sentinel} sentinel-slug row(s) (__bad_crop__ / __unknown__ / …)")
     if missing:
         print(f"\n⚠ {len(missing)} rows referenced missing crop files:")
         for m in missing[:5]:
