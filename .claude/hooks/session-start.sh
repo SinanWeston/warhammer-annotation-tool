@@ -47,7 +47,7 @@ CONTEXT=$(cat <<EOF
 - **Annotations on disk**: $ANN_COUNT JSON files
 
 Consult \`STRATEGY.md\` before proposing modelling changes. Consult \`TODO.md\` for
-tiered task list. Consult \`SPEC.md\` for architecture.
+tiered task list.
 EOF
 )
 
