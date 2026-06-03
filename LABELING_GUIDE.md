@@ -27,10 +27,11 @@ base**, as far as the model is visible.
 
 ## 2. Occlusion rule
 
-Label any model that is **≥ ~30% visible.** Below ~30% (a sliver behind another
-model, a head poking out), **skip it** — do not guess a box around something you
-can't actually see. Consistency matters more than the exact threshold; when unsure,
-lean toward labeling if you can confidently tell it's a distinct model.
+**Operational rule (a human can't eyeball "30%"):** label it if you can
+**confidently tell it's a separate model** *and* place a box around its visible
+part. **Skip** only true slivers where you'd be guessing whether it's even a
+distinct model. When torn, label it. (Rough mental anchor: ~⅓ visible, but the
+judgement above is what governs — not a percentage.)
 
 The box covers only the **visible** extent of an occluded model — do not hallucinate
 the hidden part.
@@ -44,6 +45,11 @@ the hidden part.
 - **v1 factions only** (locked 2026-06-04): `space_marines`, `necrons`, `tyranids`,
   `death_guard`. Anything outside v1 → `faction = "out_of_scope"` (still box it for
   the detector; don't unit-label it).
+- **Faction is required on every box; unit is best-effort.** Always set faction (or
+  `unknown`). Set the unit slug **only when you're confident** — labeling a specific
+  unit for every model in a 30-model table photo is slow and often impossible, and a
+  guessed unit silently corrupts the eval. Confident unit → label it; unsure → leave
+  unit `unknown`. This keeps the 50-image gold set achievable in one sitting.
 
 ## 4. Unknown / ambiguous (this is a feature, not a failure)
 
