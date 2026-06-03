@@ -41,8 +41,13 @@ def main() -> None:
         ds.add_sample_field("pool", fo.StringField)
     ds.set_field("pool", "excluded").save()
 
-    # gallery
-    gallery = clean.match(F("source") == "isolation").exists("weak_unit")
+    # gallery = ALL isolation+unit shots, INCLUDING ones the global dedup tagged 'dup'.
+    # Why: isolation crops are often near-identical to an unlabeled gw_shop/ebay twin;
+    # global dedup picks representatives blindly and would evict the *labeled* gallery
+    # crop in favour of the unlabeled twin (observed: necrons/SM galleries emptied).
+    # Redundant gallery crops are harmless; an empty gallery is fatal. Within-unit
+    # thinning can be done later if needed.
+    gallery = ds.match(F("source") == "isolation").exists("weak_unit")
     gallery.set_field("pool", "gallery").save()
     gal_ids = set(gallery.values("id"))
 
