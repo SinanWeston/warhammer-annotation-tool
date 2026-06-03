@@ -52,6 +52,7 @@ temp/
 # Python virtual environment
 venv/
 yolo_env/
+fiftyone_env/
 __pycache__/
 *.py[cod]
 *$py.class
