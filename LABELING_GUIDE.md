@@ -1,0 +1,86 @@
+# Labeling Guide — Battle Scanner
+
+**Status:** v1 draft, 2026-06-04. Governs the 50-image gold set and all
+pseudo-label QA. Edit freely — this is meant to be argued with, then frozen.
+
+The point of this document (Battle Scanner Plan §3): make "annotation quality" a
+*measurable number* instead of a vibe, and prevent label drift over months. Every
+SAM 3 pseudo-label run and model eval is scored against a gold set labeled by
+**these exact rules**. When a rule is ambiguous, fix the rule here first, then label.
+
+---
+
+## 1. What is a "miniature" box?
+
+**One box per physical model**, i.e. **one box per base.** A box is the tightest
+axis-aligned rectangle around the whole physical miniature **including its integral
+base**, as far as the model is visible.
+
+- **Base included.** Rationale: the base is the most reliably-visible, consistently-
+  shaped part in cluttered/occluded scenes — a stable anchor for the detector, and
+  the natural unit of counting ("how many bases on the table"). Retrieval crops can
+  be tightened to model-only at crop time; the *label* includes the base.
+- **One base = one model.** A multi-sculpt single-base swarm (e.g. a Ripper Swarm
+  base with three rippers, a Nurglings base) counts as **one model** = one box.
+- **Vehicles, monsters, bikes, cavalry** — same rule, one box around the whole hull/
+  creature including any integral base or flight stem.
+
+## 2. Occlusion rule
+
+Label any model that is **≥ ~30% visible.** Below ~30% (a sliver behind another
+model, a head poking out), **skip it** — do not guess a box around something you
+can't actually see. Consistency matters more than the exact threshold; when unsure,
+lean toward labeling if you can confidently tell it's a distinct model.
+
+The box covers only the **visible** extent of an occluded model — do not hallucinate
+the hidden part.
+
+## 3. Faction + unit naming
+
+- **Always from the taxonomy module** (`photoanalyzer.taxonomy`) — canonical faction
+  and unit slugs. **No freetext, no folder names.** (Folder-faction labels in the
+  corpus are *weak* and noisy: `imperial_guard` vs `astra_militarum`, `eldar` vs
+  `aeldari`, loyalist chapters split from `space_marines` — never copy those.)
+- **v1 factions only** (locked 2026-06-04): `space_marines`, `necrons`, `tyranids`,
+  `death_guard`. Anything outside v1 → `faction = "out_of_scope"` (still box it for
+  the detector; don't unit-label it).
+
+## 4. Unknown / ambiguous (this is a feature, not a failure)
+
+The product must say "I don't recognise this" rather than guess — so the labels must
+too.
+
+- **Can box it but can't name the unit** → `faction` if known, `unit = "unknown"`.
+- **Can't even tell the faction** → `faction = "unknown"`, `unit = "unknown"`.
+- **Kitbash / proxy / 3rd-party model** → label faction by intent if obvious, else
+  `unknown`; tag the sample `kitbash`.
+- **Never assign a confident unit label to a model you're guessing on.** A wrong
+  confident label is worse than an honest `unknown` — it silently corrupts the eval.
+
+## 5. Unit grouping (army-list aggregation layer, NOT the box layer)
+
+Boxes are always per-model. **Grouping happens downstream**, not during boxing:
+- N boxes of the same unit type → one army-list entry with `count = N`.
+- Use in-game unit-coherency intuition (clustered, same sculpts) only as a tiebreak;
+  when models of the same type are clearly separate squads, that's a list-level call
+  the aggregation step makes, not the labeler.
+
+## 6. What is NOT a miniature (do not box)
+
+Terrain / scenery, ruins, dice, templates, range rulers, tokens, objective markers,
+empty movement trays (box the models *on* the tray, not the tray), painting handles,
+sprues, the photographer's hand. If in doubt: is it a *playable model*? If no, skip.
+
+## 7. Gold set composition (the 50 images)
+
+Stratify the 50 across:
+- **Factions:** roughly even across the 4 v1 factions (Death Guard will lean on
+  detection/scene shots — it has no isolation crops in the corpus).
+- **Difficulty:** a deliberate spread of single-model / sparse / medium / crowded
+  scenes. Over-sample **crowded** scenes — that's where counting and occlusion
+  actually get judged.
+- **Realism:** include some real tabletop phone photos once shot (the realistic eval
+  matters most — Plan §4.5). Studio/listing shots alone will flatter the numbers.
+
+Keep the gold set **frozen forever** once labeled. It is the reference every run is
+measured against; changing it silently breaks comparability across time.
