@@ -57,7 +57,7 @@ These are irreplaceable or non-trivially expensive to regenerate. Don't delete o
 - `training_data_v2/` (12 G) — older training corpus. Note: ~2000 files here are **not** in `backend/training_data` (the sync was partial). Keep until reconciled.
 - `scripts/cmon/` (2.6 G), `scripts/warhammer_com/` (2.1 G), `scripts/warhammer_community/` (764 M) — three scrape outputs with **zero filename overlap**; all unique.
 - `runs/warhammer_yolo11x_r2/weights/best.pt` + `last.pt` (220 M), `runs/yolo11x_run2_best.pt` (110 M) — production YOLO model.
-- `backend/training_data_annotations/` (6.5 M, 1065 JSONs) — scene annotation ground truth.
+- `backend/training_data_annotations/` (6.5 M, 1451 JSONs) — scene annotation ground truth.
 - `backend/training_data_candidates/` (418 M), `backend/training_data_proposals/` (42 M) — candidate sets and DINO/YOLO bbox proposals consumed by the backend.
 - `data/labels.csv` — unified label schema (v2). Ground truth for gallery + faction classifier.
 - `models/`, `reference_gallery/`, all source code, `STRATEGY.md`, `TODO.md`, `docs/`, `.git/`.
