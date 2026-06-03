@@ -222,7 +222,7 @@ After sessions 1-3: annotations are safer, export is tested, AI-assist is fast, 
 
 ### April 2026 cleanup sweep
 
-- ✅ Doc consolidation — root has canonical {README, CLAUDE, OVERVIEW, SPEC, TODO, DEPLOY}; `docs/` holds reference guides; `docs/archive/` holds historical plans; `docs/decisions/` holds research artifacts
+- ✅ Doc consolidation — root has canonical {README, CLAUDE, OVERVIEW, TODO, DEPLOY} (SPEC.md later deleted 2026-05, see above); `docs/` holds reference guides; `docs/archive/` holds historical plans; `docs/decisions/` holds research artifacts
 - ✅ `backend/src/config/index.ts` — centralized env-driven config (3.4 done)
 - ✅ Unified YOLO model path for both inference and active-learning (both now use `yolo11x_run2_best.pt`); paths, confidence thresholds, Python binary all env-configurable
 - ✅ Root `requirements.txt` supersedes scripts-only one; covers ML + scraper + quality deps
