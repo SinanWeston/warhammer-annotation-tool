@@ -25,8 +25,8 @@ gallery/detection/holdout pools, provenance-stamped (~49% with real source URLs)
 factions locked: **space_marines, necrons, tyranids, death_guard**. Gallery depth (v0's
 killer) solved for 3/4 (every SM/Necron/Tyranid unit ≥5 crops; Death Guard has 0 — open).
 **Gold eval set is frozen**: 35 hand-labeled images, 124 boxes → `data/gold/gold_v1.json`.
-Wave 0 sourcing done (provenance + 314 CC-BY Roboflow images). Currently measuring a
-first auto-label baseline (Grounding-DINO vs gold).
+Wave 0 sourcing done (provenance + 314 CC-BY Roboflow images). Next build step is the
+Tier 1 detector (SAM 3 on Colab → distill RF-DETR), scored against the frozen gold set.
 
 ---
 
@@ -50,8 +50,8 @@ first auto-label baseline (Grounding-DINO vs gold).
 ## 4. Scripts (all in `scripts/curation/`, committed)
 `ingest_fiftyone.py` → `prepare_embed_bundle.py` → `embed_colab.ipynb`/`embed_gpu.py` →
 `load_embeddings.py` → `set_v1_factions.py` → `build_pools.py` → `provenance.py` →
-`acquire_roboflow.py` → `backfill_provenance.py` → `gold_to_cvat.py` (push/pull) →
-`eval_autolabel_gold.py`. Each has a docstring; run with `fiftyone_env/bin/python`.
+`acquire_roboflow.py` → `backfill_provenance.py` → `gold_to_cvat.py` (push/pull).
+Each has a docstring; run with `fiftyone_env/bin/python`.
 
 ## 5. Done / in-flight / next
 - ✅ Curate (ingest, dedup, pools, provenance), v1 factions, gold set, Wave 0 sourcing.
