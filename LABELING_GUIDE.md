@@ -24,6 +24,11 @@ base**, as far as the model is visible.
   base with three rippers, a Nurglings base) counts as **one model** = one box.
 - **Vehicles, monsters, bikes, cavalry** — same rule, one box around the whole hull/
   creature including any integral base or flight stem.
+- **Protrusions (spears, lances, banners, guns, tails, wings)** are part of the model
+  — include them. The box is the tightest rectangle that still contains *every* part.
+  A diagonal spear leaves empty corners in the box — that's **normal and correct**, not
+  a reason to crop it off. (Only reconsider for an absurdly long thin protrusion, e.g. a
+  banner pole several times the model's height.)
 
 ## 2. Occlusion rule
 
@@ -55,6 +60,9 @@ same threshold across all 50 images; **consistency beats catching every faint fi
 - **v1 factions only** (locked 2026-06-04): `space_marines`, `necrons`, `tyranids`,
   `death_guard`. Anything outside v1 → `faction = "out_of_scope"` (still box it for
   the detector; don't unit-label it).
+- **Set the label *before* drawing.** CVAT reuses the last-used label for every new
+  box, so pick the correct faction in the toolbar first — otherwise new boxes silently
+  inherit the previous label (e.g. a whole Krieg squad ends up tagged `death_guard`).
 - **Faction is required on every box; unit is best-effort.** Always set faction (or
   `unknown`). Set the unit slug **only when you're confident** — labeling a specific
   unit for every model in a 30-model table photo is slow and often impossible, and a
