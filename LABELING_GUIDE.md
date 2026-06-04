@@ -52,6 +52,12 @@ judgement above is what governs — not a percentage.)
 The box covers only the **visible** extent of an occluded model — do not hallucinate
 the hidden part.
 
+**A thin occluder crossing a model does NOT split it.** A sword, banner, gun barrel or
+rail passing in front of a model leaves two visible fragments — it's still **one model =
+one box** spanning the full visible extent (top fragment through bottom fragment). Never
+draw a separate box per fragment; that fabricates extra models and corrupts the count.
+The box will overlap the occluding model — that's fine.
+
 **Cut off by the image edge (truncation):** same rule — if a clear, substantial part
 of the model is in-frame, box the **visible part, clipped to the image border** (don't
 extend past the edge or imagine the hidden part). Skip models reduced to a thin edge sliver.
