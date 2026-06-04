@@ -67,7 +67,6 @@ def main() -> None:
             label_field="ground_truth",
             label_type="detections",
             classes=CLASSES,
-            attributes={"unit": {"type": "text", "default": ""}},
             task_name="wh40k_gold_v1",
             segment_size=50,
         )
