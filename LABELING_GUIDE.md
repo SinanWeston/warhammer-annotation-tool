@@ -36,6 +36,16 @@ judgement above is what governs — not a percentage.)
 The box covers only the **visible** extent of an occluded model — do not hallucinate
 the hidden part.
 
+**Cut off by the image edge (truncation):** same rule — if a clear, substantial part
+of the model is in-frame, box the **visible part, clipped to the image border** (don't
+extend past the edge or imagine the hidden part). Skip models reduced to a thin edge sliver.
+
+**Focus / quality floor:** box only models in **reasonable focus** that you can
+delineate. **Skip** heavily blurred or out-of-focus background models where the box
+would be a guess — including them only makes the eval noisy and unfair (a human can
+barely see them, so penalising the model for missing them is meaningless). Apply the
+same threshold across all 50 images; **consistency beats catching every faint figure.**
+
 ## 3. Faction + unit naming
 
 - **Always from the taxonomy module** (`photoanalyzer.taxonomy`) — canonical faction
