@@ -16,6 +16,11 @@ SAM 3 pseudo-label run and model eval is scored against a gold set labeled by
 axis-aligned rectangle around the whole physical miniature **including its integral
 base**, as far as the model is visible.
 
+- **Axis-aligned boxes only — never rotate.** Boxes must be upright rectangles
+  (`[x, y, w, h]`). CVAT lets you rotate a box, but don't: RF-DETR/YOLO and the import
+  pipeline expect axis-aligned boxes, and a rotated one loses its angle (or breaks) on
+  import. For a diagonal model, accept the empty corners — an upright box with some
+  background beats a tilted one.
 - **Base included.** Rationale: the base is the most reliably-visible, consistently-
   shaped part in cluttered/occluded scenes — a stable anchor for the detector, and
   the natural unit of counting ("how many bases on the table"). Retrieval crops can
