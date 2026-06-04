@@ -55,7 +55,10 @@ first auto-label baseline (Grounding-DINO vs gold).
 
 ## 5. Done / in-flight / next
 - ✅ Curate (ingest, dedup, pools, provenance), v1 factions, gold set, Wave 0 sourcing.
-- 🔄 Auto-label baseline (Grounding-DINO vs gold) — see §7 for result / `eval_autolabel_gold.py`.
+- ✅ Auto-label baseline measured (`eval_autolabel_gold.py`): Grounding-DINO-tiny
+  `"miniature."` vs gold = **recall 0.516, precision 0.681, F1 0.587, count MAE 1.77/img**
+  (tiny model, untuned, one prompt). This is the floor SAM 3 must beat; ~50-70% zero-shot
+  on dense scenes is exactly what the plan predicted.
 - ⬜ **SAM 3 auto-label → distill RF-DETR** (Plan D2) — Colab; reuse `scripts/phaseF/autolabel_colab.ipynb`.
 - ⬜ Wave 1 depth engine (needs SerpApi/CSE/Reddit keys — query-by-taxonomy over v1 factions).
 - ⬜ Tier 2/3 faction+unit retrieval (Plan D3) — gallery already built for 3/4 factions.
