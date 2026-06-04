@@ -55,10 +55,9 @@ first auto-label baseline (Grounding-DINO vs gold).
 
 ## 5. Done / in-flight / next
 - ✅ Curate (ingest, dedup, pools, provenance), v1 factions, gold set, Wave 0 sourcing.
-- ✅ Auto-label baseline measured (`eval_autolabel_gold.py`): Grounding-DINO-tiny
-  `"miniature."` vs gold = **recall 0.516, precision 0.681, F1 0.587, count MAE 1.77/img**
-  (tiny model, untuned, one prompt). This is the floor SAM 3 must beat; ~50-70% zero-shot
-  on dense scenes is exactly what the plan predicted.
+- ⬜ **Tier 1 detection (next):** go straight to **SAM 3 on Colab** (GPU) → distill
+  RF-DETR (Plan D2) → score vs `gold_v1`. Reuse `scripts/phaseF/autolabel_colab.ipynb`.
+  Score with `gold_v1` (35 imgs / 124 boxes) as the class-agnostic detection reference.
 - ⬜ **SAM 3 auto-label → distill RF-DETR** (Plan D2) — Colab; reuse `scripts/phaseF/autolabel_colab.ipynb`.
 - ⬜ Wave 1 depth engine (needs SerpApi/CSE/Reddit keys — query-by-taxonomy over v1 factions).
 - ⬜ Tier 2/3 faction+unit retrieval (Plan D3) — gallery already built for 3/4 factions.
@@ -80,9 +79,8 @@ first auto-label baseline (Grounding-DINO vs gold).
 - **Gotchas:** (a) no local GPU → Colab for SAM 3 / heavy embed; (b) CVAT API needs a real
   username+password — GitHub-OAuth signup has none until set in CVAT settings; (c) FiftyOne
   reads CVAT creds at import → set `FIFTYONE_CVAT_*` env vars BEFORE `import fiftyone`;
-  (d) `transformers 5.x` changed the detection box format — check Grounding-DINO post-process
-  if `eval_autolabel_gold.py` looks off; (e) `backend/training_data` has 13k symlinks into
-  `scripts/warhammer_com` — follow them (rglob does, `find -type f` doesn't).
+  (d) `backend/training_data` has 13k symlinks into `scripts/warhammer_com` — follow them
+  (rglob does, `find -type f` doesn't).
 
 ## 8. Working style notes (from this session)
 - The user is the 40K domain expert — defer to their faction/model calls.
