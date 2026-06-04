@@ -53,6 +53,9 @@ temp/
 venv/
 yolo_env/
 fiftyone_env/
+
+# acquisition downloads (raw scraped/pulled images — like training_data)
+acquisition/
 __pycache__/
 *.py[cod]
 *$py.class
