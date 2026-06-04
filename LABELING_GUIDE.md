@@ -27,8 +27,14 @@ base**, as far as the model is visible.
 - **Protrusions (spears, lances, banners, guns, tails, wings)** are part of the model
   — include them. The box is the tightest rectangle that still contains *every* part.
   A diagonal spear leaves empty corners in the box — that's **normal and correct**, not
-  a reason to crop it off. (Only reconsider for an absurdly long thin protrusion, e.g. a
-  banner pole several times the model's height.)
+  a reason to crop it off.
+  - **Box inflation is fine.** A raised weapon enlarging the box ~1.5–2× (≈half the box
+    empty) is normal and expected — detectors handle elongated boxes routinely (think a
+    person holding a pole, or a giraffe). Don't trim a solid weapon to reduce empty space.
+  - **Only reconsider** a truly extreme case: a hair-thin element (wispy banner pole,
+    antenna) that blows the box up to ~3–4×+ and is almost all air. Even then, default to
+    including it — trim only if the protrusion is both negligibly thin and enormously long.
+  - **Consistency wins:** apply the same call to every weapon across all 50 images.
 
 ## 2. Occlusion rule
 
