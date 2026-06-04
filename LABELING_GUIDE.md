@@ -112,5 +112,13 @@ Stratify the 50 across:
 - **Realism:** include some real tabletop phone photos once shot (the realistic eval
   matters most — Plan §4.5). Studio/listing shots alone will flatter the numbers.
 
+**Too dense/blurry to enumerate → exclude it, don't partially label.** If a scene has
+so many models (or such a blurred back field) that you can't box *every* resolvable
+model consistently, drop it from the gold set and swap in a cleaner crowded scene.
+Partially labelling it poisons the eval: a detector that correctly finds a model you
+skipped gets scored as a false positive. Crowded scenes are wanted — but only ones you
+can fully enumerate (e.g. a 10–20 model patrol, every model resolvable), not a 50-model
+blurred army pile.
+
 Keep the gold set **frozen forever** once labeled. It is the reference every run is
 measured against; changing it silently breaks comparability across time.
