@@ -19,16 +19,36 @@ Usage:
 from __future__ import annotations
 
 import sys
+from pathlib import Path
 
 import fiftyone as fo
 
 ANNO_KEY = "gold_v1"
 CLASSES = ["space_marines", "necrons", "tyranids", "death_guard",
            "unknown", "out_of_scope"]
+ENV = Path(__file__).resolve().parents[2] / ".env"
+
+
+def env(key: str) -> str | None:
+    if not ENV.exists():
+        return None
+    for line in ENV.read_text().splitlines():
+        if line.strip().startswith(f"{key}="):
+            return line.split("=", 1)[1].strip().strip('"').strip("'")
+    return None
 
 
 def main() -> None:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "help"
+
+    # feed CVAT creds from .env to FiftyOne (works for both push and pull)
+    import os
+    user, pw = env("CVAT_USERNAME"), env("CVAT_PASSWORD")
+    if user and pw:
+        os.environ["FIFTYONE_CVAT_USERNAME"] = user
+        os.environ["FIFTYONE_CVAT_PASSWORD"] = pw
+        os.environ.setdefault("FIFTYONE_CVAT_URL", "https://app.cvat.ai")
+
     ds = fo.load_dataset("wh40k_pile")
     gold = ds.match_tags("gold")
 
@@ -37,6 +57,8 @@ def main() -> None:
             print(f"'{ANNO_KEY}' already exists. Pull it or delete with:")
             print(f"  ds.delete_annotation_run('{ANNO_KEY}')")
             return
+        if not (user and pw):
+            raise SystemExit("Add CVAT_USERNAME and CVAT_PASSWORD to .env first.")
         gold.annotate(
             ANNO_KEY,
             backend="cvat",
