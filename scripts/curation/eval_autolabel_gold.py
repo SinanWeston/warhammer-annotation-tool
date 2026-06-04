@@ -57,7 +57,7 @@ def main() -> None:
         with torch.no_grad():
             out = model(**inputs)
         res = proc.post_process_grounded_object_detection(
-            out, inputs.input_ids, box_threshold=args.box_thresh,
+            out, inputs.input_ids, threshold=args.box_thresh,
             text_threshold=args.text_thresh, target_sizes=[(H, W)])[0]
         # predicted boxes -> normalized xywh
         preds = []
