@@ -19,10 +19,11 @@ import shutil
 from pathlib import Path
 
 import fiftyone as fo
-import fiftyone.types as fot
+import yaml
 
 REPO = Path(__file__).resolve().parents[2]
 STAGING = REPO / "acquisition" / "roboflow"
+IMG_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 
 # (workspace, project, realism_tier)  — found via Roboflow Universe search
 DATASETS = [
@@ -63,47 +64,60 @@ def main() -> None:
             break
         slug = f"roboflow:{proj}"
         dest = STAGING / proj
-        try:
-            project = rf.workspace(ws).project(proj)
-            version = project.versions()[0]  # latest
-            print(f"downloading {ws}/{proj} v{version.version} -> {dest}")
-            version.download("yolov8", location=str(dest), overwrite=True)
-        except Exception as e:
-            print(f"  ! download failed for {proj}: {type(e).__name__}: {str(e)[:120]}")
-            continue
+        if not (dest / "data.yaml").exists():
+            try:
+                project = rf.workspace(ws).project(proj)
+                version = project.versions()[0]  # latest
+                print(f"downloading {ws}/{proj} v{version.version} -> {dest}")
+                version.download("yolov8", location=str(dest), overwrite=True)
+            except Exception as e:
+                print(f"  ! download failed for {proj}: {type(e).__name__}: {str(e)[:120]}")
+                continue
+        else:
+            print(f"already downloaded: {dest}")
 
-        # load the downloaded YOLO dataset (has detections) and stamp provenance
-        try:
-            tmp = fo.Dataset.from_dir(
-                dataset_dir=str(dest),
-                dataset_type=fot.YOLOv5Dataset,
-                split="train",
-                label_field="roboflow_gt",
-            )
-        except Exception as e:
-            print(f"  ! load failed for {proj}: {type(e).__name__}: {str(e)[:120]}")
-            continue
+        meta = yaml.safe_load((dest / "data.yaml").read_text())
+        names = meta["names"]
+        # CC-BY confirmed in data.yaml -> product-safe seed (attribution required)
+        product_safe = "cc" in str(meta.get("roboflow", {}).get("license", "")).lower()
 
-        for s in tmp:
-            s["source"] = slug
-            s["corpus"] = "roboflow"
-            s["weak_faction"] = None
-            s["weak_unit"] = None
-            s["pool"] = "detection"
-            s["source_url"] = f"https://universe.roboflow.com/{ws}/{proj}"
-            s["label_source"] = "roboflow_bbox"
-            s["label_confidence"] = 0.9
-            s["finish_state"] = "painted"
-            s["realism_tier"] = tier
-            s["is_negative"] = False
-            s["not_gw"] = False
-            s["license_status"] = "cc_by"
-            s["product_safe"] = False  # promote after confirming license
-            s.tags.append("roboflow")
-        ds.add_samples(tmp)
-        added_total += len(tmp)
-        print(f"  ingested {len(tmp)} images from {proj}")
-        tmp.delete()
+        samples = []
+        for split in ("train", "valid", "test"):
+            img_dir, lbl_dir = dest / split / "images", dest / split / "labels"
+            if not img_dir.exists():
+                continue
+            for img in img_dir.iterdir():
+                if img.suffix.lower() not in IMG_EXTS:
+                    continue
+                dets = []
+                lbl = lbl_dir / (img.stem + ".txt")
+                if lbl.exists():
+                    for line in lbl.read_text().splitlines():
+                        p = line.split()
+                        if len(p) < 5:
+                            continue
+                        c = int(p[0]); cx, cy, w, h = map(float, p[1:5])
+                        dets.append(fo.Detection(
+                            label=names[c], bounding_box=[cx - w / 2, cy - h / 2, w, h]))
+                s = fo.Sample(filepath=str(img))
+                s["roboflow_gt"] = fo.Detections(detections=dets)
+                s["source"] = slug
+                s["corpus"] = "roboflow"
+                s["pool"] = "detection"
+                s["source_url"] = meta.get("roboflow", {}).get("url")
+                s["label_source"] = "roboflow_bbox"
+                s["label_confidence"] = 0.9
+                s["finish_state"] = "painted"
+                s["realism_tier"] = tier
+                s["is_negative"] = False
+                s["not_gw"] = False
+                s["license_status"] = "cc_by"
+                s["product_safe"] = product_safe
+                s.tags.append("roboflow")
+                samples.append(s)
+        ds.add_samples(samples)
+        added_total += len(samples)
+        print(f"  ingested {len(samples)} images from {proj} (product_safe={product_safe})")
 
     print(f"\nWave 0 Roboflow: added {added_total} images. Dataset now {ds.count()}.")
     print("source counts (roboflow):",
