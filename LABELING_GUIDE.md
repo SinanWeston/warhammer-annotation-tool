@@ -131,5 +131,16 @@ skipped gets scored as a false positive. Crowded scenes are wanted — but only 
 can fully enumerate (e.g. a 10–20 model patrol, every model resolvable), not a 50-model
 blurred army pile.
 
+**Keep-vs-skip test for a crowded scene:** *can I confidently place a box on every
+model?*
+- **Shallow + in focus, ~10–20 models, all pickable** (e.g. a patrol on a plain table)
+  → **keep & label** — this is the ideal hard gold image.
+- **Deep swarm fading sharp-front → blurry-back, no clean stopping line** → **skip**
+  (leave 0 boxes; it gets reseeded).
+
+A skipped swarm isn't wasted — a real cluttered tabletop/phone photo is exactly the
+deployment-realism data we want for **detection *training*** (the detection pool). It's
+just not **gold-*eval*** material, because eval images must be exhaustively labelable.
+
 Keep the gold set **frozen forever** once labeled. It is the reference every run is
 measured against; changing it silently breaks comparability across time.
