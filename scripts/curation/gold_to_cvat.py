@@ -4,8 +4,9 @@ Two subcommands:
   push  -> upload the 'gold' images to CVAT, create a labeling task
   pull  -> load the finished annotations back into FiftyOne as `ground_truth`
 
-Credentials are read from ~/.fiftyone/annotation_config.json (your CVAT username +
-password) — this script never contains secrets.
+Credentials: CVAT_USERNAME / CVAT_PASSWORD in .env. These are exported as
+FIFTYONE_CVAT_* env vars BEFORE importing fiftyone — the annotation config is
+built at import time, so setting them afterwards is too late.
 
 Label schema (per LABELING_GUIDE.md):
   box class  = faction  (space_marines / necrons / tyranids / death_guard /
@@ -18,10 +19,9 @@ Usage:
 """
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
-
-import fiftyone as fo
 
 ANNO_KEY = "gold_v1"
 CLASSES = ["space_marines", "necrons", "tyranids", "death_guard",
@@ -38,27 +38,29 @@ def env(key: str) -> str | None:
     return None
 
 
+# --- set CVAT creds BEFORE importing fiftyone (annotation config is built at import) ---
+_user, _pw = env("CVAT_USERNAME"), env("CVAT_PASSWORD")
+if _user and _pw:
+    os.environ["FIFTYONE_CVAT_USERNAME"] = _user
+    os.environ["FIFTYONE_CVAT_PASSWORD"] = _pw
+    os.environ.setdefault("FIFTYONE_CVAT_URL", "https://app.cvat.ai")
+
+import fiftyone as fo  # noqa: E402
+
+
 def main() -> None:
     cmd = sys.argv[1] if len(sys.argv) > 1 else "help"
-
-    # feed CVAT creds from .env to FiftyOne (works for both push and pull)
-    import os
-    user, pw = env("CVAT_USERNAME"), env("CVAT_PASSWORD")
-    if user and pw:
-        os.environ["FIFTYONE_CVAT_USERNAME"] = user
-        os.environ["FIFTYONE_CVAT_PASSWORD"] = pw
-        os.environ.setdefault("FIFTYONE_CVAT_URL", "https://app.cvat.ai")
+    if cmd in ("push", "pull") and not (_user and _pw):
+        raise SystemExit("Add CVAT_USERNAME and CVAT_PASSWORD to .env first.")
 
     ds = fo.load_dataset("wh40k_pile")
     gold = ds.match_tags("gold")
 
     if cmd == "push":
         if ANNO_KEY in ds.list_annotation_runs():
-            print(f"'{ANNO_KEY}' already exists. Pull it or delete with:")
+            print(f"'{ANNO_KEY}' already exists. Delete it first with:")
             print(f"  ds.delete_annotation_run('{ANNO_KEY}')")
             return
-        if not (user and pw):
-            raise SystemExit("Add CVAT_USERNAME and CVAT_PASSWORD to .env first.")
         gold.annotate(
             ANNO_KEY,
             backend="cvat",
