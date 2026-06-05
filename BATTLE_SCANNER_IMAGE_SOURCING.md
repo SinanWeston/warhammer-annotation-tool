@@ -214,6 +214,47 @@ For any unit still below depth target, take your best 1–2 confirmed crops and 
 | **Scrapy / Playwright** | Custom crawlers for forums (DakkaDakka, B&C) and retailer catalogs |
 | **Roboflow SDK / HF `datasets`** | Pull existing labeled datasets |
 
+## C3.1 Implemented scrapers — exactly how & where (operational state, 2026-06-06)
+
+The repo's actual scrapers, their run command, what they need, reliability, and current
+state. **Active env: `fiftyone_env`** (needs `playwright` + `playwright-stealth` for the
+browser ones; `requests`/`beautifulsoup4` for the HTTP ones).
+
+| Source | Script | Run | Creds | Reliability | State |
+|---|---|---|---|---|---|
+| **Warhammer Community** | `scripts/warhammer_community/scraper.py` | `… scraper.py --limit N` (omit for all) | none | ✅ HTTP, **robots-allowed**, reliable unattended | NEW — first run 2026-06-06 (GW hobby-article studio minis, faction-labeled) |
+| **CMON** | `scripts/cmon/cmon_scrape.py` | `… cmon_scrape.py single` (types: single/squad/bust/diorama) | none | ⚠️ headed browser (Playwright+stealth) — **flaky unattended** (browser dies after warming); supervise | 2.9k ingested; `single` run ~20/533 done — more needs babysitting |
+| **GW shop** | `scripts/warhammer_com/gw_shop_cli.py` | `… gw_shop_cli.py scrape --factions X` (discover done) | WAF cookies (`gw_shop_cli.py bootstrap` once — solve AWS WAF CAPTCHA) | ⚠️ headed browser + WAF | 3k ingested; ~92 DG product shots on disk (per-unit dirs) |
+| **dakkadakka** | `scripts/scrape_dakkadakka.py` | `--faction X` / `--all --limit N` | none | ✅ pure HTTP (requests+BS4); **small community site — bound it, don't blast** | 14.3k ingested |
+| **eBay** | `scripts/scrape_ebay.py` | (Playwright) | none | ⚠️ aggressive anti-bot, **ban risk** | 7.3k ingested |
+| **Reddit** | `scripts/reddit_collector.py` | `--all --limit N` | `REDDIT_CLIENT_ID` + `REDDIT_CLIENT_SECRET` (PRAW app) | API | 11k already ingested; **fresh pull blocked on creds** |
+| **Flickr** | `scripts/flickr_collector.py` | — | `FLICKR_API_KEY` | API (CC-licensed → product-safe) | **blocked (no key)** |
+| **YouTube** | `scripts/youtube_collector.py` | `--all-channels` | yt-dlp | frame-extract | not run; low gallery value |
+| **Google/SERP** (Wave 1 depth engine) | per-unit query-by-taxonomy (C1) | — | `SERPAPI_KEY` or Google CSE | API | **blocked (no key)** — the per-unit depth lever |
+| **Roboflow** | `scripts/curation/acquire_roboflow.py` | — | `ROBOFLOW_API_KEY` ✅ | API | done (314 CC-BY) |
+| **Lexicanum** | *not built* | MediaWiki API (`/api.php`, category→images) | none | ✅ API, polite | **mostly lore artwork, low mini-photo yield** — low priority |
+| **Bluesky** | *not built* | public AT-protocol API (no auth) | none | ✅ API | candidate new source (hobby painted minis) |
+
+**Ingest path (every source):** scraper writes `images/{faction}/{unit_or_slug}/` →
+add to `wh40k_pile` (faction/unit from the dir path, source + provenance sidecar) →
+**embed with frozen dinov2-large** (CLS, L2-norm) → dedup → pool. Examples:
+`scripts/curation/ingest_gw_shop_backlog.py`, `ingest_new_cmon_dg.py`,
+`seed_dg_gallery.py`. **Embedding is the bottleneck** — CPU ≈ 1–2 h per 1k images;
+batch on Colab GPU (`scripts/curation/embed_colab.ipynb`) for anything large.
+
+### Hard-won lessons (read before scraping anything)
+1. **Check disk before scraping — ingestion ≠ acquisition.** Repeatedly (DG gallery,
+   gw_shop, CMON) the "need to scrape" was actually "already scraped, never ingested."
+   `grep`/`glob` the `scripts/*/images/` dirs and compare basenames to `wh40k_pile`
+   *first*. The DG gallery (0→189, best-retrieving v1 faction) needed **zero** scraping.
+2. **Browser scrapers (CMON, eBay) are flaky unattended** — supervise them; don't fire-
+   and-forget. HTTP scrapers (warhammer_community, dakka) run reliably unattended.
+3. **An image isn't usable until it's embedded** (gallery retrieval + dedup need the
+   DINOv2 vector). Scrape → ingest → **Colab embed batch**.
+4. **The credential signups are the real volume unlock** — a Reddit script-app + a
+   SerpApi/CSE key (5 min each) open the two biggest fresh painted-mini firehoses; the
+   scrapers already exist. Until then, no-cred reliable = warhammer_community + dakka(bounded).
+
 ## C4. Operational practicalities (not legal advice)
 Respect rate limits and cache aggressively (never re-download); back off and rotate on the marketplaces; don't hammer GW/community/forum servers; dedupe *before* storing to save space; log failures for retry. Keep raw images + sidecar JSON immutable; do all processing on copies.
 
