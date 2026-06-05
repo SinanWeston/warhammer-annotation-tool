@@ -92,7 +92,7 @@ The original framing ("Zero training. Foundation models suffice.") held up at th
 Concrete pipeline for building the Tier 1 detector:
 
 1. **Freeze a 200-image eval set** stratified by bbox density (single / sparse / medium / crowded), never trained on. (→ Phase C.)
-2. **Auto-label the ~17k unlabelled scraped images** with a **multi-detector ensemble** (SAM 3 text + Grounding DINO + OWLv2 image-guided) + SAM 2 mask refinement + agreement voting. Boxes supported by ≥ 2 detectors auto-accept; single-supporter boxes go to human review. Confidence 0.25, class-agnostic NMS @ IoU 0.5, SAHI for images > 1200 px long edge. (~16–30 GPU-hours on a T4, less on A100.) Implementation: `scripts/phaseF/autolabel_ensemble.py`, driver modules under `src/photoanalyzer/detect/ensemble/`.
+2. **Auto-label the ~30.6k clean detection-pool images** (34.7k pool minus the junk filter → `data/phaseF/autolabel_images.txt`) with **SAM 3 detection + optional SAM 2 mask refinement**. The original multi-detector ensemble (SAM 3 + Grounding DINO + OWLv2 + agreement voting) was **dropped 2026-04-25** — Phase C bench showed SAM 3 beating the alternatives 3× and the weaker votes only hurt precision (DINO/OWLv2 code removed 2026-06-05). Class-agnostic NMS @ IoU 0.5, SAHI for images > 1200 px long edge; prompt/threshold locked in `HANDOFF.md` §5.1. (~16–30 GPU-hours on a T4.) Implementation: `scripts/phaseF/autolabel_ensemble.py`, modules under `src/photoanalyzer/detect/ensemble/`. Then bucket output via `scripts/phaseF/triage_pseudolabels.py` (zero-box → review).
 3. **Train RF-DETR-Medium v1** on the union of 1,500 gold annotations (oversampled 5–10×) + ~15,600 auto-accept pseudo-labels. Expected mAP@50 on the frozen eval: 0.70–0.78.
 4. **Self-relabel at confidence 0.3.** Compare v1 predictions to the original pseudo-labels; images where they disagree — plus the ensemble's single-supporter review tier — become the active-learning pool (~1,000–3,000 images, ~5–12 human-hours in the desktop annotator).
 5. **Train RF-DETR-Medium v2** (cloud, quality-max) and **RF-DETR-Nano** (edge, mobile) on the cleaned union. Target mAP@50 on the frozen eval: **0.82–0.88**. Both are Apache-2.0; no knowledge-distillation loss, "poor man's distillation" via shared dataset.
@@ -102,13 +102,18 @@ License stack is deliberately all-Apache-2.0 **for the shipped inference path**.
 | Component | License | Role | Why chosen |
 |---|---|---|---|
 | SAM 3 | SAM License (Meta) | Offline pseudo-labeller (primary) | Corrected 2026-04-24: the current SAM 3 license permits commercial use, has no competing-foundation-models clause, and does not force share-alike on outputs. Used offline only; the shipped detector is RF-DETR-Medium. More than doubles OWLv2 / DINO-X on SA-Co exhaustive detection (arXiv 2511.16719). |
-| Grounding DINO base | Apache-2.0 | Offline pseudo-labeller (ensemble member) | Drop-in HF install, no gate. ~4 AP below DINO-X on COCO but a useful second opinion for agreement voting. DINO-X-swappable via the `backend` arg when DeepDataSpace API access is provisioned. |
-| OWLv2 image-guided | Apache-2.0 | Offline pseudo-labeller (visual-prompt) | Feeds ~30 stratified gold crops as exemplars. Catches minis with distinctive painted silhouettes text prompts under-fire on. |
+| ~~Grounding DINO base~~ | Apache-2.0 | **DROPPED 2026-04-25** | Was an ensemble member; Phase C bench showed it only hurt precision vs SAM 3 alone. Code removed 2026-06-05. |
+| ~~OWLv2 image-guided~~ | Apache-2.0 | **DROPPED 2026-04-25** | Was the visual-prompt ensemble member. Removed with Grounding DINO. |
 | SAM 2 hiera-large | Apache-2.0 | Mask refinement | Ungated on HF; tightens every candidate box to the silhouette via mask-to-bbox, filters false positives whose refined IoU with the candidate < 0.3. |
 | RF-DETR-Medium (cloud) | Apache-2.0 | **Shipped detector** | DINOv2 backbone, peer-reviewed at ICLR 2026, explicitly designed for 1k–20k custom datasets |
 | RF-DETR-Nano (edge) | Apache-2.0 | Shipped edge detector | Same model family, ships to iPhone via CoreML. ~5 mAP below YOLO26-n but YOLO26-n is AGPL-3.0 which constrains closed-source commercial distribution |
 
-**Ensemble logic** (agreement voting): a candidate box is `auto_accept` if ≥ 2 detectors support it post-NMS, `review` if only 1. Both tiers go to the annotator's pseudo queue with distinct tags (`pseudo-ensemble-auto-v1` vs `pseudo-ensemble-review-v1`). This separates "almost certainly correct, light-touch review" from "needs deliberate human judgment".
+**~~Ensemble logic (agreement voting)~~ — REMOVED 2026-04-25.** The pipeline is a
+single detector (SAM 3), so there is no cross-detector voting. Review routing is now
+done per-image on the SAM 3 output by `scripts/phaseF/triage_pseudolabels.py`
+(zero-box → review = "junk OR a hard miss"; has-boxes → a prioritised F3 queue by
+low-confidence / count-outlier / weird-geometry). The Grounding DINO + OWLv2 detector
+code was deleted 2026-06-05 (recover from git history if an A/B is ever wanted).
 
 ### Why this wins over the current pipeline
 
@@ -128,7 +133,7 @@ License stack is deliberately all-Apache-2.0 **for the shipped inference path**.
 - **Annotation tooling (desktop + mobile).** Output shifts from "train a detector" to "crop + unit label for the gallery". All 1,500 annotations stay useful.
 - **YOLO11x weights.** Redeploy as a 20-class faction classifier. Run 2's 39.9% mAP50 is probably >80% on faction-only evaluation.
 - **Active learning pipeline.** Re-target: prioritise crops for **gallery enrollment**, not training set.
-- **Grounding DINO / OWLv2 integration.** Already in the codebase for annotation proposals. Role shifts from "inference-time Tier 1" to **auto-labeler for the pseudo-label bootstrap** (§3.1 Step 2). Primary tool there is Grounded-SAM-2; keep OWLv2 as fallback for sources where Grounded-SAM-2's prompt under-recalls.
+- **~~Grounding DINO / OWLv2~~ — DROPPED.** Were considered as ensemble auto-labellers; Phase C bench killed them (SAM 3 alone won 3×). Code removed 2026-06-05. The auto-labeller is **SAM 3** (§3.1 Step 2).
 - **18K scraped image pool.** Fodder for later DINOv3 domain adaptation to close the studio-photo-vs-painted-tabletop gap.
 - **Backend + API contracts.** No API change required for Tier 1+3 internals; the `/api/detect` endpoint stays, its innards get swapped.
 - **Consumer v2 UI.** Already supports top-K grouping, uncertainty section, inline edits — fits retrieval-style output better than softmax classification.
@@ -275,7 +280,7 @@ Update this section as phases complete. Date every entry.
 | C · Frozen scene benchmark | 🟡 In progress | 200-image frozen eval set stratified by bbox density (60 single / 50 sparse / 50 medium / 40 crowded). Never trained on. See §3.1 step 1 and `data/scene_benchmark/eval_200.json`. | 2026-04-20 |
 | D · Model improvements to ≥95% top-3 | ☐ Not started | D1 linear probe Tier 2, D2 class balancing, D3 multi-view grouping, D4 backbone ablation. Tier 3 / retrieval sub-phases. Gated on Phase C scoreboard. Tier 1 detector work split out into Phase F. | — |
 | E · Consumer app shipping | ☐ Not started | FastAPI server + PWA wire-up + top-3 confirmation UX. | — |
-| F · Tier 1 detector bootstrap | ☐ Not started | Multi-detector ensemble (SAM 3 + Grounding DINO + OWLv2 visual) → RF-DETR-Medium cloud + RF-DETR-Nano edge. Sub-phases per §3.1 steps 2–5. Target mAP@50 ≥ 0.82 on Phase C frozen eval. | 2026-04-24 |
+| F · Tier 1 detector bootstrap | 🟡 In progress | **SAM 3 + SAM 2** (ensemble dropped 2026-04-25) → RF-DETR-Medium cloud + RF-DETR-Nano edge. Sub-phases per §3.1 steps 2–5. Scored against **gold_v2** (count-MAE × density + per-faction recall via `score_gold.py`), NOT the legacy eval_200. | 2026-06-05 |
 | F1 · Auto-label 34.7k scraped images | 🟡 Pipeline + measuring infra ready | Ensemble simplified to **SAM 3 + SAM 2** after Phase C bench (3× alternatives). **2026-06-05:** gold expanded to 89/283 (all v1 factions ≥40); built the trusted-GT eval harness (`eval/gold.py` count-MAE×density + per-faction recall + box-convention diagnostic), box reconciliation (`eval/boxconv.py`), CLI `scripts/phaseF/score_gold.py`, and a detection-pool junk filter (1,463 `lowq` tagged). Score against **gold_v2** (trusted), not eval_200 (legacy GT). SAM 3 prompt/threshold + base-pad decisions locked — see HANDOFF §5.1. Blocks on GPU run (Colab). | 2026-06-05 |
 | F2 · Train RF-DETR v1 | ☐ Not started | 1.5k gold (5–10× oversampled) + ~15.6k pseudo. Expected mAP@50 0.70–0.78 on frozen eval. Blocks on F1. | — |
 | F3 · Self-relabel + human review | ☐ Not started | RF-DETR v1 at conf 0.3; disagreement set (~500–1.5k images) goes into the desktop annotator. ~5–12 human-hours. Blocks on F2. | — |

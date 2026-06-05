@@ -1,7 +1,15 @@
 # photoanalyzer — Warhammer 40K Miniature Annotation & Scanner
 
 ## Overview
-Monorepo annotation tool (desktop) + consumer scanner (PWA). 4 workspaces: desktop frontend (React/TS), backend (Express/TS), consumer PWA, mobile annotator PWA. ~18K training images, YOLO model integration (63.2% mAP50).
+Monorepo annotation tool (desktop) + consumer scanner (PWA). 4 workspaces: desktop frontend (React/TS), backend (Express/TS), consumer PWA, mobile annotator PWA.
+
+**Current direction (2026-06): data-centric rebuild.** The project pivoted from
+end-to-end YOLO to a three-tier CV pipeline (class-agnostic detection → faction
+classifier → unit retrieval) and is now in active rebuild. The guiding docs are
+`HANDOFF.md` (live state) and `BATTLE_SCANNER_PLAN.md`; `STRATEGY.md` holds the
+architectural rationale. The Express `backend/` + the legacy end-to-end YOLO11x
+model (Phase 0 baseline: 54.7% mAP50 / 66% detection recall) are the **v0** surface
+— kept running for the annotator, not the rebuild target.
 
 ## Dev Commands
 
@@ -55,14 +63,15 @@ Full details: `/debug` skill
 - **Unified labels** (v2 schema): `data/labels.csv` — ground truth for gallery + faction classifier. See `src/photoanalyzer/label/schema.py` for column definitions.
   - **Writers**: Python (`photoanalyzer.label.schema.write_labels_csv`) and the legacy warhammer-analyzer Node service (`warhammer-analyzer/backend/src/services/labelsCsvService.js` — `withCsvLock`). The desktop annotator backend (`backend/`) **does not write `data/labels.csv`** — it writes per-image JSONs to `backend/training_data_annotations/` only.
   - Cross-process lock at `data/labels.csv.lock` (directory, atomic `mkdir`); proper-lockfile auto-recovers stale locks after 10s. The lock matters only when both Python crop-extraction and warhammer-analyzer run concurrently. After a crash the `.lock` dir may need manual `rm -rf`.
-- **Scene benchmark** (frozen held-out test sets): `data/scene_benchmark/mine/` + `data/scene_benchmark/internet/` (Phase C)
+- **Gold eval set** (frozen, trusted GT): `data/gold/gold_v2.json` (89 imgs / 283 boxes, all v1 factions ≥40). The measuring stick for the Tier 1 detector — score via `scripts/phaseF/score_gold.py`. The older Phase C `data/scene_benchmark/eval_200.json` uses the legacy (untrusted) annotations as GT — superseded.
 - **Canonical taxonomy**: `scripts/data/units.json` — 24 factions (20 codex + 4 Chaos sub-factions split out 2026-04-19: death_guard, thousand_sons, world_eaters, emperors_children). Wrapped by `photoanalyzer.taxonomy`.
 
 ## photoanalyzer Python library (`src/photoanalyzer/`)
-The CV pipeline is a proper Python package, installed editable into `yolo_env`:
+The CV pipeline is a proper Python package. The active env is `fiftyone_env`
+(the old `yolo_env` was retired 2026-05):
 ```bash
-yolo_env/bin/pip install -e ".[ml,server,dev]"   # install with all extras
-yolo_env/bin/pytest tests/                       # run the test suite
+fiftyone_env/bin/pip install -e ".[ml,server,dev]"   # install with all extras
+fiftyone_env/bin/pytest tests/                       # run the test suite
 ```
 Modules: `taxonomy` (factions + unit slugs, single source of truth) · `detect/` · `classify/` · `retrieve/` · `label/` (schema + LLM + active learning) · `scrape/` · `eval/` (scene + crop metrics) · `pipeline` · `server` (FastAPI).
 
