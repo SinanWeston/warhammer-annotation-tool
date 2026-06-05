@@ -1,0 +1,162 @@
+{
+  "note": "gold v2 EXTRA candidates (round 2) \u2014 cull to ~20 keepers",
+  "n": 26,
+  "candidates": [
+    {
+      "basename": "229498_4162f8159c1b.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/229498_4162f8159c1b.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "239220_7092c5372b7a.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/239220_7092c5372b7a.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "239623_8090a3b76cdc.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/239623_8090a3b76cdc.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "265_e019b41f282c.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/265_e019b41f282c.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "272521_898cf6a1bd1c.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/272521_898cf6a1bd1c.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "273297_1e3a92384e34.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/273297_1e3a92384e34.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "303248_81e8eebaf32c.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/303248_81e8eebaf32c.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "322580_4ee9acb33a09.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/322580_4ee9acb33a09.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "355264_7dfb58e6e187.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/355264_7dfb58e6e187.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "364737_6f9252db71d9.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/364737_6f9252db71d9.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "36515_706c7ba699db.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/36515_706c7ba699db.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "390027_398b970915e2.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/390027_398b970915e2.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "412899_5dbe8b24ec01.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/412899_5dbe8b24ec01.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "473725_c16a1bbecea9.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/473725_c16a1bbecea9.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "13c81r1_8572594802f6.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13c81r1_8572594802f6.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "13dbply_5e8e25bd0234.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13dbply_5e8e25bd0234.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "13gu4e8_405e0804d6fc.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13gu4e8_405e0804d6fc.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "147ra7k_6313a1e10e54.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/147ra7k_6313a1e10e54.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "14e9l6b_b3f10f1866ab.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/14e9l6b_b3f10f1866ab.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "1743ih6_7432e1778b7f.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1743ih6_7432e1778b7f.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "1743ih6_c4da765f12a6.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1743ih6_c4da765f12a6.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "18220tf_784470a1b61c.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/18220tf_784470a1b61c.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "1brz2zj_3eff578190d4.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1brz2zj_3eff578190d4.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "1cd8mwv_ca9a2c978451.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1cd8mwv_ca9a2c978451.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "1eppkri_827d03fc6f2c.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1eppkri_827d03fc6f2c.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "1f0am21_59414e9fc0a1.png",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1f0am21_59414e9fc0a1.png",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    }
+  ]
+}

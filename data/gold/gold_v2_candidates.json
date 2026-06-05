@@ -1,0 +1,84 @@
+{
+  "note": "holdout candidates to label in CVAT for gold v2; DG+Necron quota fill",
+  "n": 13,
+  "candidates": [
+    {
+      "basename": "csmdg_poxwalkers_feature__99120102115_CSMDGPoxwalkersFeature1.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/csmdg_poxwalkers_feature__99120102115_CSMDGPoxwalkersFeature1.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "dg_combat_patrol__99120102194_DGCombatPatrol02.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/dg_combat_patrol__99120102194_DGCombatPatrol02.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "dg_combat_patrol__99120102194_DGCombatPatrol03.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/dg_combat_patrol__99120102194_DGCombatPatrol03.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "1017192_c9325f2cd34a.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1017192_c9325f2cd34a.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "114229_8e1570531a30.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/114229_8e1570531a30.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "115601_9282a3e67856.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/115601_9282a3e67856.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "1218398_3578c7a5e421.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1218398_3578c7a5e421.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "193097_90ad6fe6d49e.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/193097_90ad6fe6d49e.jpg",
+      "source": "dakkadakka",
+      "faction_v1": "death_guard"
+    },
+    {
+      "basename": "10i473f_ae49d4734262.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/10i473f_ae49d4734262.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "11oojsx_58a04d5ab206.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/11oojsx_58a04d5ab206.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "12w2m5c_110dcea42524.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/12w2m5c_110dcea42524.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "132nial_6265a73daead.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/132nial_6265a73daead.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    },
+    {
+      "basename": "13c81r1_84b615f17744.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13c81r1_84b615f17744.jpg",
+      "source": "reddit",
+      "faction_v1": "necrons"
+    }
+  ]
+}
