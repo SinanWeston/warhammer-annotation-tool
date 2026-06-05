@@ -3,7 +3,7 @@
 # (browser), pull results down. Replaces the drag-and-drop dance.
 #
 # One-time setup (do once, ever):
-#   yolo_env/bin/rclone config
+#   rclone config
 #     n              # new remote
 #     gdrive         # name (must match RCLONE_REMOTE below)
 #     <pick> drive   # Google Drive
@@ -26,7 +26,11 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-RCLONE="$REPO_ROOT/yolo_env/bin/rclone"
+# yolo_env was retired (2026-05); the active env is fiftyone_env. Both python and
+# rclone are overridable. rclone is a standalone binary — install it (system or
+# `fiftyone_env/bin/pip install`-style) since it no longer ships in any env here.
+PYBIN="${PYBIN:-$REPO_ROOT/fiftyone_env/bin/python}"
+RCLONE="${RCLONE:-$(command -v rclone || echo "$REPO_ROOT/fiftyone_env/bin/rclone")}"
 RCLONE_REMOTE="${RCLONE_REMOTE:-gdrive}"     # remote name from `rclone config`
 DRIVE_DIR="${DRIVE_DIR:-}"                   # optional subfolder under MyDrive
 BUNDLE_PATH="$HOME/Downloads/photoanalyzer_f1_bundle.tar"
@@ -41,7 +45,7 @@ cmd="${1:-help}"
 require_remote() {
     if ! "$RCLONE" listremotes | grep -q "^${RCLONE_REMOTE}:"; then
         echo "rclone remote '${RCLONE_REMOTE}' not configured." >&2
-        echo "Run: yolo_env/bin/rclone config" >&2
+        echo "Run: rclone config  (install rclone first; it no longer ships in any env)" >&2
         echo "(see scripts/phaseF/sync.sh header for the steps)" >&2
         exit 1
     fi
@@ -52,7 +56,7 @@ case "$cmd" in
         require_remote
         if [[ ! -f "$BUNDLE_PATH" ]]; then
             echo "Bundle missing at $BUNDLE_PATH"
-            echo "Build it first: yolo_env/bin/python scripts/phaseF/prepare_colab_bundle.py --phase-c --phase-c-limit 50"
+            echo "Build it first: $PYBIN scripts/phaseF/prepare_colab_bundle.py --phase-c --phase-c-limit 50"
             exit 1
         fi
         echo "==> Deleting stale outputs from Drive (so Colab cell 11 sees a clean slate)"
@@ -112,7 +116,7 @@ case "$cmd" in
         echo "==> [1/4] Building Phase C bundle (limit=${N})"
         rm -f "$BUNDLE_PATH"
         cd "$REPO_ROOT"
-        yolo_env/bin/python scripts/phaseF/prepare_colab_bundle.py \
+        "$PYBIN" scripts/phaseF/prepare_colab_bundle.py \
             --phase-c --phase-c-limit "$N" 2>&1 | tail -3
         if [[ ! -f "$BUNDLE_PATH" ]]; then
             echo "Bundle build failed."
@@ -175,7 +179,7 @@ Typical flow:
     # ↳ builds bundle, pushes to Drive, prints a "click Run All" reminder,
     #   then polls Drive until outputs appear, pulls, extracts, shows report.
 
-One-time: run \`yolo_env/bin/rclone config\` and set up a remote named \`gdrive\`.
+One-time: install rclone, run \`rclone config\` and set up a remote named \`gdrive\`.
 See the header comment of this script for OAuth steps.
 EOF
         ;;
