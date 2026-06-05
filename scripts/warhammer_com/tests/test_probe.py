@@ -7,10 +7,10 @@ profile has WAF cookies. Scrapes 2 known-good URLs and asserts the pipeline
 produces the expected file layout + manifest rows.
 
 Run:
-    yolo_env/bin/python3 -m pytest scripts/warhammer_com/tests/test_probe.py -v
+    fiftyone_env/bin/python3 -m pytest scripts/warhammer_com/tests/test_probe.py -v
 
 Skip when network unavailable:
-    SKIP_LIVE=1 yolo_env/bin/python3 -m pytest ...
+    SKIP_LIVE=1 fiftyone_env/bin/python3 -m pytest ...
 """
 
 from __future__ import annotations

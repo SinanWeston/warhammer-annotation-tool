@@ -26,9 +26,9 @@ Files flagged but NOT auto-fixed:
     for manual review.
 
 Usage:
-    yolo_env/bin/python3 scripts/audit_annotations.py                    # report
-    yolo_env/bin/python3 scripts/audit_annotations.py --fix-casing --backup
-    yolo_env/bin/python3 scripts/audit_annotations.py --fix-duplicates --backup
+    fiftyone_env/bin/python3 scripts/audit_annotations.py                    # report
+    fiftyone_env/bin/python3 scripts/audit_annotations.py --fix-casing --backup
+    fiftyone_env/bin/python3 scripts/audit_annotations.py --fix-duplicates --backup
 """
 
 from __future__ import annotations

@@ -24,8 +24,8 @@ JSON, unless --force is passed. Backs up any overwritten JSON to a
 sibling .bak-<timestamp> file.
 
 Usage:
-    yolo_env/bin/python3 scripts/migrate_labels_csv_to_annotator.py --dry-run
-    yolo_env/bin/python3 scripts/migrate_labels_csv_to_annotator.py
+    fiftyone_env/bin/python3 scripts/migrate_labels_csv_to_annotator.py --dry-run
+    fiftyone_env/bin/python3 scripts/migrate_labels_csv_to_annotator.py
 """
 
 from __future__ import annotations

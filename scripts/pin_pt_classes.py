@@ -18,9 +18,9 @@ The companion `.classes.txt` is a **frozen ground-truth** that:
     trained against."
 
 Usage:
-    yolo_env/bin/python3 scripts/pin_pt_classes.py                 # pin every .pt
-    yolo_env/bin/python3 scripts/pin_pt_classes.py --pt runs/foo.pt  # pin one
-    yolo_env/bin/python3 scripts/pin_pt_classes.py --dry-run        # no writes
+    fiftyone_env/bin/python3 scripts/pin_pt_classes.py                 # pin every .pt
+    fiftyone_env/bin/python3 scripts/pin_pt_classes.py --pt runs/foo.pt  # pin one
+    fiftyone_env/bin/python3 scripts/pin_pt_classes.py --dry-run        # no writes
 
 Idempotent — re-running produces no change unless a .pt was replaced.
 """

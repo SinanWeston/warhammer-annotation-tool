@@ -26,8 +26,8 @@ Re-run the migration any time by re-downloading the CSVs and running this
 script; the old units.json becomes a `.backup.N.json` sibling.
 
 Usage:
-    yolo_env/bin/python3 scripts/build_units_json_from_wahapedia.py
-    yolo_env/bin/python3 scripts/build_units_json_from_wahapedia.py --dry-run
+    fiftyone_env/bin/python3 scripts/build_units_json_from_wahapedia.py
+    fiftyone_env/bin/python3 scripts/build_units_json_from_wahapedia.py --dry-run
 """
 
 from __future__ import annotations

@@ -5,7 +5,7 @@ user clicks Yes (miniature) or No (not a mini). Votes saved to
 state/review_votes.json incrementally.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_community/review_server.py
+    fiftyone_env/bin/python3 scripts/warhammer_community/review_server.py
     # Opens http://localhost:8765 in browser
 """
 

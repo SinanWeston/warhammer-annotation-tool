@@ -61,8 +61,7 @@ Full details: `/debug` skill
 - **Model**: `runs/yolo11x_run2_best.pt` (15 classes; see `runs/yolo11x_run2_best.classes.txt` for the pinned class list). The older `runs/yolo11_colab_best.pt` has 8 classes and is no longer loaded by the backend — config points at the `x_run2` model.
 - **Logs**: `backend/logs/all.log`, `backend/logs/error.log`
 - **Unified labels** (v2 schema): `data/labels.csv` — ground truth for gallery + faction classifier. See `src/photoanalyzer/label/schema.py` for column definitions.
-  - **Writers**: Python (`photoanalyzer.label.schema.write_labels_csv`) and the legacy warhammer-analyzer Node service (`warhammer-analyzer/backend/src/services/labelsCsvService.js` — `withCsvLock`). The desktop annotator backend (`backend/`) **does not write `data/labels.csv`** — it writes per-image JSONs to `backend/training_data_annotations/` only.
-  - Cross-process lock at `data/labels.csv.lock` (directory, atomic `mkdir`); proper-lockfile auto-recovers stale locks after 10s. The lock matters only when both Python crop-extraction and warhammer-analyzer run concurrently. After a crash the `.lock` dir may need manual `rm -rf`.
+  - **Writer**: Python (`photoanalyzer.label.schema.write_labels_csv`). (The legacy warhammer-analyzer Node labeller that also wrote this CSV was deleted 2026-06-05.) The desktop annotator backend (`backend/`) **does not write `data/labels.csv`** — it writes per-image JSONs to `backend/training_data_annotations/` only.
 - **Gold eval set** (frozen, trusted GT): `data/gold/gold_v2.json` (89 imgs / 283 boxes, all v1 factions ≥40). The measuring stick for the Tier 1 detector — score via `scripts/phaseF/score_gold.py`. The older Phase C `data/scene_benchmark/eval_200.json` uses the legacy (untrusted) annotations as GT — superseded.
 - **Canonical taxonomy**: `scripts/data/units.json` — 24 factions (20 codex + 4 Chaos sub-factions split out 2026-04-19: death_guard, thousand_sons, world_eaters, emperors_children). Wrapped by `photoanalyzer.taxonomy`.
 
@@ -93,16 +92,6 @@ Active work area as of 2026-04-25. Architecture: **SAM 3 detection + SAM 2 mask 
 
 ## .claude/ environment
 See `.claude/README.md` for hooks, agents, skills, and status line. Specialist agents available: `cv-researcher` (literature review), `annotation-reviewer` (audit annotation corpus), `bench-runner` (record benchmark results).
-
-## warhammer-analyzer/ sub-project — DEPRECATED (2026-04-19)
-**Do not run or extend this.** The hand-labelling workflow has moved
-entirely to the desktop annotator (`backend/` + `frontend/`, ports
-3001/5173) which now writes `unit_slug` per-bbox. The
-warhammer-analyzer labeller's CSV output (`data/labels.csv`) has been
-migrated (see `scripts/migrate_labels_csv_to_annotator.py`) and the
-sub-project is kept on disk purely for reference. If you start it up
-again, you'll have two parallel labelling surfaces with their own
-state — don't.
 
 ## Constraints
 - NEVER commit files in `images/` or `runs/` to git (training data ~50GB)

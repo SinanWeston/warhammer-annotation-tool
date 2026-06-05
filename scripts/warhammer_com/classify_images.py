@@ -19,8 +19,8 @@ Two heuristics:
                   flag as composite.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/classify_images.py            # dry-run
-    yolo_env/bin/python3 scripts/warhammer_com/classify_images.py --apply    # move files
+    fiftyone_env/bin/python3 scripts/warhammer_com/classify_images.py            # dry-run
+    fiftyone_env/bin/python3 scripts/warhammer_com/classify_images.py --apply    # move files
 """
 
 from __future__ import annotations

@@ -19,7 +19,7 @@ This script:
   4. Prints a summary so the user knows how much manual work remains.
 
 Run:
-    yolo_env/bin/python3 scripts/build_gw_slug_map.py
+    fiftyone_env/bin/python3 scripts/build_gw_slug_map.py
 """
 
 from __future__ import annotations

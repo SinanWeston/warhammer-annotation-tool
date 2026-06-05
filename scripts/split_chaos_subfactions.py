@@ -13,8 +13,8 @@ Preserves everything else in units.json unchanged. Backs up the file
 to units.json.backup-<UTC-timestamp> before writing.
 
 Usage:
-    yolo_env/bin/python3 scripts/split_chaos_subfactions.py --dry-run
-    yolo_env/bin/python3 scripts/split_chaos_subfactions.py
+    fiftyone_env/bin/python3 scripts/split_chaos_subfactions.py --dry-run
+    fiftyone_env/bin/python3 scripts/split_chaos_subfactions.py
 """
 
 from __future__ import annotations

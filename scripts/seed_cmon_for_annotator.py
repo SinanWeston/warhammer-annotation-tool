@@ -21,9 +21,9 @@ Output is idempotent: re-running skips symlinks that already exist and
 point at the correct target. `--force` re-creates every symlink.
 
 Usage:
-    yolo_env/bin/python3 scripts/seed_cmon_for_annotator.py --dry-run
-    yolo_env/bin/python3 scripts/seed_cmon_for_annotator.py
-    yolo_env/bin/python3 scripts/seed_cmon_for_annotator.py --force
+    fiftyone_env/bin/python3 scripts/seed_cmon_for_annotator.py --dry-run
+    fiftyone_env/bin/python3 scripts/seed_cmon_for_annotator.py
+    fiftyone_env/bin/python3 scripts/seed_cmon_for_annotator.py --force
 """
 
 from __future__ import annotations

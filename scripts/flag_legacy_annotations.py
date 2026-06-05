@@ -21,8 +21,8 @@ Rules:
   - Idempotent: re-running is a no-op on already-flagged files.
 
 Usage:
-    yolo_env/bin/python3 scripts/flag_legacy_annotations.py --dry-run
-    yolo_env/bin/python3 scripts/flag_legacy_annotations.py
+    fiftyone_env/bin/python3 scripts/flag_legacy_annotations.py --dry-run
+    fiftyone_env/bin/python3 scripts/flag_legacy_annotations.py
 """
 
 from __future__ import annotations

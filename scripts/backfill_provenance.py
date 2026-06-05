@@ -26,8 +26,8 @@ excluding the reliable historical data.
     before writing.
 
 Usage:
-    yolo_env/bin/python3 scripts/backfill_provenance.py --dry-run
-    yolo_env/bin/python3 scripts/backfill_provenance.py
+    fiftyone_env/bin/python3 scripts/backfill_provenance.py --dry-run
+    fiftyone_env/bin/python3 scripts/backfill_provenance.py
 """
 
 from __future__ import annotations

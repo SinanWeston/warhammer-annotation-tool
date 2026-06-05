@@ -22,7 +22,7 @@ For each page, saves into scripts/warhammer_com/recon/:
 Plus a consolidated summary.md with quick findings.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/recon.py
+    fiftyone_env/bin/python3 scripts/warhammer_com/recon.py
 """
 
 from __future__ import annotations

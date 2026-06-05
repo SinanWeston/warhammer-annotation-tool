@@ -19,8 +19,8 @@ Flags:
                      skipped — the guard runs regardless of --overwrite.
 
 Usage:
-    yolo_env/bin/python3 scripts/apply_weak_sup.py --source cmon --dry-run
-    yolo_env/bin/python3 scripts/apply_weak_sup.py --source cmon
+    fiftyone_env/bin/python3 scripts/apply_weak_sup.py --source cmon --dry-run
+    fiftyone_env/bin/python3 scripts/apply_weak_sup.py --source cmon
 """
 
 from __future__ import annotations

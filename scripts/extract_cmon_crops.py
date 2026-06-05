@@ -12,11 +12,11 @@ Resume-safe: already-labelled entries are skipped based on the presence of
 their sentinel crop_path (`…/00_00.jpg`) in `data/labels.csv`.
 
 Usage:
-    yolo_env/bin/python3 scripts/extract_cmon_crops.py                  # full run
-    yolo_env/bin/python3 scripts/extract_cmon_crops.py --limit 20       # spot-check
-    yolo_env/bin/python3 scripts/extract_cmon_crops.py --min-confidence 0.4
-    yolo_env/bin/python3 scripts/extract_cmon_crops.py --no-resume      # re-extract all
-    yolo_env/bin/python3 scripts/extract_cmon_crops.py --device cpu     # force CPU
+    fiftyone_env/bin/python3 scripts/extract_cmon_crops.py                  # full run
+    fiftyone_env/bin/python3 scripts/extract_cmon_crops.py --limit 20       # spot-check
+    fiftyone_env/bin/python3 scripts/extract_cmon_crops.py --min-confidence 0.4
+    fiftyone_env/bin/python3 scripts/extract_cmon_crops.py --no-resume      # re-extract all
+    fiftyone_env/bin/python3 scripts/extract_cmon_crops.py --device cpu     # force CPU
 """
 
 from __future__ import annotations

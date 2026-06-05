@@ -10,10 +10,10 @@ Subcommands:
     status      — print counts of products / images / manifest rows
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py bootstrap
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py discover
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py scrape --limit 10
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py test-probe
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py bootstrap
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py discover
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py scrape --limit 10
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_cli.py test-probe
 """
 
 from __future__ import annotations

@@ -15,9 +15,9 @@ Pipeline:
   5. Log to scrape_log.csv (source_platform = "warhammer_community")
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_community/scraper.py
-    yolo_env/bin/python3 scripts/warhammer_community/scraper.py --limit 20
-    yolo_env/bin/python3 scripts/warhammer_community/scraper.py --dry-run
+    fiftyone_env/bin/python3 scripts/warhammer_community/scraper.py
+    fiftyone_env/bin/python3 scripts/warhammer_community/scraper.py --limit 20
+    fiftyone_env/bin/python3 scripts/warhammer_community/scraper.py --dry-run
 """
 
 from __future__ import annotations

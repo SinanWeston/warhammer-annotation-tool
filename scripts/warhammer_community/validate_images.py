@@ -32,10 +32,10 @@ Output:
   Images with verdict=review stay in place but are listed for human triage.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_community/validate_images.py              # dry-run
-    yolo_env/bin/python3 scripts/warhammer_community/validate_images.py --apply      # move
-    yolo_env/bin/python3 scripts/warhammer_community/validate_images.py --stage clip # CLIP only
-    yolo_env/bin/python3 scripts/warhammer_community/validate_images.py --stage dino # DINOv2 only
+    fiftyone_env/bin/python3 scripts/warhammer_community/validate_images.py              # dry-run
+    fiftyone_env/bin/python3 scripts/warhammer_community/validate_images.py --apply      # move
+    fiftyone_env/bin/python3 scripts/warhammer_community/validate_images.py --stage clip # CLIP only
+    fiftyone_env/bin/python3 scripts/warhammer_community/validate_images.py --stage dino # DINOv2 only
 """
 
 from __future__ import annotations

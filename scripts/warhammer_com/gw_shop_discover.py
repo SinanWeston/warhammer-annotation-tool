@@ -11,9 +11,9 @@ Fallback strategy: seed with known-good URLs + BFS over each product's
 context.relatedProducts. Called automatically if the primary yields too few.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_discover.py
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_discover.py --strategy crawl
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_discover.py --limit 20
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_discover.py
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_discover.py --strategy crawl
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_discover.py --limit 20
 """
 
 from __future__ import annotations

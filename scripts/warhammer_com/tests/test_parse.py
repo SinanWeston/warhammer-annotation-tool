@@ -2,7 +2,7 @@
 """
 Unit tests for gw_shop_parse.py.
 
-Run: yolo_env/bin/python3 -m pytest scripts/warhammer_com/tests/test_parse.py -v
+Run: fiftyone_env/bin/python3 -m pytest scripts/warhammer_com/tests/test_parse.py -v
 """
 
 from __future__ import annotations

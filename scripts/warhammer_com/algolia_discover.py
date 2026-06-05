@@ -17,8 +17,8 @@ full image list + faction, so the scrape step can skip browser too (plain
 `requests` image downloads, ~3600 40K miniatures in ~30 minutes).
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/algolia_discover.py
-    yolo_env/bin/python3 scripts/warhammer_com/algolia_discover.py --limit 100
+    fiftyone_env/bin/python3 scripts/warhammer_com/algolia_discover.py
+    fiftyone_env/bin/python3 scripts/warhammer_com/algolia_discover.py --limit 100
 """
 
 from __future__ import annotations

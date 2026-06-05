@@ -16,9 +16,9 @@ For each unprocessed row in state/products.jsonl:
   4. Update the products.jsonl row with scraped_at + counts.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_scrape.py
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_scrape.py --limit 5
-    yolo_env/bin/python3 scripts/warhammer_com/gw_shop_scrape.py --factions tau_empire,space_marines
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_scrape.py
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_scrape.py --limit 5
+    fiftyone_env/bin/python3 scripts/warhammer_com/gw_shop_scrape.py --factions tau_empire,space_marines
 """
 
 from __future__ import annotations

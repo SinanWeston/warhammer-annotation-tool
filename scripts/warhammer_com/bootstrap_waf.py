@@ -6,7 +6,7 @@ auth cookies to the shared browser profile so subsequent (headless) runs skip
 the challenge.
 
 Usage:
-    yolo_env/bin/python3 scripts/warhammer_com/bootstrap_waf.py
+    fiftyone_env/bin/python3 scripts/warhammer_com/bootstrap_waf.py
 
 After a successful run, cookies live under scripts/warhammer_com/recon/.browser_profile/
 """
