@@ -1,6 +1,13 @@
 # Warhammer 40K Dataset Annotation Tool
 
-A web-based tool for manually annotating bounding boxes on Warhammer 40K miniature images to create training datasets for YOLO object detection models.
+> **⚠ Direction (2026-06):** the project pivoted from end-to-end YOLO to a
+> **data-centric three-tier CV pipeline** (class-agnostic detection → faction
+> classifier → unit retrieval) and is in active rebuild. Read **`HANDOFF.md`**
+> (live state) + **`BATTLE_SCANNER_PLAN.md`** first; `STRATEGY.md` holds the
+> rationale. The YOLO-annotation tool described below is the **v0** surface —
+> still used for hand-labelling, no longer the modelling target.
+
+A web-based tool for manually annotating bounding boxes on Warhammer 40K miniature images to create training datasets (originally for YOLO; now feeding the three-tier pipeline above).
 
 ## Overview
 

@@ -1,5 +1,9 @@
 # Mothball state — 2026-05-14
 
+> **⚠ SUPERSEDED (2026-06).** No longer mothballed — in active data-centric rebuild
+> (see `HANDOFF.md`). The resume steps below rebuild the retired `yolo_env` + pre-pivot
+> retrieval artifacts; kept for history only.
+
 Project is paused. Source code, training images, annotations, and the production model checkpoint are intact. Build artifacts, virtualenvs, and derivable retrieval data were removed to reclaim disk space.
 
 ## Resume in one shot

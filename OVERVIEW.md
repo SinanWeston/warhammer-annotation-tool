@@ -1,7 +1,7 @@
 # Warhammer 40K Miniature Recogniser — Project Overview
 
-**Last updated**: April 2026
-**Status**: Active development — annotation in progress, first model trained
+**Last updated**: 2026-06-05
+**Status**: Data-centric rebuild (2026-06) — see HANDOFF.md. The "first model trained" YOLO11x is the v0 baseline, not the current target.
 **Architectural direction**: See [STRATEGY.md](STRATEGY.md) — pivoting from end-to-end YOLO to a three-tier detection + retrieval pipeline
 
 ---

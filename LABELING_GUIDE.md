@@ -1,7 +1,8 @@
 # Labeling Guide — Battle Scanner
 
-**Status:** v1 draft, 2026-06-04. Governs the 50-image gold set and all
-pseudo-label QA. Edit freely — this is meant to be argued with, then frozen.
+**Status:** v1 draft, 2026-06-04 (the gold set grew 50→**89 images / 283 boxes** by
+2026-06-05, all v1 factions ≥40 — `data/gold/gold_v2.json`). Governs the gold set and
+all pseudo-label QA. Edit freely — this is meant to be argued with, then frozen.
 
 The point of this document (Battle Scanner Plan §3): make "annotation quality" a
 *measurable number* instead of a vibe, and prevent label drift over months. Every
