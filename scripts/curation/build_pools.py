@@ -47,7 +47,11 @@ def main() -> None:
     # crop in favour of the unlabeled twin (observed: necrons/SM galleries emptied).
     # Redundant gallery crops are harmless; an empty gallery is fatal. Within-unit
     # thinning can be done later if needed.
-    gallery = ds.match(F("source") == "isolation").exists("weak_unit")
+    # ALSO include gw_shop product shots that carry a weak_unit — these are canonical
+    # per-unit reference photos. Added 2026-06-05 to seed the Death Guard gallery
+    # (DG had no isolation crops); only DG gw_shop has weak_unit set, so other factions
+    # are unaffected. gw_shop images without weak_unit stay in detection.
+    gallery = ds.match(F("source").is_in(["isolation", "gw_shop"])).exists("weak_unit")
     gallery.set_field("pool", "gallery").save()
     gal_ids = set(gallery.values("id"))
 
