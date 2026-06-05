@@ -67,8 +67,20 @@ Each has a docstring; run with `fiftyone_env/bin/python`.
   - `src/photoanalyzer/eval/boxconv.py` — reconcile mask-tight SAM boxes → model+base
     gold convention (bottom-pad ~0.10) + a diagnostic that detects base-clipping.
   - CLI: `scripts/phaseF/score_gold.py --preds data/pseudo_labels/boxes`.
-  - `scripts/curation/quality_scan.py` — junk filter; tagged **1,463 `lowq`** detection
-    images (blur/tiny/strip). Exclude `lowq` ∪ `low_unique` from the auto-label list.
+  - `scripts/curation/quality_scan.py` — cheap junk filter; tagged **1,463 `lowq`**
+    (blur/tiny/strip).
+  - `scripts/curation/semantic_junk_scan.py` — CLIP zero-shot semantic junk; tagged
+    **1,772 `junk_clip`** (meme/terrain/screenshot/text/illustration/dice, 5.1%). NOTE:
+    ViT-B/32 zero-shot has poor *recall* — ~50% junk hides in low-confidence keeps. We
+    deliberately keep only the high-precision flags (see decided strategy below); a
+    DINOv2 linear probe is the upgrade path if deeper filtering is ever wanted.
+  - `scripts/phaseF/clean_detection_list.py` → **`data/phaseF/autolabel_images.txt`**:
+    the SAM 3 input = detection pool − (`excluded ∪ lowq ∪ low_unique ∪ junk_clip`) =
+    **30,638 images** (88.1% of pool). This is what the Colab auto-label run consumes.
+  - `src/photoanalyzer/eval/triage.py` + `scripts/phaseF/triage_pseudolabels.py` —
+    **post-SAM 3** bucketing: zero-box → REVIEW (not drop: "junk OR hard miss", the
+    misses are AL gold), has-boxes → prioritized F3 queue (low_conf > count_outlier >
+    geom_outlier). 8 tests.
 - ⬜ **Tier 1 detector run (next):** SAM 3 on Colab → distill RF-DETR (Plan D2/§3.1) →
   `score_gold.py` vs gold_v2. **Apply the §5.1 SAM 3 changes below before the full run.**
 - ⬜ Wave 1 depth engine (needs SerpApi/CSE/Reddit keys — query-by-taxonomy over v1 factions).
@@ -110,10 +122,14 @@ From a literature pass (SAM 3 paper arXiv 2511.16719 + HF docs) and the gold-set
    *density* not faction: crowded bucket = 5 imgs (see §5.1). User declined shooting real
    tabletop photos (owns only unpainted tyranids) → eval leans on scraped data, reads
    optimistic vs real phone photos.
-3. **Detection pool junk filter — PARTIAL.** Cheap technical layer done (1,463 `lowq`:
-   blur/tiny/strip, ~4%). The semantic ~30% (memes-with-text, terrain-only, dense piles)
-   still needs a CLIP/embedding pass — `low_unique` tag is the seed. Exclude
-   `lowq` ∪ `low_unique` from the SAM 3 auto-label list either way.
+3. **Detection pool junk filter — DECIDED & DONE.** Strategy: commit only the cheap
+   *high-precision* junk (1,463 `lowq` + 1,772 `junk_clip` + legacy `low_unique`) → a
+   30,638-image clean SAM 3 input (`autolabel_images.txt`). Do NOT chase the borderline
+   junk with a heavier classifier — instead **bucket on the SAM 3 output**: zero-box →
+   review (junk OR hard miss → AL gold), and run a prioritized F3 review (low-conf boxes,
+   count outliers, weird geometry, a 0-box sample). Tooling = `triage_pseudolabels.py`.
+   (DINOv2 linear probe remains the upgrade if a cleaner pre-filter is ever wanted —
+   CLIP zero-shot recall is only ~50% in the borderline.)
 4. **Sourcing keys (user, 5 min):** sign up for SerpApi or Google CSE so Wave 1 is ready
    at Tier 3. Nothing today gates on it.
 

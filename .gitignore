@@ -163,3 +163,7 @@ PROJECT_STATUS.md
 
 # Regenerable CPU quality-scan output (34.7k rows; rebuild via quality_scan.py)
 data/quality_scan.csv
+
+# Generated Phase F1 lists (rebuild via clean_detection_list.py / triage_pseudolabels.py)
+data/phaseF/autolabel_images.txt
+data/phaseF/triage/
