@@ -30,7 +30,7 @@ Adding weaker votes degraded precision. See `docs/PHASE_F1_HANDOFF.md`
 for the measurement detail.
 
 ```
-Image ─► SAM 3 (text prompt: "painted miniature")
+Image ─► SAM 3 (text prompt — see HANDOFF §5.1; "miniature", not "painted")
             │
             ▼
        SAM 2 box-prompted segmentation → tight bbox from mask
@@ -45,13 +45,11 @@ Module layout under `src/photoanalyzer/detect/ensemble/`:
 |---|---|
 | `sam3.py` | SAM 3 detector — gated, needs `HUGGINGFACE_HUB_TOKEN` in env |
 | `sam2_refine.py` | Mask-based bbox refinement + low-IoU FP filter |
-| `voting.py` | Multi-detector orchestrator (degenerate to 1-supporter for SAM 3 only) |
-| `dinox.py` | Grounding DINO wrapper — kept available for fallback / experimentation |
-| `owlv2_visual.py` | OWLv2 image-conditioned — kept available, not in default pipeline |
+| `voting.py` | Single-detector runner: SAM 3 → (optional) SAM 2 → IoU-dedup SAHI tile-seam duplicates. No voting (DINO/OWLv2 removed 2026-06-05). |
 | `../sahi.py` | Shared SAHI tiling + post-process |
 
 Thresholds:
-- SAM 3 confidence threshold: 0.25
+- SAM 3 confidence threshold: see HANDOFF §5.1 (validate 0.30-0.50; 0.25 was the old default)
 - NMS IoU: 0.5
 - SAHI: images > 1200 px long edge, 640² slices, 0.2 overlap
 - SAM 2 refinement: drop candidates whose refined IoU with the original < 0.10
@@ -91,10 +89,10 @@ bash scripts/phaseF/sync.sh roundtrip # push, wait for Enter, pull (interactive)
 ### 1. Python environment
 
 ```bash
-yolo_env/bin/pip install -e '.[ml]'
+fiftyone_env/bin/pip install -e '.[ml]'
 ```
 
-This pulls `transformers ≥ 4.49` (needed for SAM 3 / SAM 2 / OWLv2 visual)
+This pulls `transformers ≥ 4.49` (needed for SAM 3 / SAM 2)
 and the rest of the ML extras.
 
 ### 2. HuggingFace gated-model access
@@ -118,23 +116,12 @@ works but no licence acceptance is needed.
 ### 3. Google Drive sync (rclone)
 
 ```bash
-yolo_env/bin/rclone config create gdrive drive scope=drive
+fiftyone_env/bin/rclone config create gdrive drive scope=drive
 ```
 
 Walks you through an OAuth flow (browser opens, sign in, Allow). The
 remote is named `gdrive` and persists in `~/.config/rclone/rclone.conf`
 indefinitely. Re-do this only if you revoke the OAuth grant.
-
-### 4. OWLv2 exemplar set (only if you re-enable OWLv2 in the pipeline)
-
-```bash
-yolo_env/bin/python scripts/phaseF/build_exemplar_set.py
-```
-
-Produces `data/exemplars/` (~30 stratified gold crops + manifest). The
-default pipeline doesn't use these any more, but they're shipped in
-the Colab bundle so the OWLv2 detector path keeps working if you flip
-it back on.
 
 ---
 
@@ -148,7 +135,6 @@ The Colab bundle (`~/Downloads/photoanalyzer_f1_bundle.tar`, ~20 MB for
 | `backend/training_data/<faction>/<source>/*.jpg` | The actual image files for this run, downscaled to ≤ 1333 px long-edge |
 | `backend/training_data_annotations/*.json` | Gold annotations (used by `bench_ensemble.py` as ground truth) |
 | `data/scene_benchmark/eval_200.json` | Phase C frozen-eval manifest |
-| `data/exemplars/` | OWLv2 visual prompts |
 | `data/pseudo_labels/original_dims.json` | Coord rescale manifest — every image's pre-downscale (orig_w, orig_h). The ensemble auto-rescales output coords back to originals. |
 | `src/photoanalyzer/` | Library — imported by the bench/autolabel scripts |
 | `scripts/phaseF/` | The Python drivers + this README |
@@ -181,14 +167,14 @@ Once benchmarks are happy:
 
 ```bash
 # Bigger bundle. ~5 GB after downscaling. Allow 20–30 GB GPU-hours on Colab.
-yolo_env/bin/python scripts/phaseF/prepare_colab_bundle.py
+fiftyone_env/bin/python scripts/phaseF/prepare_colab_bundle.py
 bash scripts/phaseF/sync.sh push
 # Now click Run All in Colab — this run takes ~10 hrs on T4 (Colab will
 # disconnect; the notebook is resumable across sessions via the
 # f1_outputs.tar checkpoint).
 bash scripts/phaseF/sync.sh pull
 # After enough sessions to cover all 17k, import to the annotator:
-yolo_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py
+fiftyone_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py
 ```
 
 Across multiple Colab sessions the notebook's cell 11 restores prior
@@ -204,7 +190,7 @@ After `sync.sh pull` extracts `f1_outputs.tar` into the repo:
 
 ```
 data/pseudo_labels/
-├── boxes/<imageId>.json          # per-image pseudo-labels (ensemble schema)
+├── boxes/<imageId>.json          # per-image pseudo-labels (SAM 3 schema)
 ├── manifest.json                 # {n_images_processed, mode, ...}
 ├── original_dims.json            # round-trip from the bundle
 └── errors.log                    # per-image failures from the runner
@@ -212,7 +198,7 @@ data/pseudo_labels/
 docs/benchmarks/<date>-phaseF1-ensemble.md   # bench report (only in bench mode)
 ```
 
-Per-image pseudo JSON (ensemble schema):
+Per-image pseudo JSON (SAM 3 schema):
 
 ```json
 {
@@ -220,7 +206,7 @@ Per-image pseudo JSON (ensemble schema):
   "imagePath": "backend/training_data/<faction>/<source>/<file>",
   "width": 2592, "height": 1944,
   "detectors_used": ["sam3"],
-  "mode": "ensemble",
+  "mode": "sam3",
   "boxes": [
     {
       "xywh": [x, y, w, h],
