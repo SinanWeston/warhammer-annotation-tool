@@ -1,22 +1,16 @@
-"""Ensemble orchestrator — run configured detectors, refine via SAM 2,
-NMS with supporter tracking, split into `auto_accept` (≥ 2 detectors
-agree) and `review` (only 1 detector).
+"""Detection orchestrator — run SAM 3, optionally refine via SAM 2, and
+dedup overlapping boxes (incl. SAHI tile-seam duplicates) via IoU clustering.
 
-Detectors are configured at construction time so the pipeline can
-run with a subset when one isn't available (e.g. SAM 3 gate pending):
+History: this was a multi-detector *ensemble* with agreement voting (SAM 3 +
+Grounding DINO + OWLv2-visual, ≥2-supporter auto-accept). The ensemble was
+killed 2026-04-25 (Phase C bench showed SAM 3 beating the alternatives 3× and
+the weaker votes only hurt precision); the DINO/OWLv2 detectors were removed
+2026-06-05. The class is kept (it still does the necessary SAHI-output IoU
+dedup for the single SAM 3 detector), but there is no longer any voting —
+per-image review routing now lives in `photoanalyzer.eval.triage`.
 
-    ensemble = Ensemble(
-        detectors=[
-            ("dinox",        DinoXDetector()),
-            ("owlv2_visual", OwlV2VisualDetector.from_exemplar_dir()),
-            # ("sam3",       Sam3Detector()),   # enable once gate granted
-        ],
-        refiner=SAM2Refiner(),
-    )
+    ensemble = build_default_ensemble(include_sam2_refine=True)
     auto, review = ensemble.run("path/to/image.jpg")
-
-The output is a pair of lists — each element is an `EnsembleDetection`
-carrying the supporter tuple so downstream JSON preserves provenance.
 """
 from __future__ import annotations
 
@@ -38,9 +32,11 @@ from photoanalyzer.detect.ensemble.sam2_refine import (
 
 
 DEFAULT_NMS_IOU = 0.5
-# Minimum per-detector-cluster agreement to end up in auto_accept.
-# "1" means any single detector is enough (fallback to review-only).
-AUTO_ACCEPT_SUPPORTERS = 2
+# Single-detector pipeline (SAM 3 only) — every clustered box has exactly one
+# supporter, so the historical ≥2-detector "auto-accept vs review" vote is moot.
+# Kept at 1 so detections aren't silently all-routed to `review`; the real
+# per-image review prioritisation is done downstream by `eval.triage`.
+AUTO_ACCEPT_SUPPORTERS = 1
 
 
 @dataclass(frozen=True)
@@ -59,7 +55,10 @@ class EnsembleDetection:
 
 
 class Ensemble:
-    """Multi-detector orchestrator with agreement voting."""
+    """SAM 3 (+ optional SAM 2) detector runner with SAHI-output IoU dedup.
+
+    Name retained for the existing call sites; it no longer ensembles multiple
+    detectors (see module docstring)."""
 
     def __init__(
         self,
@@ -80,10 +79,10 @@ class Ensemble:
     ) -> tuple[list[EnsembleDetection], list[EnsembleDetection]]:
         """Return (auto_accept, review).
 
-        Auto-accept: boxes supported by ≥ AUTO_ACCEPT_SUPPORTERS
-        detectors after NMS clustering.
-        Review: boxes supported by only one detector — go to the
-        annotator's human-review queue.
+        With the single SAM 3 detector every clustered box has one supporter,
+        so all boxes land in `auto_accept` and `review` is empty here — review
+        prioritisation is done per-image downstream by `eval.triage`. The pair
+        return is kept for the existing call sites.
         """
         if isinstance(image, (str, Path)):
             pil = Image.open(image).convert("RGB")
@@ -207,16 +206,11 @@ def _iou_cluster(xyxy: np.ndarray, iou_threshold: float) -> list[list[int]]:
     return clusters
 
 
-# Production architecture — SAM 3 alone (locked 2026-04-25 after Phase C
-# bench showed SAM 3 outperforming alternatives 3x; ensemble's value
-# collapsed to "tighten boxes" via SAM 2, which is currently broken).
-# DINO-X and OWLv2 paths remain available behind opt-in flags so we can
-# A/B against them without re-implementing.
+# Production architecture — SAM 3 alone (locked 2026-04-25 after Phase C bench
+# showed SAM 3 outperforming alternatives 3×). The DINO-X / OWLv2 detector paths
+# were removed 2026-06-05; resurrect from git history if an A/B is ever wanted.
 def build_default_ensemble(
-    exemplar_dir: Path | None = None,
     include_sam3: bool = True,
-    include_dinox: bool = False,
-    include_owlv2: bool = False,
     include_sam2_refine: bool = False,
 ) -> Ensemble:
     detectors: list[tuple[str, Detector]] = []
@@ -225,26 +219,8 @@ def build_default_ensemble(
         from photoanalyzer.detect.ensemble.sam3 import Sam3Detector
         detectors.append(("sam3", Sam3Detector()))
 
-    if include_dinox:
-        from photoanalyzer.detect.ensemble.dinox import DinoXDetector
-        detectors.append(("dinox", DinoXDetector()))
-
-    if include_owlv2:
-        from photoanalyzer.detect.ensemble.owlv2_visual import OwlV2VisualDetector
-        if exemplar_dir is not None:
-            detectors.append(
-                ("owlv2_visual", OwlV2VisualDetector.from_exemplar_dir(exemplar_dir))
-            )
-        else:
-            detectors.append(
-                ("owlv2_visual", OwlV2VisualDetector.from_exemplar_dir())
-            )
-
     if not detectors:
-        raise ValueError(
-            "No detectors enabled. Set at least one of "
-            "include_sam3 / include_dinox / include_owlv2 to True."
-        )
+        raise ValueError("No detectors enabled — set include_sam3=True.")
 
     refiner: SAM2Refiner | None = SAM2Refiner() if include_sam2_refine else None
     return Ensemble(detectors=detectors, refiner=refiner)

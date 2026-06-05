@@ -41,15 +41,12 @@ JPEG_QUALITY = 92          # keep a margin above the dataset's ~85–90 floor
 OUT_TAR = Path.home() / "Downloads" / "photoanalyzer_f1_bundle.tar"
 SRC_IMAGES = Path("backend/training_data")
 SRC_ANNS = Path("backend/training_data_annotations")
-SRC_EXEMPLARS = Path("data/exemplars")
 SRC_SCENE_BENCHMARK = Path("data/scene_benchmark")
-# All phaseF scripts that the Colab notebook imports from. The ensemble
-# pipeline needs the `src/photoanalyzer/` library too (shipped separately
-# as a package dir below).
+# All phaseF scripts that the Colab notebook imports from. The SAM 3 pipeline
+# needs the `src/photoanalyzer/` library too (shipped separately below).
 SCRIPTS = [
-    Path("scripts/phaseF/autolabel.py"),           # legacy single-detector path
-    Path("scripts/phaseF/autolabel_ensemble.py"),  # new ensemble driver
-    Path("scripts/phaseF/bench_ensemble.py"),      # Phase C frozen-eval scorer
+    Path("scripts/phaseF/autolabel_ensemble.py"),  # SAM 3 autolabel driver
+    Path("scripts/phaseF/bench_ensemble.py"),      # frozen-eval scorer
     Path("scripts/phaseF/README.md"),
     Path("scripts/phaseF/setup.sh"),
 ]
@@ -335,16 +332,6 @@ def main() -> int:
             shutil.copytree(LIBRARY_ROOT, lib_dst, dirs_exist_ok=True,
                             ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
             print(f"  shipped photoanalyzer library ({LIBRARY_ROOT})")
-
-        # 3.4 Exemplar crops — OWLv2 visual-prompt needs these at runtime.
-        #     ~30 stratified gold crops from data/exemplars/.
-        if SRC_EXEMPLARS.is_dir():
-            exm_dst = staging / SRC_EXEMPLARS
-            shutil.copytree(SRC_EXEMPLARS, exm_dst, dirs_exist_ok=True)
-            print(f"  shipped exemplar crops ({SRC_EXEMPLARS})")
-        else:
-            print(f"  WARN: {SRC_EXEMPLARS} missing — OWLv2 visual-prompt will "
-                  f"fail on Colab. Run scripts/phaseF/build_exemplar_set.py first.")
 
         # 3.45 Scene benchmark manifest — tiny JSON but lets bench_ensemble.py
         # run on Colab against the same frozen eval set as local.

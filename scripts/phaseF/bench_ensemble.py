@@ -12,12 +12,13 @@ Metrics reported per detector:
     - mAP@50 via standard PR-curve integration
 
 Usage:
-    yolo_env/bin/python scripts/phaseF/bench_ensemble.py \\
-        --detectors dinox owlv2_visual ensemble_auto ensemble_full \\
-        --out docs/benchmarks/2026-04-24-phaseF1-ensemble.md
+    fiftyone_env/bin/python scripts/phaseF/bench_ensemble.py \\
+        --detectors sam3 sam3_refined \\
+        --out docs/benchmarks/<date>-phaseF1.md
 
-Defaults score the full ensemble; pass specific detector names with
---detectors to slice or add the individual-detector baselines.
+Detectors: sam3, sam3_refined (SAM 3 + SAM 2 mask refinement). NOTE: this benches
+against the legacy Phase C eval_200 GT; the trusted eval is gold_v2 via
+scripts/phaseF/score_gold.py.
 """
 from __future__ import annotations
 
@@ -198,25 +199,10 @@ def load_eval() -> list[EvalEntry]:
 
 
 def build_detector(name: str):
-    """Return a (predict_fn, tag) pair.
-    predict_fn: path → list[(xyxy, score)].
-    Ensemble variants return the auto-only or auto+review union."""
-    if name == "dinox":
-        from photoanalyzer.detect.ensemble.dinox import DinoXDetector
-        det = DinoXDetector()
-        def _pred(p):
-            dd = det.predict(p)
-            return [(_xywh_to_xyxy(d.bbox), d.confidence) for d in dd]
-        return _pred, name
+    """Return a (predict_fn, tag) pair. predict_fn: path → list[(xyxy, score)].
 
-    if name == "owlv2_visual":
-        from photoanalyzer.detect.ensemble.owlv2_visual import OwlV2VisualDetector
-        det = OwlV2VisualDetector.from_exemplar_dir()
-        def _pred(p):
-            dd = det.predict(p)
-            return [(_xywh_to_xyxy(d.bbox), d.confidence) for d in dd]
-        return _pred, name
-
+    The pipeline is SAM 3 only (locked 2026-04-25); the historical DINO-X /
+    OWLv2 / ensemble-voting factories were removed 2026-06-05."""
     if name == "sam3":
         from photoanalyzer.detect.ensemble.sam3 import Sam3Detector
         det = Sam3Detector()
@@ -225,20 +211,8 @@ def build_detector(name: str):
             return [(_xywh_to_xyxy(d.bbox), d.confidence) for d in dd]
         return _pred, name
 
-    if name in ("ensemble_auto", "ensemble_full"):
-        from photoanalyzer.detect.ensemble.voting import build_default_ensemble
-        ens = build_default_ensemble()
-        def _pred(p, _include_review=(name == "ensemble_full")):
-            auto, review = ens.run(p)
-            merged = auto + (review if _include_review else [])
-            return [(_xywh_to_xyxy(ed.bbox), ed.confidence) for ed in merged]
-        return _pred, name
-
     if name == "sam3_refined":
-        # SAM 3 detection + SAM 2 mask-to-bbox refinement. The simplest
-        # production architecture per the 2026-04-25 bench result: SAM 3
-        # outclassed every alternative 3:1, so the ensemble's value collapses
-        # to "tighten the boxes" — exactly what SAM 2 refinement does.
+        # SAM 3 detection + SAM 2 mask-to-bbox refinement.
         from photoanalyzer.detect.ensemble.sam3 import Sam3Detector
         from photoanalyzer.detect.ensemble.sam2_refine import SAM2Refiner
         det = Sam3Detector()
@@ -251,19 +225,7 @@ def build_detector(name: str):
             return [(_xywh_to_xyxy(rd.refined_bbox), rd.original.confidence) for rd in refined]
         return _pred, name
 
-    if name == "grounding_dino_baseline":
-        # Legacy — run the existing autolabel.py Detector for fair comparison.
-        from photoanalyzer.detect.ensemble.dinox import DinoXDetector
-        det = DinoXDetector(
-            backend="grounding_dino_base",
-            prompt="painted miniature . figurine . tabletop model .",
-        )
-        def _pred(p):
-            dd = det.predict(p)
-            return [(_xywh_to_xyxy(d.bbox), d.confidence) for d in dd]
-        return _pred, name
-
-    raise ValueError(f"Unknown detector: {name!r}")
+    raise ValueError(f"Unknown detector: {name!r} (options: sam3, sam3_refined)")
 
 
 # --- Scoring & report --------------------------------------------------
@@ -382,10 +344,8 @@ def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--detectors", nargs="+",
-        default=["dinox", "owlv2_visual", "ensemble_auto", "ensemble_full"],
-        help="Detector names to score. Options: dinox, owlv2_visual, sam3, "
-             "ensemble_auto (≥2 supporters only), ensemble_full (auto+review), "
-             "grounding_dino_baseline (matches old autolabel.py prompt).",
+        default=["sam3", "sam3_refined"],
+        help="Detector names to score. Options: sam3, sam3_refined.",
     )
     ap.add_argument(
         "--out", type=Path,

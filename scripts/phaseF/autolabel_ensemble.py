@@ -1,20 +1,20 @@
-"""F1 — Auto-label with the multi-detector ensemble (SAM 3 + DINO-X/Grounding DINO
-+ OWLv2 visual-prompt + SAM 2 refinement + agreement voting).
+"""F1 — Auto-label miniatures with SAM 3 (+ optional SAM 2 mask refinement).
 
-Supersedes scripts/phaseF/autolabel.py. Emits one JSON per image under
-`data/pseudo_labels/boxes/<imageId>.json` in the ensemble schema:
+Single-detector pipeline (the SAM 3 + Grounding DINO + OWLv2 ensemble was retired
+2026-04-25 / 2026-06-05). Emits one JSON per image under
+`data/pseudo_labels/boxes/<imageId>.json`:
 
     {
       "imageId": "...",
       "imagePath": "...",
       "width": <original>, "height": <original>,
-      "detectors_used": ["dinox", "owlv2_visual", ...],
-      "mode": "ensemble",
+      "detectors_used": ["sam3"],
+      "mode": "sam3",
       "boxes": [
         {
           "xywh": [x, y, w, h],
           "score": 0.87,
-          "supporters": ["dinox", "sam3"],
+          "supporters": ["sam3"],
           "refinement_iou": 0.91
         },
         ...
@@ -26,9 +26,9 @@ Resumable: images whose output already exists are skipped. Honours the
 `prepare_colab_bundle.py` (falls back gracefully when missing).
 
 Usage:
-    yolo_env/bin/python scripts/phaseF/autolabel_ensemble.py --limit 5
-    yolo_env/bin/python scripts/phaseF/autolabel_ensemble.py                    # full run
-    yolo_env/bin/python scripts/phaseF/autolabel_ensemble.py --no-sam3          # skip gated model
+    fiftyone_env/bin/python scripts/phaseF/autolabel_ensemble.py --limit 5
+    fiftyone_env/bin/python scripts/phaseF/autolabel_ensemble.py                 # full run
+    fiftyone_env/bin/python scripts/phaseF/autolabel_ensemble.py --with-sam2-refine
 """
 from __future__ import annotations
 
@@ -55,7 +55,6 @@ BOX_DIR = OUT_ROOT / "boxes"
 MANIFEST_PATH = OUT_ROOT / "manifest.json"
 ERROR_LOG = OUT_ROOT / "errors.log"
 ORIGINAL_DIMS_PATH = OUT_ROOT / "original_dims.json"
-EXEMPLAR_DIR = Path("data/exemplars")
 
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".webp"}
 
@@ -171,7 +170,7 @@ def process_one(ensemble, job: ImageJob, original_dims: dict | None) -> dict:
         "width": orig_w,
         "height": orig_h,
         "detectors_used": [name for name, _ in ensemble.detectors],
-        "mode": "ensemble",
+        "mode": "sam3",
         "boxes": boxes,
     }
 
@@ -180,7 +179,7 @@ def write_manifest(n_done: int) -> None:
     # Minimal manifest — enough to see progress; deeper stats in F1.7 bench.
     manifest = {
         "version": 2,
-        "mode": "ensemble",
+        "mode": "sam3",
         "n_images_processed": n_done,
     }
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2))
