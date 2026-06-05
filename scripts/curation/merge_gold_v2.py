@@ -27,7 +27,7 @@ GOLD_DIR = Path(__file__).resolve().parents[2] / "data" / "gold"
 BASE = GOLD_DIR / "gold_v1.json"
 OUT = GOLD_DIR / "gold_v2.json"
 # every quota-fill round, in order; each is a CVAT task pulled into ground_truth
-TAGS = ["gold_v2", "gold_v3", "gold_v4"]
+TAGS = ["gold_v2", "gold_v3", "gold_v4", "gold_v5"]
 
 
 def round5(v: float) -> float:

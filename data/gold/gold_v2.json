@@ -1,7 +1,7 @@
 {
   "name": "gold_v2",
-  "n_images": 56,
-  "n_boxes": 182,
+  "n_images": 89,
+  "n_boxes": 283,
   "images": [
     {
       "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/913196_1228f8c80f2f.jpg",
@@ -1417,6 +1417,23 @@
       ]
     },
     {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/726710_baf9d2688f9d.jpg",
+      "basename": "726710_baf9d2688f9d.jpg",
+      "faction_v1": "death_guard",
+      "source": "dakkadakka",
+      "boxes": [
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.15625,
+            0.06463,
+            0.79607,
+            0.8498
+          ]
+        }
+      ]
+    },
+    {
       "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/364737_6f9252db71d9.jpg",
       "basename": "364737_6f9252db71d9.jpg",
       "faction_v1": "death_guard",
@@ -1575,6 +1592,59 @@
       ]
     },
     {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/646102_121b2a6bc676.jpg",
+      "basename": "646102_121b2a6bc676.jpg",
+      "faction_v1": "death_guard",
+      "source": "dakkadakka",
+      "boxes": [
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.05161,
+            0.32198,
+            0.28134,
+            0.32826
+          ]
+        },
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.2738,
+            0.29982,
+            0.21308,
+            0.33565
+          ]
+        },
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.45721,
+            0.26535,
+            0.17732,
+            0.38899
+          ]
+        },
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.59022,
+            0.29982,
+            0.18588,
+            0.33811
+          ]
+        },
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.75148,
+            0.29079,
+            0.21788,
+            0.32744
+          ]
+        }
+      ]
+    },
+    {
       "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/239623_8090a3b76cdc.jpg",
       "basename": "239623_8090a3b76cdc.jpg",
       "faction_v1": "death_guard",
@@ -1685,6 +1755,266 @@
             0.1182,
             0.11829,
             0.44811
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/748670_1664af4f8f94.png",
+      "basename": "748670_1664af4f8f94.png",
+      "faction_v1": "death_guard",
+      "source": "dakkadakka",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.10517,
+            0.09201,
+            0.09115,
+            0.10613
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.24306,
+            0.08845,
+            0.10583,
+            0.11066
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.37747,
+            0.07584,
+            0.08884,
+            0.12166
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.51111,
+            0.07584,
+            0.09115,
+            0.11939
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.63896,
+            0.07907,
+            0.08884,
+            0.11519
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.7332,
+            0.10819,
+            0.0927,
+            0.0851
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.81895,
+            0.05545,
+            0.09077,
+            0.13298
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.06778,
+            0.3441,
+            0.13585,
+            0.10651
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.23104,
+            0.34167,
+            0.11814,
+            0.10935
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.35403,
+            0.3252,
+            0.08806,
+            0.12337
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.47096,
+            0.32642,
+            0.08952,
+            0.12093
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.59444,
+            0.33232,
+            0.11377,
+            0.11382
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.71088,
+            0.35711,
+            0.10747,
+            0.08639
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.8157,
+            0.30542,
+            0.09672,
+            0.13731
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.73045,
+            0.59768,
+            0.10283,
+            0.09374
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.78553,
+            0.53685,
+            0.07497,
+            0.13684
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.56239,
+            0.56978,
+            0.12198,
+            0.12642
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.45687,
+            0.56218,
+            0.09681,
+            0.13318
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.33321,
+            0.56218,
+            0.09984,
+            0.13374
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.20756,
+            0.57992,
+            0.09745,
+            0.11826
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.07042,
+            0.58076,
+            0.11694,
+            0.11601
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.06999,
+            0.84391,
+            0.1277,
+            0.10466
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.22153,
+            0.84212,
+            0.12923,
+            0.10953
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.37522,
+            0.82699,
+            0.09341,
+            0.12236
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.48299,
+            0.82724,
+            0.08943,
+            0.12159
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.59871,
+            0.83289,
+            0.10198,
+            0.11569
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.71569,
+            0.81057,
+            0.09889,
+            0.138
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.81577,
+            0.85546,
+            0.10382,
+            0.09056
           ]
         }
       ]
@@ -1839,6 +2169,74 @@
       ]
     },
     {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/504435_41948d55ce29.jpg",
+      "basename": "504435_41948d55ce29.jpg",
+      "faction_v1": "death_guard",
+      "source": "dakkadakka",
+      "boxes": [
+        {
+          "label": "death_guard",
+          "bbox_xywh_norm": [
+            0.21661,
+            0.26197,
+            0.74428,
+            0.57159
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone01.jpg",
+      "basename": "bloat_drone__99120102077_BloatDrone01.jpg",
+      "faction_v1": "death_guard",
+      "source": "gw_shop",
+      "boxes": [
+        {
+          "label": "death_guard",
+          "bbox_xywh_norm": [
+            0.18414,
+            0.06202,
+            0.64335,
+            0.88975
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/chaos_space_marine_death_guard_lordof_poxes__99120102198_ChaosSpaceMarineDeathGuardLordofPoxes1.jpg",
+      "basename": "chaos_space_marine_death_guard_lordof_poxes__99120102198_ChaosSpaceMarineDeathGuardLordofPoxes1.jpg",
+      "faction_v1": "death_guard",
+      "source": "gw_shop",
+      "boxes": [
+        {
+          "label": "death_guard",
+          "bbox_xywh_norm": [
+            0.19538,
+            0.1042,
+            0.64054,
+            0.79044
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone03.jpg",
+      "basename": "bloat_drone__99120102077_BloatDrone03.jpg",
+      "faction_v1": "death_guard",
+      "source": "gw_shop",
+      "boxes": [
+        {
+          "label": "death_guard",
+          "bbox_xywh_norm": [
+            0.18273,
+            0.04842,
+            0.70094,
+            0.89928
+          ]
+        }
+      ]
+    },
+    {
       "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/dg_combat_patrol__99120102194_DGCombatPatrol03.jpg",
       "basename": "dg_combat_patrol__99120102194_DGCombatPatrol03.jpg",
       "faction_v1": "death_guard",
@@ -1851,6 +2249,23 @@
             0.13006,
             0.55075,
             0.73743
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/biologus_putrifier__99070102005_BiologusPutrifier01.jpg",
+      "basename": "biologus_putrifier__99070102005_BiologusPutrifier01.jpg",
+      "faction_v1": "death_guard",
+      "source": "gw_shop",
+      "boxes": [
+        {
+          "label": "death_guard",
+          "bbox_xywh_norm": [
+            0.15885,
+            0.0525,
+            0.6883,
+            0.89383
           ]
         }
       ]
@@ -1873,6 +2288,268 @@
       ]
     },
     {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone02.jpg",
+      "basename": "bloat_drone__99120102077_BloatDrone02.jpg",
+      "faction_v1": "death_guard",
+      "source": "gw_shop",
+      "boxes": [
+        {
+          "label": "death_guard",
+          "bbox_xywh_norm": [
+            0.15885,
+            0.01985,
+            0.68409,
+            0.92785
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_flayed_ones_dakka_745288_007.jpg",
+      "basename": "necrons_flayed_ones_dakka_745288_007.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.07829,
+            0.03922,
+            0.27237,
+            0.89527
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.62999,
+            0.10651,
+            0.30359,
+            0.8624
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_combat_patrol_necrons_ebay_357124909449_03.jpg",
+      "basename": "necrons_combat_patrol_necrons_ebay_357124909449_03.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.33682,
+            0.02462,
+            0.31631,
+            0.91016
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_canoptek_scarab_swarms_dakka_1230763_006.jpg",
+      "basename": "necrons_canoptek_scarab_swarms_dakka_1230763_006.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.07676,
+            0.31664,
+            0.31923,
+            0.63195
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.35765,
+            0.08427,
+            0.28481,
+            0.54074
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.59943,
+            0.24063,
+            0.31532,
+            0.6363
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_hexmark_destroyer_dakka_1096650_013.jpg",
+      "basename": "necrons_hexmark_destroyer_dakka_1096650_013.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.27186,
+            0.38066,
+            0.15071,
+            0.20102
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.06558,
+            0.51683,
+            0.15445,
+            0.19738
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.1078,
+            0.37289,
+            0.14109,
+            0.18384
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.22965,
+            0.31588,
+            0.06573,
+            0.15961
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.33201,
+            0.5331,
+            0.12145,
+            0.23995
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.39318,
+            0.31206,
+            0.10993,
+            0.17021
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.48715,
+            0.37341,
+            0.1516,
+            0.20579
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.56428,
+            0.28133,
+            0.14007,
+            0.19149
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.69991,
+            0.36631,
+            0.21188,
+            0.2247
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.5625,
+            0.52944,
+            0.1578,
+            0.26017
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_hexmark_destroyer_dakka_1231279_005.jpg",
+      "basename": "necrons_hexmark_destroyer_dakka_1231279_005.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.21973,
+            0.06386,
+            0.54702,
+            0.91253
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_flayed_ones_dakka_954724_009.jpg",
+      "basename": "necrons_flayed_ones_dakka_954724_009.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.1105,
+            0.17028,
+            0.39577,
+            0.82595
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.55912,
+            0.18011,
+            0.35767,
+            0.79809
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_cryptothralls_ebay_306804234552_11.jpg",
+      "basename": "necrons_cryptothralls_ebay_306804234552_11.jpg",
+      "faction_v1": "necrons",
+      "source": "ebay",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.02494,
+            0.19816,
+            0.44903,
+            0.66535
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.42481,
+            0.19161,
+            0.55227,
+            0.67027
+          ]
+        }
+      ]
+    },
+    {
       "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13c81r1_84b615f17744.jpg",
       "basename": "13c81r1_84b615f17744.jpg",
       "faction_v1": "necrons",
@@ -1885,6 +2562,49 @@
             0.03913,
             0.59585,
             0.85804
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1fvrk9i_40a65709c72d.png",
+      "basename": "1fvrk9i_40a65709c72d.png",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.1327,
+            0.12847,
+            0.35631,
+            0.31346
+          ]
+        },
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.63101,
+            0.0452,
+            0.2038,
+            0.36285
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1fom655_687006c72afb.jpg",
+      "basename": "1fom655_687006c72afb.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.17278,
+            0.08329,
+            0.77906,
+            0.82295
           ]
         }
       ]
@@ -1986,6 +2706,66 @@
       ]
     },
     {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1gnoqh0_92c7b35a58c3.jpg",
+      "basename": "1gnoqh0_92c7b35a58c3.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.12193,
+            0.24147,
+            0.74142,
+            0.62099
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1gg2tk8_0183b05310e9.jpg",
+      "basename": "1gg2tk8_0183b05310e9.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.02327,
+            0.08759,
+            0.85944,
+            0.81872
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1iiavg2_1809c174a3d3.jpg",
+      "basename": "1iiavg2_1809c174a3d3.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.02206,
+            0.45773,
+            0.4358,
+            0.39264
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.34662,
+            0.23528,
+            0.52047,
+            0.55197
+          ]
+        }
+      ]
+    },
+    {
       "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/10i473f_ae49d4734262.jpg",
       "basename": "10i473f_ae49d4734262.jpg",
       "faction_v1": "necrons",
@@ -1998,6 +2778,175 @@
             0.1917,
             0.74441,
             0.63081
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1fst9gj_be56b8251d2b.jpg",
+      "basename": "1fst9gj_be56b8251d2b.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.00483,
+            0.29106,
+            0.1445,
+            0.46303
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.10168,
+            0.35339,
+            0.11068,
+            0.18798
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.06325,
+            0.56611,
+            0.25365,
+            0.30176
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.20083,
+            0.54137,
+            0.12298,
+            0.24735
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.26309,
+            0.56512,
+            0.14527,
+            0.31166
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.36916,
+            0.50675,
+            0.10684,
+            0.27904
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.45448,
+            0.62844,
+            0.16603,
+            0.2513
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.49599,
+            0.53247,
+            0.10915,
+            0.10091
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.61052,
+            0.50873,
+            0.08224,
+            0.26219
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.63513,
+            0.57007,
+            0.14065,
+            0.29781
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.79115,
+            0.57106,
+            0.14912,
+            0.29682
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.75041,
+            0.55523,
+            0.08455,
+            0.22756
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.80883,
+            0.30887,
+            0.11222,
+            0.19887
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.62359,
+            0.34449,
+            0.11068,
+            0.17017
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.66127,
+            0.13276,
+            0.14525,
+            0.40367
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.24695,
+            0.08329,
+            0.3751,
+            0.4284
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1fiyrih_4f5e16c9edc9.jpg",
+      "basename": "1fiyrih_4f5e16c9edc9.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.14617,
+            0.26809,
+            0.79924,
+            0.55359
           ]
         }
       ]
@@ -2032,6 +2981,32 @@
             0.12861,
             0.70331,
             0.72011
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1f9sbr4_1f35f64ae327.jpg",
+      "basename": "1f9sbr4_1f35f64ae327.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.09542,
+            0.31115,
+            0.36675,
+            0.42902
+          ]
+        },
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.46679,
+            0.3173,
+            0.40712,
+            0.42749
           ]
         }
       ]
@@ -2085,6 +3060,204 @@
             0.38134,
             0.19399,
             0.43875
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/1grrqmq_7b19bb0f16e3.jpg",
+      "basename": "1grrqmq_7b19bb0f16e3.jpg",
+      "faction_v1": "necrons",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "out_of_scope",
+          "bbox_xywh_norm": [
+            0.03892,
+            0.27262,
+            0.88184,
+            0.45071
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/cmon/cmon_475894_00.jpg",
+      "basename": "cmon_475894_00.jpg",
+      "faction_v1": "necrons",
+      "source": "cmon",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.2445,
+            0.04085,
+            0.53711,
+            0.93903
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/cmon/cmon_473335_03.jpg",
+      "basename": "cmon_473335_03.jpg",
+      "faction_v1": "necrons",
+      "source": "cmon",
+      "boxes": [
+        {
+          "label": "necrons",
+          "bbox_xywh_norm": [
+            0.31989,
+            0.03261,
+            0.41298,
+            0.91445
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/1bb4r4n_2e659e9f7985.jpeg",
+      "basename": "1bb4r4n_2e659e9f7985.jpeg",
+      "faction_v1": "tyranids",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.08236,
+            0.00216,
+            0.83807,
+            0.99492
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/1dr8qmk_897540708eac.jpg",
+      "basename": "1dr8qmk_897540708eac.jpg",
+      "faction_v1": "tyranids",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.0102,
+            0.1327,
+            0.95376,
+            0.7844
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/11tmoi7_ca00d5ba6be2.jpg",
+      "basename": "11tmoi7_ca00d5ba6be2.jpg",
+      "faction_v1": "tyranids",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.20831,
+            0.36644,
+            0.60248,
+            0.47685
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/18i9tiv_75ba52b70553.jpg",
+      "basename": "18i9tiv_75ba52b70553.jpg",
+      "faction_v1": "tyranids",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.28198,
+            0.16818,
+            0.5013,
+            0.60126
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/17roew8_8d4ffef46ec3.jpg",
+      "basename": "17roew8_8d4ffef46ec3.jpg",
+      "faction_v1": "tyranids",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.44558,
+            0.09982,
+            0.26351,
+            0.39801
+          ]
+        },
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.14263,
+            0.06426,
+            0.3105,
+            0.46477
+          ]
+        },
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.13927,
+            0.28038,
+            0.24672,
+            0.50055
+          ]
+        },
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.35662,
+            0.50229,
+            0.29288,
+            0.49375
+          ]
+        },
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.56642,
+            0.36508,
+            0.24337,
+            0.40581
+          ]
+        },
+        {
+          "label": "tyranids",
+          "bbox_xywh_norm": [
+            0.66377,
+            0.23357,
+            0.25512,
+            0.33782
+          ]
+        }
+      ]
+    },
+    {
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/18z2ijq_f302ed352948.jpg",
+      "basename": "18z2ijq_f302ed352948.jpg",
+      "faction_v1": "tyranids",
+      "source": "reddit",
+      "boxes": [
+        {
+          "label": "space_marines",
+          "bbox_xywh_norm": [
+            0.34973,
+            0.0027,
+            0.393,
+            0.96804
           ]
         }
       ]

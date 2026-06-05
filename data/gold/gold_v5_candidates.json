@@ -1,0 +1,160 @@
+{
+  "note": "gold v5 \u2014 necron top-up (holdout listings) + DG from detection gw_shop",
+  "n": 22,
+  "candidates": [
+    {
+      "basename": "cmon_473335_03.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/cmon/cmon_473335_03.jpg",
+      "source": "cmon",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "cmon_475492_09.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/cmon/cmon_475492_09.jpg",
+      "source": "cmon",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "cmon_475894_00.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/cmon/cmon_475894_00.jpg",
+      "source": "cmon",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "cmon_476325_06.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/cmon/cmon_476325_06.jpg",
+      "source": "cmon",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_canoptek_scarab_swarms_dakka_1230763_006.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_canoptek_scarab_swarms_dakka_1230763_006.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_combat_patrol_necrons_ebay_357124909449_03.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_combat_patrol_necrons_ebay_357124909449_03.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_convergence_of_dominion_ebay_317267337692_16.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_convergence_of_dominion_ebay_317267337692_16.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_cryptothralls_ebay_306804234552_11.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_cryptothralls_ebay_306804234552_11.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_doom_scythe_ebay_166620803150_06.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_doom_scythe_ebay_166620803150_06.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_flayed_ones_dakka_745288_007.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_flayed_ones_dakka_745288_007.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_flayed_ones_dakka_954724_009.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_flayed_ones_dakka_954724_009.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_ghost_ark_dakka_760170_007.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_ghost_ark_dakka_760170_007.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_hexmark_destroyer_dakka_1096650_013.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_hexmark_destroyer_dakka_1096650_013.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "necrons_hexmark_destroyer_dakka_1231279_005.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_hexmark_destroyer_dakka_1231279_005.jpg",
+      "source": "ebay",
+      "faction_v1": "necrons",
+      "from_pool": "holdout"
+    },
+    {
+      "basename": "biologus_putrifier__99070102005_BiologusPutrifier01.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/biologus_putrifier__99070102005_BiologusPutrifier01.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "biologus_putrifier__99070102005_BiologusPutrifier03.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/biologus_putrifier__99070102005_BiologusPutrifier03.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "bloat_drone__99120102077_BloatDrone01.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone01.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "bloat_drone__99120102077_BloatDrone02.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone02.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "bloat_drone__99120102077_BloatDrone03.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone03.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "bloat_drone__99120102077_BloatDrone04.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/bloat_drone__99120102077_BloatDrone04.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "chaos_space_marine_death_guard_lordof_poxes__99120102198_ChaosSpaceMarineDeathGuardLordofPoxes1.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/chaos_space_marine_death_guard_lordof_poxes__99120102198_ChaosSpaceMarineDeathGuardLordofPoxes1.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    },
+    {
+      "basename": "chaos_space_marine_death_guard_lordof_poxes__99120102198_ChaosSpaceMarineDeathGuardLordofPoxes4.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/gw_shop/chaos_space_marine_death_guard_lordof_poxes__99120102198_ChaosSpaceMarineDeathGuardLordofPoxes4.jpg",
+      "source": "gw_shop",
+      "faction_v1": "death_guard",
+      "from_pool": "detection"
+    }
+  ]
+}
