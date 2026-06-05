@@ -1,6 +1,6 @@
 # Handoff — Battle Scanner (read this first)
 
-**Updated:** 2026-06-04, end of session. For the next Claude instance picking up the work.
+**Updated:** 2026-06-05, end of session. For the next Claude instance picking up the work.
 
 ---
 
@@ -24,9 +24,12 @@ done: 61,215 images in a FiftyOne dataset `wh40k_pile`, deduped, role-split into
 gallery/detection/holdout pools, provenance-stamped (~49% with real source URLs). v1
 factions locked: **space_marines, necrons, tyranids, death_guard**. Gallery depth (v0's
 killer) solved for 3/4 (every SM/Necron/Tyranid unit ≥5 crops; Death Guard has 0 — open).
-**Gold eval set is frozen**: 35 hand-labeled images, 124 boxes → `data/gold/gold_v1.json`.
-Wave 0 sourcing done (provenance + 314 CC-BY Roboflow images). Next build step is the
-Tier 1 detector (SAM 3 on Colab → distill RF-DETR), scored against the frozen gold set.
+**Gold eval set EXPANDED** (2026-06-05): `data/gold/gold_v2.json` — **89 images / 283
+boxes, every v1 faction ≥40** (SM 55, necrons 47, tyranids 43, death_guard 42, oos 96).
+`gold_v1.json` (35/124) kept frozen as baseline. Wave 0 sourcing done (provenance + 314
+CC-BY Roboflow images). **Tier 1 measuring infra now built** (see §5): density-sliced
+eval harness, box-convention reconciliation, detection-pool junk filter. Next build step
+is the actual Tier 1 detector run (SAM 3 on Colab → distill RF-DETR), scored vs gold_v2.
 
 ---
 
@@ -54,28 +57,73 @@ Tier 1 detector (SAM 3 on Colab → distill RF-DETR), scored against the frozen 
 Each has a docstring; run with `fiftyone_env/bin/python`.
 
 ## 5. Done / in-flight / next
-- ✅ Curate (ingest, dedup, pools, provenance), v1 factions, gold set, Wave 0 sourcing.
-- ⬜ **Tier 1 detection (next):** go straight to **SAM 3 on Colab** (GPU) → distill
-  RF-DETR (Plan D2) → score vs `gold_v1`. Reuse `scripts/phaseF/autolabel_colab.ipynb`.
-  Score with `gold_v1` (35 imgs / 124 boxes) as the class-agnostic detection reference.
-- ⬜ **SAM 3 auto-label → distill RF-DETR** (Plan D2) — Colab; reuse `scripts/phaseF/autolabel_colab.ipynb`.
+- ✅ Curate (ingest, dedup, pools, provenance), v1 factions, Wave 0 sourcing.
+- ✅ **Gold set expanded to 89/283, all factions ≥40** (CVAT rounds v2–v5; tooling:
+  `gold_to_cvat.py` profiles + `merge_gold_v2.py`).
+- ✅ **Tier 1 measuring infra (2026-06-05):**
+  - `src/photoanalyzer/eval/gold.py` — score detector vs gold_v2: **count-MAE × density
+    bucket** (headline), per-faction recall (DG/Necron/Tyranid auto-flagged wide-CI),
+    recall@IoU sweep (box-convention diagnostic). 20 tests in `tests/test_gold_eval.py`.
+  - `src/photoanalyzer/eval/boxconv.py` — reconcile mask-tight SAM boxes → model+base
+    gold convention (bottom-pad ~0.10) + a diagnostic that detects base-clipping.
+  - CLI: `scripts/phaseF/score_gold.py --preds data/pseudo_labels/boxes`.
+  - `scripts/curation/quality_scan.py` — junk filter; tagged **1,463 `lowq`** detection
+    images (blur/tiny/strip). Exclude `lowq` ∪ `low_unique` from the auto-label list.
+- ⬜ **Tier 1 detector run (next):** SAM 3 on Colab → distill RF-DETR (Plan D2/§3.1) →
+  `score_gold.py` vs gold_v2. **Apply the §5.1 SAM 3 changes below before the full run.**
 - ⬜ Wave 1 depth engine (needs SerpApi/CSE/Reddit keys — query-by-taxonomy over v1 factions).
 - ⬜ Tier 2/3 faction+unit retrieval (Plan D3) — gallery already built for 3/4 factions.
 
-## 6. OPEN DECISIONS (need the user)
-1. **Death Guard gallery = 0 crops.** Keep DG (scrape GW official, needs user at keyboard
-   for the Cloudflare WAF) OR swap DG for Orks/Astra Militarum (have corpus depth).
-2. **Gold set = 35, below the 50 target.** Reseed ~16 more, or grow later. User declined
-   shooting real tabletop photos (only owns unpainted tyranids) → eval leans on scraped
-   data and will read optimistic vs real phone photos.
-3. **Detection pool junk filter** — ~30% of the random gold pick was meme/terrain/blur;
-   the detection pool needs a junk pass (start from the `low_unique` tag).
+### 5.1 Tier 1 decisions locked 2026-06-05 (read before the SAM 3 run)
+From a literature pass (SAM 3 paper arXiv 2511.16719 + HF docs) and the gold-set analysis:
+- **Prompt-validate SAM 3 on ~150 stratified images before the 34.7k run.** Grid:
+  prompt ∈ {`miniature`, `painted miniature` (current), `miniature figurine`} × threshold
+  ∈ {0.30, 0.40, 0.50}. Current default 0.25 is *half* the paper's 0.5 operating point.
+- **Drop `"painted"`** — it acts as an attribute filter that suppresses unpainted/primed
+  models. Prefer the bare object-noun `"miniature"`.
+- **Switch `post_process_object_detection` → `post_process_instance_segmentation`** in
+  `src/photoanalyzer/detect/ensemble/sam3.py` — SAM 3 emits masks+boxes natively, likely
+  retiring the separate SAM 2 refinement step (~halves GPU time). Bench `sam3` vs
+  `sam3_refined` to confirm before dropping SAM 2.
+- **Box convention:** gold = model+**base**, SAM = mask-tight (clips base). Run
+  `score_gold.py` first WITHOUT padding; if the recall@IoU sweep shows a base-clip gap
+  (recall@0.3 ≫ recall@0.5), re-run with `--base-pad 0.10`. Adapt the *prediction*, never
+  the frozen gold. Padding heuristic validated at ~8–12% in the literature.
+- **Decision rule for the prompt sweep:** maximize **recall@0.5 on the *crowded* bucket**
+  s.t. precision ≥ baseline — under-detection in crowds (two models → one box) is the
+  error RF-DETR inherits and can't recover; excess FPs get cleaned in the F3 review pass.
+- **⚠ Gold density gap:** the crowded bucket has only **5 images** (gold is 64% single-
+  model — faction top-ups leaned on single-army listings). Count-MAE on the crowded slice
+  is underpowered until ~10–15 more **crowded** images (11+ models, fully enumerable) are
+  labeled — pull from reddit/dakkadakka battle scenes (mixed-army is fine for a *count*
+  metric; opponents = out_of_scope). A "gold density round" is the cheapest next labeling.
+- **Exemplars** (image prompts) are SAM 3's biggest upside (78.1 vs 56.4 AP in-paper) but
+  the cross-image HF API is uncertain — validate before relying on it.
+
+## 6. OPEN DECISIONS (status 2026-06-05)
+1. **Death Guard — DECIDED: proceed on current depth.** DG gallery depth feeds Tier 3
+   *retrieval*, orthogonal to the class-agnostic Tier 1 detector. The ≥40 gold boxes give
+   a provisional (wide-CI) per-faction recall read. **GW scrape queued for *before* Tier 3**
+   (Cloudflare WAF → needs user at keyboard). DG holdout pool is now EXHAUSTED — any more
+   DG (gallery or eval) requires that scrape.
+2. **Gold set — DONE.** 89/283, every v1 faction ≥40 (`gold_v2.json`). Residual gap is
+   *density* not faction: crowded bucket = 5 imgs (see §5.1). User declined shooting real
+   tabletop photos (owns only unpainted tyranids) → eval leans on scraped data, reads
+   optimistic vs real phone photos.
+3. **Detection pool junk filter — PARTIAL.** Cheap technical layer done (1,463 `lowq`:
+   blur/tiny/strip, ~4%). The semantic ~30% (memes-with-text, terrain-only, dense piles)
+   still needs a CLIP/embedding pass — `low_unique` tag is the seed. Exclude
+   `lowq` ∪ `low_unique` from the SAM 3 auto-label list either way.
+4. **Sourcing keys (user, 5 min):** sign up for SerpApi or Google CSE so Wave 1 is ready
+   at Tier 3. Nothing today gates on it.
 
 ## 7. Credentials & gotchas
 - `.env` (gitignored) has: `ROBOFLOW_API_KEY` (works), `CVAT_USERNAME`/`CVAT_PASSWORD` (works).
   **Missing** (block Wave 1+): SerpApi / Google CSE / Reddit (PRAW) / Apify. See SETUP_CHECKLIST.
-- **CVAT gold tasks** (app.cvat.ai): `wh40k_gold_v1` (task 2307405, labeled), `wh40k_gold_extra`
-  (task 2307548, skipped/empty). Annotation runs `gold_v1`, `gold_v1_extra` on the dataset.
+- **CVAT gold tasks** (app.cvat.ai, **free tier caps at 3 tasks**): v1/v2/v3 deleted after
+  pull+merge (all labels frozen in `gold_v2.json`); live tasks `wh40k_gold_v4` (2310058) +
+  `wh40k_gold_v5` (2310139) are pulled+merged and now disposable. Delete pulled tasks to
+  free slots. Profile-based `gold_to_cvat.py push|pull {v1..v5}` + `merge_gold_v2.py`.
 - **Gotchas:** (a) no local GPU → Colab for SAM 3 / heavy embed; (b) CVAT API needs a real
   username+password — GitHub-OAuth signup has none until set in CVAT settings; (c) FiftyOne
   reads CVAT creds at import → set `FIFTYONE_CVAT_*` env vars BEFORE `import fiftyone`;

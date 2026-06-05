@@ -160,3 +160,6 @@ PROJECT_STATUS.md
 
 # Claude Code local user overrides (project-wide config is tracked)
 .claude/settings.local.json
+
+# Regenerable CPU quality-scan output (34.7k rows; rebuild via quality_scan.py)
+data/quality_scan.csv
