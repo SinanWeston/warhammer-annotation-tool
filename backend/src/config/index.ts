@@ -42,7 +42,7 @@ export const config = {
     ),
     pythonBin: resolveOrDefault(
       process.env.YOLO_PYTHON_PATH,
-      path.join(REPO_ROOT, 'yolo_env/bin/python3')
+      path.join(REPO_ROOT, 'fiftyone_env/bin/python3')
     ),
     batchInferenceScript: path.join(__dirname, '../services/batchYoloInference.py'),
   },

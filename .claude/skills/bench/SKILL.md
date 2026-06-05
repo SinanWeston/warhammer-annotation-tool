@@ -20,6 +20,6 @@ Use the `bench-runner` subagent (see `.claude/agents/bench-runner.md`) to execut
 
 - Don't invent metrics — use the exact KPI set from STRATEGY.md §8.
 - Don't run training here. Benchmarks are eval-only.
-- If `yolo_env/bin/python3` isn't available, tell the user to set up the venv before running.
+- If `fiftyone_env/bin/python3` isn't available, tell the user to set up the venv before running.
 
 $ARGUMENTS

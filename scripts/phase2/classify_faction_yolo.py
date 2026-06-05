@@ -17,7 +17,7 @@ This file may still be useful for classifying full images
 Do not import it from the Phase 2 eval path.
 
 Usage as a CLI (for full-image classification debugging):
-    yolo_env/bin/python3 scripts/phase2/classify_faction_yolo.py \
+    fiftyone_env/bin/python3 scripts/phase2/classify_faction_yolo.py \
         backend/yolo_dataset/images/val/106798_0c58414bb9eb.jpg
 """
 

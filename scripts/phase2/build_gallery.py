@@ -11,7 +11,7 @@ and copies each crop to:
 Idempotent: re-running overwrites the existing layout.
 
 Usage:
-    yolo_env/bin/python3 scripts/phase2/build_gallery.py
+    fiftyone_env/bin/python3 scripts/phase2/build_gallery.py
 """
 
 from __future__ import annotations

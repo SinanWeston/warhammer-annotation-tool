@@ -13,8 +13,8 @@ Safety:
   imageId touched, so reverting is one grep + rm away.
 
 Usage:
-    yolo_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py
-    yolo_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py --dry-run
+    fiftyone_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py
+    fiftyone_env/bin/python scripts/phaseF/import_pseudo_to_annotator.py --dry-run
 """
 from __future__ import annotations
 

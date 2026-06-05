@@ -12,8 +12,8 @@ one image (under-represented — retrieval signal from that unit will be
 noisy).
 
 Usage:
-    yolo_env/bin/python3 scripts/phase2/auto_split.py
-    yolo_env/bin/python3 scripts/phase2/auto_split.py --seed 42
+    fiftyone_env/bin/python3 scripts/phase2/auto_split.py
+    fiftyone_env/bin/python3 scripts/phase2/auto_split.py --seed 42
 """
 
 from __future__ import annotations

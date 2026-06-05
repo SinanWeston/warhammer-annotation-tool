@@ -14,8 +14,8 @@ automatically and records the actual model used in the output .npz under
 the key `model_id`.
 
 Usage:
-    yolo_env/bin/python3 scripts/phase2/embed_gallery.py
-    yolo_env/bin/python3 scripts/phase2/embed_gallery.py --model facebook/dinov2-base
+    fiftyone_env/bin/python3 scripts/phase2/embed_gallery.py
+    fiftyone_env/bin/python3 scripts/phase2/embed_gallery.py --model facebook/dinov2-base
 """
 
 from __future__ import annotations
@@ -84,7 +84,7 @@ def main():
         import torch
         from PIL import Image
     except ImportError as e:
-        sys.exit(f"Missing dependency: {e}. Run from yolo_env.")
+        sys.exit(f"Missing dependency: {e}. Run from fiftyone_env.")
 
     device = args.device or ("cuda:0" if torch.cuda.is_available() else "cpu")
     print(f"Device: {device}")

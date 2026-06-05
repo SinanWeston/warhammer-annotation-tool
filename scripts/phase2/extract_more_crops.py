@@ -120,7 +120,7 @@ def main():
     try:
         from PIL import Image
     except ImportError:
-        sys.exit("PIL missing. Run from yolo_env.")
+        sys.exit("PIL missing. Run from fiftyone_env.")
 
     class_names = load_class_names(DATA_YAML)
     crops_dir = PHASE2 / "crops"

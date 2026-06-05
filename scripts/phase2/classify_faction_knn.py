@@ -22,7 +22,7 @@ Usage as a module:
     )
 
 Usage as a CLI:
-    yolo_env/bin/python3 scripts/phase2/classify_faction_knn.py <query.jpg>
+    fiftyone_env/bin/python3 scripts/phase2/classify_faction_knn.py <query.jpg>
 """
 
 from __future__ import annotations
@@ -100,7 +100,7 @@ def main():
         from PIL import Image
         from transformers import AutoImageProcessor, AutoModel
     except ImportError as e:
-        sys.exit(f"Missing dep: {e}. Run from yolo_env.")
+        sys.exit(f"Missing dep: {e}. Run from fiftyone_env.")
 
     g = np.load(args.embeddings, allow_pickle=True)
     gallery_emb = g["embeddings"]

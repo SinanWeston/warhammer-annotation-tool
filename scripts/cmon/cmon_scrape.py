@@ -7,9 +7,9 @@ and append a full metadata record to scripts/cmon/data/entries_{run}.jsonl.
 Resume-safe: skips any entry whose image directory already has a manifest.json.
 
 Usage:
-    yolo_env/bin/python3 scripts/cmon/cmon_scrape.py single
-    yolo_env/bin/python3 scripts/cmon/cmon_scrape.py single --limit 20
-    yolo_env/bin/python3 scripts/cmon/cmon_scrape.py single --min-score 7
+    fiftyone_env/bin/python3 scripts/cmon/cmon_scrape.py single
+    fiftyone_env/bin/python3 scripts/cmon/cmon_scrape.py single --limit 20
+    fiftyone_env/bin/python3 scripts/cmon/cmon_scrape.py single --min-score 7
 """
 
 from __future__ import annotations

@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
-# Install Grounding DINO + SAHI deps into yolo_env.
-# Run once per machine before autolabel.py.
+# Install the SAM 3 + SAM 2 + SAHI deps into fiftyone_env.
+# Run once per machine before the local bundle-prep / autolabel scripts.
+# (On Colab the notebook installs its own deps.)
 set -euo pipefail
 
-if [[ ! -d yolo_env ]]; then
-    echo "yolo_env not found — run from the repo root after setting up yolo_env." >&2
+ENV="${ENV:-fiftyone_env}"
+if [[ ! -d "$ENV" ]]; then
+    echo "$ENV not found — run from the repo root after creating $ENV." >&2
     exit 1
 fi
 
-PIP="yolo_env/bin/pip"
+PIP="$ENV/bin/pip"
 
-# transformers >=4.45 shipped the GroundingDINO post-processing API used by
-# autolabel.py. supervision provides InferenceSlicer (SAHI) and NMS helpers.
+# transformers ships the SAM 3 / SAM 2 post-processing API; supervision provides
+# InferenceSlicer (SAHI) + NMS helpers used by the SAM 3 pipeline.
 $PIP install -U \
-    "transformers>=4.45" \
+    "transformers>=4.49" \
     "supervision>=0.24" \
     "torchvision>=0.20" \
     "Pillow>=10" \
     "tqdm>=4.66"
 
-# Model weights are pulled lazily from Hugging Face on first run (~700 MB for
-# grounding-dino-base). Cache lands in ~/.cache/huggingface/.
+# SAM 3 (facebook/sam3, gated) + SAM 2 weights pull lazily from Hugging Face on
+# first run. Cache lands in ~/.cache/huggingface/. SAM 3 needs HUGGINGFACE_HUB_TOKEN.
 echo
-echo "Setup complete. First autolabel.py run will download model weights (~700 MB)."
+echo "Setup complete. First SAM 3 run downloads model weights."

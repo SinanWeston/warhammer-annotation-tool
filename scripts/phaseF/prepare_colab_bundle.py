@@ -1,17 +1,17 @@
 """Build the Colab bundle — downscaled image mirror + annotations + phaseF scripts.
 
 `backend/training_data/` is 16 GB at native resolution; Google Drive's free
-tier is 15 GB, so we can't ship the originals. Grounding DINO internally
-resizes to a short-edge of 800 and a long-edge cap of 1333, so a 1333-px
+tier is 15 GB, so we can't ship the originals. SAM 3 runs at ~1008px natively, so a 1333-px
+long-edge
 downscale is effectively **lossless for this task** while cutting the bundle
 to ~3–5 GB.
 
 Usage:
-    yolo_env/bin/python scripts/phaseF/prepare_colab_bundle.py
-    yolo_env/bin/python scripts/phaseF/prepare_colab_bundle.py --sample 500
+    fiftyone_env/bin/python scripts/phaseF/prepare_colab_bundle.py
+    fiftyone_env/bin/python scripts/phaseF/prepare_colab_bundle.py --sample 500
 
 --sample N keeps the bundle under ~150 MB (for hotspot uploads) by
-packing only the first N images in the same shuffled order autolabel.py
+packing only the first N images in the same shuffled order autolabel_ensemble.py
 processes. Annotations + scripts are still bundled in full.
 
 Outputs:
@@ -34,7 +34,7 @@ from pathlib import Path
 from PIL import Image
 from tqdm import tqdm
 
-LONG_EDGE_CAP = 1333       # matches Grounding DINO's internal resize target
+LONG_EDGE_CAP = 1333       # ~lossless downscale for SAM 3
 JPEG_QUALITY = 92          # keep a margin above the dataset's ~85–90 floor
 # ~/Downloads so file managers can actually find it — /tmp is hidden
 # by most GUIs.
@@ -86,7 +86,7 @@ def resize_one(src: Path, dst: Path) -> tuple[int, int, int, int, int]:
 
 
 def _image_id_from_path(p: Path) -> str:
-    """Must match autolabel.py's scheme so exclusion agrees across
+    """Must match autolabel_ensemble.py's scheme so exclusion agrees across
     sides — `{faction}_{source}_{stem}`."""
     return f"{p.parts[-3]}_{p.parts[-2]}_{p.stem}"
 
@@ -185,7 +185,7 @@ def iter_image_targets(
     When `source` is set (and phase_c isn't), only images whose
     parent-dir name equals it are included.
 
-    When `sample` is set (and phase_c isn't), replicate autolabel.py's
+    When `sample` is set (and phase_c isn't), replicate autolabel_ensemble.py's
     shuffle (same seed) and take the first N *unlabelled* images.
     """
     if phase_c:
@@ -224,13 +224,13 @@ def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument(
         "--sample", type=int, default=None,
-        help="Bundle only N images (first N in autolabel.py's shuffle order). "
-             "Matches autolabel.py's default seed, so the bundle and Colab runner "
+        help="Bundle only N images (first N in autolabel_ensemble.py's shuffle order). "
+             "Matches autolabel_ensemble.py's default seed, so the bundle and Colab runner "
              "agree on which images exist. Use for hotspot-friendly small bundles.",
     )
     ap.add_argument(
         "--shuffle-seed", type=int, default=42,
-        help="Shuffle seed, must match autolabel.py's --shuffle-seed (default 42).",
+        help="Shuffle seed, must match autolabel_ensemble.py's --shuffle-seed (default 42).",
     )
     ap.add_argument(
         "--source", default=None,

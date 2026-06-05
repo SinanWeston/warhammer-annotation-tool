@@ -8,9 +8,9 @@ Reads filter values from scripts/cmon/targeting.json. Resume-safe: stores
 and only continues from there.
 
 Usage:
-    yolo_env/bin/python3 scripts/cmon/cmon_discover.py single
-    yolo_env/bin/python3 scripts/cmon/cmon_discover.py single --max-pages 200
-    yolo_env/bin/python3 scripts/cmon/cmon_discover.py single --dry-run  (no writes)
+    fiftyone_env/bin/python3 scripts/cmon/cmon_discover.py single
+    fiftyone_env/bin/python3 scripts/cmon/cmon_discover.py single --max-pages 200
+    fiftyone_env/bin/python3 scripts/cmon/cmon_discover.py single --dry-run  (no writes)
 """
 
 from __future__ import annotations

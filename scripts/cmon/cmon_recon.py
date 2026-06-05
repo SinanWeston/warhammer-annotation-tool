@@ -17,14 +17,14 @@ For each target URL, writes to scripts/cmon/recon/{slug}/:
   url.txt                final URL after redirects
 
 Usage:
-    yolo_env/bin/python3 scripts/cmon/cmon_recon.py
+    fiftyone_env/bin/python3 scripts/cmon/cmon_recon.py
         (defaults: homepage + a placeholder WH40K listing URL)
 
-    yolo_env/bin/python3 scripts/cmon/cmon_recon.py \\
+    fiftyone_env/bin/python3 scripts/cmon/cmon_recon.py \\
         https://www.coolminiornot.com/ \\
         https://www.coolminiornot.com/browse/figure?game=Warhammer+40K
 
-    yolo_env/bin/python3 scripts/cmon/cmon_recon.py --scroll 10 <url>
+    fiftyone_env/bin/python3 scripts/cmon/cmon_recon.py --scroll 10 <url>
         (scroll to bottom up to 10 times before capturing — for lazy-loading
         galleries)
 """

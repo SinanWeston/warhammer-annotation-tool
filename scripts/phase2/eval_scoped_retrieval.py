@@ -23,7 +23,7 @@ KNN on the gallery re-uses infrastructure we already have and operates
 in the same embedding space as Tier 3, with no distribution mismatch.
 
 Usage:
-    yolo_env/bin/python3 scripts/phase2/eval_scoped_retrieval.py
+    fiftyone_env/bin/python3 scripts/phase2/eval_scoped_retrieval.py
 """
 
 from __future__ import annotations
@@ -119,7 +119,7 @@ def main():
         from PIL import Image
         from transformers import AutoImageProcessor, AutoModel
     except ImportError as e:
-        sys.exit(f"Missing dependency: {e}. Run from yolo_env.")
+        sys.exit(f"Missing dependency: {e}. Run from fiftyone_env.")
 
     if not EMBEDDINGS_PATH.exists():
         sys.exit(f"Gallery embeddings not found at {EMBEDDINGS_PATH}. Run embed_gallery.py first.")

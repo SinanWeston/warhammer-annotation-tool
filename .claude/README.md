@@ -46,7 +46,7 @@ legitimate work — they surface issues and let the user decide.
 | `session-start.sh` | SessionStart | Prints a one-screen project snapshot: branch, commits ahead, dirty count, last commit, current strategy phase, annotation count. |
 | `statusline.sh` | statusLine | Compact live status: `⎇ branch · ◈ Phase N · ●dirty · N%ctx`. |
 | `autocheck-ts.sh` | PostToolUse(Write\|Edit) | After any `.ts` / `.tsx` edit, runs `tsc --noEmit` on the workspace that owns the file. Emits errors as additionalContext; won't block the edit. |
-| `autocheck-py.sh` | PostToolUse(Write\|Edit) | After any `.py` edit, runs `python -m py_compile` for a syntax check. Uses `yolo_env/bin/python3` if present. |
+| `autocheck-py.sh` | PostToolUse(Write\|Edit) | After any `.py` edit, runs `python -m py_compile` for a syntax check. Uses `fiftyone_env/bin/python3` if present. |
 
 ### Anti-patterns to avoid when adding hooks
 

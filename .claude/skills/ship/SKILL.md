@@ -22,7 +22,7 @@ Run the pre-ship checklist from `${CLAUDE_PROJECT_DIR}`. Report every step; fail
    - Frontend component tests are known-broken (jsdom/vitest dep conflict per TODO.md) — skip and say so.
 
 4. **Python syntax check on touched scripts**
-   - For each staged `.py` under `scripts/`, run `yolo_env/bin/python3 -m py_compile`.
+   - For each staged `.py` under `scripts/`, run `fiftyone_env/bin/python3 -m py_compile`.
 
 5. **Secret scan on staged diff**
    - `git diff --cached` piped through a simple pattern scan for: `sk-`, `api_key`, `password=`, `-----BEGIN`, AWS-style IDs. List any matches with file:line.
