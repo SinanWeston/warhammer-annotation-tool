@@ -402,48 +402,6 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
     }
   }, [editImageId])
 
-  // Auto-load DINO proposals when navigating to a new unannotated image
-  useEffect(() => {
-    if (!currentImage || loading || editMode) return
-    // Only auto-load if the image has no existing annotations
-    if (annotations.length > 0) return
-
-    const abortController = new AbortController()
-
-    const loadProposals = async () => {
-      try {
-        const res = await fetch(`${API_BASE}/api/annotate/proposals/${currentImage.imageId}`, {
-          signal: abortController.signal,
-        })
-        const data = await res.json()
-        // Skip if user drew boxes while we were fetching
-        if (annotationsRef.current.length > 0) return
-        if (data.success && data.data.predictions?.length > 0) {
-          const factionLabel = remapFaction(currentImage.faction)
-          const proposed: BboxAnnotation[] = data.data.predictions.map((pred: any, idx: number) => ({
-            id: `dino_${idx}_${Date.now()}`,
-            x: pred.x,
-            y: pred.y,
-            width: pred.width,
-            height: pred.height,
-            classLabel: factionLabel,
-            confidence: pred.confidence,
-            isPrediction: true,
-            validated: false,
-          }))
-          setPredictions(proposed)
-          setAnnotations(proposed)
-          setValidationMode(true)
-          setSuccess(`🤖 DINO found ${proposed.length} miniatures! Resize boxes to fit tightly, then validate.`)
-        }
-      } catch {
-        // Aborted, network error, or proposals unavailable — no-op
-      }
-    }
-    loadProposals()
-
-    return () => abortController.abort()
-  }, [currentImage?.imageId])
 
   // Prefetch next image while user annotates current one
   const prefetchNextImage = async () => {
@@ -584,8 +542,7 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
     }
   }
 
-  // Get AI predictions for the current image.
-  // Tries pre-computed DINO proposals first (instant), falls back to live YOLO inference.
+  // Get AI predictions for the current image (live YOLO inference).
   const getAIPredictions = async () => {
     if (!currentImage) return
 
@@ -593,45 +550,22 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
     setError(null)
 
     try {
-      // Try DINO proposals first (pre-computed, instant)
-      let predictions: any[] = []
-      let source = 'yolo'
-
-      try {
-        const proposalRes = await fetch(`${API_BASE}/api/annotate/proposals/${currentImage.imageId}`)
-        const proposalData = await proposalRes.json()
-        if (proposalData.success && proposalData.data.predictions?.length > 0) {
-          predictions = proposalData.data.predictions
-          source = 'grounding_dino'
-        }
-      } catch {
-        // Proposals endpoint unavailable, fall through to YOLO
+      const response = await fetch(`${API_BASE}/api/annotate/predict/${currentImage.imageId}`)
+      const data = await response.json()
+      if (!data.success) {
+        setError(`Failed to get predictions: ${data.error?.message || 'Unknown error'}`)
+        return
       }
-
-      // Fall back to YOLO if no DINO proposals
-      if (predictions.length === 0) {
-        const response = await fetch(`${API_BASE}/api/annotate/predict/${currentImage.imageId}`)
-        const data = await response.json()
-        if (data.success) {
-          predictions = data.data.predictions || []
-          source = 'yolo'
-        } else {
-          setError(`Failed to get predictions: ${data.error?.message || 'Unknown error'}`)
-          return
-        }
-      }
+      const predictions: any[] = data.data.predictions || []
 
       if (predictions.length > 0) {
-        // Use the image's faction as classLabel for DINO proposals (they come as 'miniature')
-        const factionLabel = remapFaction(currentImage.faction)
-
         const predictedAnnotations: BboxAnnotation[] = predictions.map((pred: any, idx: number) => ({
           id: `pred_${idx}_${Date.now()}`,
           x: pred.x,
           y: pred.y,
           width: pred.width,
           height: pred.height,
-          classLabel: source === 'grounding_dino' ? factionLabel : pred.classLabel,
+          classLabel: pred.classLabel,
           confidence: pred.confidence,
           isPrediction: true,
           validated: false
@@ -640,10 +574,9 @@ export default function AnnotationInterface({ editImageId, onEditComplete, annot
         setPredictions(predictedAnnotations)
         setAnnotations(predictedAnnotations)
         setValidationMode(true)
-        const sourceLabel = source === 'grounding_dino' ? 'DINO' : 'YOLO'
-        setSuccess(`🤖 ${sourceLabel} found ${predictedAnnotations.length} miniatures! Resize boxes to fit tightly, then validate.`)
+        setSuccess(`🤖 YOLO found ${predictedAnnotations.length} miniatures! Resize boxes to fit tightly, then validate.`)
       } else {
-        setSuccess('No AI proposals found for this image. Draw boxes manually.')
+        setSuccess('No AI predictions found for this image. Draw boxes manually.')
       }
     } catch (err: any) {
       setError(`Failed to get predictions: ${err.message}`)

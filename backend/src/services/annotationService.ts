@@ -206,12 +206,6 @@ export class AnnotationService {
   private reservations = new Map<string, { userId: string; expiresAt: number }>()
   private readonly RESERVATION_TTL_MS = 15 * 60 * 1000  // 15 minutes
 
-  // Cached set of imageIds that have DINO proposals. Refreshed periodically.
-  private proposalIds: Set<string> | null = null
-  private proposalIdsCacheTime = 0
-  private readonly PROPOSAL_CACHE_TTL_MS = 60 * 1000  // 60 seconds
-  private proposalsPath: string
-
   // Phase C frozen-eval manifest, lazily loaded once per process. The 200
   // imageIds in data/scene_benchmark/eval_200.json are the held-out test
   // set — `?status=frozen_eval` cycles only these for visual review.
@@ -225,12 +219,8 @@ export class AnnotationService {
     const annotDir = process.env.ANNOTATIONS_PATH
       ? path.resolve(process.env.ANNOTATIONS_PATH)
       : path.join(__dirname, '../../training_data_annotations')
-    const proposalsDir = process.env.PROPOSALS_PATH
-      ? path.resolve(process.env.PROPOSALS_PATH)
-      : path.join(__dirname, '../../training_data_proposals')
     this.trainingDataPath = dataDir
     this.annotationsPath = annotDir
-    this.proposalsPath = proposalsDir
   }
 
   /** Fetch the candidate queue for a given status filter. Each branch
@@ -318,25 +308,6 @@ export class AnnotationService {
     return this.frozenEvalIds
   }
 
-  /** Load the set of imageIds that have pre-computed DINO proposals. */
-  private async getProposalIds(): Promise<Set<string>> {
-    const now = Date.now()
-    if (this.proposalIds && now - this.proposalIdsCacheTime < this.PROPOSAL_CACHE_TTL_MS) {
-      return this.proposalIds
-    }
-    const ids = new Set<string>()
-    try {
-      const files = await fs.readdir(this.proposalsPath)
-      for (const f of files) {
-        if (f.endsWith('.json')) ids.add(f.replace('.json', ''))
-      }
-    } catch {
-      // proposals dir doesn't exist yet — empty set
-    }
-    this.proposalIds = ids
-    this.proposalIdsCacheTime = now
-    return ids
-  }
 
   // ── Reservation helpers ────────────────────────────────────────────────────
 
@@ -600,22 +571,9 @@ export class AnnotationService {
 
     if (images.length === 0) return null
 
-    // For pending/legacy/flagged modes the user wants to revisit ALL
-    // matching items — they already know what they're looking for, no
-    // need to prioritise by DINO proposals. Sort stably by imageId.
-    if (status === 'pending' || status === 'legacy' || status === 'pseudo' || status === 'flagged' || status === 'frozen_eval') {
-      images.sort((a, b) => a.imageId.localeCompare(b.imageId))
-    } else {
-      // Only serve images that have pre-computed proposals, sorted by imageId
-      // so the same unit clusters together (imageId encodes faction + unit name).
-      const proposalIds = await this.getProposalIds()
-      const withProposals = images.filter(img => proposalIds.has(img.imageId))
-      if (withProposals.length > 0) {
-        withProposals.sort((a, b) => a.imageId.localeCompare(b.imageId))
-        images = withProposals
-      }
-      // If no proposals exist yet, fall through to the full list (first-run scenario)
-    }
+    // Sort stably by imageId so the same unit clusters together (imageId
+    // encodes faction + unit name).
+    images.sort((a, b) => a.imageId.localeCompare(b.imageId))
 
     // Move session-skipped images to the back of the queue (must run after sort)
     if (exclude?.length) {

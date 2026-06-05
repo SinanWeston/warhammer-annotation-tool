@@ -31,10 +31,6 @@ export const config = {
       process.env.ANNOTATIONS_PATH,
       path.join(BACKEND_ROOT, 'training_data_annotations')
     ),
-    proposals: resolveOrDefault(
-      process.env.PROPOSALS_PATH,
-      path.join(BACKEND_ROOT, 'training_data_proposals')
-    ),
     confidenceScores: path.join(BACKEND_ROOT, 'confidence_scores.json'),
     yoloModel: resolveOrDefault(
       process.env.YOLO_MODEL_PATH,

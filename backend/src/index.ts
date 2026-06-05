@@ -1054,65 +1054,6 @@ app.get('/api/mobile/status', async (req: Request, res: Response, next: NextFunc
 })
 
 // ═══════════════════════════════════════════════════════════
-// GROUNDING DINO PROPOSALS ENDPOINT
-// ═══════════════════════════════════════════════════════════
-
-const proposalsDir = path.join(process.cwd(), 'training_data_proposals')
-
-/**
- * GET /api/annotate/proposals/:imageId
- *
- * Get pre-computed Grounding DINO box proposals for an image.
- * These are generated offline by scripts/grounding_dino_propose.py
- * and served as AI suggestions in the annotator.
- */
-app.get('/api/annotate/proposals/:imageId', async (req: Request, res: Response, next: NextFunction) => {
-  const requestId = (req as any).id
-  const log = createRequestLogger(requestId)
-
-  try {
-    const { imageId } = req.params
-    const proposalPath = path.join(proposalsDir, `${imageId}.json`)
-
-    try {
-      const raw = await fs.readFile(proposalPath, 'utf-8')
-      const proposal = JSON.parse(raw)
-
-      log.info(`Found ${proposal.boxes?.length || 0} DINO proposals for ${imageId}`)
-
-      res.json({
-        success: true,
-        data: {
-          imageId,
-          source: 'grounding_dino',
-          predictions: (proposal.boxes || []).map((box: any, idx: number) => ({
-            id: `dino_${idx}`,
-            x: box.x,
-            y: box.y,
-            width: box.width,
-            height: box.height,
-            classLabel: 'miniature',
-            confidence: box.confidence,
-          })),
-          inferenceTime: 0,
-        },
-        requestId,
-      })
-    } catch {
-      // No proposal file — return empty
-      res.json({
-        success: true,
-        data: { imageId, source: 'none', predictions: [], inferenceTime: 0 },
-        requestId,
-      })
-    }
-  } catch (error: any) {
-    log.error(`Failed to load proposals: ${error.message}`)
-    next(error)
-  }
-})
-
-// ═══════════════════════════════════════════════════════════
 // YOLO INFERENCE ENDPOINT
 // ═══════════════════════════════════════════════════════════
 

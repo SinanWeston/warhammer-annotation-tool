@@ -1,7 +1,7 @@
 /**
  * AI prediction validation panel — the per-prediction accept/redraw/reject
- * list shown above the canvas when predictions arrive (DINO proposals
- * or YOLO inference). Three terminal actions per row, plus three bulk
+ * list shown above the canvas when YOLO predictions arrive. Three
+ * terminal actions per row, plus three bulk
  * actions in the header (Accept High Conf / Accept All / Reject All).
  *
  * Hover/click syncs `highlightedId` upward so the canvas can outline the
