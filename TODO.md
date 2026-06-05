@@ -1,240 +1,121 @@
-# Improvement Plan
+# TODO — Battle Scanner
 
-Prioritized improvements based on codebase audit and spec review (March 2026).
-Ordered by impact and risk. Honest disagreements noted inline.
+Live project to-do for the **data-centric rebuild** (detect → faction → retrieve →
+optional VLM). Supersedes the pre-rebuild "app audit" TODO. Authoritative state:
+`HANDOFF.md`; rationale: `STRATEGY.md`; execution plan: `BATTLE_SCANNER_PLAN.md`.
 
-> **April 2026 update — read [STRATEGY.md](STRATEGY.md) first.** The architectural direction has shifted from "scale end-to-end YOLO to 900 classes" to "class-agnostic detection + retrieval against a reference gallery". Items below remain useful but should be re-evaluated against the strategy before execution. Items that are purely YOLO-scaling (e.g. "Switch to YOLO11s/m with heavy augmentation" in §2.5) are demoted.
-
----
-
-## Tier 1 — Do Now (high impact, low risk)
-
-### 1.1 Atomic Annotation Saves
-**Problem**: `annotationService.ts` writes directly via `fs.writeFile()`. A crash, power loss, or disk error mid-write corrupts the JSON and permanently loses that annotation.
-**Fix**: Write to `{path}.tmp`, then `fs.rename()` (atomic on ext4/APFS). ~10 lines of code.
-**Risk of not doing**: Loss of irreplaceable human work (1,500+ annotations).
-**Effort**: 15 minutes.
-
-### 1.2 YOLO Export Test Coverage
-**Problem**: `remapExportLabel()`, coordinate normalization, keypoint generation, and train/val split logic have zero tests. 28 validation tests exist but 0 export tests. If export silently breaks, training on the dataset wastes GPU hours and produces misleading metrics.
-**Fix**: Add `annotationService.export.test.ts` covering:
-- Label remapping (chapter marines → space_marines, all aliases)
-- Coordinate normalization (pixel → 0-1, edge cases: image boundary, tiny boxes)
-- Keypoint generation (4 base corners with visibility, missing base → 5 values not 17)
-- Train/val split ratios and file output structure
-**Effort**: 2 hours.
-
-### 1.3 SchemaVersion on Annotations
-**Problem**: `ImageAnnotation` has no version field. Changing the format later means migrating 1,500+ JSON files with no way to distinguish old from new.
-**Fix**: Add `schemaVersion: 1` to the interface and to every save. Write a one-time backfill script for existing files.
-**Effort**: 20 minutes.
-
-### 1.4 Fix 24 vs 30 Class Inconsistency in Spec
-**Problem**: Section 3 says "24 model classes", Section 15 says "30 factions". Both are correct (30 image directories, 24 YOLO classes after chapter marine collapse) but the distinction is never explained in one clear place.
-**Fix**: Add a one-paragraph explanation in Section 3 or 14 and reference it consistently elsewhere.
-**Effort**: 10 minutes.
-
-### 1.5 Annotation Backup
-**Problem**: 1,500 annotations = months of human labour with no backup beyond the filesystem.
-**Fix**: Git-track `training_data_annotations/` — commit periodically. Simplest, most reliable option.
-**Effort**: 5 minutes to set up, discipline to maintain.
+Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
 
 ---
 
-## Tier 2 — Do Soon (high impact, moderate effort)
+## ✅ Foundation (done)
+- ✅ Curate the pile — 61k images, DINOv2-embedded, deduped, role-split (gallery /
+  detection / holdout), provenance-stamped, v1 factions locked (SM / Necrons /
+  Tyranids / Death Guard)
+- ✅ **Gold eval set** — `data/gold/gold_v2.json`, 89 imgs / 283 boxes, every v1
+  faction ≥40. The trusted measuring stick.
+- ✅ **Tier 1 measuring infra** — `eval/gold.py` (count-MAE × density + per-faction
+  recall), `eval/boxconv.py` (box-convention reconciliation), `eval/triage.py`
+  (post-SAM3 bucketing), `scripts/phaseF/score_gold.py`. 157 tests.
+- ✅ **Junk filter** — `lowq` (1,463) + `junk_clip` (1,772) → 30.6k clean SAM 3 input
+  (`data/phaseF/autolabel_images.txt`).
+- ✅ Dataset hunt (no shortcut dataset exists — see `docs/research/`), Tier 2 probe +
+  gallery audit (`docs/benchmarks/2026-06-05-tier2-probe-gallery-audit.md`).
 
-### 2.1 Persistent FastAPI Inference Server
-**Problem**: Each YOLO predict call spawns a Python subprocess and loads the model from scratch (~2s cold start). Confirmed in code: `child_process.spawn()` per call.
-**Fix**: Create `scripts/inference_server.py`:
-- FastAPI app, `POST /predict` endpoint
-- Model loaded once at startup, kept in GPU/CPU memory
-- Backend calls via HTTP instead of subprocess
-- Add `uvicorn` to yolo_env
-**Impact**: Inference drops from 2-5s to ~200-500ms. Makes AI-assist during annotation actually fluid.
-**Effort**: 3-4 hours.
+## 🔄 Now
+- 🔄 Label the **gold density round** (`wh40k_gold_v6`, 26 crowded scenes) → `pull v6`
+  + `merge` so the crowded bucket (currently 5 imgs) can support the count metric.
+- ⚠️ Confirm the **SAM 3 license** is accepted on huggingface.co/facebook/sam3.
 
-### 2.2 Wire Consumer Scanner to Real Inference
-**Problem**: Consumer v2 UI is fully built on mock data. The mock→real swap point (`detectionService.ts`) is clean. But until wired, the app isn't useful.
-**Fix** (after 2.1):
-1. Update `detectionService.ts` to `fetch('/api/detect', { method: 'POST', body: formData })`
-2. Add `mapBackendResponse()` to convert backend `DetectionResult` to consumer `ScanResult`
-3. Test with real photos — will likely reveal data shape mismatches between mock and real
-**Effort**: 2-3 hours.
+## ⬜ Tier 1 — class-agnostic detector (active build)
+1. ⬜ **SAM 3 prompt-validation sweep** — prompt {`miniature`/`painted miniature`/
+   `miniature figurine`} × threshold {0.30/0.40/0.50} on the gold images → score with
+   `score_gold.py` → pick the config maxing **crowded-bucket recall** s.t. precision ≥
+   baseline. (Decisions locked in `HANDOFF.md` §5.1.)
+2. ⬜ Apply locked SAM 3 changes: drop `"painted"`, switch `post_process_object_detection`
+   → `post_process_instance_segmentation` (may retire SAM 2 refinement).
+3. ⬜ Box-convention check — if recall@0.3 ≫ recall@0.5, re-run with `--base-pad 0.10`.
+4. ⬜ **Full ~30.6k auto-label run** on Colab (`bash scripts/phaseF/sync.sh`), resumable.
+5. ⬜ Triage output (`triage_pseudolabels.py`): zero-box → review, prioritized F3 queue.
+6. ⬜ **F2** — train RF-DETR-Medium v1 (gold oversampled + pseudo-labels); target
+   mAP@50 0.70–0.78 vs gold_v2.
+7. ⬜ **F3** — self-relabel @ conf 0.3, disagreement set → annotator review.
+8. ⬜ **F4** — RF-DETR-Medium v2 (cloud) + RF-DETR-Nano (edge); target mAP@50 0.82–0.88.
 
-### 2.3 Document Grounding DINO Strategy in Spec
-**Problem**: Working pipeline exists (`grounding_dino_propose.py`, `/api/annotate/proposals/:imageId`, frontend auto-loads proposals) but none of it is mentioned in the spec milestones or architecture.
-**Fix**: Add subsection to Section 6.4 describing the pipeline, and add a milestone for full-batch proposal generation.
-**Effort**: 30 minutes.
+## ⬜ Tier 2 — faction classifier (~20 classes)
+- 🔄 DINOv2 linear probe **prototyped** (v1 faction top-1 0.68 on gold crops; beats
+  KNN-vote +12pp). Tyranids 0.91, Necrons 0.70, **SM 0.47** (weak link), DG untestable.
+- ⬜ **Calibrate a confidence threshold** for the "unknown" path — out_of_scope crops are
+  confidently misclassified (empirically required, not optional).
+- ⬜ Diversify the SM gallery (it's all `dup`-tagged near-dups — likely why SM is low).
+- ⬜ Exit bar: faction top-1 ≥ 90% (or rely on top-3 + Tier 3 to discriminate).
 
-### 2.4 Add "Beta: 5-Faction Scanner" Milestone
-**Problem**: All milestones point toward "annotate everything, then ship." No milestone for getting real user feedback early.
-**Fix**: Add milestone: "Beta release: 5-faction scanner with real inference" targeting Space Marines, Necrons, Orks, Custodes, Tyranids — the factions with the most annotations and highest model confidence.
-**Effort**: 10 minutes for the spec update. The underlying work is 2.1 + 2.2.
+## ⬜ Tier 3 — unit retrieval (~900 classes, open-set)
+- ✅ Gallery depth solved for SM/Necrons/Tyranids (median 30 crops/unit, ~0 singletons —
+  the old Phase 3a "78% singleton" problem is obsolete).
+- ⚠️ **Death Guard gallery = 0 crops** + DG holdout exhausted → **GW scrape required**
+  (Cloudflare WAF, needs user at keyboard). Queued for before Tier 3. The single Tier 3
+  data blocker.
+- ⬜ Gallery **label** QA — `weak_unit` labels are unverified (separate from depth).
+- ⬜ DINOv3-L (or SigLIP 2) frozen embeddings + cosine k-NN scoped by Tier 2 faction.
+- ⬜ Calibrate the "I don't recognise this" threshold (~0.81 from Phase 1).
+- ⬜ Exit bar: unit top-3 ≥ 80% within-faction (currently ~74.5%).
 
-### 2.5 Switch to YOLO11s/m with Heavy Augmentation
-**Problem**: YOLO11x with ~600 training images is massive overfitting. A smaller model with strong augmentation will generalise far better with the current data volume.
-**Fix**: In next Colab run, switch to `yolo11s.pt` or `yolo11m.pt`. Enable: `mosaic: 1.0`, `mixup: 0.1`, `hsv_h/s/v` for paint scheme variation, `fliplr: 0.5`.
-**Effort**: 1 hour (config change + Colab run).
+## ⬜ Tier 4 — VLM disambiguation (opt-in)
+- ⬜ Claude/Gemini "which of these 3?" fallback when Tier 3 top-1 confidence < 0.6.
 
----
+## ⬜ Data acquisition & quality
+- ⬜ Wave 1 depth engine — query-by-taxonomy scraper (⚠️ needs SerpApi/CSE or Reddit key).
+- ⬜ Waves 2–4 (realism / marketplace / negatives) — see `BATTLE_SCANNER_IMAGE_SOURCING.md`.
+- ⬜ Synthetic pilot (BlenderProc) — prefer commercial STL studios over GW-IP Cults3D.
+- ⬜ (Deferred per decision) DINOv2 linear-probe upgrade for the semantic junk filter.
 
-## Tier 3 — Do When Convenient (moderate impact)
+## ⬜ Product / shipping
+- ⬜ FastAPI persistent inference server (replaces per-call subprocess).
+- ⬜ Wire consumer PWA to real inference (UI built on mock data; clean swap point).
+- ⬜ Army-list aggregation — boxes → unit counts → Wahapedia points → export/share.
+- ⬜ Phone packaging — RF-DETR-Nano → CoreML on-device.
+- ⬜ Consumer feedback loop — confirmed detections → gallery (the data flywheel).
 
-### 3.1 In-Memory Image Index on Startup
-**Problem**: `getImageList()` has caching (cleared on save) but cache misses re-walk ~25K files. The permanent path map helps for individual lookups, but a full refresh is still slow.
-**Fix**: Build a `Map<imageId, ImageMeta>` on startup. Optionally use `chokidar` to update incrementally.
-**Effort**: 2-3 hours.
-
-### 3.2 API Integration Tests
-**Problem**: No integration tests for API endpoints. Full annotation flow (next → image → save → export) is only manually tested.
-**Fix**: `supertest` + temp directory of test images. Test the full flow and mobile sync coordinate scaling.
-**Effort**: 4-5 hours.
-
-### 3.3 Active Learning Pipeline Tests
-**Problem**: Confidence scoring and prioritized ordering have no tests. If they break, annotation effort goes to the wrong images.
-**Fix**: Unit tests for score calculation, priority ordering, and corrupt `confidence_scores.json` handling.
-**Effort**: 2 hours.
-
-### 3.4 Consumer: Load Saved Army from History
-**Problem**: `HistoryPage` navigates to `/army` when clicking a saved army but doesn't load it into `armyStore`.
-**Fix**: Add `loadArmy(id)` to armyStore, call from `handleSelectArmy()`.
-**Effort**: 30 minutes.
-
-### 3.5 Consumer: Decode Share Hash on Army Page Load
-**Problem**: `armyToShareHash()` and `armyFromShareHash()` are implemented but `ArmyBuilderPage` doesn't check `?share=` on mount.
-**Fix**: Add `useEffect` that reads URL params, decodes army, loads it.
-**Effort**: 20 minutes.
-
-### 3.6 Mobile Sync Data Safety Indicator
-**Problem**: iOS Safari can evict IndexedDB data under storage pressure. Users annotating 500 images offline need to know their work is safe.
-**Fix**: Prominent "X annotations pending sync" badge with warning color when overdue. Storage usage estimate on home page.
-**Effort**: 1-2 hours.
-
-### 3.7 Coordinate Scaling Unit Tests
-**Problem**: Mobile sync scales bboxes from 1200px back to original dimensions. This is the kind of math that produces subtle rounding bugs.
-**Fix**: Pure function tests covering rounding, odd aspect ratios, images smaller than 1200px.
-**Effort**: 1 hour.
-
----
-
-## Tier 4 — Consider Later (lower priority or higher effort)
-
-| Item | When to do it |
-|------|---------------|
-| **Shared types package** across workspaces | If type drift causes real bugs. Types are intentionally different per workspace right now. |
-| **BboxAnnotator hook extraction** (958 lines) | If you need to make significant canvas changes. Works correctly as-is. |
-| **Event emitter for cache invalidation** | If a second service starts modifying annotations. Manual invalidation works at current scale. |
-| **Data-driven validation rules** | If you're frequently adding new validation rules. 28-test if-chain works fine. |
-| **Monitoring stack** | Over-engineering for solo localhost. `tail -f logs/error.log` is sufficient. |
-| **Drop base bboxes** | Still TBD — adds annotation time but provides real precision for crowded bases. Revisit once annotation throughput improves via DINO proposals. |
-| **Re-split chapter marines** | Once 500+ images per chapter. The remap is reversible. |
-| **Multi-user auth for annotator** | When crowdsourcing annotation. `annotatedBy` field already exists. |
+## ⚠️ Cross-cutting decisions
+- ⚠️ **GW IP** — the binding legal constraint for a *commercial* product (lower-risk for
+  offline training; ship only Apache-2.0 weights).
+- ⚠️ Sourcing-key signup (SerpApi/CSE/Reddit) — gates Wave 1+, needed by Tier 3.
+- ⬜ Deferred: DINOv3 domain adaptation (after real user data exists).
 
 ---
 
-## Decided Against
+## v0 desktop-annotator backlog (maintenance only)
 
-| Suggestion | Why skip |
-|------------|----------|
-| Rewrite SPEC.md | Deleted in 2026-05 — pre-pivot architecture (end-to-end YOLO, 900-class softmax) directly contradicted STRATEGY.md. STRATEGY.md is the truth. |
-| Monitoring stack (Prometheus/Grafana) | Over-engineering for solo localhost. Winston + `tail -f` is sufficient |
-| Validation as data-driven rule array | Working code with 28 tests. Refactoring for elegance, not need |
-| Image licensing in spec | Valid legal concern, wrong document. One-liner in README |
-| Consumer v2 section "too detailed" | Disagree — detailed mock contracts prevent confusion when wiring real inference |
-| Command pattern simplification | 4 command classes is fine. Single-command abstraction would be more abstract, not cleaner |
+The annotator (`backend/` + `frontend/` + mobile PWA) is the **v0 surface** used for
+hand-labelling, not the rebuild target. Still-valid hardening items from the old audit:
 
----
-
-## Recommended Execution Order
-
-```
-Session 1 (2-3 hours):
-  1.1 Atomic saves
-  1.3 SchemaVersion
-  1.4 Spec class fix
-  1.5 Git-track annotations
-  2.3 Document DINO in spec
-  2.4 Beta milestone in spec
-
-Session 2 (3-4 hours):
-  1.2 Export tests
-
-Session 3 (half day):
-  2.1 FastAPI inference server
-  2.2 Wire consumer to real API
-  3.4 + 3.5 Consumer small fixes
-
-Session 4 (when ready to retrain):
-  2.5 Switch to YOLO11s/m + augmentation
-```
-
-After sessions 1-3: annotations are safer, export is tested, AI-assist is fast, and the consumer app runs on real inference.
+- ⬜ **Atomic annotation saves** — write `{path}.tmp` then `fs.rename()` (annotations are
+  irreplaceable human work). ~15 min.
+- ⬜ **`schemaVersion` on annotations** — future-proof the JSON format. ~20 min.
+- ⬜ **YOLO export test coverage** — `remapExportLabel`, coord normalization, keypoint
+  gen, train/val split. (Export is still used; the `/export` skill drives it.)
+- ⬜ Git-track `training_data_annotations/` (or another backup) — months of human labour.
+- ⬜ Frontend vitest infra — `jsdom`/`vitest 0.34` ESM/CJS conflict blocks component tests.
+- ⬜ `BASE_OUTSIDE_MODEL` validation — 5 skipped tests in `annotationService.validation.test.ts`.
 
 ---
 
-## Scraper Suite — Setup & Run Checklist
+## Scraper suite — setup & run checklist (when acquisition resumes)
 
 ### One-time setup
-- [ ] Create Reddit "script" app at https://www.reddit.com/prefs/apps → get client ID + secret
-- [x] ~~Flickr API key~~ — requires Pro, skipped
-- [ ] Add Reddit credentials to `.env` if/when Reddit API access is sorted:
-  ```
-  REDDIT_CLIENT_ID=...
-  REDDIT_CLIENT_SECRET=...
-  REDDIT_USER_AGENT=BattleScanner/1.0 by your_username
-  ```
+- [ ] Reddit "script" app → client ID + secret; add `REDDIT_CLIENT_ID/SECRET/USER_AGENT`
+      to `.env`.
+- [ ] SerpApi or Google CSE key (the Wave 1 depth-engine gate).
 
-### Dry-run verification (do before any real collection)
+### Dry-run first (always)
 - [ ] `python scripts/reddit_collector.py --subreddit Necrons --limit 10 --dry-run`
-- [x] ~~Flickr dry-run~~ — skipped (requires Pro)
 - [ ] `python scripts/youtube_collector.py --all-channels --limit 3 --frame-limit 5 --dry-run`
 
-### Collection runs (run in order)
-- [ ] Reddit — faction subreddits: `python scripts/reddit_collector.py --all --limit 200`
-- [x] ~~Flickr~~ — requires Pro account, skip. Use `collect_unit_images.py` (Bing/Google) instead: `python scripts/collect_unit_images.py --num 30`
-- [ ] YouTube — battle reports: `python scripts/youtube_collector.py --all-channels --limit 20`
+### Collection (run supervised, rate-limited — not an unattended blast)
+- [ ] Reddit faction subs · YouTube battle reports · marketplace (eBay/dakka via existing
+      `scripts/scrape_*.py`).
 
-### Post-collection quality passes (run after each collection batch)
-- [ ] CLIP score-only pass (no files moved yet): `python scripts/clip_scorer.py --score-only`
-- [ ] Review score distribution, tune threshold if needed: `python scripts/clip_scorer.py --dry-run`
-- [ ] Apply CLIP rejection: `python scripts/clip_scorer.py`
-- [ ] Dedup index-only pass: `python scripts/deduplicate.py --index-only`
-- [ ] Dedup dry-run (check what would be removed): `python scripts/deduplicate.py --dry-run`
-- [ ] Apply dedup: `python scripts/deduplicate.py`
-
-### Verify results
-- [ ] Check output counts: `ls training_data_v2/necrons/reddit/ | wc -l`
-- [ ] Check CSV: `tail -20 training_data_v2/metadata/scrape_log.csv`
-- [ ] Check rejected: `ls training_data_v2/rejected/`
-- [ ] Run scrape progress dashboard: `python scripts/scrape_progress.py`
-
----
-
-## Resolved
-
-- ✅ Chapter marine collapse (blood_angels etc. → space_marines)
-- ✅ Quality dashboard + active learning pipeline
-- ✅ Mobile offline annotator PWA
-- ✅ Consumer scanner v2.0 (desktop-first, tabbed, mock data, full army builder)
-- ✅ YOLO export pipeline with validation
-- ✅ Grounding DINO batch proposal pipeline
-- ✅ Frontend bbox resize handles
-
-### April 2026 cleanup sweep
-
-- ✅ Doc consolidation — root has canonical {README, CLAUDE, OVERVIEW, TODO, DEPLOY} (SPEC.md later deleted 2026-05, see above); `docs/` holds reference guides; `docs/archive/` holds historical plans; `docs/decisions/` holds research artifacts
-- ✅ `backend/src/config/index.ts` — centralized env-driven config (3.4 done)
-- ✅ Unified YOLO model path for both inference and active-learning (both now use `yolo11x_run2_best.pt`); paths, confidence thresholds, Python binary all env-configurable
-- ✅ Root `requirements.txt` supersedes scripts-only one; covers ML + scraper + quality deps
-- ✅ `.env.example` rewritten — trimmed the LLM cascade config that no longer maps to the codebase
-- ✅ Consumer v2: `armyStore.loadArmy`, history army load (3.4 done), `?share=` hash decode (3.5 done)
-- ✅ Removed orphan `consumer/src/utils/points.ts`
-- ✅ Python scripts: consolidated 3 training scripts into `scripts/train_yolo.py` with CLI flags; removed 2 dedup/scraper duplicates; `.gitignore` updated for build artifacts
-- ✅ Test infra: deleted dead Jest tests referencing removed services; migrated `annotationService.validation.test.ts` to Vitest (19 pass, 5 skipped pending `BASE_OUTSIDE_MODEL` feature); deleted broken frontend `ImageUpload.test.tsx` + `trainingData.ts` mock
-- ✅ Extracted `frontend/src/utils/coordinates.ts` — `screenToImage`, `scaleBbox`, `fitScale`, `clampBbox` as pure helpers; `BboxAnnotator` uses them
-
-### Still outstanding from the sweep
-
-- [ ] **AnnotationInterface split** — 1,515 lines, 16 `useState` calls. Pure-function extraction (coordinates) is done; the component split is a real refactor that needs manual UI testing. Defer until next canvas change.
-- [ ] **`BASE_OUTSIDE_MODEL` validation** — rule: errors block save when the inner `baseBbox` extends outside the outer `modelBbox`. 5 tests skipped in `annotationService.validation.test.ts`. Implementation missing from `annotationService.validateAnnotation()`.
-- [ ] **Frontend vitest infrastructure** — `jsdom`/`vitest 0.34` dep conflict with `html-encoding-sniffer` (ESM/CJS). Either upgrade vitest to ≥1.x or pin jsdom. Blocking frontend component tests.
+### Post-collection quality passes
+- [ ] CLIP score → dedup (`scripts/curation/quality_scan.py` + `deduplicate.py`); ingest
+      to FiftyOne with provenance; re-pool.
