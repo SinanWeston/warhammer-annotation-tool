@@ -36,6 +36,7 @@ PROFILES = {
     "v3": {"tag": "gold_v3", "key": "gold_v3", "task": "wh40k_gold_v3"},
     "v4": {"tag": "gold_v4", "key": "gold_v4", "task": "wh40k_gold_v4"},
     "v5": {"tag": "gold_v5", "key": "gold_v5", "task": "wh40k_gold_v5"},
+    "v6": {"tag": "gold_v6", "key": "gold_v6", "task": "wh40k_gold_v6"},
 }
 ENV = Path(__file__).resolve().parents[2] / ".env"
 

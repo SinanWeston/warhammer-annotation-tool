@@ -1,0 +1,188 @@
+{
+  "note": "gold v6 \u2014 density round: known-crowded eval_200 images (8-30 legacy boxes), detection-pool re-pooled to gold to avoid leakage; label every base, skip too-dense/blurry per LABELING_GUIDE \u00a77",
+  "n": 26,
+  "candidates": [
+    {
+      "basename": "19665_5cd02e2bf5a5.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/19665_5cd02e2bf5a5.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 26
+    },
+    {
+      "basename": "136101_8f9693fe948a.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/136101_8f9693fe948a.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 23
+    },
+    {
+      "basename": "15jxccy_55b03b4a9a0b.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/15jxccy_55b03b4a9a0b.jpg",
+      "source": "reddit",
+      "faction_v1": null,
+      "n_boxes_legacy": 21
+    },
+    {
+      "basename": "1008226_2c614debb855.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1008226_2c614debb855.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 21
+    },
+    {
+      "basename": "185254_037c3b51a137.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/185254_037c3b51a137.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 21
+    },
+    {
+      "basename": "14bgxjk_25d3b45ecc78.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14bgxjk_25d3b45ecc78.jpg",
+      "source": "reddit",
+      "faction_v1": "tyranids",
+      "n_boxes_legacy": 20
+    },
+    {
+      "basename": "14kujha_a92f261b1099.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14kujha_a92f261b1099.jpg",
+      "source": "reddit",
+      "faction_v1": "tyranids",
+      "n_boxes_legacy": 20
+    },
+    {
+      "basename": "11218_2527e47ed610.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/11218_2527e47ed610.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 18
+    },
+    {
+      "basename": "105041_229e132ee933.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/105041_229e132ee933.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 16
+    },
+    {
+      "basename": "124860_f2efef3c0272.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/124860_f2efef3c0272.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 16
+    },
+    {
+      "basename": "dakka_1022622.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1022622.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 14
+    },
+    {
+      "basename": "15zzw81_43a82874a9f4.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/15zzw81_43a82874a9f4.jpg",
+      "source": "reddit",
+      "faction_v1": "space_marines",
+      "n_boxes_legacy": 14
+    },
+    {
+      "basename": "dakka_1034784.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1034784.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 13
+    },
+    {
+      "basename": "1051t49_b6bffef380f2.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1051t49_b6bffef380f2.jpg",
+      "source": "reddit",
+      "faction_v1": null,
+      "n_boxes_legacy": 13
+    },
+    {
+      "basename": "1069936_13b7678f1b44.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1069936_13b7678f1b44.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 12
+    },
+    {
+      "basename": "dakka_1036769.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1036769.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 11
+    },
+    {
+      "basename": "11837_aecd0ab20ce2.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/11837_aecd0ab20ce2.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 11
+    },
+    {
+      "basename": "dakka_1079590.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1079590.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 11
+    },
+    {
+      "basename": "1033735_74041f2db7a9.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1033735_74041f2db7a9.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 11
+    },
+    {
+      "basename": "100gahx_3a05826ee1ce.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_3a05826ee1ce.jpg",
+      "source": "reddit",
+      "faction_v1": null,
+      "n_boxes_legacy": 10
+    },
+    {
+      "basename": "12gas6q_e2afd66dbaec.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_e2afd66dbaec.jpg",
+      "source": "reddit",
+      "faction_v1": null,
+      "n_boxes_legacy": 10
+    },
+    {
+      "basename": "10655_89682d0e5a24.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/10655_89682d0e5a24.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 10
+    },
+    {
+      "basename": "1033744_52fe3a2308f0.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1033744_52fe3a2308f0.jpg",
+      "source": "dakkadakka",
+      "faction_v1": null,
+      "n_boxes_legacy": 10
+    },
+    {
+      "basename": "11edabu_6b93c87e5913.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/11edabu_6b93c87e5913.jpg",
+      "source": "reddit",
+      "faction_v1": "space_marines",
+      "n_boxes_legacy": 10
+    },
+    {
+      "basename": "12chle6_1b9e5bbdf7aa.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/12chle6_1b9e5bbdf7aa.jpg",
+      "source": "reddit",
+      "faction_v1": "tyranids",
+      "n_boxes_legacy": 10
+    },
+    {
+      "basename": "122lero_448d1433e985.jpg",
+      "filepath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/122lero_448d1433e985.jpg",
+      "source": "reddit",
+      "faction_v1": "tyranids",
+      "n_boxes_legacy": 10
+    }
+  ]
+}
