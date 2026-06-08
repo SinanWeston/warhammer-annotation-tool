@@ -1,5 +1,9 @@
 # photoanalyzer — Warhammer 40K Miniature Annotation & Scanner
 
+> **▶ Resuming / fresh after a `/clear`? Read [`HANDOFF.md`](HANDOFF.md) first** — its
+> top "⚡ CATCH-UP" block is the 30-second get-up-to-speed (current state, the live
+> threads, the next build step, and the gotchas). Then `TODO.md` for the full roadmap.
+
 ## Overview
 Monorepo annotation tool (desktop) + consumer scanner (PWA). 4 workspaces: desktop frontend (React/TS), backend (Express/TS), consumer PWA, mobile annotator PWA.
 
