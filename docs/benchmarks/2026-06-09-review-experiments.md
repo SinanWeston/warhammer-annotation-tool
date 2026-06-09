@@ -46,8 +46,10 @@ gold-domain retrieval bench (oracle-scoped reference: 0.519 top-3).
 
 | | fac top-1 | compound top-3 (covered) |
 |---|---|---|
-| 20-way probe | 0.294 | **0.089** |
+| 20-way probe | 0.284 | **0.089** |
 | v1-restricted probe (the v1 product path) | 0.588 | **0.228** |
+
+(Numbers are from the post-contamination-fix re-run, gallery=19,758.)
 
 With v0-baseline detection recall (0.66) on top: **0.06 per-crop (20-way) /
 0.15 (v1-restricted)** — the army-list product does not exist at current
@@ -68,10 +70,12 @@ these):
 - **gold_v2 vs gallery: 18/89 images at cosine ≥ 0.99** — 7 of them were
   *literally in the gallery pool* (gold DG gw_shop images swept in by
   `seed_dg_gallery.py` on 06-06, clobbering the deliberate 06-05 `pool="gold"`
-  re-pooling). Script now guards against this; run
-  `scripts/curation/fix_gold_pool_contamination.py` to repair the live DB, then
-  re-run the two retrieval benches. The other 11 are exact-file twins under
-  different paths.
+  re-pooling). Script now guards against this; the live DB was repaired
+  2026-06-09 (`fix_gold_pool_contamination.py`, gallery 19,765 → 19,758).
+  **Post-fix re-run: the gold-domain retrieval bench is byte-identical and the
+  compounded bench shifted only in the 3rd decimal** — the contamination was a
+  hygiene violation, not an inflation of these benches (the 7 images never won
+  a retrieval). The other 11 are exact-file twins under different paths.
 - **holdout vs gallery: 215/1,046 (21%) at cosine ≥ 0.99** — exact twins
   (isolation crops cut from the same source photos). The holdout is NOT clean as
   a future test set; any holdout-based eval must exclude these or the twins must
