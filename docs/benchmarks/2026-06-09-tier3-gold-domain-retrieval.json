@@ -1,0 +1,108 @@
+{
+  "date": "2026-06-09",
+  "method": "scoped cosine k-NN, DINOv2-large CLS, gold-domain queries (labels.csv source=annotation) vs current FiftyOne gallery",
+  "n_queries": 102,
+  "n_covered": 79,
+  "n_dup_suspects": 0,
+  "dup_thresh": 0.97,
+  "covered": {
+    "space_marines": {
+      "n": 10,
+      "top1": 0.2,
+      "top3": 0.2,
+      "wilson_lb_top3": 0.05668094798069332
+    },
+    "necrons": {
+      "n": 11,
+      "top1": 0.36363636363636365,
+      "top3": 0.45454545454545453,
+      "wilson_lb_top3": 0.21270957543988048
+    },
+    "tyranids": {
+      "n": 29,
+      "top1": 0.06896551724137931,
+      "top3": 0.2413793103448276,
+      "wilson_lb_top3": 0.12218268185062132
+    },
+    "death_guard": {
+      "n": 29,
+      "top1": 0.7241379310344828,
+      "top3": 0.9310344827586207,
+      "wilson_lb_top3": 0.7803505240414808
+    },
+    "v1_overall": {
+      "n": 79,
+      "top1": 0.3670886075949367,
+      "top3": 0.5189873417721519,
+      "wilson_lb_top3": 0.4105091395596985
+    }
+  },
+  "suspects_excluded": {
+    "space_marines": {
+      "n": 10,
+      "top1": 0.2,
+      "top3": 0.2,
+      "wilson_lb_top3": 0.05668094798069332
+    },
+    "necrons": {
+      "n": 11,
+      "top1": 0.36363636363636365,
+      "top3": 0.45454545454545453,
+      "wilson_lb_top3": 0.21270957543988048
+    },
+    "tyranids": {
+      "n": 29,
+      "top1": 0.06896551724137931,
+      "top3": 0.2413793103448276,
+      "wilson_lb_top3": 0.12218268185062132
+    },
+    "death_guard": {
+      "n": 29,
+      "top1": 0.7241379310344828,
+      "top3": 0.9310344827586207,
+      "wilson_lb_top3": 0.7803505240414808
+    },
+    "v1_overall": {
+      "n": 79,
+      "top1": 0.3670886075949367,
+      "top3": 0.5189873417721519,
+      "wilson_lb_top3": 0.4105091395596985
+    }
+  },
+  "uncovered_units": [
+    "tyranids/tyranid_warriors",
+    "death_guard/lord_of_contagion",
+    "death_guard/deathshroud_terminators",
+    "space_marines/cypher",
+    "death_guard/foetid_bloat_drone",
+    "death_guard/noxious_blightbringer",
+    "space_marines/astorath",
+    "death_guard/blightlord_terminators",
+    "death_guard/deathwing_dreadnought",
+    "space_marines/ezekiel",
+    "space_marines/kayvaan_shrike",
+    "necrons/warriors",
+    "space_marines/primaris_lieutenant",
+    "space_marines/intercessors",
+    "space_marines/dante",
+    "tyranids/carnifex"
+  ],
+  "worst_units": [
+    "tyranids/termagants:13",
+    "necrons/immortals:5",
+    "tyranids/genestealers:3",
+    "space_marines/captain:2",
+    "space_marines/sanguinary_guard:2",
+    "tyranids/ripper_swarms:2",
+    "death_guard/plague_marines:2",
+    "space_marines/scout_squad:1",
+    "necrons/chronomancer:1",
+    "space_marines/redemptor_dreadnought:1",
+    "space_marines/techmarine:1",
+    "space_marines/death_company_captain:1",
+    "tyranids/hive_guard:1",
+    "tyranids/hormagaunts:1",
+    "tyranids/hive_tyrant:1",
+    "tyranids/neurogaunts:1"
+  ]
+}
