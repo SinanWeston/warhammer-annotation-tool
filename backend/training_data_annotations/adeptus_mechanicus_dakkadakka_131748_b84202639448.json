@@ -1,0 +1,115 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_131748_b84202639448",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/131748_b84202639448.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "bb756d93-cf2e-433b-b928-da08af0f2cdb",
+      "modelBbox": {
+        "x": 75.23620190263605,
+        "y": 285.80310017073236,
+        "width": 123.53741496598639,
+        "height": 153.469387755102
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "7993e43a-9882-4008-a9a4-286bcae02cc0",
+      "modelBbox": {
+        "x": 121.4947053039966,
+        "y": 230.2928960890997,
+        "width": 107.2108843537415,
+        "height": 150.20408163265301
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "76bb386a-120c-4a82-affa-85a721753e18",
+      "modelBbox": {
+        "x": 198.77361686862244,
+        "y": 288.52418860610646,
+        "width": 101.22448979591834,
+        "height": 168.16326530612247
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "54f9045c-2c68-48fa-8e6b-dc507eb14005",
+      "modelBbox": {
+        "x": 236.3246372767857,
+        "y": 240.63303214352143,
+        "width": 87.61904761904762,
+        "height": 146.93877551020407
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "b0f340f0-f860-4bb4-a4d4-c05053c1457a",
+      "modelBbox": {
+        "x": 306.52871890943874,
+        "y": 297.7758892863786,
+        "width": 108.84353741496597,
+        "height": 162.17687074829934
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "e2b79705-fa93-4bcb-924a-0647f36960ab",
+      "modelBbox": {
+        "x": 327.7532087053571,
+        "y": 259.6806511911405,
+        "width": 96.8707482993197,
+        "height": 134.96598639455783
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "ccb0ce7b-1317-4ee8-a7bd-9791931bf5f6",
+      "modelBbox": {
+        "x": 233.05933115433672,
+        "y": 57.59447577859269,
+        "width": 407.07482993197266,
+        "height": 251.42857142857142
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "8439bf68-8a86-44e7-910f-b2f8df28be56",
+      "modelBbox": {
+        "x": 536.7328005420918,
+        "y": 346.99736095610115,
+        "width": 106.12244897959181,
+        "height": 158.36734693877554
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "036d932b-59e5-43ee-9ad7-3a8cb45bffed",
+      "modelBbox": {
+        "x": 412.1069502019557,
+        "y": 318.1538235411352,
+        "width": 121.90476190476187,
+        "height": 163.80952380952374
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "4ff16be1-ff5c-46ca-b1bc-7817caf3a6b8",
+      "modelBbox": {
+        "x": 533.4674944196428,
+        "y": 270.20220490539964,
+        "width": 111.56462585034012,
+        "height": 155.10204081632656
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T14:21:22.999Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

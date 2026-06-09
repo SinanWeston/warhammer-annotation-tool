@@ -1,0 +1,48 @@
+{
+  "imageId": "space_marines_ebay_space_marines_aggressor_squad_ebay_236614096466_22",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_aggressor_squad_ebay_236614096466_22.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1600,
+  "height": 835,
+  "annotations": [
+    {
+      "id": "dino_1_1773600214199",
+      "modelBbox": {
+        "x": 654.1,
+        "y": 97.7,
+        "width": 406.9,
+        "height": 556.9
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.483
+    },
+    {
+      "id": "dino_2_1773600214199",
+      "modelBbox": {
+        "x": 40.3,
+        "y": 89.3,
+        "width": 513.8,
+        "height": 655
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.298
+    },
+    {
+      "id": "dino_4_1773600214199",
+      "modelBbox": {
+        "x": 1041.1,
+        "y": 65.8,
+        "width": 516.0265678449261,
+        "height": 694.4907639680731
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.223
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:43:56.769Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

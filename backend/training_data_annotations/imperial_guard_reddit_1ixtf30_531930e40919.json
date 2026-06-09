@@ -1,0 +1,594 @@
+{
+  "imageId": "imperial_guard_reddit_1ixtf30_531930e40919",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1ixtf30_531930e40919.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 1204,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "pseudo-6dee572066c1",
+      "modelBbox": {
+        "x": 635.17,
+        "y": 614.23,
+        "width": 465.15,
+        "height": 723.81
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.8495,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6225bb424613",
+      "modelBbox": {
+        "x": 627.15,
+        "y": 278.98,
+        "width": 144.5,
+        "height": 489.85
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.8085,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-65ac1dd1387a",
+      "modelBbox": {
+        "x": 434.56,
+        "y": 453.77,
+        "width": 107.48,
+        "height": 314.15
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.8037,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-23392be76a23",
+      "modelBbox": {
+        "x": 434.31,
+        "y": 837.42,
+        "width": 125.59,
+        "height": 484.02
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7816,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c6e00db5e258",
+      "modelBbox": {
+        "x": 76.73,
+        "y": 525.06,
+        "width": 462.02,
+        "height": 245.82
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7776,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f540b089678d",
+      "modelBbox": {
+        "x": 813.93,
+        "y": 613.46,
+        "width": 289.47,
+        "height": 94.45
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7732,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8fffbf913704",
+      "modelBbox": {
+        "x": 0.53,
+        "y": 832.62,
+        "width": 562.12,
+        "height": 510.09
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7681,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7c4e467e3cd6",
+      "modelBbox": {
+        "x": 644.91,
+        "y": 832.15,
+        "width": 131.59,
+        "height": 480.39
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7475,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9f7dd1ccb7cc",
+      "modelBbox": {
+        "x": 283.16,
+        "y": 288.7,
+        "width": 263.15,
+        "height": 479.55
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7252,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0b0084e585a1",
+      "modelBbox": {
+        "x": 742.55,
+        "y": 565.73,
+        "width": 324.4,
+        "height": 204.05
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.724,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-abbe466a3bd2",
+      "modelBbox": {
+        "x": 82.25,
+        "y": 278.39,
+        "width": 262.48,
+        "height": 299.35
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7205,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1e4662b3bec2",
+      "modelBbox": {
+        "x": 435.02,
+        "y": 612.28,
+        "width": 238.95,
+        "height": 709.37
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.6381,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-113e9dc1c6d3",
+      "modelBbox": {
+        "x": 201.92,
+        "y": 0.0,
+        "width": 510.87,
+        "height": 285.99
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.6265,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-40efcea17206",
+      "modelBbox": {
+        "x": 626.61,
+        "y": 281.66,
+        "width": 441.31,
+        "height": 485.25
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.6029,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9c862225f2ea",
+      "modelBbox": {
+        "x": 811.98,
+        "y": 300.05,
+        "width": 288.84,
+        "height": 407.14
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.5557,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1c8262b97adf",
+      "modelBbox": {
+        "x": 722.8,
+        "y": 236.02,
+        "width": 125.39,
+        "height": 375.48
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.5359,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f29c57cf6afc",
+      "modelBbox": {
+        "x": 895.8,
+        "y": 0.0,
+        "width": 308.2,
+        "height": 720.73
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.5322,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d26d7ed4d423",
+      "modelBbox": {
+        "x": 434.99,
+        "y": 264.08,
+        "width": 148.72,
+        "height": 330.28
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.5133,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a61d2c5c3e5b",
+      "modelBbox": {
+        "x": 543.37,
+        "y": 830.42,
+        "width": 135.23,
+        "height": 181.98
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.5113,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-494842c6ff65",
+      "modelBbox": {
+        "x": 681.09,
+        "y": 829.42,
+        "width": 403.65,
+        "height": 324.44
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4929,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ea89a383f058",
+      "modelBbox": {
+        "x": 434.18,
+        "y": 0.0,
+        "width": 283.11,
+        "height": 589.72
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4526,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1288dfd9e3b5",
+      "modelBbox": {
+        "x": 353.71,
+        "y": 232.38,
+        "width": 81.16,
+        "height": 182.03
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3907,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5885665af91f",
+      "modelBbox": {
+        "x": 434.48,
+        "y": 673.95,
+        "width": 99.04,
+        "height": 513.19
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3871,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-32186f53b7fe",
+      "modelBbox": {
+        "x": 1.8,
+        "y": 615.06,
+        "width": 541.64,
+        "height": 511.08
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3801,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2766e0b27269",
+      "modelBbox": {
+        "x": 705.11,
+        "y": 263.82,
+        "width": 67.67,
+        "height": 266.42
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3742,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6d627d04d527",
+      "modelBbox": {
+        "x": 292.54,
+        "y": 247.86,
+        "width": 92.58,
+        "height": 156.2
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3557,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4051cef69632",
+      "modelBbox": {
+        "x": 534.14,
+        "y": 235.38,
+        "width": 103.64,
+        "height": 297.96
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3503,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b998cdd1927d",
+      "modelBbox": {
+        "x": 942.56,
+        "y": 480.74,
+        "width": 161.05,
+        "height": 227.53
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3213,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-51bcd3d48c8b",
+      "modelBbox": {
+        "x": 621.16,
+        "y": 307.56,
+        "width": 66.53,
+        "height": 284.95
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3045,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6a70b45624cf",
+      "modelBbox": {
+        "x": 434.01,
+        "y": 845.44,
+        "width": 63.59,
+        "height": 243.11
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3041,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7e13d937f48b",
+      "modelBbox": {
+        "x": 678.98,
+        "y": 830.24,
+        "width": 95.75,
+        "height": 308.7
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2884,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-feb884226686",
+      "modelBbox": {
+        "x": 444.66,
+        "y": 292.24,
+        "width": 92.82,
+        "height": 244.21
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2796,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a20a23815e08",
+      "modelBbox": {
+        "x": 1143.69,
+        "y": 519.77,
+        "width": 60.31,
+        "height": 206.52
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2791,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4888eb680dfa",
+      "modelBbox": {
+        "x": 1027.24,
+        "y": 457.26,
+        "width": 176.76,
+        "height": 154.88
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2701,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-16149129b4de",
+      "modelBbox": {
+        "x": 813.4,
+        "y": 290.52,
+        "width": 204.69,
+        "height": 279.57
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2695,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-593c028e256f",
+      "modelBbox": {
+        "x": 625.5,
+        "y": 612.75,
+        "width": 166.49,
+        "height": 63.71
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2504,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

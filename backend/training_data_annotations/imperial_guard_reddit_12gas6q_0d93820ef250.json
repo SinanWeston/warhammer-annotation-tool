@@ -1,0 +1,85 @@
+{
+  "imageId": "imperial_guard_reddit_12gas6q_0d93820ef250",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_0d93820ef250.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4000,
+  "height": 1868,
+  "annotations": [
+    {
+      "id": "6f655db8-cbf4-4a38-a732-5601bf36331b",
+      "modelBbox": {
+        "x": 51.56657963446475,
+        "y": 237.224916076091,
+        "width": 701.2308839985079,
+        "height": 1080.1939574785529
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "5e033cef-214a-4388-bf3d-2c837ad4fa2a",
+      "modelBbox": {
+        "x": 540.9362178291682,
+        "y": 452.07012308839984,
+        "width": 728.0865348750466,
+        "height": 1235.3599403207756
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "6f25d3a6-af3c-494f-9a8b-906fcd9f4f90",
+      "modelBbox": {
+        "x": 815.4606490115629,
+        "y": 67.13912719134652,
+        "width": 904.1402461767997,
+        "height": 1208.5042894442372
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "9fa9335a-4ca4-4505-ad23-1c848d04b767",
+      "modelBbox": {
+        "x": 1573.3867959716524,
+        "y": 359.56732562476685,
+        "width": 734.0544572920551,
+        "height": 1244.3118239462885
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "0bcc19df-8401-4978-9124-ca0ff2a550ba",
+      "modelBbox": {
+        "x": 2015.0130548302873,
+        "y": 177.54569190600523,
+        "width": 635.5837374114135,
+        "height": 1059.3062290190228
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "3fa5159d-33ee-4309-ba12-cd8126442e8d",
+      "modelBbox": {
+        "x": 2598.3774710928756,
+        "y": 332.7116747482283,
+        "width": 716.1506900410295,
+        "height": 1184.6325997762028
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "d9d7a310-df23-4971-b4b0-c10379370caf",
+      "modelBbox": {
+        "x": 3019.1160014919806,
+        "y": 61.17120477433793,
+        "width": 650.503543453935,
+        "height": 1163.744871316673
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T10:31:02.731Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

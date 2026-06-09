@@ -1,0 +1,23 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_1006450_3deb269c2766",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1006450_3deb269c2766.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 599,
+  "annotations": [
+    {
+      "id": "096bcfb6-52b4-42b4-b97e-ab8df54b66a8",
+      "modelBbox": {
+        "x": 198.5685885682398,
+        "y": 114.6910406618702,
+        "width": 388.57142857142856,
+        "height": 454.6938775510204
+      },
+      "classLabel": "genestealer_cult"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:57:39.920Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

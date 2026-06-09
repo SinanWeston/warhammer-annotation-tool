@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_with_shokk_attack_gun_dakka_382996_002",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_with_shokk_attack_gun_dakka_382996_002.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 600,
+  "height": 830,
+  "annotations": [
+    {
+      "id": "dino_1_1773585433165",
+      "modelBbox": {
+        "x": 36.9,
+        "y": 73.5,
+        "width": 488.9,
+        "height": 666.9
+      },
+      "classLabel": "orks",
+      "confidence": 0.436
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:37:16.917Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

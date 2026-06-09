@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_ebay_137124076166_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_ebay_137124076166_03.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1200,
+  "annotations": [
+    {
+      "id": "dino_0_1773584260647",
+      "modelBbox": {
+        "x": 503.078677309008,
+        "y": 359.1647662485747,
+        "width": 548.2326111744583,
+        "height": 486.20296465222344
+      },
+      "classLabel": "orks",
+      "confidence": 0.901
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:18:16.849Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

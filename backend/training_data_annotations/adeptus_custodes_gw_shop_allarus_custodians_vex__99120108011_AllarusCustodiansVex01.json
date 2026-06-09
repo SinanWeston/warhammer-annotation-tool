@@ -1,0 +1,47 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_allarus_custodians_vex__99120108011_AllarusCustodiansVex01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/allarus_custodians_vex__99120108011_AllarusCustodiansVex01.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778673384733",
+      "modelBbox": {
+        "x": 51.523512236926024,
+        "y": 110.68591682278381,
+        "width": 1234.6938775510205,
+        "height": 1860.7710234972894
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    },
+    {
+      "id": "f19050ec-7186-4f91-8057-b3b277825ed2",
+      "modelBbox": {
+        "x": 878.054124481824,
+        "y": 392.3185698840083,
+        "width": 1044.8979591836733,
+        "height": 907.2279015365914
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    },
+    {
+      "id": "46b08ab5-21a4-4574-9194-4e5eb56f43c9",
+      "modelBbox": {
+        "x": 753.5643285634567,
+        "y": 106.60428416972258,
+        "width": 585.7142857142858,
+        "height": 684.7789219447544
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T11:57:37.592Z",
+  "annotatedBy": "sinan"
+}

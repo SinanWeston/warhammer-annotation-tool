@@ -1,0 +1,75 @@
+{
+  "imageId": "necrons_reddit_128ijpx_76cce3f7e7f5",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/128ijpx_76cce3f7e7f5.jpg",
+  "faction": "necrons",
+  "source": "reddit",
+  "width": 1440,
+  "height": 1080,
+  "annotations": [
+    {
+      "id": "cdc79ddb-7344-40f0-b481-125812bc9493",
+      "modelBbox": {
+        "x": 531.271913465125,
+        "y": 168.65348750466245,
+        "width": 391.01827676240214,
+        "height": 676.7624020887729
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "8fcd101e-b6cf-45c8-9020-0b2b84e8de0a",
+      "modelBbox": {
+        "x": 1036.1581499440508,
+        "y": 490.9212980231257,
+        "width": 378.12756434166363,
+        "height": 481.2532637075718
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "8f325cbb-fa3e-4792-8c2b-77b86bd50bef",
+      "modelBbox": {
+        "x": 864.2819843342037,
+        "y": 673.5397239835883,
+        "width": 348.0492353599403,
+        "height": 395.3151809026482
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "2a42e9cf-5085-4353-93bd-87ce05c625ce",
+      "modelBbox": {
+        "x": 220.77582991421113,
+        "y": 309.01902275270425,
+        "width": 301.49944050727333,
+        "height": 398.8959343528534
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "364eaf6b-4ea4-419b-8d79-1b916d1a276c",
+      "modelBbox": {
+        "x": 1.6337187616560984,
+        "y": 335.5165982842223,
+        "width": 374.54681089145845,
+        "height": 497.72472957851545
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "8f193fd1-7369-4376-948d-c33a82f7b8f9",
+      "modelBbox": {
+        "x": 1.6337187616560984,
+        "y": 124.96829541215965,
+        "width": 317.2547556881761,
+        "height": 481.96941439761287
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:55:17.148Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

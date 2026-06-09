@@ -1,0 +1,50 @@
+{
+  "imageId": "necrons_reddit_13dbply_aba7263fd288",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/13dbply_aba7263fd288.jpg",
+  "faction": "necrons",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "pseudo-31ca719e0383",
+      "modelBbox": {
+        "x": 511.03,
+        "y": 2095.67,
+        "width": 1430.0,
+        "height": 1927.52
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.8058,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-76340aac1924",
+      "modelBbox": {
+        "x": 1081.9,
+        "y": 1551.37,
+        "width": 1132.22,
+        "height": 1926.3
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.7265,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

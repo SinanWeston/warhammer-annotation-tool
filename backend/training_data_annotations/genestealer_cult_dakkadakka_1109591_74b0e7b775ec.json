@@ -1,0 +1,45 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_1109591_74b0e7b775ec",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/1109591_74b0e7b775ec.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 877,
+  "annotations": [
+    {
+      "id": "cd8dae67-43a9-41f3-9e4d-c10a4a0a1a39",
+      "modelBbox": {
+        "x": 298.59468868570826,
+        "y": 191.13266222794584,
+        "width": 346.71163575042164,
+        "height": 474.1989881956156
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "2161dbcd-c43f-4a9a-b2b4-f4d2d7fc815c",
+      "modelBbox": {
+        "x": 6.520489697512648,
+        "y": 61.39683844066189,
+        "width": 203.70994940978076,
+        "height": 294.09780775716695
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "4d136eff-0e58-4d04-9b96-a04d16858908",
+      "modelBbox": {
+        "x": 619.6739466958263,
+        "y": 37.1135332130059,
+        "width": 178.07757166947727,
+        "height": 323.77740303541316
+      },
+      "classLabel": "genestealer_cult"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T10:41:42.709Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

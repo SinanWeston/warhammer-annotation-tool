@@ -1,0 +1,83 @@
+{
+  "imageId": "death_guard_dakkadakka_120148_eb74a598cd4a",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/120148_eb74a598cd4a.jpg",
+  "faction": "death_guard",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "0f9d968b-ca2a-4a9e-945b-9bb4bd3f6894",
+      "modelBbox": {
+        "x": 590.8019764348156,
+        "y": 294.9923983276321,
+        "width": 155.07411630558727,
+        "height": 218.32003040668945
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "913b0538-e6be-4fff-aadf-00646a3ad9b1",
+      "modelBbox": {
+        "x": 478.9053591790194,
+        "y": 224.44887875332574,
+        "width": 131.9650323071075,
+        "height": 181.83200304066895
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "a528782f-369a-4e0d-8e2e-b2a08e600ebc",
+      "modelBbox": {
+        "x": 49.56290383884455,
+        "y": 217.15127328012164,
+        "width": 170.88559483086277,
+        "height": 225.00950209045993
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "2162c2bd-288a-4897-986f-72ff9760f296",
+      "modelBbox": {
+        "x": 28.278221208665908,
+        "y": 99.78145191942228,
+        "width": 273.05207145572024,
+        "height": 215.2793614595211
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "a6facf3e-4837-4787-9645-aa894ebdc64c",
+      "modelBbox": {
+        "x": 224.7054351957431,
+        "y": 198.9072595971114,
+        "width": 150.2090459901178,
+        "height": 181.83200304066898
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "924e106d-09f3-4971-9648-b13c188fff7d",
+      "modelBbox": {
+        "x": 363.96807297605477,
+        "y": 166.0680349676929,
+        "width": 149.60091220068415,
+        "height": 154.46598251615356
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "ac5cdbd4-f356-416d-b522-3c7a2e5a9bbf",
+      "modelBbox": {
+        "x": 278.2212086659065,
+        "y": 273.7077156974534,
+        "width": 209.80615735461805,
+        "height": 215.88749524895485
+      },
+      "classLabel": "death_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:43:27.295Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,58 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_with_shokk_attack_gun_dakka_1101074_005",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_with_shokk_attack_gun_dakka_1101074_005.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1080,
+  "height": 1080,
+  "annotations": [
+    {
+      "id": "dino_0_1773585134808",
+      "modelBbox": {
+        "x": 612.6567844925884,
+        "y": 590.7789338654504,
+        "width": 315.2565564424174,
+        "height": 413.77423033067265
+      },
+      "classLabel": "orks",
+      "confidence": 0.6
+    },
+    {
+      "id": "dino_3_1773585134808",
+      "modelBbox": {
+        "x": 110.3,
+        "y": 599.3992303306728,
+        "width": 374.2838084378564,
+        "height": 423.1007696693271
+      },
+      "classLabel": "orks",
+      "confidence": 0.33
+    },
+    {
+      "id": "dino_4_1773585134808",
+      "modelBbox": {
+        "x": 618.8141391106044,
+        "y": 104.34791904218929,
+        "width": 346.043329532497,
+        "height": 385.4503990877993
+      },
+      "classLabel": "orks",
+      "confidence": 0.233
+    },
+    {
+      "id": "980f8a9a-baf2-4ab5-9587-5388f40c2012",
+      "modelBbox": {
+        "x": 115.14253135689852,
+        "y": 87.10732611174458,
+        "width": 353.43215507411634,
+        "height": 410.07981755986316
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:37:11.247Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

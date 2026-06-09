@@ -1,0 +1,53 @@
+{
+  "imageId": "grey_knights_dakkadakka_107860_8002c1b06bdf",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/107860_8002c1b06bdf.jpg",
+  "faction": "grey_knights",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 4622,
+  "annotations": [
+    {
+      "id": "3a92f2db-229e-499f-85d1-78a850b38013",
+      "modelBbox": {
+        "x": 15.711445711096937,
+        "y": 56.27834397919324,
+        "width": 724.0816326530611,
+        "height": 422.0408163265306
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "35ff002c-ab2c-4f8e-a079-da77ac4de1cd",
+      "modelBbox": {
+        "x": 99.97446488360968,
+        "y": 609.3849649234694,
+        "width": 560.8163265306122,
+        "height": 430.204081632653
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "a03f7030-6dfb-44a5-b64e-585c7abb478f",
+      "modelBbox": {
+        "x": 214.89511918048467,
+        "y": 1191.9699657206631,
+        "width": 368.1632653061224,
+        "height": 429.3877551020407
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "635c964b-ca71-4c1b-9a1f-dad94310b9b4",
+      "modelBbox": {
+        "x": 89.18083346619898,
+        "y": 1780.8135363520407,
+        "width": 680,
+        "height": 413.87755102040796
+      },
+      "classLabel": "grey_knights"
+    }
+  ],
+  "annotatedAt": "2026-02-07T18:02:32.631Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

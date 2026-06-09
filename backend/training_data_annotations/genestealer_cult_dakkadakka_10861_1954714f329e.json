@@ -1,0 +1,235 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_10861_1954714f329e",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/10861_1954714f329e.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "1283edee-50d5-4cc4-b831-38a029781b95",
+      "modelBbox": {
+        "x": 173.88043888771784,
+        "y": 352.56698977216837,
+        "width": 106.57672849915684,
+        "height": 152.8948847667229
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "3b9ddf8e-545d-4ca7-9544-093aed59d270",
+      "modelBbox": {
+        "x": 250.32788127107926,
+        "y": 318.8401769559795,
+        "width": 139.40415964024731,
+        "height": 130.41034288926363
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "031801b0-4ced-44f1-9591-7d89a87492df",
+      "modelBbox": {
+        "x": 376.69100662240027,
+        "y": 334.579356270201,
+        "width": 125.91343451377179,
+        "height": 124.114671163575
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "4b28a793-544a-48a0-ba46-9cf335d7641d",
+      "modelBbox": {
+        "x": 121.26661089446318,
+        "y": 289.6102725152825,
+        "width": 96.68353007307476,
+        "height": 113.77178189994379
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "08398b4c-fd1d-4ba9-8741-3993663ba3de",
+      "modelBbox": {
+        "x": 25.932153334035977,
+        "y": 222.15664688290474,
+        "width": 86.34064080944353,
+        "height": 140.30354131534568
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "f92f4261-93f8-482e-a34b-c4a1ea0b03c8",
+      "modelBbox": {
+        "x": 89.78825226602024,
+        "y": 227.10324609594576,
+        "width": 48.11691961776279,
+        "height": 96.23383923552561
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "933bf899-0026-4375-8d2b-6d4426508d90",
+      "modelBbox": {
+        "x": 128.46166429525016,
+        "y": 195.62488746750284,
+        "width": 67.00393479482855,
+        "height": 88.58909499718942
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "c05d108b-2615-4003-af83-819f7432dcb9",
+      "modelBbox": {
+        "x": 198.16374411537382,
+        "y": 236.09706284692948,
+        "width": 54.86228218100055,
+        "height": 95.78414839797642
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "fd63dcbb-1fbc-4581-8154-aa0a0fc30492",
+      "modelBbox": {
+        "x": 255.2744804841203,
+        "y": 246.88964294810992,
+        "width": 70.60146149522203,
+        "height": 97.58291174817313
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "d5df14ba-c894-40a3-abd0-ff6480884843",
+      "modelBbox": {
+        "x": 357.35430060778526,
+        "y": 262.17913142478216,
+        "width": 101.18043844856663,
+        "height": 90.38785834738621
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "bf8cddab-dce4-41ee-a7bf-3baaf55ed75b",
+      "modelBbox": {
+        "x": 302.9417092643339,
+        "y": 222.15664688290474,
+        "width": 61.60764474423837,
+        "height": 96.68353007307473
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "3099018f-10a9-4501-a068-29e962075d85",
+      "modelBbox": {
+        "x": 387.9332981463428,
+        "y": 85.4506322679525,
+        "width": 342.2147273749296,
+        "height": 313.4345137717819
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "90cd09dd-7b76-42f0-a4c8-cd14e19fb8c7",
+      "modelBbox": {
+        "x": 165.7860038118325,
+        "y": 184.08281691895903,
+        "width": 42.27093872962337,
+        "height": 67.00393479482858
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "c8ae9128-cc00-4d1b-ad17-74e88f94da53",
+      "modelBbox": {
+        "x": 244.48190038293984,
+        "y": 185.8815802691558,
+        "width": 46.767847105115266,
+        "height": 74.64867903316468
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "971833e4-1942-429f-8b3f-f60be28f0ea2",
+      "modelBbox": {
+        "x": 318.2311977410062,
+        "y": 180.03559938101637,
+        "width": 54.41259134345137,
+        "height": 81.84373243395169
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "5a77fe78-f81d-4bc3-84b9-20043faf3f9f",
+      "modelBbox": {
+        "x": 283.60500324971895,
+        "y": 169.69271011738513,
+        "width": 43.170320404721735,
+        "height": 63.85609893198426
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "62c62346-370e-4c59-a4c9-2e810e930784",
+      "modelBbox": {
+        "x": 217.0507592924396,
+        "y": 152.15476745296692,
+        "width": 53.063518830803815,
+        "height": 64.75548060708263
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "0a5d8ad1-5d92-4550-b12c-0dcacd463545",
+      "modelBbox": {
+        "x": 181.07549228850476,
+        "y": 158.4504391786555,
+        "width": 43.62001124227098,
+        "height": 77.796514896009
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "189aec18-aa32-4cb4-b727-01864a411981",
+      "modelBbox": {
+        "x": 680.831928049466,
+        "y": 192.17725199484437,
+        "width": 72.40022484541885,
+        "height": 91.28724002248458
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "38b2e8b9-003c-4d4d-9459-fbb50e4c33f8",
+      "modelBbox": {
+        "x": 761.3265879707702,
+        "y": 209.26550382171342,
+        "width": 37.77403035413147,
+        "height": 58.90949971894321
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "26570340-a34c-4bac-840c-dddfc6bf1a81",
+      "modelBbox": {
+        "x": 277.30933152403037,
+        "y": 136.86527897629463,
+        "width": 46.31815626756605,
+        "height": 61.15795390668916
+      },
+      "classLabel": "genestealer_cult"
+    },
+    {
+      "id": "acdda0e4-4be2-49aa-bf83-6cb8bde4b804",
+      "modelBbox": {
+        "x": 351.95801055719505,
+        "y": 150.80569494031937,
+        "width": 34.626194491287265,
+        "height": 77.34682405845982
+      },
+      "classLabel": "genestealer_cult"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T10:40:11.728Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

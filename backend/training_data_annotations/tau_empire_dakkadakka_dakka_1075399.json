@@ -1,0 +1,48 @@
+{
+  "imageId": "tau_empire_dakkadakka_dakka_1075399",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tau_empire/dakkadakka/dakka_1075399.jpg",
+  "faction": "tau_empire",
+  "source": "dakkadakka",
+  "width": 3570,
+  "height": 2902,
+  "annotations": [
+    {
+      "id": "dino_0_1773091428806",
+      "modelBbox": {
+        "x": 723.3,
+        "y": 135.3,
+        "width": 1905.6,
+        "height": 2595.0554375712654
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.583
+    },
+    {
+      "id": "dino_1_1773091428806",
+      "modelBbox": {
+        "x": 150,
+        "y": 1023.5,
+        "width": 657.9,
+        "height": 1180
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.556
+    },
+    {
+      "id": "dino_3_1773091428806",
+      "modelBbox": {
+        "x": 2653.7,
+        "y": 1323.8,
+        "width": 716.6,
+        "height": 1487.6
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.255
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:23:59.592Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

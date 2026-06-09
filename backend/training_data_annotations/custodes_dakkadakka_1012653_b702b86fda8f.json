@@ -1,0 +1,353 @@
+{
+  "imageId": "custodes_dakkadakka_1012653_b702b86fda8f",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1012653_b702b86fda8f.jpg",
+  "faction": "custodes",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 565,
+  "annotations": [
+    {
+      "id": "8e2339bf-a916-4a38-b4fd-ef47ebd0d49a",
+      "modelBbox": {
+        "x": 731.4937286202961,
+        "y": 286.4452679589508,
+        "width": 45.79247434435581,
+        "height": 65.13112884834663
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "713bf224-714b-446d-acc7-74bdda9b2618",
+      "modelBbox": {
+        "x": 682.7822120866587,
+        "y": 214.56385404789043,
+        "width": 37.40022805017111,
+        "height": 53.09007981755988
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "34664737-203e-498e-b2a5-68f31287e9db",
+      "modelBbox": {
+        "x": 700.4789053591787,
+        "y": 232.4429874572405,
+        "width": 28.643101482326074,
+        "height": 55.09692132269092
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "1fdfbd9a-7d3b-494a-9ee7-c3396351f88a",
+      "modelBbox": {
+        "x": 609.9885974914478,
+        "y": 340.8124287343214,
+        "width": 40.13683010262264,
+        "height": 61.847206385404775
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "12c7392d-9ae9-4a9e-a084-bc66dcf97025",
+      "modelBbox": {
+        "x": 571.128848346636,
+        "y": 352.67103762827804,
+        "width": 44.88027366020515,
+        "height": 60.022805017103735
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "90a5c887-ef4a-4c02-b130-1d1960f96100",
+      "modelBbox": {
+        "x": 531.3568985176736,
+        "y": 341.1773090079816,
+        "width": 39.77194982896242,
+        "height": 64.94868871151652
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "2c814c95-87e7-40bf-83cc-640699be610c",
+      "modelBbox": {
+        "x": 496.1459521094639,
+        "y": 329.68358038768514,
+        "width": 37.40022805017088,
+        "height": 63.48916761687565
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "d3586f3e-62d6-4c4a-86f8-0fae30faa901",
+      "modelBbox": {
+        "x": 461.4823261117444,
+        "y": 317.82497149372847,
+        "width": 38.129988597491376,
+        "height": 60.93500570125423
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "a1eb0b15-ebdc-4f27-9059-29f927843e45",
+      "modelBbox": {
+        "x": 451.26567844925864,
+        "y": 408.1328392246292,
+        "width": 62.212086659064994,
+        "height": 69.32725199543898
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "4fce28f0-1baa-49f9-bdde-c7bd5b818ea2",
+      "modelBbox": {
+        "x": 516.3968072976052,
+        "y": 394.4498289623715,
+        "width": 47.06955530216658,
+        "height": 59.47548460661346
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "495eff7f-5a74-4ec7-8754-28fe604f2900",
+      "modelBbox": {
+        "x": 516.5792474344354,
+        "y": 423.27537058152774,
+        "width": 51.26567844925876,
+        "height": 67.685290763968
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "ff2d9cf6-b566-4a4a-9563-caa3713300bb",
+      "modelBbox": {
+        "x": 566.7502850627135,
+        "y": 432.2149372862027,
+        "width": 53.63740022805018,
+        "height": 73.15849486887112
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "01361eb9-a1bd-4372-9a6b-a6b9dbb761db",
+      "modelBbox": {
+        "x": 621.4823261117442,
+        "y": 408.86259977194965,
+        "width": 46.15735461801603,
+        "height": 69.69213226909909
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "5b2267ad-c8a7-4ff0-a5ef-4d41ee8cfa68",
+      "modelBbox": {
+        "x": 625.8608893956667,
+        "y": 448.4521094640819,
+        "width": 46.33979475484614,
+        "height": 69.14481185860893
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "76a65589-b7c2-4eff-a0d2-6b59a9cdc21a",
+      "modelBbox": {
+        "x": 677.1265678449256,
+        "y": 466.6961231470921,
+        "width": 48.34663625997712,
+        "height": 77.53705815279358
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "dcf969ed-cea5-4f67-b314-9cac9092eb96",
+      "modelBbox": {
+        "x": 718.905359179019,
+        "y": 445.53306727480026,
+        "width": 52.907639680729744,
+        "height": 72.61117445838079
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "61246516-7a33-4a58-b7e3-c6a7515aac50",
+      "modelBbox": {
+        "x": 674.9372862029644,
+        "y": 407.9503990877991,
+        "width": 38.67730900798165,
+        "height": 91.94982896237167
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "3e32c046-a83f-4e0e-b0c2-9d9ea83b4542",
+      "modelBbox": {
+        "x": 502.03616224140734,
+        "y": 256.1186675354292,
+        "width": 130.3143834500733,
+        "height": 112.72194168431344
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "6a8a02a1-1c79-4e55-82f2-2be5ea9e0dcb",
+      "modelBbox": {
+        "x": 75.9081283596677,
+        "y": 188.3551881413911,
+        "width": 164.8476950643427,
+        "height": 120.54080469131779
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "6882a009-3c87-4e8a-a42d-0d502fadc15c",
+      "modelBbox": {
+        "x": 98.06157354618016,
+        "y": 8.521338980289949,
+        "width": 244.9910408861378,
+        "height": 147.25525329858283
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "0dea2d98-05ee-4739-9bef-c9222f70d01f",
+      "modelBbox": {
+        "x": 25.56562443737621,
+        "y": 310.88714517193773,
+        "width": 59.293044469783325,
+        "height": 73.93626597851522
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "1939d239-2e41-468a-8326-dbc09240fb6c",
+      "modelBbox": {
+        "x": 84.85866890715954,
+        "y": 312.5675148532676,
+        "width": 59.05299165816476,
+        "height": 76.33679409470079
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "9e891669-2d3b-4e7c-af8d-b1f4f2fac3f2",
+      "modelBbox": {
+        "x": 127.1079637520254,
+        "y": 287.84207525655637,
+        "width": 54.732041049030755,
+        "height": 71.05563223909252
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "f5caccf3-05c8-4cd4-87b7-f251ed7ed654",
+      "modelBbox": {
+        "x": 51.731380903798815,
+        "y": 253.99462881833995,
+        "width": 71.77579067394825,
+        "height": 95.30096621256672
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "40cdaaf0-adf2-4026-aadd-091e5e0b7a1c",
+      "modelBbox": {
+        "x": 131.66896717277797,
+        "y": 344.0144331752984,
+        "width": 100.58212806817494,
+        "height": 76.57684690631942
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "8cc3c31f-2a48-4927-895c-0df955192aab",
+      "modelBbox": {
+        "x": 375.3225709656123,
+        "y": 344.0144331752984,
+        "width": 58.81293884654622,
+        "height": 72.7360019204225
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "d232d104-6816-4d44-95cb-fb05a49ff6e5",
+      "modelBbox": {
+        "x": 323.4711636560042,
+        "y": 354.81680969813345,
+        "width": 53.531776990938,
+        "height": 76.09674128308222
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "4cf44e56-50d6-42c0-b49b-0ad50c0589f3",
+      "modelBbox": {
+        "x": 271.139650723159,
+        "y": 361.0581828002159,
+        "width": 65.29436476024722,
+        "height": 91.70017403828837
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "149aa2ab-7a2c-4f98-be69-e5d3226f0434",
+      "modelBbox": {
+        "x": 231.53093680609726,
+        "y": 362.2584468583087,
+        "width": 51.37130168637094,
+        "height": 74.65642441337093
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "07fdb74c-3062-4241-8a8d-f6b68b5740a3",
+      "modelBbox": {
+        "x": 257.9367460841384,
+        "y": 265.51716377603066,
+        "width": 46.09013983076278,
+        "height": 60.97341415111322
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "c2af7f8a-3a81-4d85-95c3-87434db6da88",
+      "modelBbox": {
+        "x": 265.13833043269506,
+        "y": 205.50396087139163,
+        "width": 86.65906499429877,
+        "height": 86.41901218268018
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "7cb21cb6-d672-437c-b902-f841a152e7f1",
+      "modelBbox": {
+        "x": 347.47644481785983,
+        "y": 247.75325571625746,
+        "width": 32.40712956850501,
+        "height": 59.53309728140192
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "a4a2c0ad-be73-4a94-8168-5850aeb1a327",
+      "modelBbox": {
+        "x": 422.37292204284927,
+        "y": 251.59410070215435,
+        "width": 45.36998139590713,
+        "height": 58.812938846546245
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "d85af930-1d58-4f32-9c7f-b3fd1018e4ec",
+      "modelBbox": {
+        "x": 409.89017583868434,
+        "y": 282.080807777711,
+        "width": 47.770509512092644,
+        "height": 70.57552661585544
+      },
+      "classLabel": "custodes"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:00:21.069Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

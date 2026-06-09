@@ -1,0 +1,25 @@
+{
+  "imageId": "drukhari_dakkadakka_dakka_1006090",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1006090.jpeg",
+  "faction": "drukhari",
+  "source": "dakkadakka",
+  "width": 3024,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "d3e3c862-0654-439a-a84d-4192e34def1f",
+      "modelBbox": {
+        "x": 615.3387469698566,
+        "y": 247.2191724085687,
+        "width": 2371.264755480607,
+        "height": 2733.328836424958
+      },
+      "classLabel": "drukhari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-07T17:08:58.800Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,98 @@
+{
+  "imageId": "space_marines_isolation_space_marines_bladeguard_ancient_ebay_224104167068_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/isolation/space_marines_bladeguard_ancient_ebay_224104167068_00.jpg",
+  "faction": "space_marines",
+  "source": "isolation",
+  "width": 1422,
+  "height": 1422,
+  "annotations": [
+    {
+      "id": "pseudo-28bd3762bd9f",
+      "modelBbox": {
+        "x": 734.54,
+        "y": 548.32,
+        "width": 197.37,
+        "height": 678.4
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.8275,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-059880bbb808",
+      "modelBbox": {
+        "x": 511.29,
+        "y": 667.95,
+        "width": 179.2,
+        "height": 560.75
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7734,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4166fccdcc67",
+      "modelBbox": {
+        "x": 546.99,
+        "y": 737.44,
+        "width": 311.83,
+        "height": 432.51
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7552,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-797440fd8cfb",
+      "modelBbox": {
+        "x": 737.73,
+        "y": 738.48,
+        "width": 121.28,
+        "height": 400.58
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.4214,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d3544b309198",
+      "modelBbox": {
+        "x": 644.85,
+        "y": 136.31,
+        "width": 222.1,
+        "height": 546.8
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.4065,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

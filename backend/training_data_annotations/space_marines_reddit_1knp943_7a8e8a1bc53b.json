@@ -1,0 +1,178 @@
+{
+  "imageId": "space_marines_reddit_1knp943_7a8e8a1bc53b",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1knp943_7a8e8a1bc53b.jpg",
+  "faction": "space_marines",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "pseudo-e45ecffcdeac",
+      "modelBbox": {
+        "x": 1539.31,
+        "y": 314.09,
+        "width": 1875.99,
+        "height": 1621.6
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.857,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-48d0c1c1896e",
+      "modelBbox": {
+        "x": 1171.26,
+        "y": 324.86,
+        "width": 779.38,
+        "height": 1610.55
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.8533,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f8bc35a781c0",
+      "modelBbox": {
+        "x": 1171.87,
+        "y": 1092.39,
+        "width": 787.14,
+        "height": 1926.91
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.8086,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e850515f0a5a",
+      "modelBbox": {
+        "x": 2536.68,
+        "y": 0.0,
+        "width": 1273.51,
+        "height": 1154.7
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7998,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-52467436c6a3",
+      "modelBbox": {
+        "x": 3329.58,
+        "y": 310.32,
+        "width": 702.42,
+        "height": 1017.31
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7764,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-11ef8d7050b8",
+      "modelBbox": {
+        "x": 1543.3,
+        "y": 1085.19,
+        "width": 1875.23,
+        "height": 1341.14
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.729,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5e7ceacdb469",
+      "modelBbox": {
+        "x": 3146.54,
+        "y": 1080.08,
+        "width": 884.92,
+        "height": 257.18
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.572,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-da7fcf7453bf",
+      "modelBbox": {
+        "x": 1649.11,
+        "y": 0.0,
+        "width": 600.36,
+        "height": 428.66
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.371,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-04edef3df63e",
+      "modelBbox": {
+        "x": 3315.77,
+        "y": 453.82,
+        "width": 193.88,
+        "height": 472.05
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.3388,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-26d08a2451b3",
+      "modelBbox": {
+        "x": 1544.02,
+        "y": 2091.76,
+        "width": 1383.53,
+        "height": 928.34
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.2513,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

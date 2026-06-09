@@ -1,0 +1,28 @@
+{
+  "imageId": "chaos_space_marines_dakkadakka_154471_bf2a00bd6791",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/154471_bf2a00bd6791.jpg",
+  "faction": "chaos_space_marines",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "pred_0_1770562422538",
+      "modelBbox": {
+        "x": 158.80287170410156,
+        "y": 69.90829467773438,
+        "width": 537.3470306396484,
+        "height": 529.9452819824219
+      },
+      "classLabel": "chaos_space_marines",
+      "confidence": 0.923699140548706,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T14:53:45.311Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

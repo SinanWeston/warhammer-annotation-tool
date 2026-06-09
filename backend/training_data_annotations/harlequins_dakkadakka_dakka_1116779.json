@@ -1,0 +1,26 @@
+{
+  "imageId": "harlequins_dakkadakka_dakka_1116779",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/harlequins/dakkadakka/dakka_1116779.jpg",
+  "faction": "harlequins",
+  "source": "dakkadakka",
+  "width": 4608,
+  "height": 3456,
+  "annotations": [
+    {
+      "id": "dino_0_1773090567209",
+      "modelBbox": {
+        "x": 1806.8,
+        "y": 275.2,
+        "width": 1721.5,
+        "height": 2869.9
+      },
+      "classLabel": "harlequins",
+      "confidence": 0.743
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:09:28.397Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,113 @@
+{
+  "imageId": "chaos_space_marines_dakkadakka_1148442_1058370dae42",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/1148442_1058370dae42.jpg",
+  "faction": "chaos_space_marines",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 758,
+  "annotations": [
+    {
+      "id": "2d09f28e-2014-464c-9686-2050fc77d6b4",
+      "modelBbox": {
+        "x": 38.99657924743444,
+        "y": 48.83836944127708,
+        "width": 145.49600912200685,
+        "height": 197.4914481185861
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "8a79dcc6-b463-4781-bd8a-26fd49faa693",
+      "modelBbox": {
+        "x": 303.53477765108323,
+        "y": 71.64338654503992,
+        "width": 194.75484606613458,
+        "height": 184.72063854047894
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "7faa1fc7-9420-4cc4-a955-742feb577467",
+      "modelBbox": {
+        "x": 125.19954389965793,
+        "y": 50.66277080957811,
+        "width": 170.581527936146,
+        "height": 272.2919042189282
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "9586388f-a64c-4c0c-9fba-de4d9957becc",
+      "modelBbox": {
+        "x": 462.7137970353478,
+        "y": 101.74600912200685,
+        "width": 139.1106043329533,
+        "height": 233.06727480045612
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "2ef27434-7e5b-4f5b-b2da-a1cb00731b70",
+      "modelBbox": {
+        "x": 586.3169897377423,
+        "y": 59.328677309007986,
+        "width": 201.5963511972634,
+        "height": 204.78905359179018
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "57bc6010-4554-40ba-94b6-7c36682bf40f",
+      "modelBbox": {
+        "x": 556.7682032904382,
+        "y": 503.0644241733182,
+        "width": 191.5621436716077,
+        "height": 214.36716077537056
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "468e2a2f-2d6d-4ec9-b0cd-3235fbc6d5c6",
+      "modelBbox": {
+        "x": 442.09154585437375,
+        "y": 463.3185372210458,
+        "width": 151.16468480208505,
+        "height": 189.60742791985666
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "b1f6d399-1ffd-4745-a92e-f8e78bb783e0",
+      "modelBbox": {
+        "x": 313.7318781560515,
+        "y": 514.1411467665745,
+        "width": 150.5131128848347,
+        "height": 204.59358201661496
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "b4159b15-2758-455c-935a-82b5ac6e0c1d",
+      "modelBbox": {
+        "x": 173.6439159472227,
+        "y": 437.90723244828155,
+        "width": 151.16468480208505,
+        "height": 204.59358201661507
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "ad2df068-4f0c-4e2b-ac1c-b4a38e77f524",
+      "modelBbox": {
+        "x": 27.040234565890213,
+        "y": 484.16883857305754,
+        "width": 167.4539827333442,
+        "height": 214.36716077537062
+      },
+      "classLabel": "chaos_space_marines"
+    }
+  ],
+  "annotatedAt": "2026-02-07T15:45:55.770Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

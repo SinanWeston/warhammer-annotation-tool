@@ -1,0 +1,83 @@
+{
+  "imageId": "grey_knights_dakkadakka_131380_3abc0bca801d",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/131380_3abc0bca801d.jpg",
+  "faction": "grey_knights",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 695,
+  "annotations": [
+    {
+      "id": "17a82510-77b7-4290-bb56-ec09ba95a91b",
+      "modelBbox": {
+        "x": 601.0175681600765,
+        "y": 333.738661785515,
+        "width": 195.1020408163265,
+        "height": 245.71428571428567
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "46d522be-7072-42b3-9b91-15dcc5d5bedf",
+      "modelBbox": {
+        "x": 311.2216497927296,
+        "y": 402.31009035694353,
+        "width": 303.6734693877551,
+        "height": 279.1836734693877
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "7e1177e6-5018-4cb3-a399-1bdb86c4c4b2",
+      "modelBbox": {
+        "x": 130.81348652742346,
+        "y": 377.8202944385762,
+        "width": 202.44897959183672,
+        "height": 267.75510204081627
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "48082c9e-1eca-4b49-bc11-ec4a62fd2d0b",
+      "modelBbox": {
+        "x": 511.2216497927296,
+        "y": 156.1422791772959,
+        "width": 166.5306122448979,
+        "height": 225.30612244897958
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "a6698cad-656c-4f7d-8f90-79ed1eb484bc",
+      "modelBbox": {
+        "x": 454.0787926498724,
+        "y": 7.570850605867347,
+        "width": 185.30612244897964,
+        "height": 205.7142857142857
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "337170e9-6a37-4160-802d-125765a378f7",
+      "modelBbox": {
+        "x": 241.83389469068877,
+        "y": 37.77493223852041,
+        "width": 183.6734693877551,
+        "height": 248.97959183673464
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "329930d5-72d3-4184-a3cf-35575a878204",
+      "modelBbox": {
+        "x": 7.548180404974489,
+        "y": 41.85656489158163,
+        "width": 186.12244897959184,
+        "height": 226.1224489795918
+      },
+      "classLabel": "grey_knights"
+    }
+  ],
+  "annotatedAt": "2026-02-07T18:05:42.479Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

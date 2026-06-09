@@ -1,0 +1,225 @@
+{
+  "imageId": "grey_knights_dakkadakka_185254_037c3b51a137",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/185254_037c3b51a137.jpg",
+  "faction": "grey_knights",
+  "source": "dakkadakka",
+  "width": 785,
+  "height": 463,
+  "annotations": [
+    {
+      "id": "458eb348-adf7-4d40-9a57-5470b9f2436b",
+      "modelBbox": {
+        "x": 70.01309802788171,
+        "y": 369.9314361023326,
+        "width": 70.60146149522203,
+        "height": 91.34064080944347
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "7a25ba37-0820-4654-9613-6363b53aeb24",
+      "modelBbox": {
+        "x": 4.706746144801327,
+        "y": 361.98877168412014,
+        "width": 65.74761101742551,
+        "height": 91.34064080944347
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "7c0bafb1-88b9-4aa8-ae85-8e43b8b0da79",
+      "modelBbox": {
+        "x": 150.32226047869676,
+        "y": 370.81395437102293,
+        "width": 74.57279370432829,
+        "height": 86.9280494659921
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "963ace33-7415-4f70-a9bb-5174cc2df598",
+      "modelBbox": {
+        "x": 253.57689791545897,
+        "y": 365.51884475888124,
+        "width": 78.54412591343453,
+        "height": 92.66441821247895
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "7e748f41-4f57-448e-9cdd-e1e18abd3568",
+      "modelBbox": {
+        "x": 207.68594794356468,
+        "y": 328.8943366082348,
+        "width": 53.83361439010676,
+        "height": 82.51545812254079
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "52d05b70-55fe-4d10-9806-4666a3ed8fca",
+      "modelBbox": {
+        "x": 95.6061278198997,
+        "y": 10.452325744800449,
+        "width": 345.0646430578976,
+        "height": 152.67566048341766
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "914984dc-3663-403e-a38a-bddd9af9435b",
+      "modelBbox": {
+        "x": 396.25070264193363,
+        "y": 27.22017284991568,
+        "width": 357.86115795390657,
+        "height": 164.58965711073637
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "33b984da-3c5d-4585-9432-3665b4102710",
+      "modelBbox": {
+        "x": 639.3844856661045,
+        "y": 162.24546795952782,
+        "width": 131.49522203485105,
+        "height": 159.2945474985947
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "b591de9b-c843-48cc-bfa0-d026569876ed",
+      "modelBbox": {
+        "x": 728.9600899381674,
+        "y": 289.0339253336074,
+        "width": 47.65598650927495,
+        "height": 66.18887015177069
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "db7b1a9d-8858-48ce-8310-ac1b2383fe27",
+      "modelBbox": {
+        "x": 728.5188308038224,
+        "y": 363.16545990359054,
+        "width": 54.27487352445189,
+        "height": 94.87071388420452
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "9f661946-bc0b-465d-9e65-aeefeb0e35be",
+      "modelBbox": {
+        "x": 692.335581787521,
+        "y": 352.5752406793072,
+        "width": 46.332209106239475,
+        "height": 83.397976391231
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "b0211e1c-28fb-4b62-860b-6e0d60704edf",
+      "modelBbox": {
+        "x": 646.4446318156267,
+        "y": 370.6668651874578,
+        "width": 52.50983698707137,
+        "height": 82.95671725688595
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "594509af-850c-4086-9034-47fd28a4ceb3",
+      "modelBbox": {
+        "x": 606.7313097245643,
+        "y": 348.1626493358558,
+        "width": 61.335019673974216,
+        "height": 85.60427206295674
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "c6be4411-2510-409c-97c5-9dbd9ea056bc",
+      "modelBbox": {
+        "x": 559.0753232152895,
+        "y": 371.9906425904932,
+        "width": 51.62731871838105,
+        "height": 86.04553119730184
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "8829c059-a981-45a8-80b1-3e2f7470119c",
+      "modelBbox": {
+        "x": 34.71236728027069,
+        "y": 172.10025473214588,
+        "width": 123.99381675098368,
+        "height": 165.91343451377176
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "bf9f724a-11de-4b02-b0b3-fe52098cf98e",
+      "modelBbox": {
+        "x": 186.94676862934318,
+        "y": 199.4583210615444,
+        "width": 210.92186621697584,
+        "height": 133.2602585722316
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "c738c00e-e96f-4b94-9e58-1c79d88b2d11",
+      "modelBbox": {
+        "x": 495.09274873524447,
+        "y": 327.8647291559795,
+        "width": 63.10005621135468,
+        "height": 82.51545812254074
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "df862d30-691c-4000-b1f3-a0543a40d537",
+      "modelBbox": {
+        "x": 438.17032040472174,
+        "y": 368.9018286500773,
+        "width": 74.1315345699831,
+        "height": 86.486790331647
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "50a41fcd-5c89-4bf5-98ca-da8e8a37ae39",
+      "modelBbox": {
+        "x": 342.56417238558186,
+        "y": 356.1053137540683,
+        "width": 74.1315345699831,
+        "height": 102.8133783024171
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "f5b69c22-49e8-410f-bc5e-bba9a4e53e33",
+      "modelBbox": {
+        "x": 118.11034367150172,
+        "y": 339.7787257832982,
+        "width": 48.097245643619985,
+        "height": 75.89657110736363
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "03e8976f-2d4a-4466-be2b-5c89dae89804",
+      "modelBbox": {
+        "x": 10.884374025633255,
+        "y": 305.3605133043775,
+        "width": 38.83080382237212,
+        "height": 60.893760539629
+      },
+      "classLabel": "grey_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T11:41:17.777Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

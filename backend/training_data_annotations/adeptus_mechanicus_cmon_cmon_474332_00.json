@@ -1,0 +1,44 @@
+{
+  "imageId": "adeptus_mechanicus_cmon_cmon_474332_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/cmon/cmon_474332_00.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "cmon",
+  "width": 675,
+  "height": 467,
+  "annotations": [
+    {
+      "id": "pseudo-d1cb97b48890",
+      "modelBbox": {
+        "x": 450.1400146484375,
+        "y": 57.02000045776367,
+        "width": 224.85000610351562,
+        "height": 407.31752208787566
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "pseudo-33c3fa81d5ff",
+      "modelBbox": {
+        "x": 2.2361241554727354,
+        "y": 100.63999938964844,
+        "width": 222.15387141947843,
+        "height": 362.7791488024653
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "pseudo-b7804ec79584",
+      "modelBbox": {
+        "x": 222.64428742077885,
+        "y": 2.390000104904175,
+        "width": 241.07142857142853,
+        "height": 462.4066991076177
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:32:27.056Z",
+  "annotatedBy": "sinan"
+}

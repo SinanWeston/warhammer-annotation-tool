@@ -1,0 +1,514 @@
+{
+  "imageId": "aeldari_ebay_aeldari_yvraine_ebay_204285037561_05",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/aeldari/ebay/aeldari_yvraine_ebay_204285037561_05.jpg",
+  "faction": "aeldari",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1066,
+  "annotations": [
+    {
+      "id": "pseudo-b550cae97872",
+      "modelBbox": {
+        "x": 461.79,
+        "y": 637.97,
+        "width": 224.58,
+        "height": 331.7
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.9162,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3be1a71f5083",
+      "modelBbox": {
+        "x": 685.12,
+        "y": 606.18,
+        "width": 225.37,
+        "height": 380.99
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.9028,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ed4f7ace78e5",
+      "modelBbox": {
+        "x": 235.59,
+        "y": 650.62,
+        "width": 223.98,
+        "height": 317.91
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8837,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3a684ff080fa",
+      "modelBbox": {
+        "x": 1329.24,
+        "y": 668.68,
+        "width": 219.22,
+        "height": 302.12
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8832,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ae09213cf163",
+      "modelBbox": {
+        "x": 1124.44,
+        "y": 380.34,
+        "width": 203.93,
+        "height": 241.99
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8802,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b483656b1514",
+      "modelBbox": {
+        "x": 953.82,
+        "y": 665.95,
+        "width": 233.73,
+        "height": 310.49
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8793,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f713eaff46a0",
+      "modelBbox": {
+        "x": 1133.64,
+        "y": 635.1,
+        "width": 215.46,
+        "height": 338.85
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8775,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c46268b0c138",
+      "modelBbox": {
+        "x": 684.89,
+        "y": 646.38,
+        "width": 82.77,
+        "height": 339.92
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8655,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-740493851fe4",
+      "modelBbox": {
+        "x": 261.09,
+        "y": 421.63,
+        "width": 219.71,
+        "height": 292.99
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8632,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d280d30f5aca",
+      "modelBbox": {
+        "x": 953.81,
+        "y": 666.04,
+        "width": 178.16,
+        "height": 102.48
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8478,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-29fcb20c49c0",
+      "modelBbox": {
+        "x": 58.06,
+        "y": 661.86,
+        "width": 188.74,
+        "height": 305.12
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8436,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-353d7b5525b2",
+      "modelBbox": {
+        "x": 54.42,
+        "y": 415.3,
+        "width": 208.62,
+        "height": 242.51
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.842,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-afbf5b0028a8",
+      "modelBbox": {
+        "x": 1333.09,
+        "y": 403.27,
+        "width": 211.71,
+        "height": 265.84
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8334,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-eaa5cb4082bd",
+      "modelBbox": {
+        "x": 456.14,
+        "y": 297.85,
+        "width": 311.06,
+        "height": 424.19
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8298,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5a38df63e742",
+      "modelBbox": {
+        "x": 461.75,
+        "y": 636.88,
+        "width": 199.69,
+        "height": 131.12
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8229,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-18f3925fe921",
+      "modelBbox": {
+        "x": 830.91,
+        "y": 610.08,
+        "width": 79.87,
+        "height": 376.98
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8173,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-842b60a04e0b",
+      "modelBbox": {
+        "x": 98.97,
+        "y": 659.04,
+        "width": 140.67,
+        "height": 108.81
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8119,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5237c04ba310",
+      "modelBbox": {
+        "x": 1165.86,
+        "y": 665.22,
+        "width": 182.63,
+        "height": 102.98
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8065,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6426eb731f13",
+      "modelBbox": {
+        "x": 267.11,
+        "y": 649.64,
+        "width": 196.96,
+        "height": 117.94
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.8038,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-babcb346f6b2",
+      "modelBbox": {
+        "x": 830.45,
+        "y": 298.14,
+        "width": 331.0,
+        "height": 423.9
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.7955,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b52d7f9458cc",
+      "modelBbox": {
+        "x": 690.06,
+        "y": 606.12,
+        "width": 216.57,
+        "height": 163.03
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.7889,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-66cecf7dd4b0",
+      "modelBbox": {
+        "x": 612.28,
+        "y": 669.79,
+        "width": 73.44,
+        "height": 297.7
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.7795,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d9344a2fc717",
+      "modelBbox": {
+        "x": 1353.25,
+        "y": 669.27,
+        "width": 195.0,
+        "height": 98.43
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.7511,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-78539057be0a",
+      "modelBbox": {
+        "x": 831.57,
+        "y": 611.08,
+        "width": 76.3,
+        "height": 157.18
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.7394,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6fa3f9ede6e4",
+      "modelBbox": {
+        "x": 613.8,
+        "y": 123.12,
+        "width": 545.79,
+        "height": 610.18
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.6715,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9b0513bca1dc",
+      "modelBbox": {
+        "x": 1331.19,
+        "y": 659.95,
+        "width": 61.18,
+        "height": 297.91
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.6458,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-be58e8432b87",
+      "modelBbox": {
+        "x": 1174.32,
+        "y": 634.13,
+        "width": 160.43,
+        "height": 72.24
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.6255,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-83a62acff71a",
+      "modelBbox": {
+        "x": 689.34,
+        "y": 645.87,
+        "width": 82.14,
+        "height": 120.92
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.5892,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8de4b4b959b6",
+      "modelBbox": {
+        "x": 1331.55,
+        "y": 419.49,
+        "width": 53.3,
+        "height": 348.21
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.5188,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-049c2bb14484",
+      "modelBbox": {
+        "x": 758.96,
+        "y": 605.01,
+        "width": 143.04,
+        "height": 82.75
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.3451,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4f18f46bf2bf",
+      "modelBbox": {
+        "x": 1330.85,
+        "y": 663.48,
+        "width": 58.27,
+        "height": 148.83
+      },
+      "classLabel": "aeldari",
+      "pseudoScore": 0.2925,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

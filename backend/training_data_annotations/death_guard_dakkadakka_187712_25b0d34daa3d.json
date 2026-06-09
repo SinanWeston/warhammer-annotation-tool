@@ -1,0 +1,84 @@
+{
+  "imageId": "death_guard_dakkadakka_187712_25b0d34daa3d",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/187712_25b0d34daa3d.jpg",
+  "faction": "death_guard",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 533,
+  "annotations": [
+    {
+      "id": "pseudo-96d5c18c3163",
+      "modelBbox": {
+        "x": 504.69103754783157,
+        "y": 210.38999938964844,
+        "width": 150.20408163265313,
+        "height": 254.65535200858602
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-a4a8c5c59dae",
+      "modelBbox": {
+        "x": 174.8699951171875,
+        "y": 253.3800048828125,
+        "width": 128.4199981689453,
+        "height": 151.64999389648438
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-ea89c7699926",
+      "modelBbox": {
+        "x": 228.8800048828125,
+        "y": 143.02999877929688,
+        "width": 115,
+        "height": 167.75999450683594
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-d5c0aeaaa4bb",
+      "modelBbox": {
+        "x": 302.6400146484375,
+        "y": 340.92999267578125,
+        "width": 196.9499969482422,
+        "height": 162.47999572753906
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "f745c094-e21d-48ac-9fb7-b699fa2aec8e",
+      "modelBbox": {
+        "x": 547.1400171396683,
+        "y": 14.603159378985968,
+        "width": 128.1632653061224,
+        "height": 71.83673469387755
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "5e7df53e-d5aa-43f9-98af-25a60ba7d1ad",
+      "modelBbox": {
+        "x": 686.7318538743622,
+        "y": 6.43989407286352,
+        "width": 112.65306122448976,
+        "height": 174.6938775510204
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "dd329be4-0a2d-4f42-afa2-49465a866b5c",
+      "modelBbox": {
+        "x": 334.89511918048464,
+        "y": 66.0317308075574,
+        "width": 323.265306122449,
+        "height": 301.5986353037309
+      },
+      "classLabel": "chaos_space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:09:14.762Z",
+  "annotatedBy": "sinan"
+}

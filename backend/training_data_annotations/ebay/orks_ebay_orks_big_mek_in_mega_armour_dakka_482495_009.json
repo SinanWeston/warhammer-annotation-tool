@@ -1,0 +1,68 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_in_mega_armour_dakka_482495_009",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_in_mega_armour_dakka_482495_009.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1192,
+  "height": 669,
+  "annotations": [
+    {
+      "id": "dino_0_1773584590251",
+      "modelBbox": {
+        "x": 445.5,
+        "y": 35.7,
+        "width": 285.6,
+        "height": 273.4
+      },
+      "classLabel": "orks",
+      "confidence": 0.745
+    },
+    {
+      "id": "dino_1_1773584590251",
+      "modelBbox": {
+        "x": 614.2,
+        "y": 269.1,
+        "width": 322.2,
+        "height": 337.1
+      },
+      "classLabel": "orks",
+      "confidence": 0.579
+    },
+    {
+      "id": "dino_2_1773584590251",
+      "modelBbox": {
+        "x": 828,
+        "y": 96.7,
+        "width": 342.2,
+        "height": 294
+      },
+      "classLabel": "orks",
+      "confidence": 0.315
+    },
+    {
+      "id": "e20ea4f4-6d18-4c99-8c90-cabbb2e294a5",
+      "modelBbox": {
+        "x": 139.08931965032306,
+        "y": 289.7175028506271,
+        "width": 366.97833523375135,
+        "height": 301.7377423033068
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "14302385-94f5-4d74-bef0-72207892c037",
+      "modelBbox": {
+        "x": 64.78753325731661,
+        "y": 43.25304066894717,
+        "width": 336.1702774610414,
+        "height": 307.1744583808438
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:25:03.833Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

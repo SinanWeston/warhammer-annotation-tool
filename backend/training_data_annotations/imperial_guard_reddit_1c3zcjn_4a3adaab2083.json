@@ -1,0 +1,178 @@
+{
+  "imageId": "imperial_guard_reddit_1c3zcjn_4a3adaab2083",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1c3zcjn_4a3adaab2083.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4000,
+  "height": 3000,
+  "annotations": [
+    {
+      "id": "pseudo-e5b4d056014b",
+      "modelBbox": {
+        "x": 2653.7,
+        "y": 2425.28,
+        "width": 1346.3,
+        "height": 574.72
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.8683,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2d17eda02a3e",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 1511.63,
+        "width": 1320.39,
+        "height": 1488.27
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.8671,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2d76b4a96ad9",
+      "modelBbox": {
+        "x": 503.9,
+        "y": 1073.66,
+        "width": 1425.19,
+        "height": 1649.89
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.8464,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1af76470ef35",
+      "modelBbox": {
+        "x": 2077.02,
+        "y": 1076.4,
+        "width": 1777.38,
+        "height": 1693.01
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7544,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-808f9473d7f7",
+      "modelBbox": {
+        "x": 509.4,
+        "y": 101.54,
+        "width": 1422.87,
+        "height": 1819.8
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.734,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-aa39342a7402",
+      "modelBbox": {
+        "x": 3135.0,
+        "y": 1077.85,
+        "width": 865.0,
+        "height": 612.94
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.6906,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b47f55649468",
+      "modelBbox": {
+        "x": 2647.43,
+        "y": 2676.94,
+        "width": 821.94,
+        "height": 320.82
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.6843,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-73fcf8d0b2d7",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 1512.89,
+        "width": 532.55,
+        "height": 406.7
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.6191,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-dadffecd7baa",
+      "modelBbox": {
+        "x": 3119.67,
+        "y": 1079.46,
+        "width": 343.3,
+        "height": 246.16
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4613,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b39cace1b5b7",
+      "modelBbox": {
+        "x": 2069.58,
+        "y": 56.33,
+        "width": 1787.83,
+        "height": 1868.14
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4285,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

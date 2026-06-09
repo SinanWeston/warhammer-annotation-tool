@@ -1,0 +1,66 @@
+{
+  "imageId": "orks_ebay_orks_wurrboy_ebay_227049282584_06",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_wurrboy_ebay_227049282584_06.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1028,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "pseudo-f152a90d901f",
+      "modelBbox": {
+        "x": 17.06,
+        "y": 615.14,
+        "width": 754.69,
+        "height": 766.13
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.9328,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-344ca34d4497",
+      "modelBbox": {
+        "x": 273.09,
+        "y": 16.4,
+        "width": 500.66,
+        "height": 754.72
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.8287,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4090bebc75a7",
+      "modelBbox": {
+        "x": 258.01,
+        "y": 830.19,
+        "width": 604.14,
+        "height": 744.06
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.8286,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

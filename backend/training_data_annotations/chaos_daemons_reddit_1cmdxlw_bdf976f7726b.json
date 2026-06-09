@@ -1,0 +1,95 @@
+{
+  "imageId": "chaos_daemons_reddit_1cmdxlw_bdf976f7726b",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/reddit/1cmdxlw_bdf976f7726b.jpg",
+  "faction": "chaos_daemons",
+  "source": "reddit",
+  "width": 3074,
+  "height": 1744,
+  "annotations": [
+    {
+      "id": "5bb47732-19f6-4c2a-814b-b846befcf933",
+      "modelBbox": {
+        "x": 71.27099961991638,
+        "y": 534.4959853667807,
+        "width": 979.0999619916381,
+        "height": 981.436716077537
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "b1fbd74d-4b7c-4402-921b-636798a8637a",
+      "modelBbox": {
+        "x": 43.2299505891296,
+        "y": 412.984772900038,
+        "width": 923.0178639300648,
+        "height": 923.0178639300646
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "135bfff0-7a21-4bbf-b2ab-d496453ebdbd",
+      "modelBbox": {
+        "x": 2260.809578107184,
+        "y": 249.41198688711518,
+        "width": 773.465602432535,
+        "height": 1166.04028886355
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "bfd045bb-28a5-4680-a950-f727e22750cd",
+      "modelBbox": {
+        "x": 1884.592170277461,
+        "y": 602.2618538578487,
+        "width": 768.7920942607373,
+        "height": 1009.477765108324
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "5940b3de-763c-417b-875b-96152b9d010a",
+      "modelBbox": {
+        "x": 1618.2022044849869,
+        "y": 492.4344118206006,
+        "width": 565.4944887875331,
+        "height": 939.3751425313567
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "49aa89bb-ee6f-4a99-824a-891908e1a809",
+      "modelBbox": {
+        "x": 1503.7012542759408,
+        "y": 389.617232041049,
+        "width": 488.3816039528697,
+        "height": 831.8844545800075
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "11670fd3-e758-4da9-b735-8fc285d5b782",
+      "modelBbox": {
+        "x": 1029.3401748384645,
+        "y": 382.6069697833523,
+        "width": 502.4021284682631,
+        "height": 974.4264538198404
+      },
+      "classLabel": "chaos_daemons"
+    },
+    {
+      "id": "2a3ab0d0-db1c-4896-92d5-c83704adf165",
+      "modelBbox": {
+        "x": 368.0387685290764,
+        "y": 422.3317892436336,
+        "width": 1535.247434435576,
+        "height": 1271.1942227290006
+      },
+      "classLabel": "chaos_daemons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:53:18.793Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

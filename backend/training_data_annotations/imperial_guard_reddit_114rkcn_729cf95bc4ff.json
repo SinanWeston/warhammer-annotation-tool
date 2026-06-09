@@ -1,0 +1,73 @@
+{
+  "imageId": "imperial_guard_reddit_114rkcn_729cf95bc4ff",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/114rkcn_729cf95bc4ff.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "9111b329-2640-4ae4-a172-fd5aa58932e6",
+      "modelBbox": {
+        "x": 10.792843191964286,
+        "y": 1197.135728236607,
+        "width": 656.2285714285715,
+        "height": 1008
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "bd5eab12-8695-48d3-85c1-bedc7ed4f85f",
+      "modelBbox": {
+        "x": 512.7357003348214,
+        "y": 1106.6214425223213,
+        "width": 469.02857142857147,
+        "height": 781.7142857142858
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "7f95a65b-1e25-4aa6-812c-5cf7b8714ee9",
+      "modelBbox": {
+        "x": 718.4499860491071,
+        "y": 1254.7357282366072,
+        "width": 582.1714285714286,
+        "height": 927.7714285714285
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "164177e3-c85b-471d-94a7-47a09b789b64",
+      "modelBbox": {
+        "x": 1140.164271763393,
+        "y": 939.9928710937501,
+        "width": 516.3428571428572,
+        "height": 958.6285714285715
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "ba446634-7ea0-44e2-845a-25b2c2c653da",
+      "modelBbox": {
+        "x": 1535.1357003348214,
+        "y": 1236.2214425223215,
+        "width": 534.8571428571429,
+        "height": 861.9428571428571
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "ddf4d8d4-fca2-4736-85b7-aa765d313782",
+      "modelBbox": {
+        "x": 2020.6214146205357,
+        "y": 1147.7642996651787,
+        "width": 376.457142857143,
+        "height": 771.4285714285713
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T19:09:12.157Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

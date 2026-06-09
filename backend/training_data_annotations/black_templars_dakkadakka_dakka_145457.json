@@ -1,0 +1,24 @@
+{
+  "imageId": "black_templars_dakkadakka_dakka_145457",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_145457.jpg",
+  "faction": "black_templars",
+  "source": "dakkadakka",
+  "width": 437,
+  "height": 800,
+  "annotations": [
+    {
+      "id": "pseudo-9fde0f9d3932",
+      "modelBbox": {
+        "x": 61.68000030517578,
+        "y": 36.2599983215332,
+        "width": 312.05999755859375,
+        "height": 712.0399780273438
+      },
+      "classLabel": "black_templars"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:34:01.553Z",
+  "annotatedBy": "sinan"
+}

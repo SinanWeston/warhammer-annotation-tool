@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_beastboss_on_squigosaur_ebay_167843421387_14",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_beastboss_on_squigosaur_ebay_167843421387_14.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1199,
+  "height": 1599,
+  "annotations": [
+    {
+      "id": "dino_0_1773583841514",
+      "modelBbox": {
+        "x": 326.751425313569,
+        "y": 56.6944484036488,
+        "width": 650.7685290763968,
+        "height": 1484.7366020524516
+      },
+      "classLabel": "orks",
+      "confidence": 0.505
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:10:52.094Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

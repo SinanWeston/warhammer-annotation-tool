@@ -1,0 +1,77 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_in_mega_armour_dakka_155765_002",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_in_mega_armour_dakka_155765_002.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 2592,
+  "height": 1944,
+  "annotations": [
+    {
+      "id": "dino_0_1773584511806",
+      "modelBbox": {
+        "x": 9.605473204104904,
+        "y": 691.2015393386546,
+        "width": 875.1945267958951,
+        "height": 889.6145952109464
+      },
+      "classLabel": "orks",
+      "confidence": 0.65
+    },
+    {
+      "id": "dino_1_1773584511806",
+      "modelBbox": {
+        "x": 1047.6,
+        "y": 612.8,
+        "width": 573.8,
+        "height": 901.5167046750288
+      },
+      "classLabel": "orks",
+      "confidence": 0.604
+    },
+    {
+      "id": "4a11e36b-e713-4950-9ead-6fd1a150f379",
+      "modelBbox": {
+        "x": 367.2246294184721,
+        "y": 513.8697263397947,
+        "width": 737.4047890535919,
+        "height": 730.0159635119727
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "fda1a997-fb5a-4e0d-902e-b1f89324ae96",
+      "modelBbox": {
+        "x": 1298.216647662486,
+        "y": 435.54817559863176,
+        "width": 576.3283922462942,
+        "height": 797.9931584948688
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "56a33573-9b50-42b2-8099-a3dfafa0b9fc",
+      "modelBbox": {
+        "x": 1664.702394526796,
+        "y": 673.4683580387685,
+        "width": 849.7149372862032,
+        "height": 1219.1562143671608
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "3fbaead2-29b0-455e-a7d7-0aaa5fa05972",
+      "modelBbox": {
+        "x": 1961.7331812998862,
+        "y": 565.5915051311289,
+        "width": 616.2280501710377,
+        "height": 861.5370581527937
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:22:42.025Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

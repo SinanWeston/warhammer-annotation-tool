@@ -1,0 +1,642 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_748667",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_748667.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 1224,
+  "height": 4036,
+  "annotations": [
+    {
+      "id": "pseudo-767f9e80532d",
+      "modelBbox": {
+        "x": 8.28,
+        "y": 3337.58,
+        "width": 1212.76,
+        "height": 376.86
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.8396,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b5e9dc9a2d76",
+      "modelBbox": {
+        "x": 1071.9,
+        "y": 1953.76,
+        "width": 152.1,
+        "height": 205.7
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.7215,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a1ac70d11fcd",
+      "modelBbox": {
+        "x": 37.59,
+        "y": 2459.09,
+        "width": 632.66,
+        "height": 680.4
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.7144,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a99220f4cf9f",
+      "modelBbox": {
+        "x": 549.52,
+        "y": 2404.63,
+        "width": 674.48,
+        "height": 326.57
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.7144,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-48c61f54a97b",
+      "modelBbox": {
+        "x": 189.89,
+        "y": 1721.85,
+        "width": 307.33,
+        "height": 387.02
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.7029,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ddc9082b7f8e",
+      "modelBbox": {
+        "x": 338.7,
+        "y": 750.32,
+        "width": 478.73,
+        "height": 198.78
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6993,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8849ca4a3533",
+      "modelBbox": {
+        "x": 663.74,
+        "y": 1668.54,
+        "width": 560.26,
+        "height": 230.69
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6925,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-750f35e78a8e",
+      "modelBbox": {
+        "x": 395.59,
+        "y": 290.15,
+        "width": 341.7,
+        "height": 129.46
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6764,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4bedc2ca0ffd",
+      "modelBbox": {
+        "x": 653.22,
+        "y": 2836.58,
+        "width": 181.33,
+        "height": 350.22
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6749,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-97e063ddc19f",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 2405.94,
+        "width": 574.34,
+        "height": 321.33
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6708,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-fcce16971d4b",
+      "modelBbox": {
+        "x": 148.0,
+        "y": 1108.09,
+        "width": 215.26,
+        "height": 235.8
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6624,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e831001f197e",
+      "modelBbox": {
+        "x": 341.56,
+        "y": 54.36,
+        "width": 438.72,
+        "height": 133.38
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6468,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-59c2b9e54032",
+      "modelBbox": {
+        "x": 950.52,
+        "y": 3925.47,
+        "width": 273.48,
+        "height": 110.53
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6409,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0192016cea3c",
+      "modelBbox": {
+        "x": 935.54,
+        "y": 2798.46,
+        "width": 195.51,
+        "height": 318.95
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6278,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-11111adf4dd1",
+      "modelBbox": {
+        "x": 39.7,
+        "y": 944.33,
+        "width": 268.55,
+        "height": 237.92
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6271,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-64378f08a3c7",
+      "modelBbox": {
+        "x": 634.82,
+        "y": 939.49,
+        "width": 283.84,
+        "height": 257.4
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6225,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2e401908f502",
+      "modelBbox": {
+        "x": 819.07,
+        "y": 1155.51,
+        "width": 336.4,
+        "height": 214.81
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6215,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a683f87507eb",
+      "modelBbox": {
+        "x": 835.27,
+        "y": 266.43,
+        "width": 258.07,
+        "height": 120.44
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6152,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6471510b4fd0",
+      "modelBbox": {
+        "x": 808.03,
+        "y": 387.02,
+        "width": 379.92,
+        "height": 180.02
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6095,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3851091f80c6",
+      "modelBbox": {
+        "x": 55.12,
+        "y": 3362.69,
+        "width": 948.62,
+        "height": 122.52
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6013,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ba66b744fcdd",
+      "modelBbox": {
+        "x": 410.16,
+        "y": 1046.64,
+        "width": 332.81,
+        "height": 359.08
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.5886,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-30089e164c05",
+      "modelBbox": {
+        "x": 62.93,
+        "y": 307.55,
+        "width": 251.83,
+        "height": 242.95
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.5743,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c88626a005c1",
+      "modelBbox": {
+        "x": 859.96,
+        "y": 913.37,
+        "width": 255.48,
+        "height": 231.56
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.5685,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7c65fb3346db",
+      "modelBbox": {
+        "x": 657.81,
+        "y": 271.54,
+        "width": 245.47,
+        "height": 124.05
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.5594,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-51f01c5c98c7",
+      "modelBbox": {
+        "x": 415.41,
+        "y": 1686.65,
+        "width": 347.87,
+        "height": 204.97
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.5253,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-014924485165",
+      "modelBbox": {
+        "x": 23.49,
+        "y": 285.78,
+        "width": 282.94,
+        "height": 122.86
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.5027,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f63513caa053",
+      "modelBbox": {
+        "x": 292.11,
+        "y": 963.73,
+        "width": 250.71,
+        "height": 318.27
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.4838,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7cd6f05bc17f",
+      "modelBbox": {
+        "x": 1027.78,
+        "y": 1665.4,
+        "width": 196.22,
+        "height": 212.93
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.4772,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6ff0f653814a",
+      "modelBbox": {
+        "x": 11.07,
+        "y": 1690.93,
+        "width": 360.36,
+        "height": 202.31
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.4598,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b02632ed7c2d",
+      "modelBbox": {
+        "x": 905.27,
+        "y": 2490.3,
+        "width": 318.73,
+        "height": 248.71
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.4287,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-03db30184951",
+      "modelBbox": {
+        "x": 6.59,
+        "y": 3095.34,
+        "width": 583.17,
+        "height": 125.52
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.4203,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c853dd868f8d",
+      "modelBbox": {
+        "x": 25.18,
+        "y": 3962.96,
+        "width": 808.83,
+        "height": 73.04
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3715,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bcfe079be7f8",
+      "modelBbox": {
+        "x": 913.0,
+        "y": 3006.56,
+        "width": 306.83,
+        "height": 213.54
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3685,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9e0cf7d80740",
+      "modelBbox": {
+        "x": 629.83,
+        "y": 3004.31,
+        "width": 248.49,
+        "height": 216.07
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3522,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3db4524a4bcd",
+      "modelBbox": {
+        "x": 1059.95,
+        "y": 2991.12,
+        "width": 164.05,
+        "height": 225.1
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3461,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3ec16fac9891",
+      "modelBbox": {
+        "x": 1041.35,
+        "y": 3335.39,
+        "width": 173.85,
+        "height": 146.67
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3165,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b94226a9195b",
+      "modelBbox": {
+        "x": 21.17,
+        "y": 1687.61,
+        "width": 776.81,
+        "height": 411.19
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3135,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4f208ea53139",
+      "modelBbox": {
+        "x": 11.1,
+        "y": 2397.66,
+        "width": 1202.74,
+        "height": 721.6
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.2715,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d5deae3e1926",
+      "modelBbox": {
+        "x": 18.92,
+        "y": 2408.09,
+        "width": 1199.68,
+        "height": 361.21
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.2515,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

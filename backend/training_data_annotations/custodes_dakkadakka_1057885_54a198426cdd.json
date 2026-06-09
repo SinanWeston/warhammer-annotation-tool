@@ -1,0 +1,54 @@
+{
+  "imageId": "custodes_dakkadakka_1057885_54a198426cdd",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1057885_54a198426cdd.jpg",
+  "faction": "custodes",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "pred_0_1770562550569",
+      "modelBbox": {
+        "x": 0.7851791381835938,
+        "y": 37.12482452392578,
+        "width": 398.5662307739258,
+        "height": 562.8751754760742
+      },
+      "classLabel": "custodes",
+      "confidence": 0.8281035423278809,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "pred_1_1770562550569",
+      "modelBbox": {
+        "x": 263.7372741699219,
+        "y": 57.485198974609375,
+        "width": 304.4511413574219,
+        "height": 426.0021057128906
+      },
+      "classLabel": "custodes",
+      "confidence": 0.8092246651649475,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "pred_2_1770562550569",
+      "modelBbox": {
+        "x": 444.60272216796875,
+        "y": 40.42671203613281,
+        "width": 354.88616943359375,
+        "height": 557.7739105224609
+      },
+      "classLabel": "custodes",
+      "confidence": 0.7505173087120056,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T14:56:38.791Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,61 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_601249",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_601249.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 3032,
+  "height": 3400,
+  "annotations": [
+    {
+      "id": "dino_0_1772986816473",
+      "modelBbox": {
+        "x": 58.5,
+        "y": 1727.7,
+        "width": 1394.5,
+        "height": 1635.7919013655408
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.759,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_1_1772986816473",
+      "modelBbox": {
+        "x": 1645.8,
+        "y": 1720.2,
+        "width": 1326.3,
+        "height": 1650.961378599942
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.729
+    },
+    {
+      "id": "dino_2_1772986816473",
+      "modelBbox": {
+        "x": 10.3,
+        "y": 3.2,
+        "width": 1645.4548144695932,
+        "height": 1675.5633241907542
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.706
+    },
+    {
+      "id": "dino_3_1772986816473",
+      "modelBbox": {
+        "x": 1663.4242917039946,
+        "y": 5.3,
+        "width": 1312.8757082960053,
+        "height": 1665.7938469563528
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.693
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-08T16:20:36.913Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

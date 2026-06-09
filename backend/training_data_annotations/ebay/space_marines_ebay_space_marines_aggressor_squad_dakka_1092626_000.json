@@ -1,0 +1,47 @@
+{
+  "imageId": "space_marines_ebay_space_marines_aggressor_squad_dakka_1092626_000",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_aggressor_squad_dakka_1092626_000.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 3264,
+  "height": 2448,
+  "annotations": [
+    {
+      "id": "dino_0_1773599565954",
+      "modelBbox": {
+        "x": 396.36944127708097,
+        "y": 345.1368301026226,
+        "width": 1101.6465222348916,
+        "height": 1455.2155074116306
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.745
+    },
+    {
+      "id": "dino_1_1773599565954",
+      "modelBbox": {
+        "x": 902.5313568985177,
+        "y": 635.4355758266819,
+        "width": 1578.0342075256556,
+        "height": 1723.1835803876854
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.434
+    },
+    {
+      "id": "d3eca6e6-6bac-4d06-b32d-d239a9a55c4f",
+      "modelBbox": {
+        "x": 1643.1653363740024,
+        "y": 378.63283922462944,
+        "width": 1016.0456100342076,
+        "height": 1306.3443557582668
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:33:19.988Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

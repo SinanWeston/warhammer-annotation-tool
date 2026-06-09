@@ -1,0 +1,91 @@
+{
+  "imageId": "space_marines_ebay_space_marines_attack_bike_squad_dakka_107013_011",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_attack_bike_squad_dakka_107013_011.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 3648,
+  "height": 2736,
+  "annotations": [
+    {
+      "id": "dino_0_1773606458160",
+      "modelBbox": {
+        "x": 1548.770809578107,
+        "y": 858.921322690992,
+        "width": 951.1698973774228,
+        "height": 1181.3363740022805
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.833
+    },
+    {
+      "id": "dino_1_1773606458160",
+      "modelBbox": {
+        "x": 67.94070695553022,
+        "y": 1116.818700114025,
+        "width": 504.9592930444698,
+        "height": 710.6812998859751
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.551
+    },
+    {
+      "id": "dino_2_1773606458160",
+      "modelBbox": {
+        "x": 1186.9,
+        "y": 1128.4,
+        "width": 466.7,
+        "height": 570.1
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.504
+    },
+    {
+      "id": "dino_3_1773606458160",
+      "modelBbox": {
+        "x": 2406.3,
+        "y": 1089.0877993158495,
+        "width": 781.3670467502845,
+        "height": 795.8768529076397
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.458
+    },
+    {
+      "id": "dino_4_1773606458160",
+      "modelBbox": {
+        "x": 801.2,
+        "y": 1146.6,
+        "width": 315.3,
+        "height": 402.2
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.319
+    },
+    {
+      "id": "dino_5_1773606458160",
+      "modelBbox": {
+        "x": 3023.5,
+        "y": 1117.7,
+        "width": 582.1,
+        "height": 595.9
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.281
+    },
+    {
+      "id": "acd78cb1-8744-4a24-a557-55421089ebf7",
+      "modelBbox": {
+        "x": 456.1733181299886,
+        "y": 1197.2383124287344,
+        "width": 953.9429874572405,
+        "height": 840.2462941847207
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:28:07.855Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

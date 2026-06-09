@@ -1,0 +1,47 @@
+{
+  "imageId": "space_marines_ebay_space_marines_attack_bike_squad_ebay_304760405497_11",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_attack_bike_squad_ebay_304760405497_11.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1512,
+  "height": 1512,
+  "annotations": [
+    {
+      "id": "dino_0_1773606624914",
+      "modelBbox": {
+        "x": 730.139110604333,
+        "y": 592.6184435575827,
+        "width": 729.2770809578105,
+        "height": 822.376282782212
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.576
+    },
+    {
+      "id": "dino_1_1773606624914",
+      "modelBbox": {
+        "x": 37.067274800456104,
+        "y": 171.94797605473204,
+        "width": 693.071835803877,
+        "height": 718.9327251995439
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.414
+    },
+    {
+      "id": "76b89bdd-76b6-41dd-bef7-200bb257b6a8",
+      "modelBbox": {
+        "x": 352.57012542759406,
+        "y": 328.8373717217788,
+        "width": 777.5507411630558,
+        "height": 775.8266818700114
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:31:07.749Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

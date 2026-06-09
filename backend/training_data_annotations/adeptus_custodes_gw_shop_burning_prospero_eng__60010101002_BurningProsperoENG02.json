@@ -1,0 +1,69 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_burning_prospero_eng__60010101002_BurningProsperoENG02",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/burning_prospero_eng__60010101002_BurningProsperoENG02.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778673705663",
+      "modelBbox": {
+        "x": 100,
+        "y": 457.397951398577,
+        "width": 669.8908591757015,
+        "height": 1056.4626031992389
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "custodian_guard"
+    },
+    {
+      "id": "db7badee-676b-4cb7-909e-e3a31d43671a",
+      "modelBbox": {
+        "x": 755.6051448899873,
+        "y": 1065.1076959103955,
+        "width": 661.2244897959183,
+        "height": 813.6054545032734
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "custodian_guard"
+    },
+    {
+      "id": "9de55734-eb99-4ce9-989c-16ac9b8cdb78",
+      "modelBbox": {
+        "x": 1382.1357571348851,
+        "y": 726.2825790716678,
+        "width": 522.4489795918369,
+        "height": 712.2448979591837
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "custodian_guard"
+    },
+    {
+      "id": "f4eab50e-9a9e-496e-80b2-d767a1db0a59",
+      "modelBbox": {
+        "x": 384.17657346141584,
+        "y": 375.08503271608936,
+        "width": 777.5510204081633,
+        "height": 679.542230100048
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "custodian_guard"
+    },
+    {
+      "id": "df75c938-1bc0-493d-b724-38b59fdf83d6",
+      "modelBbox": {
+        "x": 1178.054124481824,
+        "y": 247.42061070033483,
+        "width": 516.326530612245,
+        "height": 614.2361076510683
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "custodian_guard"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T12:03:49.158Z",
+  "annotatedBy": "sinan"
+}

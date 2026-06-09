@@ -1,0 +1,24 @@
+{
+  "imageId": "_unknown_cmon_cmon_471299_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471299_00.jpg",
+  "faction": "orks",
+  "source": "cmon",
+  "width": 959,
+  "height": 1279,
+  "annotations": [
+    {
+      "id": "c6d98d7a-078c-4bd3-b36a-28abab168757",
+      "modelBbox": {
+        "x": 152.2750478814843,
+        "y": 286.2438304843199,
+        "width": 753.0542299349241,
+        "height": 834.8778018799712
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T10:40:13.016Z",
+  "annotatedBy": "sinan"
+}

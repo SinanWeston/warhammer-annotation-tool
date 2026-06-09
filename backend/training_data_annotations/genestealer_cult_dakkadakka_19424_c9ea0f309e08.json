@@ -1,0 +1,92 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_19424_c9ea0f309e08",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/19424_c9ea0f309e08.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 187,
+  "annotations": [
+    {
+      "id": "dino_0_1773090178676",
+      "modelBbox": {
+        "x": 148.7,
+        "y": 47.4,
+        "width": 104.3,
+        "height": 111.99281641961232
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.614
+    },
+    {
+      "id": "dino_1_1773090178676",
+      "modelBbox": {
+        "x": 668.2,
+        "y": 21.7,
+        "width": 123.2,
+        "height": 141.3
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.601
+    },
+    {
+      "id": "dino_2_1773090178676",
+      "modelBbox": {
+        "x": 5.017103762827823,
+        "y": 52.7,
+        "width": 137.78289623717217,
+        "height": 116.1
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.599
+    },
+    {
+      "id": "dino_3_1773090178676",
+      "modelBbox": {
+        "x": 559.2,
+        "y": 10.3,
+        "width": 107.1,
+        "height": 146.35621436716076
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.545
+    },
+    {
+      "id": "dino_4_1773090178676",
+      "modelBbox": {
+        "x": 244.6,
+        "y": 46.3,
+        "width": 117.8,
+        "height": 126.3
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.512
+    },
+    {
+      "id": "dino_5_1773090178676",
+      "modelBbox": {
+        "x": 445.3,
+        "y": 57.7,
+        "width": 136.1,
+        "height": 112.63922462941846
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.43
+    },
+    {
+      "id": "dino_6_1773090178676",
+      "modelBbox": {
+        "x": 347.1,
+        "y": 5.4,
+        "width": 125.4,
+        "height": 153.99281641961232
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.361
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:03:25.795Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

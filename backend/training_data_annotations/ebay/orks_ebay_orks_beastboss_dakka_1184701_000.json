@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_beastboss_dakka_1184701_000",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_beastboss_dakka_1184701_000.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 2452,
+  "height": 2585,
+  "annotations": [
+    {
+      "id": "dino_0_1773583564433",
+      "modelBbox": {
+        "x": 498.5,
+        "y": 46.78755701254275,
+        "width": 1356.9,
+        "height": 2478.112442987457
+      },
+      "classLabel": "orks",
+      "confidence": 0.783
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:07:31.812Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

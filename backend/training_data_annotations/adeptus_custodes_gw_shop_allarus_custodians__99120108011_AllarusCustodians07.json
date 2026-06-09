@@ -1,0 +1,47 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_allarus_custodians__99120108011_AllarusCustodians07",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/allarus_custodians__99120108011_AllarusCustodians07.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778673221543",
+      "modelBbox": {
+        "x": 1086.2173897879466,
+        "y": 120.66320302535077,
+        "width": 813.7826102120534,
+        "height": 788.8889468446068
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    },
+    {
+      "id": "67d3a185-45a0-4f0b-8d8e-245721e7d5d5",
+      "modelBbox": {
+        "x": 42.67995406170281,
+        "y": 114.9943293357382,
+        "width": 900,
+        "height": 1352.1258529351683
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    },
+    {
+      "id": "eba81da2-2a1a-4e6a-a622-8ce01a8df8d5",
+      "modelBbox": {
+        "x": 852.8840356943559,
+        "y": 424.2913693797832,
+        "width": 953.0612244897958,
+        "height": 1525.850366086376
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T11:54:54.868Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,53 @@
+{
+  "imageId": "custodes_dakkadakka_1040930_82abbd4d3a7b",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1040930_82abbd4d3a7b.jpg",
+  "faction": "custodes",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 599,
+  "annotations": [
+    {
+      "id": "ed3f18e1-0a22-4458-80bf-cf49b5638f7f",
+      "modelBbox": {
+        "x": 145.57202584568606,
+        "y": 88.99895477004942,
+        "width": 233.37134169517296,
+        "height": 247.81451919422278
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "ae975c03-d513-412b-b687-9f6293d64ebd",
+      "modelBbox": {
+        "x": 20.1444317749905,
+        "y": 88.23878753325732,
+        "width": 167.23679209426078,
+        "height": 253.89585708855952
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "6dd61051-1179-4fe2-b263-a79cf378d7dd",
+      "modelBbox": {
+        "x": 396.4272139870772,
+        "y": 106.48280121626759,
+        "width": 211.32649182820222,
+        "height": 238.69251235271759
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "7c3df24f-8f0e-47e2-8f08-4b5d8d894869",
+      "modelBbox": {
+        "x": 614.5952109464082,
+        "y": 119.40564424173319,
+        "width": 181.6799695933106,
+        "height": 243.2535157734702
+      },
+      "classLabel": "custodes"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:21:40.953Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

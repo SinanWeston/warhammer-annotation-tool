@@ -1,0 +1,25 @@
+{
+  "imageId": "space_marines_ebay_space_marines_apothecary_dakka_256264_005",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_apothecary_dakka_256264_005.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 627,
+  "height": 593,
+  "annotations": [
+    {
+      "id": "dino_1_1773601169973",
+      "modelBbox": {
+        "x": 20.733181299885974,
+        "y": 23.928057297605474,
+        "width": 583.3888255416192,
+        "height": 563.3705815279361
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:59:55.609Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

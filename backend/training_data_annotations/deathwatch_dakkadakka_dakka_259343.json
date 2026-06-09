@@ -1,0 +1,24 @@
+{
+  "imageId": "deathwatch_dakkadakka_dakka_259343",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/deathwatch/dakkadakka/dakka_259343.jpg",
+  "faction": "space_marines",
+  "source": "dakkadakka",
+  "width": 3008,
+  "height": 2000,
+  "annotations": [
+    {
+      "id": "72a5b84a-9a2f-4941-9276-bbc04828256c",
+      "modelBbox": {
+        "x": 712.8546277104592,
+        "y": 211.10564811862247,
+        "width": 1310.6285714285716,
+        "height": 1642.122448979592
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:19:21.517Z",
+  "annotatedBy": "sinan"
+}

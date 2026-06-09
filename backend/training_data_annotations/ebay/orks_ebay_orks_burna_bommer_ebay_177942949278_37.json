@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_burna_bommer_ebay_177942949278_37",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_burna_bommer_ebay_177942949278_37.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 918,
+  "height": 948,
+  "annotations": [
+    {
+      "id": "dino_0_1773599538754",
+      "modelBbox": {
+        "x": 12.8,
+        "y": 134.7527437286203,
+        "width": 902.5831242873433,
+        "height": 591.4139110604333
+      },
+      "classLabel": "orks",
+      "confidence": 0.46
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:32:35.589Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

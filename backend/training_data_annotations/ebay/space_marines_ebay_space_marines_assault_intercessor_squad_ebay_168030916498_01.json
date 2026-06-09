@@ -1,0 +1,79 @@
+{
+  "imageId": "space_marines_ebay_space_marines_assault_intercessor_squad_ebay_168030916498_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_assault_intercessor_squad_ebay_168030916498_01.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1000,
+  "height": 750,
+  "annotations": [
+    {
+      "id": "dino_0_1773602003635",
+      "modelBbox": {
+        "x": 239.16761687571267,
+        "y": 439.98539053591793,
+        "width": 285.33238312428733,
+        "height": 288.4146094640821
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.499
+    },
+    {
+      "id": "dino_1_1773602003635",
+      "modelBbox": {
+        "x": 537.9133409350057,
+        "y": 308.2864167616876,
+        "width": 144.2417331812999,
+        "height": 279.9315849486887
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.431
+    },
+    {
+      "id": "dino_2_1773602003635",
+      "modelBbox": {
+        "x": 517.7,
+        "y": 427.44263112884835,
+        "width": 219.1,
+        "height": 276.55736887115165
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.39
+    },
+    {
+      "id": "dino_3_1773602003635",
+      "modelBbox": {
+        "x": 257.981755986317,
+        "y": 373.2807155074116,
+        "width": 243.218244013683,
+        "height": 232.61117445838096
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.368
+    },
+    {
+      "id": "84cf40f9-179e-4330-8e76-808037ca0604",
+      "modelBbox": {
+        "x": 307.58266818700116,
+        "y": 314.55779646522234,
+        "width": 163.6259977194983,
+        "height": 202.96465222348917
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "1ef42a11-73bd-4aa3-a133-ec1fc7886583",
+      "modelBbox": {
+        "x": 487.1721778791334,
+        "y": 333.3719355758267,
+        "width": 137.400228050171,
+        "height": 167.6168757126568
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T19:14:25.947Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,65 @@
+{
+  "imageId": "adepta_sororitas_reddit_1bjqt5t_1e108d424d23",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/1bjqt5t_1e108d424d23.jpg",
+  "faction": "adepta_sororitas",
+  "source": "reddit",
+  "width": 5712,
+  "height": 4284,
+  "annotations": [
+    {
+      "id": "4a283519-eecd-457b-80a5-ad2d1f7539e2",
+      "modelBbox": {
+        "x": 275.7217787913341,
+        "y": 1757.3871151653364,
+        "width": 1406.8323831242872,
+        "height": 1749.8563283922465
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "2480e3e2-fb7f-42aa-ae39-e991f7518dd1",
+      "modelBbox": {
+        "x": 2082.025085518814,
+        "y": 1748.7029646522233,
+        "width": 1306.9646522234893,
+        "height": 1788.9350057012543
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "1106fca8-cf73-4ff8-a58f-7a9643deb4cc",
+      "modelBbox": {
+        "x": 3606.093500570125,
+        "y": 1709.6242873432152,
+        "width": 1237.491448118586,
+        "height": 1689.0672748004558
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "59d6b1d1-6fda-433e-9ca3-4901f5dd8a58",
+      "modelBbox": {
+        "x": 2785.4412770809577,
+        "y": 563.3164196123147,
+        "width": 1154.9920182440137,
+        "height": 2470.6408209806154
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "f9bc7e47-9f1d-4f92-b630-319236642a14",
+      "modelBbox": {
+        "x": 1448.0820980615736,
+        "y": 650.1579247434436,
+        "width": 1033.4139110604333,
+        "height": 2409.8517673888255
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:16:54.650Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

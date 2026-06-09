@@ -1,0 +1,92 @@
+{
+  "imageId": "chaos_daemons_dakkadakka_dakka_1165323",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1165323.jpg",
+  "faction": "chaos_daemons",
+  "source": "dakkadakka",
+  "width": 2631,
+  "height": 3946,
+  "annotations": [
+    {
+      "id": "dino_0_1773089131191",
+      "modelBbox": {
+        "x": 8.4,
+        "y": 2537.6,
+        "width": 737.85,
+        "height": 1242.0015625000003
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.462
+    },
+    {
+      "id": "dino_1_1773089131191",
+      "modelBbox": {
+        "x": 1570.8,
+        "y": 2878.7,
+        "width": 666.1999999999998,
+        "height": 1018.7687500000003
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.46
+    },
+    {
+      "id": "dino_2_1773089131191",
+      "modelBbox": {
+        "x": 821.8,
+        "y": 2822.1,
+        "width": 782.7,
+        "height": 1121.0015625
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.402
+    },
+    {
+      "id": "dino_3_1773089131191",
+      "modelBbox": {
+        "x": 2024.3,
+        "y": 2712.7,
+        "width": 434.69999999999993,
+        "height": 906.7687500000001
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.39
+    },
+    {
+      "id": "dino_4_1773089131191",
+      "modelBbox": {
+        "x": 423.8,
+        "y": 1507.4,
+        "width": 1825.6,
+        "height": 1582.1
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.332
+    },
+    {
+      "id": "dino_5_1773089131191",
+      "modelBbox": {
+        "x": 1268.6,
+        "y": 2515.4,
+        "width": 506.2,
+        "height": 788.0687499999998
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.319
+    },
+    {
+      "id": "dino_7_1773089131191",
+      "modelBbox": {
+        "x": 1979.4,
+        "y": 2444.1,
+        "width": 406,
+        "height": 426.9
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.295
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:46:36.817Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

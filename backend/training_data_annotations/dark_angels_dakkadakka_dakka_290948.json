@@ -1,0 +1,24 @@
+{
+  "imageId": "dark_angels_dakkadakka_dakka_290948",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/dark_angels/dakkadakka/dakka_290948.jpg",
+  "faction": "dark_angels",
+  "source": "dakkadakka",
+  "width": 415,
+  "height": 535,
+  "annotations": [
+    {
+      "id": "pseudo-d031db7ab664",
+      "modelBbox": {
+        "x": 19.8700008392334,
+        "y": 32.47999954223633,
+        "width": 373.0400085449219,
+        "height": 455.83901829622226
+      },
+      "classLabel": "dark_angels"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T10:44:09.047Z",
+  "annotatedBy": "sinan"
+}

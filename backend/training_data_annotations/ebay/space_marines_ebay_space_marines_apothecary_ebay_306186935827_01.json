@@ -1,0 +1,26 @@
+{
+  "imageId": "space_marines_ebay_space_marines_apothecary_ebay_306186935827_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_apothecary_ebay_306186935827_01.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1201,
+  "height": 1599,
+  "annotations": [
+    {
+      "id": "dino_0_1773601661984",
+      "modelBbox": {
+        "x": 368.5,
+        "y": 366,
+        "width": 433.5,
+        "height": 724.4
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.34
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T19:08:21.028Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

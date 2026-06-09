@@ -1,0 +1,122 @@
+{
+  "imageId": "space_marines_ebay_space_marines_assault_intercessor_squad_ebay_168030916498_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_assault_intercessor_squad_ebay_168030916498_03.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1000,
+  "height": 750,
+  "annotations": [
+    {
+      "id": "dino_0_1773602116916",
+      "modelBbox": {
+        "x": 397.03534777651083,
+        "y": 440.8,
+        "width": 172.40592930444691,
+        "height": 214.1
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.869
+    },
+    {
+      "id": "dino_1_1773602116916",
+      "modelBbox": {
+        "x": 546.4,
+        "y": 427.24486887115165,
+        "width": 200.46431014823258,
+        "height": 225.75513112884838
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.849
+    },
+    {
+      "id": "dino_2_1773602116916",
+      "modelBbox": {
+        "x": 220.8,
+        "y": 419.4911630558723,
+        "width": 164.83283922462937,
+        "height": 234.4088369441277
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.815
+    },
+    {
+      "id": "dino_3_1773602116916",
+      "modelBbox": {
+        "x": 267.7,
+        "y": 370.7,
+        "width": 139.9,
+        "height": 181.9
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.804
+    },
+    {
+      "id": "dino_4_1773602116916",
+      "modelBbox": {
+        "x": 686.1,
+        "y": 428.5,
+        "width": 258.711858608894,
+        "height": 222.23403648802739
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.762
+    },
+    {
+      "id": "dino_5_1773602116916",
+      "modelBbox": {
+        "x": 22.2,
+        "y": 414.0892246294185,
+        "width": 212.2,
+        "height": 242.3107753705815
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.52
+    },
+    {
+      "id": "dino_7_1773602116916",
+      "modelBbox": {
+        "x": 647.4344355758267,
+        "y": 378.9,
+        "width": 147.46556442417335,
+        "height": 188.1
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.32
+    },
+    {
+      "id": "c45cdaf5-e2a8-4725-a512-9079e48f63a0",
+      "modelBbox": {
+        "x": 86.88711516533638,
+        "y": 367.9518244013683,
+        "width": 177.42303306727482,
+        "height": 183.35233751425312
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "1cd152fa-1468-4994-94d3-95968b80ff69",
+      "modelBbox": {
+        "x": 400.68415051311285,
+        "y": 372.96892816419614,
+        "width": 134.54960091220073,
+        "height": 176.96693272519946
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "38ad6fb8-e273-495d-8484-1320576c71d4",
+      "modelBbox": {
+        "x": 538.8825541619157,
+        "y": 302.7294754846066,
+        "width": 139.11060433295324,
+        "height": 249.48688711516536
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T19:16:33.012Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

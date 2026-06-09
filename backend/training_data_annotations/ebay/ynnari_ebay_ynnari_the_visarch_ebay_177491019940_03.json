@@ -1,0 +1,26 @@
+{
+  "imageId": "ynnari_ebay_ynnari_the_visarch_ebay_177491019940_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/ebay/ynnari_the_visarch_ebay_177491019940_03.jpg",
+  "faction": "ynnari",
+  "source": "ebay",
+  "width": 1378,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773691363266",
+      "modelBbox": {
+        "x": 513.9,
+        "y": 579.7,
+        "width": 420.2174458380844,
+        "height": 449.0616519384264
+      },
+      "classLabel": "ynnari",
+      "confidence": 0.384
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-16T20:02:50.209Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

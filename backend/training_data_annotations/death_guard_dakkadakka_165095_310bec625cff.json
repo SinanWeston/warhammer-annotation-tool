@@ -1,0 +1,114 @@
+{
+  "imageId": "death_guard_dakkadakka_165095_310bec625cff",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/165095_310bec625cff.jpg",
+  "faction": "death_guard",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 654,
+  "annotations": [
+    {
+      "id": "pseudo-adc59c01630a",
+      "modelBbox": {
+        "x": 94.80000305175781,
+        "y": 16.6200008392334,
+        "width": 515.9464029325109,
+        "height": 380.6600036621094
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-baefaa3a5dbe",
+      "modelBbox": {
+        "x": 21.18000030517578,
+        "y": 305.0400085449219,
+        "width": 158.72999572753906,
+        "height": 197.7899932861328
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-a546639ebaa3",
+      "modelBbox": {
+        "x": 633.8099975585938,
+        "y": 335.6199951171875,
+        "width": 143.88999938964844,
+        "height": 218.1725301937181
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-c22fa93fd192",
+      "modelBbox": {
+        "x": 174.25999450683594,
+        "y": 363,
+        "width": 144.3300018310547,
+        "height": 216.1199951171875
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-c37c7abe293f",
+      "modelBbox": {
+        "x": 226.1999969482422,
+        "y": 464.6099853515625,
+        "width": 263.3699951171875,
+        "height": 184.10316934390937
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "pseudo-b437f8ccbd04",
+      "modelBbox": {
+        "x": 305.0400085449219,
+        "y": 311.010009765625,
+        "width": 159.33999633789062,
+        "height": 167.33999633789062
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "6ee96ef7-2698-4c30-ba7e-4ae88b5ee3bf",
+      "modelBbox": {
+        "x": 438.8761333543427,
+        "y": 260.05102040816325,
+        "width": 127.75510204081633,
+        "height": 194.28571428571428
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "651b7af0-41d5-417e-ad7e-8f0d9ed8f589",
+      "modelBbox": {
+        "x": 462.0053910235969,
+        "y": 346.8537498007015,
+        "width": 193.87755102040813,
+        "height": 223.26530612244892
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "24a67559-848a-4df9-9a2f-5225cb2bc2e2",
+      "modelBbox": {
+        "x": 575.8829420440051,
+        "y": 247.17120735012753,
+        "width": 155.9183673469388,
+        "height": 189.34240224410075
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "c2a0c875-95d7-4e11-b2f7-9f5014c049b3",
+      "modelBbox": {
+        "x": 541.5972277582907,
+        "y": 189.62018694196428,
+        "width": 120.40816326530614,
+        "height": 173.46938775510205
+      },
+      "classLabel": "death_guard"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:07:36.938Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,35 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_156433_f2eb9d9b7c04",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/156433_f2eb9d9b7c04.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 667,
+  "height": 480,
+  "annotations": [
+    {
+      "id": "7898ec49-e91b-4d6d-b50a-e92bcd5e627a",
+      "modelBbox": {
+        "x": 315.2468643101483,
+        "y": 13.024372862029647,
+        "width": 319.42987457240594,
+        "height": 454.0467502850628
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "d9e16fae-bf8a-40a2-8b6e-fc52ea27cd3c",
+      "modelBbox": {
+        "x": 24.71778791334094,
+        "y": 20.62984606613455,
+        "width": 282.9236031927024,
+        "height": 419.82212086659064
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-04T20:50:26.358Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

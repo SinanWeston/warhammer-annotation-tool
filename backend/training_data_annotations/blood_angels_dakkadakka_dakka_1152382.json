@@ -1,0 +1,24 @@
+{
+  "imageId": "blood_angels_dakkadakka_dakka_1152382",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/blood_angels/dakkadakka/dakka_1152382.jpg",
+  "faction": "blood_angels",
+  "source": "dakkadakka",
+  "width": 907,
+  "height": 842,
+  "annotations": [
+    {
+      "id": "pseudo-932f58cd5b19",
+      "modelBbox": {
+        "x": 36.72999954223633,
+        "y": 60.58000183105469,
+        "width": 764.8699951171875,
+        "height": 728.1300048828125
+      },
+      "classLabel": "blood_angels"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:34:36.610Z",
+  "annotatedBy": "sinan"
+}

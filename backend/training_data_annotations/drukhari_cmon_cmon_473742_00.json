@@ -1,0 +1,84 @@
+{
+  "imageId": "drukhari_cmon_cmon_473742_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/cmon/cmon_473742_00.jpg",
+  "faction": "drukhari",
+  "source": "cmon",
+  "width": 1200,
+  "height": 436,
+  "annotations": [
+    {
+      "id": "pseudo-b97bff64394e",
+      "modelBbox": {
+        "x": 13.880000114440918,
+        "y": 17.079999923706055,
+        "width": 400.6199951171875,
+        "height": 331.3999938964844
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-015529f0f5a2",
+      "modelBbox": {
+        "x": 948.280029296875,
+        "y": 104.37999725341797,
+        "width": 242.75,
+        "height": 264.9800109863281
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-154c033da9c3",
+      "modelBbox": {
+        "x": 679.030029296875,
+        "y": 239.77000427246094,
+        "width": 89.25,
+        "height": 154.6199951171875
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-7d9737ac2fc8",
+      "modelBbox": {
+        "x": 189.1300048828125,
+        "y": 292.55999755859375,
+        "width": 86.02999877929688,
+        "height": 127.08999633789062
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-c072ea478197",
+      "modelBbox": {
+        "x": 492.04998779296875,
+        "y": 253.02999877929688,
+        "width": 91.45999908447266,
+        "height": 150.42999267578125
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-79a48b40d39c",
+      "modelBbox": {
+        "x": 585.5800170898438,
+        "y": 249.35000610351562,
+        "width": 87.6500015258789,
+        "height": 147.66000366210938
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-6ebaf4e19b8f",
+      "modelBbox": {
+        "x": 408.7099914550781,
+        "y": 242.38999938964844,
+        "width": 61.36000061035156,
+        "height": 110.2300033569336
+      },
+      "classLabel": "drukhari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:27:36.379Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,386 @@
+{
+  "imageId": "adepta_sororitas_gw_shop_kill_team_adepta_sororitas_novitiates__99120108121_KillTeamAdeptaSororitasNovitiates20254",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/gw_shop/kill_team_adepta_sororitas_novitiates__99120108121_KillTeamAdeptaSororitasNovitiates20254.jpg",
+  "faction": "adepta_sororitas",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "pseudo-f65ef8252d36",
+      "modelBbox": {
+        "x": 1604.3,
+        "y": 1076.61,
+        "width": 302.52,
+        "height": 442.14
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.9185,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7f677cd77213",
+      "modelBbox": {
+        "x": 1147.4,
+        "y": 600.85,
+        "width": 171.43,
+        "height": 302.0
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8942,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c054f59b847d",
+      "modelBbox": {
+        "x": 1677.9,
+        "y": 668.79,
+        "width": 255.09,
+        "height": 323.54
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8753,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9e88cb9ddd31",
+      "modelBbox": {
+        "x": 1273.54,
+        "y": 1005.18,
+        "width": 292.56,
+        "height": 382.12
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8553,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-52b5ae62bfb0",
+      "modelBbox": {
+        "x": 815.05,
+        "y": 632.63,
+        "width": 191.14,
+        "height": 331.18
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8424,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9f4aab5f38c8",
+      "modelBbox": {
+        "x": 791.35,
+        "y": 1074.04,
+        "width": 114.95,
+        "height": 437.3
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8195,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6365337edea4",
+      "modelBbox": {
+        "x": 1008.99,
+        "y": 1071.42,
+        "width": 298.81,
+        "height": 408.46
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8164,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d483ce8188a7",
+      "modelBbox": {
+        "x": 448.37,
+        "y": 644.1,
+        "width": 200.77,
+        "height": 326.29
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.8134,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bb8058241eef",
+      "modelBbox": {
+        "x": 193.08,
+        "y": 956.91,
+        "width": 291.97,
+        "height": 437.82
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.7953,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0f4bb3f68703",
+      "modelBbox": {
+        "x": 1362.69,
+        "y": 538.21,
+        "width": 323.73,
+        "height": 288.59
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.7848,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d6f79b6ad1df",
+      "modelBbox": {
+        "x": 645.52,
+        "y": 962.14,
+        "width": 259.65,
+        "height": 549.58
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.7828,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b4fa4b826355",
+      "modelBbox": {
+        "x": 450.85,
+        "y": 793.89,
+        "width": 137.84,
+        "height": 176.48
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.7253,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2537ce9c3269",
+      "modelBbox": {
+        "x": 1675.52,
+        "y": 666.88,
+        "width": 111.83,
+        "height": 203.49
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.6249,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-732c8ec758bc",
+      "modelBbox": {
+        "x": 789.06,
+        "y": 978.82,
+        "width": 208.3,
+        "height": 536.03
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.5534,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4c073d590e8a",
+      "modelBbox": {
+        "x": 1272.83,
+        "y": 796.33,
+        "width": 401.43,
+        "height": 589.49
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.4792,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-628c64c32b5d",
+      "modelBbox": {
+        "x": 586.26,
+        "y": 1072.54,
+        "width": 405.62,
+        "height": 516.71
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.4278,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-12bd1963fee3",
+      "modelBbox": {
+        "x": 1015.39,
+        "y": 322.32,
+        "width": 203.68,
+        "height": 566.7
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.4252,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3e0e1c579a8f",
+      "modelBbox": {
+        "x": 345.73,
+        "y": 881.64,
+        "width": 198.74,
+        "height": 294.19
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.3934,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cfd2ae3f5121",
+      "modelBbox": {
+        "x": 140.98,
+        "y": 1059.77,
+        "width": 155.65,
+        "height": 304.57
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.362,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e7297ad42853",
+      "modelBbox": {
+        "x": 140.96,
+        "y": 1071.6,
+        "width": 402.26,
+        "height": 397.68
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.3122,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6acf340e9ef2",
+      "modelBbox": {
+        "x": 1695.43,
+        "y": 794.11,
+        "width": 89.46,
+        "height": 289.7
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.2937,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e283ee2c2916",
+      "modelBbox": {
+        "x": 1341.31,
+        "y": 794.32,
+        "width": 259.29,
+        "height": 113.66
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.278,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d1fcfe81bfd7",
+      "modelBbox": {
+        "x": 1542.13,
+        "y": 1490.25,
+        "width": 251.54,
+        "height": 142.29
+      },
+      "classLabel": "adepta_sororitas",
+      "pseudoScore": 0.2539,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

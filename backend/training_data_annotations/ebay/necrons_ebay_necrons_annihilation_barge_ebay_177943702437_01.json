@@ -1,0 +1,26 @@
+{
+  "imageId": "necrons_ebay_necrons_annihilation_barge_ebay_177943702437_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_annihilation_barge_ebay_177943702437_01.jpg",
+  "faction": "necrons",
+  "source": "ebay",
+  "width": 918,
+  "height": 948,
+  "annotations": [
+    {
+      "id": "dino_0_1773544636338",
+      "modelBbox": {
+        "x": 60.9,
+        "y": 12.2,
+        "width": 730.5,
+        "height": 889.5426596351197
+      },
+      "classLabel": "necrons",
+      "confidence": 0.824
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T03:17:26.217Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

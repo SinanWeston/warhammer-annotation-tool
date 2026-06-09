@@ -1,0 +1,75 @@
+{
+  "imageId": "tyranids_reddit_122lero_a7c9f635b961",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/122lero_a7c9f635b961.jpg",
+  "faction": "tyranids",
+  "source": "reddit",
+  "width": 2288,
+  "height": 1396,
+  "annotations": [
+    {
+      "id": "7e80aa92-d6c8-4af7-b03e-a0078e38d57b",
+      "modelBbox": {
+        "x": 142.5555141116499,
+        "y": 379.48427203779687,
+        "width": 589.4238468233247,
+        "height": 501.8067885117495
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "ffab9b7d-3e5c-45c3-9ac0-281a12e5f5ec",
+      "modelBbox": {
+        "x": 330.3063533507398,
+        "y": 648.0248663434043,
+        "width": 631.525550167848,
+        "height": 564.3904015914461
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "be39868e-378c-48a3-ab64-94e7cb2d4867",
+      "modelBbox": {
+        "x": 704.6701479547434,
+        "y": 349.899291309213,
+        "width": 526.8402337436281,
+        "height": 505.2204401342783
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "4722fb86-6524-40b0-8e4a-f797b442295e",
+      "modelBbox": {
+        "x": 1475.5864727091882,
+        "y": 330.55526544821583,
+        "width": 550.7357951013305,
+        "height": 474.4975755315182
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "681d6f6b-47f8-4d76-bd49-6b7d9b928fe1",
+      "modelBbox": {
+        "x": 1535.8943180405322,
+        "y": 667.3688922044014,
+        "width": 702.0743503667786,
+        "height": 512.0477433793362
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "8724ad36-7770-4098-bef6-8992654ec927",
+      "modelBbox": {
+        "x": 978.9001616312323,
+        "y": 727.6767375357454,
+        "width": 551.8736789755064,
+        "height": 543.9084918562726
+      },
+      "classLabel": "tyranids"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:08:34.173Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

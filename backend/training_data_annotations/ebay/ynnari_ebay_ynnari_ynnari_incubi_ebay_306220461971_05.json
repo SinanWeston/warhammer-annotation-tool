@@ -1,0 +1,75 @@
+{
+  "imageId": "ynnari_ebay_ynnari_ynnari_incubi_ebay_306220461971_05",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/ebay/ynnari_ynnari_incubi_ebay_306220461971_05.jpg",
+  "faction": "ynnari",
+  "source": "ebay",
+  "width": 1600,
+  "height": 967,
+  "annotations": [
+    {
+      "id": "2c6cf699-1b53-4d85-8a63-a2a61af4ea1e",
+      "modelBbox": {
+        "x": 57.77270999619917,
+        "y": 256.30938806537443,
+        "width": 243.25351577347018,
+        "height": 339.33865450399077
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "910f191c-6808-4207-a246-cba6ac4876cf",
+      "modelBbox": {
+        "x": 82.09806157354619,
+        "y": 356.0433295324972,
+        "width": 454.88407449638913,
+        "height": 542.4553401748384
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "96454202-0222-4e5b-a8a8-b2d0bcfe8369",
+      "modelBbox": {
+        "x": 468.87115165336377,
+        "y": 101.84340554922083,
+        "width": 369.7453439756747,
+        "height": 493.80463702014436
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "cf29bff3-fb27-4a96-a1f5-31bf151f83a6",
+      "modelBbox": {
+        "x": 572.2538958570887,
+        "y": 313.4739642721399,
+        "width": 526.6438616495628,
+        "height": 589.8897757506651
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "e958f2ac-c149-4540-9d5e-9d63e9dc6db5",
+      "modelBbox": {
+        "x": 907.9437476244775,
+        "y": 86.03192702394527,
+        "width": 373.3941467122768,
+        "height": 516.9137210186241
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "2d8a3abb-3b83-41cf-9cd3-5ac0068d19fc",
+      "modelBbox": {
+        "x": 1085.5188141391106,
+        "y": 342.6643861649563,
+        "width": 453.66780691752183,
+        "height": 554.618015963512
+      },
+      "classLabel": "ynnari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T11:47:18.827Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

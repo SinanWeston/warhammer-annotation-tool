@@ -1,0 +1,68 @@
+{
+  "imageId": "orks_ebay_orks_boyz_ebay_187973012305_21",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_boyz_ebay_187973012305_21.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1000,
+  "height": 750,
+  "annotations": [
+    {
+      "id": "dino_0_1773599141081",
+      "modelBbox": {
+        "x": 71.8,
+        "y": 273.6,
+        "width": 210.6,
+        "height": 232.7
+      },
+      "classLabel": "orks",
+      "confidence": 0.803
+    },
+    {
+      "id": "dino_2_1773599141081",
+      "modelBbox": {
+        "x": 388.5,
+        "y": 272.2,
+        "width": 241.9,
+        "height": 223.5
+      },
+      "classLabel": "orks",
+      "confidence": 0.616
+    },
+    {
+      "id": "dino_3_1773599141081",
+      "modelBbox": {
+        "x": 636.1,
+        "y": 271.5222348916762,
+        "width": 279.8,
+        "height": 331.1777651083238
+      },
+      "classLabel": "orks",
+      "confidence": 0.428
+    },
+    {
+      "id": "951885bb-5c7f-419f-8a85-a804f856e5c3",
+      "modelBbox": {
+        "x": 230.90079817559862,
+        "y": 336.51653363740024,
+        "width": 301.0262257696693,
+        "height": 303.30672748004554
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "96ec3868-5451-46a4-9a5c-b2395f2f0be0",
+      "modelBbox": {
+        "x": 675.5986316989738,
+        "y": 247.5769669327252,
+        "width": 234.89167616875704,
+        "height": 230.33067274800453
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:25:57.621Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

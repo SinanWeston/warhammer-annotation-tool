@@ -1,0 +1,102 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_133349_cbca8edaf1f9",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/133349_cbca8edaf1f9.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "pred_0_1770560684710",
+      "modelBbox": {
+        "x": 455.4991760253906,
+        "y": 260.9306945800781,
+        "width": 175.40420532226562,
+        "height": 219.61419677734375
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.8384188413619995
+    },
+    {
+      "id": "pred_1_1770560684710",
+      "modelBbox": {
+        "x": 318.4622802734375,
+        "y": 209.1536865234375,
+        "width": 153.06793212890625,
+        "height": 263.2574157714844
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.58641117811203
+    },
+    {
+      "id": "pred_3_1770560684710",
+      "modelBbox": {
+        "x": 199.4427490234375,
+        "y": 261.4329528808594,
+        "width": 139.818115234375,
+        "height": 205.45089721679688
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.40091341733932495
+    },
+    {
+      "id": "4ff7d4ed-bd0d-49f0-a685-f1873f0a558d",
+      "modelBbox": {
+        "x": 591.2216497927295,
+        "y": 274.34523601921234,
+        "width": 151.8367346938776,
+        "height": 199.18367346938777
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "44570f1d-3872-4886-a967-95d54208c699",
+      "modelBbox": {
+        "x": 33.670629384566325,
+        "y": 115.16156254982461,
+        "width": 177.95918367346937,
+        "height": 346.1224489795918
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [
+    {
+      "id": "pred_2_1770560684710",
+      "modelBbox": {
+        "x": 8.085918426513672,
+        "y": 109.75898742675781,
+        "width": 208.66020584106445,
+        "height": 356.9778289794922
+      },
+      "classLabel": "custodes",
+      "confidence": 0.4541465938091278
+    },
+    {
+      "id": "pred_4_1770560684710",
+      "modelBbox": {
+        "x": 585.1327514648438,
+        "y": 262.8012390136719,
+        "width": 180.62103271484375,
+        "height": 217.00668334960938
+      },
+      "classLabel": "chaos_space_marines",
+      "confidence": 0.2993037700653076
+    },
+    {
+      "id": "pred_5_1770560684710",
+      "modelBbox": {
+        "x": 318.24169921875,
+        "y": 207.78030395507812,
+        "width": 153.85198974609375,
+        "height": 265.5467224121094
+      },
+      "classLabel": "chaos_space_marines",
+      "confidence": 0.2917717695236206
+    }
+  ],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T14:25:08.237Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

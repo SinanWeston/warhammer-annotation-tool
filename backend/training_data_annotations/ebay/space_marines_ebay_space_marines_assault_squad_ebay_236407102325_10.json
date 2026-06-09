@@ -1,0 +1,124 @@
+{
+  "imageId": "space_marines_ebay_space_marines_assault_squad_ebay_236407102325_10",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_assault_squad_ebay_236407102325_10.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1600,
+  "height": 944,
+  "annotations": [
+    {
+      "id": "dino_0_1773606414902",
+      "modelBbox": {
+        "x": 24.7,
+        "y": 237.4,
+        "width": 354,
+        "height": 446.9
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.944
+    },
+    {
+      "id": "dino_1_1773606414902",
+      "modelBbox": {
+        "x": 697.7,
+        "y": 141.8,
+        "width": 333.08677309007976,
+        "height": 349.3
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.915
+    },
+    {
+      "id": "dino_2_1773606414902",
+      "modelBbox": {
+        "x": 749.5,
+        "y": 449.3,
+        "width": 359.7,
+        "height": 453.4
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.902
+    },
+    {
+      "id": "dino_3_1773606414902",
+      "modelBbox": {
+        "x": 241.4,
+        "y": 437.5,
+        "width": 337.8,
+        "height": 465.4
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.797
+    },
+    {
+      "id": "dino_4_1773606414902",
+      "modelBbox": {
+        "x": 376.3,
+        "y": 122.9,
+        "width": 263.2,
+        "height": 371.4
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.673
+    },
+    {
+      "id": "dino_5_1773606414902",
+      "modelBbox": {
+        "x": 476.5,
+        "y": 247.7,
+        "width": 307.4,
+        "height": 444.6
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.589
+    },
+    {
+      "id": "dino_6_1773606414902",
+      "modelBbox": {
+        "x": 879.9695933105284,
+        "y": 235.63283922462944,
+        "width": 332.04104903078667,
+        "height": 453.66780691752194
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.51
+    },
+    {
+      "id": "dino_7_1773606414902",
+      "modelBbox": {
+        "x": 913.6,
+        "y": 60.3,
+        "width": 333.5,
+        "height": 437.9
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.46
+    },
+    {
+      "id": "dino_9_1773606414902",
+      "modelBbox": {
+        "x": 1201.6,
+        "y": 415.64044089699735,
+        "width": 357.7,
+        "height": 510.83238312428745
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.256
+    },
+    {
+      "id": "173f54b2-7625-4cb0-90d8-26997c623d25",
+      "modelBbox": {
+        "x": 1142.6833903458762,
+        "y": 43.46256176358799,
+        "width": 396.50323071075627,
+        "height": 599.6199163816038
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:27:37.181Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

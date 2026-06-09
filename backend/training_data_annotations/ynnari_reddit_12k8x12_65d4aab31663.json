@@ -1,0 +1,115 @@
+{
+  "imageId": "ynnari_reddit_12k8x12_65d4aab31663",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/12k8x12_65d4aab31663.jpg",
+  "faction": "ynnari",
+  "source": "reddit",
+  "width": 3024,
+  "height": 1689,
+  "annotations": [
+    {
+      "id": "cde89600-cca1-4e4b-9a9b-93ff5dabbdd0",
+      "modelBbox": {
+        "x": 93.09920182440138,
+        "y": 518.905929304447,
+        "width": 891.9133409350059,
+        "height": 655.1425313568984
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "7423007c-42aa-409a-b50e-3d248bf22bff",
+      "modelBbox": {
+        "x": 904.5564424173318,
+        "y": 748.7805017103764,
+        "width": 404.5792474344356,
+        "height": 662.0387685290763
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "71315d87-3f71-4e66-825e-7789c583f498",
+      "modelBbox": {
+        "x": 1490.7366020524516,
+        "y": 728.0917901938427,
+        "width": 480.4378563283922,
+        "height": 673.5324971493727
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "2372f633-12e4-466c-91c0-4eba68fba7ca",
+      "modelBbox": {
+        "x": 2040.1368301026225,
+        "y": 744.1830102622577,
+        "width": 567.7901938426455,
+        "height": 675.8312428734324
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "70309214-9cd5-47e5-95db-18d0c64c675c",
+      "modelBbox": {
+        "x": 1968.8757126567846,
+        "y": 541.8933865450399,
+        "width": 439.0604332953251,
+        "height": 625.2588369441278
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "40650a57-3bfc-4ec2-992a-326cdeee90ab",
+      "modelBbox": {
+        "x": 2003.356898517674,
+        "y": 440.748574686431,
+        "width": 586.1801596351197,
+        "height": 535.6077537058154
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "ab3575e8-424a-495d-881b-ed5c53d0a5e6",
+      "modelBbox": {
+        "x": 1511.425313568985,
+        "y": 587.8683010262258,
+        "width": 358.6043329532499,
+        "height": 556.296465222349
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "fc091055-71ef-459a-bea3-d4e21057777d",
+      "modelBbox": {
+        "x": 1550.5039908779934,
+        "y": 420.0598631698974,
+        "width": 452.85290763968055,
+        "height": 547.1014823261116
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "51dd6918-50af-48f2-9e50-2531f27ea522",
+      "modelBbox": {
+        "x": 1017.1949828962372,
+        "y": 606.2582668187001,
+        "width": 570.0889395667045,
+        "height": 553.9977194982896
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "656fdb88-fd4a-439d-9022-2da583c46dea",
+      "modelBbox": {
+        "x": 1102.248574686431,
+        "y": 484.42474344355765,
+        "width": 236.77080957810722,
+        "height": 491.93158494868874
+      },
+      "classLabel": "ynnari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-04T21:04:52.932Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,130 @@
+{
+  "imageId": "necrons_reddit_10y1twi_241c5c108dd1",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/10y1twi_241c5c108dd1.jpg",
+  "faction": "necrons",
+  "source": "reddit",
+  "width": 1440,
+  "height": 1440,
+  "annotations": [
+    {
+      "id": "pseudo-f32ba7e7f728",
+      "modelBbox": {
+        "x": 746.91,
+        "y": 552.07,
+        "width": 309.55,
+        "height": 644.25
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.7362,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-633db588ec69",
+      "modelBbox": {
+        "x": 317.2,
+        "y": 305.76,
+        "width": 312.4,
+        "height": 225.74
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.6274,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5af618dbde83",
+      "modelBbox": {
+        "x": 600.86,
+        "y": 216.75,
+        "width": 94.13,
+        "height": 193.29
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.6116,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-04b5ce14fbf5",
+      "modelBbox": {
+        "x": 261.07,
+        "y": 401.47,
+        "width": 433.31,
+        "height": 291.23
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.5805,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-132242e6c4c4",
+      "modelBbox": {
+        "x": 746.94,
+        "y": 750.69,
+        "width": 400.39,
+        "height": 664.55
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4175,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-fee8eb292929",
+      "modelBbox": {
+        "x": 553.38,
+        "y": 748.73,
+        "width": 502.05,
+        "height": 448.86
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.374,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2bbb4e3caa80",
+      "modelBbox": {
+        "x": 595.03,
+        "y": 170.94,
+        "width": 440.78,
+        "height": 519.17
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3219,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

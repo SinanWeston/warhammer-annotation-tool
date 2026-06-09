@@ -1,0 +1,26 @@
+{
+  "imageId": "chaos_knights_dakkadakka_dakka_1037678",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_1037678.jpg",
+  "faction": "chaos_knights",
+  "source": "dakkadakka",
+  "width": 2357,
+  "height": 2357,
+  "annotations": [
+    {
+      "id": "dino_0_1773089711860",
+      "modelBbox": {
+        "x": 277.9,
+        "y": 138.4,
+        "width": 1796.1,
+        "height": 2187.608943842645
+      },
+      "classLabel": "chaos_knights",
+      "confidence": 0.484
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:55:17.975Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

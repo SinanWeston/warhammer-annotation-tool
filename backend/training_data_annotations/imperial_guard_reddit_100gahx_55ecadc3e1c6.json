@@ -1,0 +1,43 @@
+{
+  "imageId": "imperial_guard_reddit_100gahx_55ecadc3e1c6",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_55ecadc3e1c6.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 1440,
+  "height": 1440,
+  "annotations": [
+    {
+      "id": "bc1d6e7e-30d4-44b4-9757-843a87f05eef",
+      "modelBbox": {
+        "x": 82.64794921875,
+        "y": 385.38266676299423,
+        "width": 464.3265306122448,
+        "height": 680.326530612245
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "7f08521f-eb87-4fa2-8e22-34181953b815",
+      "modelBbox": {
+        "x": 358.8928471779337,
+        "y": 508.8112381915657,
+        "width": 581.8775510204082,
+        "height": 714.1224489795918
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "1f87af82-ad19-4f46-b3f4-9ee9a2dfa932",
+      "modelBbox": {
+        "x": 812.9336635044642,
+        "y": 542.6071565589126,
+        "width": 590.6938775510205,
+        "height": 774.3673469387755
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T18:08:54.288Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

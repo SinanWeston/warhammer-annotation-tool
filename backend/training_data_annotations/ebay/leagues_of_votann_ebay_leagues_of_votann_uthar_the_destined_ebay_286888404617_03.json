@@ -1,0 +1,26 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_uthar_the_destined_ebay_286888404617_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_uthar_the_destined_ebay_286888404617_03.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773607896919",
+      "modelBbox": {
+        "x": 480.72976054732044,
+        "y": 152.76510832383124,
+        "width": 638.5404789053591,
+        "height": 1295.3249714937285
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.495
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:51:51.539Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

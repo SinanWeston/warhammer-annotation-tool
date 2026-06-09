@@ -1,0 +1,575 @@
+{
+  "imageId": "imperial_guard_reddit_12fouwo_1c5512305f35",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12fouwo_1c5512305f35.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 3024,
+  "height": 1236,
+  "annotations": [
+    {
+      "id": "7dedd902-eba4-4940-af3a-5d9b9db76c43",
+      "modelBbox": {
+        "x": 263.61305483028724,
+        "y": 525.7809399477807,
+        "width": 231.4527415143603,
+        "height": 265.290861618799
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "daac321b-ba09-45b2-a971-eca6406350a8",
+      "modelBbox": {
+        "x": 178.34099216710183,
+        "y": 532.0973890339426,
+        "width": 235.51331592689297,
+        "height": 324.84595300261094
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "8502b009-c125-4bc6-8bda-415862e0712a",
+      "modelBbox": {
+        "x": 3.285117493472585,
+        "y": 804.1558746736292,
+        "width": 49.1780678851175,
+        "height": 127.23133159268934
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "4b20e487-5fe1-4d6f-b3b4-3cccc7ea1dd7",
+      "modelBbox": {
+        "x": 63.74255874673629,
+        "y": 806.8629242819843,
+        "width": 80.30913838120104,
+        "height": 131.2919060052219
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "f021447f-4754-4372-ae22-902448806a3f",
+      "modelBbox": {
+        "x": 155.7822454308094,
+        "y": 806.8629242819843,
+        "width": 71.28563968668405,
+        "height": 126.7801566579634
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e9ece684-ed55-4d67-bcb5-3f7806be1b86",
+      "modelBbox": {
+        "x": 254.13838120104438,
+        "y": 811.3746736292428,
+        "width": 81.21148825065276,
+        "height": 111.89138381201053
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "1bf1763d-308c-4c0b-b1bb-99d411b0a0d6",
+      "modelBbox": {
+        "x": 347.08041775456917,
+        "y": 801.4488250652741,
+        "width": 79.8579634464752,
+        "height": 136.70600522193206
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "7332cb9b-041f-4166-8e03-b8a423e8148a",
+      "modelBbox": {
+        "x": 519.8804177545692,
+        "y": 808.8932114882506,
+        "width": 81.21148825065279,
+        "height": 129.4872062663186
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "d3b76c31-6d50-41f6-8abd-89ab83236013",
+      "modelBbox": {
+        "x": 608.7618798955614,
+        "y": 812.5026109660574,
+        "width": 88.8814621409922,
+        "height": 122.2684073107049
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "77a1307b-ef6d-46e5-b84c-9aa131a2f3ac",
+      "modelBbox": {
+        "x": 704.8621409921672,
+        "y": 810.697911227154,
+        "width": 70.8344647519582,
+        "height": 123.6219321148825
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e20c5b94-112c-49c3-9f14-1dffacb97ed4",
+      "modelBbox": {
+        "x": 803.2182767624021,
+        "y": 797.8394255874674,
+        "width": 75.34621409921681,
+        "height": 143.02245430809387
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "07dc89b7-c6e2-4c8f-82cd-03174d24b424",
+      "modelBbox": {
+        "x": 893.0020887728459,
+        "y": 819.946997389034,
+        "width": 77.60208877284606,
+        "height": 124.97545691905998
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e9345b39-be8d-4b16-b8c2-df5f4540f4af",
+      "modelBbox": {
+        "x": 1022.2637075718015,
+        "y": 736.0284595300261,
+        "width": 84.36971279373358,
+        "height": 127.68250652741517
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "27996b52-92a1-4af7-9768-9c69af21f072",
+      "modelBbox": {
+        "x": 931.1263707571802,
+        "y": 736.4796344647519,
+        "width": 71.28563968668402,
+        "height": 124.07310704960844
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "72848465-3a80-43d8-ae89-1cd81d9d539a",
+      "modelBbox": {
+        "x": 849.0125326370757,
+        "y": 731.5167101827677,
+        "width": 66.77389033942563,
+        "height": 133.54778067885115
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "71179fe3-05d3-4a6d-bb9d-6fbbe14392b7",
+      "modelBbox": {
+        "x": 743.2120104438643,
+        "y": 734.6749347258485,
+        "width": 83.91853785900776,
+        "height": 121.81723237597919
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "2f3e959d-6780-4cec-b068-f48e212830a0",
+      "modelBbox": {
+        "x": 627.0344647519582,
+        "y": 734.2237597911227,
+        "width": 92.94203655352476,
+        "height": 124.07310704960844
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "b6a42355-d180-4625-b692-f94e64dc2f6b",
+      "modelBbox": {
+        "x": 1057.4553524804178,
+        "y": 807.765274151436,
+        "width": 76.69973890339429,
+        "height": 129.93838120104442
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "7c801942-66f3-4c06-890f-7ae10b4e4846",
+      "modelBbox": {
+        "x": 1150.3973890339425,
+        "y": 822.2028720626632,
+        "width": 79.40678851174926,
+        "height": 125.4266318537858
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "a51d7483-4bdf-4e6e-ac26-2b8e03006cae",
+      "modelBbox": {
+        "x": 1241.9859007832897,
+        "y": 814.9840731070497,
+        "width": 66.3227154046997,
+        "height": 125.87780678851163
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e94667a3-253e-4a95-9275-78d94615c7be",
+      "modelBbox": {
+        "x": 1324.0997389033942,
+        "y": 818.5934725848564,
+        "width": 72.63916449086173,
+        "height": 127.23133159268934
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "3d2d4d75-b9ef-4d0e-a38c-6a57b129ab3f",
+      "modelBbox": {
+        "x": 1415.9138381201044,
+        "y": 826.7146214099217,
+        "width": 76.69973890339429,
+        "height": 123.6219321148825
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "ac039ad2-dcc8-420d-b0a1-891f7affb2e5",
+      "modelBbox": {
+        "x": 1405.085639686684,
+        "y": 746.8566579634464,
+        "width": 85.27206266318535,
+        "height": 123.17075718015667
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "f4ecca2b-89e3-4679-8702-74b6fdb7e928",
+      "modelBbox": {
+        "x": 1327.0323759791124,
+        "y": 653.4634464751958,
+        "width": 73.99268929503887,
+        "height": 225.58746736292426
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "da4353e1-8c84-47bc-8f51-c510ccdef696",
+      "modelBbox": {
+        "x": 1576.3065274151436,
+        "y": 802.8023498694516,
+        "width": 72.18798955613579,
+        "height": 139.86422976501308
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "811d0131-5a72-4bab-a75c-51c74cd3b94f",
+      "modelBbox": {
+        "x": 1649.396866840731,
+        "y": 746.4054830287206,
+        "width": 60.457441253263596,
+        "height": 122.2684073107049
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "423da2eb-9319-4bc0-8957-4ef02d204a32",
+      "modelBbox": {
+        "x": 1667.895039164491,
+        "y": 809.1187989556136,
+        "width": 73.9926892950391,
+        "height": 134.45013054830292
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "d3f541c4-2a4d-406c-9ea3-a1471e5659db",
+      "modelBbox": {
+        "x": 1756.3253263707572,
+        "y": 814.5328981723237,
+        "width": 71.73681462141008,
+        "height": 133.54778067885127
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "7b74ebbf-643b-4d0f-8b7f-405c8cbe1f5b",
+      "modelBbox": {
+        "x": 1744.1436031331593,
+        "y": 746.4054830287206,
+        "width": 64.06684073107044,
+        "height": 124.07310704960832
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "5df05046-a6d6-43b7-9bd0-5991fdfc344d",
+      "modelBbox": {
+        "x": 1830.9947780678851,
+        "y": 745.5031331592689,
+        "width": 77.60208877284595,
+        "height": 125.4266318537858
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "05d1485f-de4f-4b5a-9dfc-a690c8dbb74b",
+      "modelBbox": {
+        "x": 1846.334725848564,
+        "y": 818.1422976501306,
+        "width": 77.15091383812023,
+        "height": 124.52428198433415
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "a3f823a1-daea-4f9a-8806-9127b6069b22",
+      "modelBbox": {
+        "x": 1936.5697127937335,
+        "y": 822.6540469973891,
+        "width": 78.05326370757189,
+        "height": 124.07310704960832
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "f2d139c1-51e3-460c-87b3-68ed4a3d277a",
+      "modelBbox": {
+        "x": 1928.4485639686686,
+        "y": 752.2707571801567,
+        "width": 68.12741514360278,
+        "height": 115.95195822454298
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "5a198885-042a-408e-ab82-7c4687a4acb1",
+      "modelBbox": {
+        "x": 2017.3300261096606,
+        "y": 749.5637075718016,
+        "width": 81.66266318537828,
+        "height": 120.9148825065273
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "39082b3b-6836-4b85-9f82-410a1a51b9d6",
+      "modelBbox": {
+        "x": 2082.7503916449086,
+        "y": 780.6947780678851,
+        "width": 74.44386422976504,
+        "height": 138.5107049608356
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "1a0b0409-daf1-4957-9715-26be483e9a2c",
+      "modelBbox": {
+        "x": 2097.1879895561356,
+        "y": 819.4958224543082,
+        "width": 74.89503916449121,
+        "height": 127.68250652741506
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "a1dba6c0-4f51-4562-9c20-568759ad7f8c",
+      "modelBbox": {
+        "x": 2172.985378590078,
+        "y": 782.9506527415143,
+        "width": 73.09033942558744,
+        "height": 125.42663185378592
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "bbbbc156-77cd-47a5-8de1-f4263e8756bb",
+      "modelBbox": {
+        "x": 2179.753002610966,
+        "y": 816.3375979112271,
+        "width": 82.11383812010445,
+        "height": 123.6219321148825
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e63b1d66-dad1-4706-9dd5-9550e7f8ca76",
+      "modelBbox": {
+        "x": 2280.3650130548303,
+        "y": 819.946997389034,
+        "width": 81.66266318537873,
+        "height": 117.7566579634464
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "0d4bfeee-308b-447d-be8f-0f55e5e93706",
+      "modelBbox": {
+        "x": 2255.0992167101826,
+        "y": 783.8530026109661,
+        "width": 64.96919060052232,
+        "height": 126.32898172323758
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "11387ccb-aa29-4e6e-8ddc-741d68deecf5",
+      "modelBbox": {
+        "x": 2365.6370757180157,
+        "y": 822.2028720626632,
+        "width": 69.48093994778037,
+        "height": 115.95195822454298
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "80270ae1-b55d-4ad3-beb3-43d854b0dd22",
+      "modelBbox": {
+        "x": 2455.4208877284595,
+        "y": 813.6305483028721,
+        "width": 92.03968668407288,
+        "height": 115.95195822454309
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "150603e5-0102-4bc7-be2f-f88c2f201db4",
+      "modelBbox": {
+        "x": 2473.4678851174936,
+        "y": 712.1161879895561,
+        "width": 158.3624020887728,
+        "height": 165.13002610966055
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "a7a2a4b9-6aad-4d42-9a87-942772144722",
+      "modelBbox": {
+        "x": 2579.945169712794,
+        "y": 792.8765013054831,
+        "width": 72.63916449086173,
+        "height": 119.110182767624
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "ca596459-a79d-4139-9a01-c781b3452e2a",
+      "modelBbox": {
+        "x": 2604.3086161879896,
+        "y": 805.9605744125327,
+        "width": 82.11383812010445,
+        "height": 127.23133159268923
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "5326afeb-35ef-477c-88aa-b05e9fec9ed8",
+      "modelBbox": {
+        "x": 2704.920626631854,
+        "y": 817.2399477806789,
+        "width": 69.93211488250654,
+        "height": 114.14725848563967
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "0f5b47ee-7ab1-480a-9b91-1fdd09f9bf27",
+      "modelBbox": {
+        "x": 2788.8391644908615,
+        "y": 800.9976501305482,
+        "width": 75.34621409921692,
+        "height": 127.23133159268946
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "888b94e1-550c-4f4e-87b9-5b5b9245f387",
+      "modelBbox": {
+        "x": 2879.976501305483,
+        "y": 802.8023498694516,
+        "width": 78.05326370757166,
+        "height": 129.93838120104454
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "a7f3670e-f122-407c-b506-020969a0586f",
+      "modelBbox": {
+        "x": 2970.2114882506526,
+        "y": 810.697911227154,
+        "width": 52.3362924281987,
+        "height": 112.34255874673636
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "21ec3177-e5e6-4efd-af62-844c5129fe63",
+      "modelBbox": {
+        "x": 2730.186422976501,
+        "y": 718.432637075718,
+        "width": 236.86684073107062,
+        "height": 127.23133159268923
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "f6ffef6c-8c30-4518-92e1-b4de758f117b",
+      "modelBbox": {
+        "x": 2414.42819843342,
+        "y": 493.7154046997389,
+        "width": 369.9634464751957,
+        "height": 312.313315926893
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "436c6344-a8b5-4a95-ba3e-6ff7b1d76440",
+      "modelBbox": {
+        "x": 2062.5117493472585,
+        "y": 592.4725848563969,
+        "width": 308.8041775456918,
+        "height": 216.56396866840737
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "f395cf2e-ca0e-4289-8854-b58c48b87049",
+      "modelBbox": {
+        "x": 1733.4046997389034,
+        "y": 564.9007832898172,
+        "width": 329.8590078328982,
+        "height": 242.13054830287206
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "43d23fc7-2b88-44cf-b45c-89374f436f19",
+      "modelBbox": {
+        "x": 1074.4386422976502,
+        "y": 530.8120104438642,
+        "width": 300.2819843342038,
+        "height": 282.2349869451698
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "872a054b-4928-4c39-89b9-58b735d0baad",
+      "modelBbox": {
+        "x": 753.8537859007832,
+        "y": 580.9425587467363,
+        "width": 275.7180156657963,
+        "height": 235.11227154047003
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "6c0974b5-c697-48ef-a88d-03d127f4edb7",
+      "modelBbox": {
+        "x": 498.6892950391645,
+        "y": 523.7937336814622,
+        "width": 208.54308093994774,
+        "height": 316.3237597911227
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T10:26:05.226Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,94 @@
+{
+  "imageId": "_unknown_cmon_cmon_471296_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471296_00.jpg",
+  "faction": "necrons",
+  "source": "cmon",
+  "width": 1725,
+  "height": 789,
+  "annotations": [
+    {
+      "id": "aff30a5f-fe56-4194-b1e1-873f39b76664",
+      "modelBbox": {
+        "x": 194.32754309730777,
+        "y": 426.07375318729953,
+        "width": 164.64208242950107,
+        "height": 188.34056399132317
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "f3867089-10f8-4185-b346-be20f88ef2c4",
+      "modelBbox": {
+        "x": 240.47721771769824,
+        "y": 214.03470525514018,
+        "width": 300.5965292841649,
+        "height": 476.46420824295006
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "b3e1c522-a031-4a1e-bc39-6366ef1d6a5d",
+      "modelBbox": {
+        "x": 461.2472827936201,
+        "y": 348.74186360655017,
+        "width": 164.6420824295011,
+        "height": 248.2104121475054
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "efe163fb-def2-4a44-bd39-68a9e6ed2274",
+      "modelBbox": {
+        "x": 612.1691916873294,
+        "y": 373.6876336716261,
+        "width": 209.54446854663775,
+        "height": 294.3600867678959
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "06885693-73ab-484a-9fd7-c69ca99b43cc",
+      "modelBbox": {
+        "x": 749.3709270452471,
+        "y": 196.57266620958706,
+        "width": 324.295010845987,
+        "height": 447.77657266811275
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "a994c45f-d228-4cd6-8631-ecc5533ddf6e",
+      "modelBbox": {
+        "x": 1011.3015127285443,
+        "y": 369.9457681618647,
+        "width": 333.0260303687636,
+        "height": 324.29501084598695
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "ae71dfb8-ebfb-4a61-89dc-d15c8069a3ea",
+      "modelBbox": {
+        "x": 1107.3427274790865,
+        "y": 323.79609354147425,
+        "width": 258.1887201735358,
+        "height": 286.8763557483731
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "c5ac9829-378d-4665-9a9e-9138149f6f22",
+      "modelBbox": {
+        "x": 1333.1019465680235,
+        "y": 277.6464189210838,
+        "width": 194.57700650759216,
+        "height": 392.8958785249458
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T10:40:10.093Z",
+  "annotatedBy": "sinan"
+}

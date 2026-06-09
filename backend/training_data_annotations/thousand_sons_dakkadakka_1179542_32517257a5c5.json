@@ -1,0 +1,95 @@
+{
+  "imageId": "thousand_sons_dakkadakka_1179542_32517257a5c5",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/1179542_32517257a5c5.jpg",
+  "faction": "thousand_sons",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 547,
+  "annotations": [
+    {
+      "id": "8839f8e8-b756-4eec-b7ce-4634a26891ce",
+      "modelBbox": {
+        "x": 37.98023125699366,
+        "y": 250.98144349123461,
+        "width": 96.97873927638942,
+        "height": 180.23125699365912
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "417f7648-9d86-4329-a5b1-ea093b054341",
+      "modelBbox": {
+        "x": 102.43379336068631,
+        "y": 244.4167288325252,
+        "width": 103.24505781424844,
+        "height": 194.8526669153301
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "56077da3-328a-41a9-a9a5-8ea3ec08e7da",
+      "modelBbox": {
+        "x": 187.775083923909,
+        "y": 218.45626631853787,
+        "width": 125.62476687803058,
+        "height": 233.94255874673632
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "d0f5edb0-13d1-4af5-88d4-a27d36fb742d",
+      "modelBbox": {
+        "x": 271.1767997016039,
+        "y": 219.35145468108917,
+        "width": 98.76911600149197,
+        "height": 206.1917195076464
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "e5d1cfe9-c5f2-40ef-830f-a88c7af40108",
+      "modelBbox": {
+        "x": 321.6057441253264,
+        "y": 220.39584110406565,
+        "width": 135.47183886609474,
+        "height": 238.71689668034315
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "b3d97891-2528-4305-ab12-e8da40e69c60",
+      "modelBbox": {
+        "x": 462.7471092875793,
+        "y": 228.1541402461768,
+        "width": 128.90712420738532,
+        "height": 222.60350615442
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "27f2a6d1-c200-46b6-a761-da6202dfd9cd",
+      "modelBbox": {
+        "x": 568.5285341290563,
+        "y": 220.9926333457665,
+        "width": 113.98731816486395,
+        "height": 212.159641924655
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "7c4e773a-5222-421f-a5fc-11e98b250629",
+      "modelBbox": {
+        "x": 651.4826557254756,
+        "y": 183.6931182394629,
+        "width": 115.18090264826549,
+        "height": 239.01529280119357
+      },
+      "classLabel": "thousand_sons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:27:09.855Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

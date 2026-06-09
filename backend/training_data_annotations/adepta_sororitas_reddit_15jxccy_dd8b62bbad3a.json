@@ -1,0 +1,75 @@
+{
+  "imageId": "adepta_sororitas_reddit_15jxccy_dd8b62bbad3a",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/15jxccy_dd8b62bbad3a.jpg",
+  "faction": "adepta_sororitas",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "cfeb563a-6f4e-4697-9eb2-3c1a7020e92b",
+      "modelBbox": {
+        "x": 420.2107183580388,
+        "y": 1796.2111744583808,
+        "width": 544.3429874572406,
+        "height": 766.8615735461799
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "85914886-22d0-4435-a81d-c92d6693709a",
+      "modelBbox": {
+        "x": 1117.1904218928164,
+        "y": 1215.0882554161915,
+        "width": 1037.1940706955531,
+        "height": 1281.7806157354619
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "ebbb7f94-e279-4b23-86b6-d85476f5feb9",
+      "modelBbox": {
+        "x": 1812.3311288483465,
+        "y": 1268.4191562143671,
+        "width": 1086.8469783352339,
+        "height": 1278.1026225769667
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "ead8e265-d82f-4815-9419-a50531e19cdc",
+      "modelBbox": {
+        "x": 273.5507411630559,
+        "y": 113.71607753705815,
+        "width": 1351.6624857468644,
+        "height": 2073.4686431014825
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "a36873b9-6664-43c9-be18-b15741fe1c84",
+      "modelBbox": {
+        "x": 2411.3842645381983,
+        "y": 794.1448118586089,
+        "width": 1356.259977194983,
+        "height": 1296.492588369441
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "fe0cc67f-af46-41e0-a49d-1e54668662f4",
+      "modelBbox": {
+        "x": 2958.48574686431,
+        "y": 1589.5108323831244,
+        "width": 712.6111744583809,
+        "height": 818.3534777651082
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:09:23.059Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

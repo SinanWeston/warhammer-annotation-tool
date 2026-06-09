@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_battlewagon_ebay_377016857802_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_battlewagon_ebay_377016857802_00.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1200,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773579922048",
+      "modelBbox": {
+        "x": 151.88141391106043,
+        "y": 230.21664766248574,
+        "width": 867.5028506271378,
+        "height": 1194.0833523375143
+      },
+      "classLabel": "orks",
+      "confidence": 0.286
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T13:05:48.023Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

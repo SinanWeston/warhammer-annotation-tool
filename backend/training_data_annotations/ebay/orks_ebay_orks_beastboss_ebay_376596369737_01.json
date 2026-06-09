@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_beastboss_ebay_376596369737_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_beastboss_ebay_376596369737_01.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 720,
+  "height": 752,
+  "annotations": [
+    {
+      "id": "dino_0_1773583740295",
+      "modelBbox": {
+        "x": 0.5,
+        "y": 119.9,
+        "width": 703.6,
+        "height": 618.2
+      },
+      "classLabel": "orks",
+      "confidence": 0.657
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:09:03.965Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

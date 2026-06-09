@@ -1,0 +1,45 @@
+{
+  "imageId": "thousand_sons_dakkadakka_111379_9ae16b4ce429",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/111379_9ae16b4ce429.jpg",
+  "faction": "thousand_sons",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "db7fa9d5-cc36-412f-9a0a-18120da41cd6",
+      "modelBbox": {
+        "x": 10.313315926892951,
+        "y": 144.7827303245058,
+        "width": 325.84856396866843,
+        "height": 344.94591570309586
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "2b667079-2d5b-4ed8-9338-9295d717a8bc",
+      "modelBbox": {
+        "x": 278.27303245057817,
+        "y": 135.23405445729207,
+        "width": 288.84744498321527,
+        "height": 343.1555389779933
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "eb933c32-90c0-4538-adb7-d918a5fb4dce",
+      "modelBbox": {
+        "x": 506.8444610220067,
+        "y": 136.42763894069378,
+        "width": 284.0731070496083,
+        "height": 326.44535621036925
+      },
+      "classLabel": "thousand_sons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:22:46.962Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

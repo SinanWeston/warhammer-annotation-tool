@@ -1,0 +1,466 @@
+{
+  "imageId": "blood_angels_dakkadakka_dakka_780321",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/blood_angels/dakkadakka/dakka_780321.jpg",
+  "faction": "blood_angels",
+  "source": "dakkadakka",
+  "width": 1000,
+  "height": 5012,
+  "annotations": [
+    {
+      "id": "pseudo-159063c498b3",
+      "modelBbox": {
+        "x": 1.73,
+        "y": 4641.8,
+        "width": 454.44,
+        "height": 296.56
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.6179,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c440582c024b",
+      "modelBbox": {
+        "x": 647.71,
+        "y": 4642.13,
+        "width": 348.32,
+        "height": 297.77
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5838,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-08ca6a2ae155",
+      "modelBbox": {
+        "x": 71.51,
+        "y": 3940.42,
+        "width": 337.98,
+        "height": 678.13
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5827,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2485ddf82e08",
+      "modelBbox": {
+        "x": 23.55,
+        "y": 2601.47,
+        "width": 307.07,
+        "height": 298.75
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5699,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a4fd9091deb2",
+      "modelBbox": {
+        "x": 2.98,
+        "y": 2997.0,
+        "width": 319.18,
+        "height": 252.23
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5538,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-06d5f4c2eab4",
+      "modelBbox": {
+        "x": 478.41,
+        "y": 4394.06,
+        "width": 162.29,
+        "height": 243.12
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5421,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0cae5bd91464",
+      "modelBbox": {
+        "x": 564.4,
+        "y": 2799.97,
+        "width": 425.66,
+        "height": 237.42
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5352,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-95bc42937a8e",
+      "modelBbox": {
+        "x": 492.14,
+        "y": 3905.57,
+        "width": 373.03,
+        "height": 406.53
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5263,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b8e5d9bd3261",
+      "modelBbox": {
+        "x": 65.67,
+        "y": 3623.65,
+        "width": 195.89,
+        "height": 256.12
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5258,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-45012fd17259",
+      "modelBbox": {
+        "x": 36.81,
+        "y": 3413.19,
+        "width": 226.16,
+        "height": 264.17
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5226,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6ffb5dea1367",
+      "modelBbox": {
+        "x": 628.2,
+        "y": 4313.98,
+        "width": 216.07,
+        "height": 301.29
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.5113,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-eb8466d67c87",
+      "modelBbox": {
+        "x": 332.95,
+        "y": 3576.26,
+        "width": 389.98,
+        "height": 319.93
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.4935,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5f5a69109669",
+      "modelBbox": {
+        "x": 361.49,
+        "y": 2601.29,
+        "width": 251.17,
+        "height": 122.94
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.4752,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-69b8c55e5af7",
+      "modelBbox": {
+        "x": 432.82,
+        "y": 3223.93,
+        "width": 566.97,
+        "height": 669.76
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.4675,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d9638e748902",
+      "modelBbox": {
+        "x": 44.7,
+        "y": 43.15,
+        "width": 913.53,
+        "height": 820.82
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.4231,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-98d6297b5491",
+      "modelBbox": {
+        "x": 2.58,
+        "y": 3100.32,
+        "width": 216.07,
+        "height": 195.4
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.4034,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-79d6223aeb95",
+      "modelBbox": {
+        "x": 91.78,
+        "y": 1932.84,
+        "width": 258.41,
+        "height": 294.47
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3528,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ed48f01ab963",
+      "modelBbox": {
+        "x": 64.77,
+        "y": 981.68,
+        "width": 935.23,
+        "height": 729.84
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3312,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b99bebae5bf7",
+      "modelBbox": {
+        "x": 707.16,
+        "y": 4142.26,
+        "width": 292.84,
+        "height": 194.69
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3302,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1246da94c8ab",
+      "modelBbox": {
+        "x": 6.58,
+        "y": 1715.82,
+        "width": 991.72,
+        "height": 691.43
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3252,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5c6c2469a4b0",
+      "modelBbox": {
+        "x": 784.97,
+        "y": 2517.84,
+        "width": 213.17,
+        "height": 148.6
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3243,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e2d4cd7aa213",
+      "modelBbox": {
+        "x": 842.35,
+        "y": 1953.87,
+        "width": 155.51,
+        "height": 165.14
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3218,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bac0a375afe3",
+      "modelBbox": {
+        "x": 814.67,
+        "y": 3632.51,
+        "width": 185.33,
+        "height": 267.1
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3077,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-963cc3756028",
+      "modelBbox": {
+        "x": 520.52,
+        "y": 3213.91,
+        "width": 151.52,
+        "height": 178.84
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.3039,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a0b3c6f105c8",
+      "modelBbox": {
+        "x": 514.58,
+        "y": 1924.38,
+        "width": 218.0,
+        "height": 127.37
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.294,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-25ea3d45641e",
+      "modelBbox": {
+        "x": 305.14,
+        "y": 4195.42,
+        "width": 114.92,
+        "height": 230.33
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.2772,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8d9b74c873a9",
+      "modelBbox": {
+        "x": 362.33,
+        "y": 2043.78,
+        "width": 631.5,
+        "height": 420.09
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.262,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9e282b03a0b8",
+      "modelBbox": {
+        "x": 326.17,
+        "y": 2726.81,
+        "width": 672.04,
+        "height": 472.42
+      },
+      "classLabel": "blood_angels",
+      "pseudoScore": 0.2576,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

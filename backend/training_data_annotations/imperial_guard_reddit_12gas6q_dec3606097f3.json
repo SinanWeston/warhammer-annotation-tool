@@ -1,0 +1,75 @@
+{
+  "imageId": "imperial_guard_reddit_12gas6q_dec3606097f3",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_dec3606097f3.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4000,
+  "height": 1868,
+  "annotations": [
+    {
+      "id": "d882e65e-df85-44ff-b69a-da8481d34d34",
+      "modelBbox": {
+        "x": 2650.5967922417008,
+        "y": 367.0272286460276,
+        "width": 790.749720253637,
+        "height": 1217.45617306975
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "0ae1aaf7-f68d-4eda-afbc-0debeaad91ec",
+      "modelBbox": {
+        "x": 2035.9007832898171,
+        "y": 95.48675867213726,
+        "width": 754.9421857515852,
+        "height": 1169.7127937336813
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "c9bf561d-3a3c-40e9-b9f4-f4db8881e473",
+      "modelBbox": {
+        "x": 1337.6538604998134,
+        "y": 313.31592689295036,
+        "width": 734.0544572920551,
+        "height": 1244.3118239462888
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e3c854db-2315-4b62-a5e2-2829c00bf509",
+      "modelBbox": {
+        "x": 1060.1454681089147,
+        "y": 101.45468108914584,
+        "width": 641.5516598284221,
+        "height": 1110.0335695635956
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "cfcf9261-20ce-47e3-8aff-9ecf7446d504",
+      "modelBbox": {
+        "x": 230.60425214472212,
+        "y": 367.0272286460276,
+        "width": 817.6053711301754,
+        "height": 1124.953375606117
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "80f86327-c375-47b1-a677-ff5c66d6c1f1",
+      "modelBbox": {
+        "x": 15.759045132413279,
+        "y": 152.18202163371876,
+        "width": 656.4714658709437,
+        "height": 1056.3222678105185
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T10:33:02.458Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

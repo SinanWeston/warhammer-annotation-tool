@@ -1,0 +1,81 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_19430_c8377521211c",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/19430_c8377521211c.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 720,
+  "height": 194,
+  "annotations": [
+    {
+      "id": "dino_0_1773090216718",
+      "modelBbox": {
+        "x": 112.7,
+        "y": 10.1,
+        "width": 141,
+        "height": 170.4
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.495
+    },
+    {
+      "id": "dino_1_1773090216718",
+      "modelBbox": {
+        "x": 451.1,
+        "y": 28.8,
+        "width": 154.1,
+        "height": 131.3
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.489
+    },
+    {
+      "id": "dino_2_1773090216718",
+      "modelBbox": {
+        "x": 4.310148232611175,
+        "y": 40.5,
+        "width": 144.9898517673888,
+        "height": 123.2
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.486
+    },
+    {
+      "id": "dino_3_1773090216718",
+      "modelBbox": {
+        "x": 230,
+        "y": 28.9,
+        "width": 190.8,
+        "height": 135
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.462
+    },
+    {
+      "id": "dino_4_1773090216718",
+      "modelBbox": {
+        "x": 564.2,
+        "y": 37.7,
+        "width": 150.7,
+        "height": 139.3
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.457
+    },
+    {
+      "id": "dino_5_1773090216718",
+      "modelBbox": {
+        "x": 392.8,
+        "y": 55.5,
+        "width": 93.7,
+        "height": 126.6
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.374
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:03:50.251Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,26 @@
+{
+  "imageId": "necrons_ebay_necrons_annihilation_barge_dakka_371320_007",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_annihilation_barge_dakka_371320_007.jpg",
+  "faction": "necrons",
+  "source": "ebay",
+  "width": 3264,
+  "height": 2448,
+  "annotations": [
+    {
+      "id": "dino_0_1773541420297",
+      "modelBbox": {
+        "x": 861.5917901938427,
+        "y": 367.46750285062717,
+        "width": 1663.6351197263398,
+        "height": 1901.828962371722
+      },
+      "classLabel": "necrons",
+      "confidence": 0.371
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T02:23:55.505Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

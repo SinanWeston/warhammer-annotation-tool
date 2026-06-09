@@ -1,0 +1,25 @@
+{
+  "imageId": "deathwatch_reddit_1fvc3t7_1a50ace36f58",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/deathwatch/reddit/1fvc3t7_1a50ace36f58.jpg",
+  "faction": "deathwatch",
+  "source": "reddit",
+  "width": 2196,
+  "height": 2196,
+  "annotations": [
+    {
+      "id": "7dd09005-4a32-4a74-a06f-7dd14404be33",
+      "modelBbox": {
+        "x": 213.88679597165236,
+        "y": 106.81541402461768,
+        "width": 1759.42111152555,
+        "height": 2057.5725475568815
+      },
+      "classLabel": "deathwatch"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:35:22.620Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

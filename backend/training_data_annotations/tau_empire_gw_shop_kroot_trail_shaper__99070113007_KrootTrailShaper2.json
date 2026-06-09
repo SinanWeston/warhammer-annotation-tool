@@ -1,0 +1,274 @@
+{
+  "imageId": "tau_empire_gw_shop_kroot_trail_shaper__99070113007_KrootTrailShaper2",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tau_empire/gw_shop/kroot_trail_shaper__99070113007_KrootTrailShaper2.jpg",
+  "faction": "tau_empire",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "pseudo-6194f70cb611",
+      "modelBbox": {
+        "x": 1026.06,
+        "y": 202.13,
+        "width": 759.38,
+        "height": 789.14
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.9509,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8a6667ba5bc0",
+      "modelBbox": {
+        "x": 1026.25,
+        "y": 1146.57,
+        "width": 759.26,
+        "height": 636.86
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.909,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b0b26e5b9d6f",
+      "modelBbox": {
+        "x": 69.02,
+        "y": 67.75,
+        "width": 906.76,
+        "height": 923.46
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.9082,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e5aa15c6cb8b",
+      "modelBbox": {
+        "x": 1025.37,
+        "y": 793.76,
+        "width": 823.98,
+        "height": 215.57
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.8633,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1558570a56d8",
+      "modelBbox": {
+        "x": 69.02,
+        "y": 793.45,
+        "width": 814.83,
+        "height": 216.94
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.8158,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-917742aac3cd",
+      "modelBbox": {
+        "x": 791.21,
+        "y": 1053.98,
+        "width": 184.47,
+        "height": 152.94
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.8081,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bb742e69cbdd",
+      "modelBbox": {
+        "x": 792.89,
+        "y": 66.56,
+        "width": 181.41,
+        "height": 923.5
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.7705,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4beba6de1da0",
+      "modelBbox": {
+        "x": 68.8,
+        "y": 1053.79,
+        "width": 904.84,
+        "height": 731.35
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.7474,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c155285b5893",
+      "modelBbox": {
+        "x": 793.17,
+        "y": 1739.28,
+        "width": 119.31,
+        "height": 256.7
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.5233,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7a4bf4d92df6",
+      "modelBbox": {
+        "x": 792.82,
+        "y": 66.25,
+        "width": 182.57,
+        "height": 344.08
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.519,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-48011771696d",
+      "modelBbox": {
+        "x": 791.18,
+        "y": 424.07,
+        "width": 117.42,
+        "height": 563.38
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.4603,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-83a47e0ef688",
+      "modelBbox": {
+        "x": 792.94,
+        "y": 1072.43,
+        "width": 180.08,
+        "height": 923.59
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.4412,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4fc799f65a68",
+      "modelBbox": {
+        "x": 68.36,
+        "y": 1073.43,
+        "width": 116.75,
+        "height": 275.77
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.4003,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-41a9f26cbed2",
+      "modelBbox": {
+        "x": 416.94,
+        "y": 1072.6,
+        "width": 258.64,
+        "height": 397.79
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.3636,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c8bbd3f29cd7",
+      "modelBbox": {
+        "x": 395.61,
+        "y": 1073.22,
+        "width": 574.48,
+        "height": 397.6
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.3591,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4931322ed927",
+      "modelBbox": {
+        "x": 275.55,
+        "y": 1459.81,
+        "width": 484.76,
+        "height": 323.3
+      },
+      "classLabel": "tau_empire",
+      "pseudoScore": 0.2532,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

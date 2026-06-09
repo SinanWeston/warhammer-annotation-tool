@@ -1,0 +1,215 @@
+{
+  "imageId": "necrons_reddit_11xiqtl_e4d4a2329d65",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/11xiqtl_e4d4a2329d65.jpg",
+  "faction": "necrons",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "c3e63a35-1e5c-4ffd-b88b-5034f727e720",
+      "modelBbox": {
+        "x": 24.908616187989555,
+        "y": 679.7702349869452,
+        "width": 682.7780678851175,
+        "height": 944.4595300261095
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "84311f63-db25-4beb-b31d-da9092f3489b",
+      "modelBbox": {
+        "x": 148.22976501305482,
+        "y": 1630.2454308093995,
+        "width": 667.7389033942559,
+        "height": 336.8772845953001
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "8115ac94-b189-42a6-8126-4f3e95736ede",
+      "modelBbox": {
+        "x": 762.9086161879895,
+        "y": 1092.5953002610966,
+        "width": 234.61096605744126,
+        "height": 374.4751958224542
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "3698c1d5-d314-4e0c-8cac-2c7fa862aa58",
+      "modelBbox": {
+        "x": 889.2375979112271,
+        "y": 1112.1462140992166,
+        "width": 212.05221932114887,
+        "height": 428.61618798955624
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "e64e0e7a-da0e-4e89-9cd5-b3efec89e7d2",
+      "modelBbox": {
+        "x": 892.2454308093994,
+        "y": 1167.7911227154048,
+        "width": 320.33420365535255,
+        "height": 527.8746736292428
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "89a53550-3971-4ded-bd7e-e249ba3f9170",
+      "modelBbox": {
+        "x": 968.9451697127937,
+        "y": 1211.4046997389034,
+        "width": 392.52219321148834,
+        "height": 681.2741514360312
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "9128a9e3-1bc4-457f-a1d4-d6d1349ef10b",
+      "modelBbox": {
+        "x": 1290.7832898172323,
+        "y": 1073.0443864229765,
+        "width": 180.46997389033936,
+        "height": 375.97911227154054
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "7c763238-aa84-4a15-9316-0762dfe7abd5",
+      "modelBbox": {
+        "x": 1364.4751958224542,
+        "y": 1080.5639686684074,
+        "width": 240.62663185378597,
+        "height": 497.7963446475194
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "35841556-d2d2-4e9f-b536-ec943dda7d94",
+      "modelBbox": {
+        "x": 1278.751958224543,
+        "y": 459.4464751958224,
+        "width": 464.710182767624,
+        "height": 873.7754569190602
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "8949d9cb-4e11-4234-91ef-2a57cf3b7e01",
+      "modelBbox": {
+        "x": 1487.7963446475196,
+        "y": 1080.5639686684074,
+        "width": 640.6684073107049,
+        "height": 985.0652741514357
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "6dd8676f-4f38-44a6-a4c6-0d3514a68e75",
+      "modelBbox": {
+        "x": 1844.2245430809398,
+        "y": 1029.4308093994778,
+        "width": 311.31070496083566,
+        "height": 526.3707571801567
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "a2dba544-d02f-4d08-868e-f66e6863ba52",
+      "modelBbox": {
+        "x": 2080.3394255874673,
+        "y": 1258.0261096605743,
+        "width": 503.812010443864,
+        "height": 681.2741514360314
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "f32880cb-f55e-40b3-afd7-735e3fd704a5",
+      "modelBbox": {
+        "x": 2092.3707571801565,
+        "y": 1188.845953002611,
+        "width": 380.49086161879904,
+        "height": 538.4020887728459
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "48a27fe6-32c9-4b25-9583-934debedb91d",
+      "modelBbox": {
+        "x": 2320.9660574412533,
+        "y": 1086.579634464752,
+        "width": 369.9634464751957,
+        "height": 467.7180156657962
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "d4541d6c-98d2-4b5f-a3bf-8fe0fdc95372",
+      "modelBbox": {
+        "x": 2211.1801566579634,
+        "y": 1036.9503916449087,
+        "width": 178.96605744125327,
+        "height": 350.4125326370756
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "3eeb691f-7aca-433d-8cc6-d6431bb9e4f7",
+      "modelBbox": {
+        "x": 2628.516971279373,
+        "y": 1612.9503916449084,
+        "width": 609.0861618798958,
+        "height": 338.38120104438644
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "c478344a-d1af-43df-865e-ea3ac68bda2b",
+      "modelBbox": {
+        "x": 3257.154046997389,
+        "y": 1772.3655352480416,
+        "width": 762.485639686684,
+        "height": 377.48302872062663
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "706fbb8e-91b7-4b82-a822-02d398e21f90",
+      "modelBbox": {
+        "x": 2684.1618798955615,
+        "y": 1106.130548302872,
+        "width": 320.3342036553522,
+        "height": 460.1984334203655
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "1cab966b-e814-407a-8d18-3f4e678d45ff",
+      "modelBbox": {
+        "x": 2690.177545691906,
+        "y": 1039.9582245430809,
+        "width": 267.697127937337,
+        "height": 409.06527415143614
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "264ec188-7bd4-469b-bd03-0e7947881e09",
+      "modelBbox": {
+        "x": 2927.7963446475196,
+        "y": 715.1122715404699,
+        "width": 980.5535248041774,
+        "height": 1070.7885117493472
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:46:45.560Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

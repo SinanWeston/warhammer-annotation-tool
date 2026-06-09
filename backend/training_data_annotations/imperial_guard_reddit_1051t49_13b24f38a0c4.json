@@ -1,0 +1,93 @@
+{
+  "imageId": "imperial_guard_reddit_1051t49_13b24f38a0c4",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1051t49_13b24f38a0c4.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "597d69cf-7c0b-42e8-9c7e-0d90ca00b998",
+      "modelBbox": {
+        "x": 312.41783621651786,
+        "y": 1095.2464259556361,
+        "width": 2079.7714285714283,
+        "height": 1697.142857142857
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "89231b1c-31bd-40eb-a3a4-b2bafbfe4d5e",
+      "modelBbox": {
+        "x": 2416.8749790736606,
+        "y": 2180.3893694196427,
+        "width": 604.8000000000002,
+        "height": 1110.8571428571431
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "500958ae-9944-43b3-93ac-5aebd5506a2d",
+      "modelBbox": {
+        "x": 1790.4749790736607,
+        "y": 3004.2750837053572,
+        "width": 700.4571428571428,
+        "height": 734.4000000000001
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "207c4620-38d8-4b2b-9779-b93810bd1bfd",
+      "modelBbox": {
+        "x": 1602.2464076450892,
+        "y": 2640.1607979910714,
+        "width": 515.3142857142857,
+        "height": 512.2285714285717
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "cd4616cb-2526-4ba4-ab34-6c8dd3c72d7c",
+      "modelBbox": {
+        "x": 821.560693359375,
+        "y": 2806.7893694196428,
+        "width": 577.0285714285714,
+        "height": 561.6000000000004
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "191d7278-5616-4954-b678-1d739ad8f7e0",
+      "modelBbox": {
+        "x": 22.360693359375,
+        "y": 2998.1036551339284,
+        "width": 493.7142857142858,
+        "height": 709.7142857142858
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "aaf6b793-779b-4dc3-8258-b025a91569bc",
+      "modelBbox": {
+        "x": 543.8464076450892,
+        "y": 3093.7607979910713,
+        "width": 530.7428571428571,
+        "height": 783.7714285714287
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "1962b462-bf4a-4650-bcc2-b0ac0ab428a6",
+      "modelBbox": {
+        "x": 1339.960693359375,
+        "y": 2891.475125558036,
+        "width": 385.7142857142858,
+        "height": 675.7714285714283
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T18:14:04.642Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

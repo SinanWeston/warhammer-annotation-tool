@@ -1,0 +1,24 @@
+{
+  "imageId": "_unknown_cmon_cmon_471224_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471224_00.jpg",
+  "faction": "necrons",
+  "source": "cmon",
+  "width": 1066,
+  "height": 1066,
+  "annotations": [
+    {
+      "id": "4457ef21-024b-451a-8c5b-a35a2bb708f1",
+      "modelBbox": {
+        "x": 81.0428573912597,
+        "y": 9.249450979911522,
+        "width": 920.5412663980994,
+        "height": 1042.5460045318714
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T10:40:05.882Z",
+  "annotatedBy": "sinan"
+}

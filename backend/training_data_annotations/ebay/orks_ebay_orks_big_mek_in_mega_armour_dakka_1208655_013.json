@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_in_mega_armour_dakka_1208655_013",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_in_mega_armour_dakka_1208655_013.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 478,
+  "height": 506,
+  "annotations": [
+    {
+      "id": "dino_0_1773584374379",
+      "modelBbox": {
+        "x": 0,
+        "y": 4.8,
+        "width": 478,
+        "height": 501.2
+      },
+      "classLabel": "orks",
+      "confidence": 0.808
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:21:49.460Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

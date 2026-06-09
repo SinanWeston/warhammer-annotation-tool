@@ -1,0 +1,78 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_in_mega_armour_ebay_306768454419_05",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_in_mega_armour_ebay_306768454419_05.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1500,
+  "height": 1500,
+  "annotations": [
+    {
+      "id": "dino_0_1773584893736",
+      "modelBbox": {
+        "x": 134.26453819840364,
+        "y": 735.0074828962372,
+        "width": 336.03546180159634,
+        "height": 347.9925171037628
+      },
+      "classLabel": "orks",
+      "confidence": 0.919
+    },
+    {
+      "id": "dino_3_1773584893736",
+      "modelBbox": {
+        "x": 458.9,
+        "y": 515,
+        "width": 273.3,
+        "height": 385.4
+      },
+      "classLabel": "orks",
+      "confidence": 0.234
+    },
+    {
+      "id": "dino_4_1773584893736",
+      "modelBbox": {
+        "x": 1023.8,
+        "y": 788.0291476624858,
+        "width": 300.1,
+        "height": 338.1708523375142
+      },
+      "classLabel": "orks",
+      "confidence": 0.222
+    },
+    {
+      "id": "b817c027-4eff-41c0-bddf-4608b4206bb1",
+      "modelBbox": {
+        "x": 467.787913340935,
+        "y": 895.7828534777651,
+        "width": 222.34891676168752,
+        "height": 201.82440136830098
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "891d08e3-b63d-48e1-ac4e-8f54b3e47977",
+      "modelBbox": {
+        "x": 698.6887115165337,
+        "y": 687.1169469783352,
+        "width": 249.71493728620294,
+        "height": 410.49030786773085
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "e5d4630a-c684-4f0d-a3d0-8e823cebab19",
+      "modelBbox": {
+        "x": 789.3386545039908,
+        "y": 483.582169327252,
+        "width": 403.6488027366021,
+        "height": 437.85632839224627
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:28:37.151Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

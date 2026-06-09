@@ -1,0 +1,13 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_158801_25da17560086",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/158801_25da17560086.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 899,
+  "annotations": [],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:28:16.226Z",
+  "annotatedBy": "sinan"
+}

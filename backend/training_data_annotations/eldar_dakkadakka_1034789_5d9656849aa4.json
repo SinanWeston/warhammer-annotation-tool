@@ -1,0 +1,113 @@
+{
+  "imageId": "eldar_dakkadakka_1034789_5d9656849aa4",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/1034789_5d9656849aa4.jpg",
+  "faction": "eldar",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 577,
+  "annotations": [
+    {
+      "id": "70b81d0c-567d-45ed-8077-461091178610",
+      "modelBbox": {
+        "x": 7.525655644241733,
+        "y": 347.12799315849486,
+        "width": 115.84948688711516,
+        "height": 122.23489167616879
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "669b431a-a79b-4ebc-9ff5-4675d28179a9",
+      "modelBbox": {
+        "x": 6.1573546180159635,
+        "y": 251.346921322691,
+        "width": 116.30558722919044,
+        "height": 131.81299885974914
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "1ea2232e-ab64-417e-9d21-736bb467680f",
+      "modelBbox": {
+        "x": 117.90193842645382,
+        "y": 291.0276510832383,
+        "width": 58.380843785632834,
+        "height": 133.63740022805018
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "261ea3d7-44e4-477c-bd1b-e8a5de9ff2a1",
+      "modelBbox": {
+        "x": 155.30216647662488,
+        "y": 316.5692702394527,
+        "width": 91.22006841505132,
+        "height": 161.0034207525656
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "2fe8d4de-dd53-4750-a8ff-4ec3b6466e57",
+      "modelBbox": {
+        "x": 215.50741163055872,
+        "y": 392.2819270239453,
+        "width": 103.53477765108326,
+        "height": 145.95210946408213
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "b7dc72f2-dae1-4007-8057-b7acb8d0a453",
+      "modelBbox": {
+        "x": 387.0011402508552,
+        "y": 385.8965222348917,
+        "width": 106.27137970353476,
+        "height": 170.12542759407074
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "b7d24d4f-faff-4d79-8dd0-bc6506f8455d",
+      "modelBbox": {
+        "x": 498.2896237172178,
+        "y": 359.8988027366021,
+        "width": 103.07867730900801,
+        "height": 161.0034207525656
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "6f37c02d-e30e-4a51-b540-27722e3b4969",
+      "modelBbox": {
+        "x": 603.6488027366021,
+        "y": 329.7961801596351,
+        "width": 88.93956670467503,
+        "height": 151.4253135689852
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "77a1d54a-58d2-4982-957f-b6ae1664604b",
+      "modelBbox": {
+        "x": 558.9509692132269,
+        "y": 249.97862029646524,
+        "width": 91.67616875712656,
+        "height": 149.14481185860888
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "204a44ed-ce9a-470c-a1d8-de6a1fe54f86",
+      "modelBbox": {
+        "x": 643.7856328392246,
+        "y": 278.25684150513115,
+        "width": 98.51767388825544,
+        "height": 154.618015963512
+      },
+      "classLabel": "eldar"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:46:59.063Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,26 @@
+{
+  "imageId": "space_marines_ebay_space_marines_ancient_in_terminator_armour_ebay_397692706900_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_ancient_in_terminator_armour_ebay_397692706900_03.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1200,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773600874652",
+      "modelBbox": {
+        "x": 206.61345496009122,
+        "y": 174.41562143671607,
+        "width": 878.4492588369442,
+        "height": 1346.4082098061574
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.328
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:54:55.733Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

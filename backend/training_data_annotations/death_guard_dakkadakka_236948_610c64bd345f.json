@@ -1,0 +1,24 @@
+{
+  "imageId": "death_guard_dakkadakka_236948_610c64bd345f",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/236948_610c64bd345f.jpg",
+  "faction": "space_marines",
+  "source": "dakkadakka",
+  "width": 626,
+  "height": 1072,
+  "annotations": [
+    {
+      "id": "pseudo-2983ec30ad7c",
+      "modelBbox": {
+        "x": 43.751677843989164,
+        "y": 54.790000915527344,
+        "width": 558.2897959183674,
+        "height": 971.3850973012497
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:16:59.538Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,75 @@
+{
+  "imageId": "eldar_dakkadakka_125254_44f8595683e3",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/125254_44f8595683e3.jpg",
+  "faction": "eldar",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 296,
+  "annotations": [
+    {
+      "id": "0ca05920-eb3f-4cf7-ba2e-093ef93cc904",
+      "modelBbox": {
+        "x": 24.590416733099488,
+        "y": 66.91467907963967,
+        "width": 135.1020408163265,
+        "height": 205.30612244897958
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "dab4d541-cbe4-4ca0-9183-f88960043b47",
+      "modelBbox": {
+        "x": 176.83531469228316,
+        "y": 39.159577038823336,
+        "width": 117.14285714285714,
+        "height": 183.26530612244898
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "fa8c45a2-32f1-45a4-b2c9-611ade6e56b1",
+      "modelBbox": {
+        "x": 237.24347795758928,
+        "y": 72.62896479392538,
+        "width": 151.4285714285714,
+        "height": 193.87755102040813
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "79bbb45b-05af-4387-ba4a-ea808fcd092f",
+      "modelBbox": {
+        "x": 410.3047149035395,
+        "y": 41.608556630660075,
+        "width": 113.06122448979596,
+        "height": 188.57142857142856
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "da3f95eb-1018-4e89-b85f-ba6df54ba8af",
+      "modelBbox": {
+        "x": 498.8761434749681,
+        "y": 69.77182193678252,
+        "width": 168.9795918367347,
+        "height": 198.7755102040816
+      },
+      "classLabel": "eldar"
+    },
+    {
+      "id": "b6db6a3b-e0d2-4e92-8334-c358f610c2d9",
+      "modelBbox": {
+        "x": 607.4475720463967,
+        "y": 31.812638263313136,
+        "width": 153.87755102040808,
+        "height": 197.95918367346937
+      },
+      "classLabel": "eldar"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T15:39:09.674Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

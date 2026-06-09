@@ -1,0 +1,130 @@
+{
+  "imageId": "imperial_guard_dakkadakka_205725_daddebe8159e",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/dakkadakka/205725_daddebe8159e.jpg",
+  "faction": "imperial_guard",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 1066,
+  "annotations": [
+    {
+      "id": "pseudo-19afd9a0ba3e",
+      "modelBbox": {
+        "x": 665.85,
+        "y": 204.82,
+        "width": 134.15,
+        "height": 495.06
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7627,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-67018a52e711",
+      "modelBbox": {
+        "x": 198.44,
+        "y": 144.65,
+        "width": 418.39,
+        "height": 653.67
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7176,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e585a8bb6720",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 143.13,
+        "width": 202.92,
+        "height": 487.96
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7173,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bdfa2f266c0f",
+      "modelBbox": {
+        "x": 735.7,
+        "y": 197.81,
+        "width": 64.3,
+        "height": 188.19
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.5083,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f3f3dd5cf1b2",
+      "modelBbox": {
+        "x": 254.1,
+        "y": 143.09,
+        "width": 360.65,
+        "height": 375.83
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.411,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b8aa62833c30",
+      "modelBbox": {
+        "x": 331.31,
+        "y": 207.13,
+        "width": 202.64,
+        "height": 288.57
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.3956,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0da16b7c939d",
+      "modelBbox": {
+        "x": 0.08,
+        "y": 341.33,
+        "width": 67.48,
+        "height": 293.62
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2545,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

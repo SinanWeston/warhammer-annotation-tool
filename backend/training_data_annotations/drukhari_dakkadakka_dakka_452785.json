@@ -1,0 +1,74 @@
+{
+  "imageId": "drukhari_dakkadakka_dakka_452785",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_452785.jpg",
+  "faction": "drukhari",
+  "source": "dakkadakka",
+  "width": 2560,
+  "height": 1920,
+  "annotations": [
+    {
+      "id": "pseudo-786a6433d86b",
+      "modelBbox": {
+        "x": 1769.6456536009002,
+        "y": 444.71351234046546,
+        "width": 562.3357792573144,
+        "height": 781.0882953265766
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-cd0b29f4ca41",
+      "modelBbox": {
+        "x": 1766.5728150787697,
+        "y": 693.2180227102102,
+        "width": 444.5335357276819,
+        "height": 677.400584177928
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-8e4ef12956a7",
+      "modelBbox": {
+        "x": 983.881165603901,
+        "y": 597.5063344594595,
+        "width": 326.884934124156,
+        "height": 628.8336383258259
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-1efb5b62b1c6",
+      "modelBbox": {
+        "x": 1331.1999484246062,
+        "y": 693.2372606981982,
+        "width": 498.9215467929482,
+        "height": 742.0348277965466
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-54a3e9fb4a90",
+      "modelBbox": {
+        "x": 2207.5726744186045,
+        "y": 692.0840958145645,
+        "width": 352.4272962771943,
+        "height": 522.5129035285286
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-ed1ff7672796",
+      "modelBbox": {
+        "x": 1188.8924184171042,
+        "y": 566.8516563438438,
+        "width": 622.6004548012003,
+        "height": 661.8330048798799
+      },
+      "classLabel": "drukhari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T12:48:06.868Z",
+  "annotatedBy": "sinan"
+}

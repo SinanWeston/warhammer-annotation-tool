@@ -1,0 +1,26 @@
+{
+  "imageId": "leagues_of_votann_isolation_leagues_of_votann_arkanyst_evaluator_ebay_168095798748_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/isolation/leagues_of_votann_arkanyst_evaluator_ebay_168095798748_03.jpg",
+  "faction": "leagues_of_votann",
+  "source": "isolation",
+  "width": 1000,
+  "height": 750,
+  "annotations": [
+    {
+      "id": "dino_0_1773608039327",
+      "modelBbox": {
+        "x": 334.2,
+        "y": 305.2,
+        "width": 429.5,
+        "height": 427.67842075256567
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.517
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:54:02.929Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

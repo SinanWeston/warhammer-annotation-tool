@@ -1,0 +1,130 @@
+{
+  "imageId": "orks_ebay_orks_kill_rig_ebay_167559482942_12",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_kill_rig_ebay_167559482942_12.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1599,
+  "height": 1199,
+  "annotations": [
+    {
+      "id": "pseudo-4f2601d23a7c",
+      "modelBbox": {
+        "x": 202.11,
+        "y": 85.03,
+        "width": 567.99,
+        "height": 682.31
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.809,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5ae01b77e786",
+      "modelBbox": {
+        "x": 200.78,
+        "y": 430.7,
+        "width": 569.97,
+        "height": 571.03
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.7672,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-79f5edff7aae",
+      "modelBbox": {
+        "x": 611.46,
+        "y": 438.2,
+        "width": 766.88,
+        "height": 574.08
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.6113,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-722fcb97b48f",
+      "modelBbox": {
+        "x": 832.23,
+        "y": 460.8,
+        "width": 552.79,
+        "height": 306.85
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.5994,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3b2da389a15a",
+      "modelBbox": {
+        "x": 608.8,
+        "y": 435.95,
+        "width": 239.06,
+        "height": 563.69
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.433,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-288876974bc0",
+      "modelBbox": {
+        "x": 907.94,
+        "y": 510.01,
+        "width": 154.23,
+        "height": 139.46
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.4154,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9a1d30df5444",
+      "modelBbox": {
+        "x": 475.43,
+        "y": 608.77,
+        "width": 89.03,
+        "height": 158.62
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.2756,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

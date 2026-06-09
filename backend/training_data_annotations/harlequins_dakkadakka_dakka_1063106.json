@@ -1,0 +1,59 @@
+{
+  "imageId": "harlequins_dakkadakka_dakka_1063106",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/harlequins/dakkadakka/dakka_1063106.jpg",
+  "faction": "harlequins",
+  "source": "dakkadakka",
+  "width": 1024,
+  "height": 596,
+  "annotations": [
+    {
+      "id": "dino_0_1773090518691",
+      "modelBbox": {
+        "x": 41.8,
+        "y": 83.2,
+        "width": 369.7849486887115,
+        "height": 388.20706955530216
+      },
+      "classLabel": "harlequins",
+      "confidence": 0.501
+    },
+    {
+      "id": "dino_1_1773090518691",
+      "modelBbox": {
+        "x": 605.6,
+        "y": 64.6,
+        "width": 377,
+        "height": 402.1366020524515
+      },
+      "classLabel": "harlequins",
+      "confidence": 0.458
+    },
+    {
+      "id": "dino_2_1773090518691",
+      "modelBbox": {
+        "x": 351.5,
+        "y": 136.7,
+        "width": 264.3,
+        "height": 418.7754846066135
+      },
+      "classLabel": "harlequins",
+      "confidence": 0.392
+    },
+    {
+      "id": "dino_3_1773090518691",
+      "modelBbox": {
+        "x": 431.3,
+        "y": 63.4,
+        "width": 239.7,
+        "height": 326.2738882554162
+      },
+      "classLabel": "harlequins",
+      "confidence": 0.329
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:08:50.726Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

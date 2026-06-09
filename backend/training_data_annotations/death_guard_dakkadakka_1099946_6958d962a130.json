@@ -1,0 +1,23 @@
+{
+  "imageId": "death_guard_dakkadakka_1099946_6958d962a130",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1099946_6958d962a130.jpeg",
+  "faction": "death_guard",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 800,
+  "annotations": [
+    {
+      "id": "ed902daf-1301-4384-bf6f-222f5595a2ab",
+      "modelBbox": {
+        "x": 145.49600912200685,
+        "y": 109.53534777651083,
+        "width": 398.6316989737743,
+        "height": 601.1402508551882
+      },
+      "classLabel": "death_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:33:07.977Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

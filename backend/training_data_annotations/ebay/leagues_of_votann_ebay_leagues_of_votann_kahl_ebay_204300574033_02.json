@@ -1,0 +1,125 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_kahl_ebay_204300574033_02",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_kahl_ebay_204300574033_02.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 920,
+  "height": 950,
+  "annotations": [
+    {
+      "id": "dino_0_1773607597992",
+      "modelBbox": {
+        "x": 143,
+        "y": 101.8,
+        "width": 116.3,
+        "height": 166.7
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.776
+    },
+    {
+      "id": "dino_1_1773607597992",
+      "modelBbox": {
+        "x": 433.7,
+        "y": 105.1,
+        "width": 119.13922462941844,
+        "height": 168.5
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.76
+    },
+    {
+      "id": "dino_3_1773607597992",
+      "modelBbox": {
+        "x": 263.3,
+        "y": 187.1,
+        "width": 224.2,
+        "height": 283.1
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.674
+    },
+    {
+      "id": "dino_4_1773607597992",
+      "modelBbox": {
+        "x": 571.3,
+        "y": 105.8,
+        "width": 120.7,
+        "height": 174.5
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.639
+    },
+    {
+      "id": "dino_6_1773607597992",
+      "modelBbox": {
+        "x": 328,
+        "y": 486.4,
+        "width": 257.9,
+        "height": 290.7
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.48
+    },
+    {
+      "id": "dino_7_1773607597992",
+      "modelBbox": {
+        "x": 99.7,
+        "y": 486.4,
+        "width": 206,
+        "height": 286.3
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.465
+    },
+    {
+      "id": "dino_9_1773607597992",
+      "modelBbox": {
+        "x": 601.9,
+        "y": 468.2,
+        "width": 210.2,
+        "height": 314.2
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.438
+    },
+    {
+      "id": "dino_10_1773607597992",
+      "modelBbox": {
+        "x": 81,
+        "y": 270.7,
+        "width": 181.8,
+        "height": 210.4
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.383
+    },
+    {
+      "id": "dino_12_1773607597992",
+      "modelBbox": {
+        "x": 680.6,
+        "y": 167.1,
+        "width": 147.7,
+        "height": 253.9
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.342
+    },
+    {
+      "id": "dino_14_1773607597992",
+      "modelBbox": {
+        "x": 494.9,
+        "y": 294.7,
+        "width": 170,
+        "height": 244.6
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.233
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:46:59.164Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

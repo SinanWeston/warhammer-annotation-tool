@@ -1,0 +1,244 @@
+{
+  "imageId": "imperial_guard_reddit_11z25d9_d4983cdc5731",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11z25d9_d4983cdc5731.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4624,
+  "height": 3468,
+  "annotations": [
+    {
+      "id": "1cebc4a1-879e-4955-95a4-844601c2b182",
+      "modelBbox": {
+        "x": 1893,
+        "y": 1965,
+        "width": 591,
+        "height": 783
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "7f779d50-0aee-403b-986d-2a162bfa9e98",
+      "modelBbox": {
+        "x": 2787,
+        "y": 1789,
+        "width": 479,
+        "height": 934
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "80708b5a-19d1-4f4e-890e-df8b7664a273",
+      "modelBbox": {
+        "x": 137,
+        "y": 1585,
+        "width": 1294,
+        "height": 1219
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "dba1906e-789b-4711-9d78-f96446fd0a44",
+      "modelBbox": {
+        "x": 1340,
+        "y": 1340,
+        "width": 533,
+        "height": 848
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "d7737847-1607-454b-8dad-c56d880f5146",
+      "modelBbox": {
+        "x": 2008,
+        "y": 1332,
+        "width": 570,
+        "height": 833
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "d6bd4229-4b7b-4d30-b08f-4c37a0b3b917",
+      "modelBbox": {
+        "x": 2571,
+        "y": 1212,
+        "width": 495,
+        "height": 773
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "ef39aa18-0dc5-48f4-873c-137880e2ea03",
+      "modelBbox": {
+        "x": 3118,
+        "y": 1565,
+        "width": 518,
+        "height": 675
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "c187d771-36a4-4442-a431-91a699d333a3",
+      "modelBbox": {
+        "x": 3171,
+        "y": 1145,
+        "width": 518,
+        "height": 788
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "a130a005-0582-4861-b18a-2fc4a6bf4a18",
+      "modelBbox": {
+        "x": 3952,
+        "y": 1829,
+        "width": 642,
+        "height": 897
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "06d5b322-b93d-477e-a519-5bfcade50f03",
+      "modelBbox": {
+        "x": 3869,
+        "y": 1337,
+        "width": 655,
+        "height": 743
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "fbb0d0cf-74e0-4c20-927b-c18e6c10818b",
+      "modelBbox": {
+        "x": 3715,
+        "y": 1044,
+        "width": 438,
+        "height": 693
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "a2fc732a-cce7-47a8-af12-d2750782af5c",
+      "modelBbox": {
+        "x": 2476,
+        "y": 815,
+        "width": 493,
+        "height": 715
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "52c2a969-47fd-4c15-a172-65d372eea471",
+      "modelBbox": {
+        "x": 886,
+        "y": 1025,
+        "width": 424,
+        "height": 701
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "49a65190-0320-4580-bfca-303e699fdb99",
+      "modelBbox": {
+        "x": 370,
+        "y": 616,
+        "width": 562,
+        "height": 740
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "34178309-c9dc-4cd6-9bed-78dda3682f24",
+      "modelBbox": {
+        "x": 1062,
+        "y": 671,
+        "width": 421,
+        "height": 683
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "52d69f5e-5ad1-42cf-a718-36a89f1fd95d",
+      "modelBbox": {
+        "x": 1499,
+        "y": 1098,
+        "width": 325,
+        "height": 650
+      },
+      "classLabel": "imperial_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "148d871b-8a18-4695-bd59-9b5f9239cc82",
+      "modelBbox": {
+        "x": 2258,
+        "y": 615,
+        "width": 233,
+        "height": 542
+      },
+      "classLabel": "imperial_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "f35a889a-42ea-4b68-a388-32b8ddea816e",
+      "modelBbox": {
+        "x": 1770,
+        "y": 621,
+        "width": 374,
+        "height": 645
+      },
+      "classLabel": "imperial_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "53059dff-3ffe-4208-b260-c444aacfc38f",
+      "modelBbox": {
+        "x": 3116,
+        "y": 735,
+        "width": 454,
+        "height": 612
+      },
+      "classLabel": "imperial_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "011ea16b-b4d2-4802-884c-039a4eb8043c",
+      "modelBbox": {
+        "x": 3469,
+        "y": 630,
+        "width": 353,
+        "height": 573
+      },
+      "classLabel": "imperial_guard",
+      "originalPrediction": false
+    },
+    {
+      "id": "1b50275f-9647-48b8-956f-2e88dd149704",
+      "modelBbox": {
+        "x": 3785,
+        "y": 649,
+        "width": 487,
+        "height": 615
+      },
+      "classLabel": "imperial_guard",
+      "originalPrediction": false
+    }
+  ],
+  "annotatedAt": "2026-02-22T15:35:15.795Z",
+  "annotatedBy": "mobile-annotator",
+  "legacy_no_unit": true
+}

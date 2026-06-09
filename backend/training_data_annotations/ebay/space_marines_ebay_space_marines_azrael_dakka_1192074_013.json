@@ -1,0 +1,25 @@
+{
+  "imageId": "space_marines_ebay_space_marines_azrael_dakka_1192074_013",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_azrael_dakka_1192074_013.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 4532,
+  "height": 3399,
+  "annotations": [
+    {
+      "id": "dino_0_1773606692324",
+      "modelBbox": {
+        "x": 1196.30330672748,
+        "y": 46.9,
+        "width": 1860.3420752565562,
+        "height": 2825.5
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:31:45.943Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

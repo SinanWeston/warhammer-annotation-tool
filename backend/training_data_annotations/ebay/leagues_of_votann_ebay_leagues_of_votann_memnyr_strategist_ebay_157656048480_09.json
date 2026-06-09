@@ -1,0 +1,26 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_memnyr_strategist_ebay_157656048480_09",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_memnyr_strategist_ebay_157656048480_09.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1000,
+  "height": 750,
+  "annotations": [
+    {
+      "id": "dino_1_1773607742563",
+      "modelBbox": {
+        "x": 330.10262257696695,
+        "y": 222.0460376282782,
+        "width": 305.5872291904219,
+        "height": 466.3625997719498
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.608
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:49:10.342Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

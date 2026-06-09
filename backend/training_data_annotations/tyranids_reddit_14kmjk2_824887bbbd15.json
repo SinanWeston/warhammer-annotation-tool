@@ -1,0 +1,65 @@
+{
+  "imageId": "tyranids_reddit_14kmjk2_824887bbbd15",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/14kmjk2_824887bbbd15.jpg",
+  "faction": "tyranids",
+  "source": "reddit",
+  "width": 4096,
+  "height": 3072,
+  "annotations": [
+    {
+      "id": "40b084df-df9d-4e45-a4e5-8d1adda059eb",
+      "modelBbox": {
+        "x": 217.8052965311451,
+        "y": 1698.9004102946662,
+        "width": 681.3935098843715,
+        "height": 785.2831033196569
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "d852145a-7976-41bb-8cf5-2b2826522193",
+      "modelBbox": {
+        "x": 874.7541961954495,
+        "y": 1705.011562849683,
+        "width": 889.1726967549422,
+        "height": 788.3386795971653
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "4ec65272-e696-4233-b654-c3a9841a4264",
+      "modelBbox": {
+        "x": 987.81051846326,
+        "y": 223.05706825811265,
+        "width": 880.0059679224171,
+        "height": 1989.1801566579636
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "3612f41f-25e1-4c51-bd12-e7566944d583",
+      "modelBbox": {
+        "x": 1779.2047743379337,
+        "y": 1323.064528161134,
+        "width": 971.6732562476689,
+        "height": 1185.563595673256
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "3dea5a89-7d35-4f8b-96f8-22e747545ad5",
+      "modelBbox": {
+        "x": 2815.0451324132787,
+        "y": 1316.953375606117,
+        "width": 858.616933979858,
+        "height": 1200.841477060798
+      },
+      "classLabel": "tyranids"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:30:33.270Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,44 @@
+{
+  "imageId": "adepta_sororitas_dakkadakka_dakka_1029117",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1029117.jpg",
+  "faction": "space_marines",
+  "source": "dakkadakka",
+  "width": 2787,
+  "height": 1442,
+  "annotations": [
+    {
+      "id": "dino_0_1773086066758",
+      "modelBbox": {
+        "x": 1564.7,
+        "y": 216,
+        "width": 1204.8216647662484,
+        "height": 1145.2
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_1_1773086066758",
+      "modelBbox": {
+        "x": 792.5,
+        "y": 172.4,
+        "width": 979.2,
+        "height": 716.4
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_2_1773086066758",
+      "modelBbox": {
+        "x": 529.1,
+        "y": 37.7,
+        "width": 725.9,
+        "height": 536.2
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-12T14:38:20.275Z",
+  "annotatedBy": "sinan"
+}

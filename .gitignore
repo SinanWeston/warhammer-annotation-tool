@@ -78,7 +78,8 @@ test-images/
 
 # Training data and annotations (large datasets)
 backend/training_data/
-backend/training_data_annotations/
+# training_data_annotations/ is deliberately TRACKED (2026-06-09): 1,065 hand-labeled
+# JSONs, ~6.5MB, irreplaceable human work — git is its backup.
 backend/training_data_proposals/
 backend/training_data_candidates/
 backend/yolo_dataset/

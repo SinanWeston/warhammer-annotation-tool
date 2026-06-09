@@ -1,0 +1,475 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_19663_9a2b8f14ff96",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/19663_9a2b8f14ff96.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "dino_0_1773088171842",
+      "modelBbox": {
+        "x": 701.8,
+        "y": 500.1,
+        "width": 55.7,
+        "height": 73.3
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.563
+    },
+    {
+      "id": "dino_1_1773088171842",
+      "modelBbox": {
+        "x": 74.3,
+        "y": 474.3,
+        "width": 72.3,
+        "height": 85
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.561
+    },
+    {
+      "id": "dino_2_1773088171842",
+      "modelBbox": {
+        "x": 234.6,
+        "y": 468.5,
+        "width": 46.8,
+        "height": 98.3
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.559
+    },
+    {
+      "id": "dino_3_1773088171842",
+      "modelBbox": {
+        "x": 343.2,
+        "y": 506.9,
+        "width": 56.6,
+        "height": 92.2
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.556
+    },
+    {
+      "id": "dino_4_1773088171842",
+      "modelBbox": {
+        "x": 350.8,
+        "y": 367.5,
+        "width": 88.6,
+        "height": 108
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.554
+    },
+    {
+      "id": "dino_5_1773088171842",
+      "modelBbox": {
+        "x": 581.2,
+        "y": 458.3,
+        "width": 62,
+        "height": 67.2
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.537
+    },
+    {
+      "id": "dino_6_1773088171842",
+      "modelBbox": {
+        "x": 20.6,
+        "y": 408.1,
+        "width": 50.8,
+        "height": 61.3
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.534
+    },
+    {
+      "id": "dino_7_1773088171842",
+      "modelBbox": {
+        "x": 523.4,
+        "y": 480.4,
+        "width": 49.9,
+        "height": 103.3
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.53
+    },
+    {
+      "id": "dino_8_1773088171842",
+      "modelBbox": {
+        "x": 180.4,
+        "y": 413.5,
+        "width": 43.9,
+        "height": 68.9
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.528
+    },
+    {
+      "id": "dino_9_1773088171842",
+      "modelBbox": {
+        "x": 483.3,
+        "y": 403.6,
+        "width": 50.5,
+        "height": 72.8
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.523
+    },
+    {
+      "id": "dino_10_1773088171842",
+      "modelBbox": {
+        "x": 257.7,
+        "y": 398,
+        "width": 53.7,
+        "height": 61.7
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.511
+    },
+    {
+      "id": "dino_11_1773088171842",
+      "modelBbox": {
+        "x": 94.5,
+        "y": 359.8,
+        "width": 41.6,
+        "height": 63.5
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.508
+    },
+    {
+      "id": "dino_12_1773088171842",
+      "modelBbox": {
+        "x": 257.6,
+        "y": 308.7,
+        "width": 70.9,
+        "height": 90.1
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.497
+    },
+    {
+      "id": "dino_13_1773088171842",
+      "modelBbox": {
+        "x": 579.7,
+        "y": 377.6,
+        "width": 46.9,
+        "height": 59.5
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.496
+    },
+    {
+      "id": "dino_14_1773088171842",
+      "modelBbox": {
+        "x": 669.3,
+        "y": 399.8,
+        "width": 46.6,
+        "height": 71.5
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.496
+    },
+    {
+      "id": "dino_15_1773088171842",
+      "modelBbox": {
+        "x": 668.3,
+        "y": 353.5,
+        "width": 60.9,
+        "height": 55.9
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.49
+    },
+    {
+      "id": "dino_16_1773088171842",
+      "modelBbox": {
+        "x": 145.5,
+        "y": 535.2,
+        "width": 56,
+        "height": 63.3
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.489
+    },
+    {
+      "id": "dino_17_1773088171842",
+      "modelBbox": {
+        "x": 671.7,
+        "y": 291.9,
+        "width": 51.6,
+        "height": 53.9
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.485
+    },
+    {
+      "id": "dino_18_1773088171842",
+      "modelBbox": {
+        "x": 309.9,
+        "y": 191.40060813378943,
+        "width": 111.4,
+        "height": 118.79939186621056
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.481
+    },
+    {
+      "id": "dino_19_1773088171842",
+      "modelBbox": {
+        "x": 430.5,
+        "y": 304.1,
+        "width": 70.1,
+        "height": 87.9
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.476
+    },
+    {
+      "id": "dino_20_1773088171842",
+      "modelBbox": {
+        "x": 167.6,
+        "y": 324.8,
+        "width": 41.6,
+        "height": 58.6
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.459
+    },
+    {
+      "id": "dino_21_1773088171842",
+      "modelBbox": {
+        "x": 249.4,
+        "y": 245.8,
+        "width": 68.2,
+        "height": 74.7
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.457
+    },
+    {
+      "id": "dino_22_1773088171842",
+      "modelBbox": {
+        "x": 643.9,
+        "y": 234.1,
+        "width": 42.4,
+        "height": 51.6
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.446
+    },
+    {
+      "id": "dino_23_1773088171842",
+      "modelBbox": {
+        "x": 553.7,
+        "y": 140.7,
+        "width": 32.7,
+        "height": 42.8
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.433
+    },
+    {
+      "id": "dino_24_1773088171842",
+      "modelBbox": {
+        "x": 415.6,
+        "y": 237.7,
+        "width": 57,
+        "height": 83.6
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.432
+    },
+    {
+      "id": "dino_25_1773088171842",
+      "modelBbox": {
+        "x": 83.4,
+        "y": 185.2,
+        "width": 31,
+        "height": 47.1
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.419
+    },
+    {
+      "id": "dino_26_1773088171842",
+      "modelBbox": {
+        "x": 110.5,
+        "y": 216.7,
+        "width": 40.7,
+        "height": 51.4
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.408
+    },
+    {
+      "id": "dino_27_1773088171842",
+      "modelBbox": {
+        "x": 619.6,
+        "y": 185.7,
+        "width": 31.8,
+        "height": 48.4
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.402
+    },
+    {
+      "id": "dino_29_1773088171842",
+      "modelBbox": {
+        "x": 608.7,
+        "y": 314.3,
+        "width": 37.1,
+        "height": 64.7
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.396
+    },
+    {
+      "id": "dino_30_1773088171842",
+      "modelBbox": {
+        "x": 525.1,
+        "y": 332.2,
+        "width": 45.1,
+        "height": 62.9
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.396
+    },
+    {
+      "id": "dino_31_1773088171842",
+      "modelBbox": {
+        "x": 592,
+        "y": 164.8,
+        "width": 27.6,
+        "height": 42.7
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.388
+    },
+    {
+      "id": "dino_32_1773088171842",
+      "modelBbox": {
+        "x": 130.1,
+        "y": 162.1,
+        "width": 95.21356898517674,
+        "height": 164.30630938806542
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.388
+    },
+    {
+      "id": "dino_33_1773088171842",
+      "modelBbox": {
+        "x": 479.2,
+        "y": 166.1,
+        "width": 95.8,
+        "height": 124.4
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.383
+    },
+    {
+      "id": "dino_34_1773088171842",
+      "modelBbox": {
+        "x": 498.6,
+        "y": 268.4,
+        "width": 39.3,
+        "height": 52.7
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.382
+    },
+    {
+      "id": "dino_35_1773088171842",
+      "modelBbox": {
+        "x": 432.8,
+        "y": 104.4,
+        "width": 104.8,
+        "height": 105.85275560623339
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.366
+    },
+    {
+      "id": "dino_36_1773088171842",
+      "modelBbox": {
+        "x": 66.4,
+        "y": 255.5,
+        "width": 49.3,
+        "height": 103.8
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.359
+    },
+    {
+      "id": "dino_37_1773088171842",
+      "modelBbox": {
+        "x": 538.9,
+        "y": 295.5,
+        "width": 36.5,
+        "height": 52.9
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.334
+    },
+    {
+      "id": "dino_38_1773088171842",
+      "modelBbox": {
+        "x": 613.1,
+        "y": 278.7,
+        "width": 39.1,
+        "height": 56.7
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.331
+    },
+    {
+      "id": "dino_39_1773088171842",
+      "modelBbox": {
+        "x": 116.9,
+        "y": 123.8,
+        "width": 147.5,
+        "height": 98.8
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.315
+    },
+    {
+      "id": "dino_44_1773088171842",
+      "modelBbox": {
+        "x": 69.9,
+        "y": 254.6,
+        "width": 31.3,
+        "height": 41.1
+      },
+      "classLabel": "adeptus_mechanicus",
+      "confidence": 0.256
+    },
+    {
+      "id": "c5cab518-2e50-486b-86ac-869684067e93",
+      "modelBbox": {
+        "x": 306.80349676928927,
+        "y": 120.8570885594831,
+        "width": 97.30140630938808,
+        "height": 125.27556062333714
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "4f151cf6-bd59-4f0f-b0b5-5cb24bae55f5",
+      "modelBbox": {
+        "x": 593.2345115925505,
+        "y": 201.73888255416193,
+        "width": 34.05549220828573,
+        "height": 54.123907259597075
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:30:34.772Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

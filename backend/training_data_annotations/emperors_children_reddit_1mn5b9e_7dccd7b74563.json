@@ -1,0 +1,258 @@
+{
+  "imageId": "emperors_children_reddit_1mn5b9e_7dccd7b74563",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/emperors_children/reddit/1mn5b9e_7dccd7b74563.jpg",
+  "faction": "emperors_children",
+  "source": "reddit",
+  "width": 4284,
+  "height": 5712,
+  "annotations": [
+    {
+      "id": "pseudo-d6c60c39f4e5",
+      "modelBbox": {
+        "x": 728.25,
+        "y": 2359.16,
+        "width": 1073.61,
+        "height": 1259.19
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.8738,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-be48416da8a9",
+      "modelBbox": {
+        "x": 1979.52,
+        "y": 2403.71,
+        "width": 777.95,
+        "height": 1232.99
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.7949,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-88cbb04bbf93",
+      "modelBbox": {
+        "x": 747.52,
+        "y": 2349.59,
+        "width": 782.48,
+        "height": 392.61
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.7436,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b5459dda6287",
+      "modelBbox": {
+        "x": 1780.98,
+        "y": 2186.97,
+        "width": 518.09,
+        "height": 463.56
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.5717,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-aefa81ff8411",
+      "modelBbox": {
+        "x": 2159.97,
+        "y": 2204.33,
+        "width": 598.02,
+        "height": 316.3
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.5595,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-092cf3c2d4d8",
+      "modelBbox": {
+        "x": 2230.13,
+        "y": 1624.98,
+        "width": 489.1,
+        "height": 632.03
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.5365,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-16dda5e2ecea",
+      "modelBbox": {
+        "x": 2042.6,
+        "y": 1628.58,
+        "width": 1025.45,
+        "height": 1120.72
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.5298,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1571df0f4a03",
+      "modelBbox": {
+        "x": 1529.2,
+        "y": 1705.49,
+        "width": 318.07,
+        "height": 1037.34
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.5186,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7ce3da74eb4e",
+      "modelBbox": {
+        "x": 2033.36,
+        "y": 2408.99,
+        "width": 560.88,
+        "height": 332.09
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.4362,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a19be0ab5f25",
+      "modelBbox": {
+        "x": 1540.64,
+        "y": 2200.73,
+        "width": 505.57,
+        "height": 1362.65
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.4171,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ff7d165f924e",
+      "modelBbox": {
+        "x": 887.84,
+        "y": 2971.84,
+        "width": 920.06,
+        "height": 644.83
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.4047,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2c1d099d4aaa",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 2970.8,
+        "width": 2043.49,
+        "height": 636.13
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.396,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3e8b091d1537",
+      "modelBbox": {
+        "x": 1981.24,
+        "y": 1874.97,
+        "width": 287.49,
+        "height": 450.59
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.3335,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d26f8e794ca2",
+      "modelBbox": {
+        "x": 2058.22,
+        "y": 2866.0,
+        "width": 900.35,
+        "height": 773.24
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.2837,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-498dfe653325",
+      "modelBbox": {
+        "x": 2486.21,
+        "y": 2972.87,
+        "width": 268.77,
+        "height": 665.72
+      },
+      "classLabel": "emperors_children",
+      "pseudoScore": 0.2679,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

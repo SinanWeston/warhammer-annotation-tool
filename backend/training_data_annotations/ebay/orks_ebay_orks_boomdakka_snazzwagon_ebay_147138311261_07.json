@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_boomdakka_snazzwagon_ebay_147138311261_07",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_boomdakka_snazzwagon_ebay_147138311261_07.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773588904659",
+      "modelBbox": {
+        "x": 71.15165336374002,
+        "y": 64.70923603192703,
+        "width": 1503.3067274800458,
+        "height": 1426.6818700114025
+      },
+      "classLabel": "orks",
+      "confidence": 0.845
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T15:35:14.185Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

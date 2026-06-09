@@ -1,0 +1,135 @@
+{
+  "imageId": "deathwatch_reddit_1fkh5cg_269a1cea45dc",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/deathwatch/reddit/1fkh5cg_269a1cea45dc.jpeg",
+  "faction": "deathwatch",
+  "source": "reddit",
+  "width": 2830,
+  "height": 2783,
+  "annotations": [
+    {
+      "id": "309b9381-e921-4a26-b8c7-7adf25f7fa81",
+      "modelBbox": {
+        "x": 131.2872995151063,
+        "y": 29.69907839114758,
+        "width": 385.63720004973266,
+        "height": 840.2387168966802
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "1b3b7dbe-42d2-4d67-86ae-eb90eafad379",
+      "modelBbox": {
+        "x": 625.2969973890339,
+        "y": 87.40391489493969,
+        "width": 560.1591445977871,
+        "height": 769.8669650627875
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "e1b0b1c7-30d9-4105-9ce6-33a712779d76",
+      "modelBbox": {
+        "x": 1220.6420179037673,
+        "y": 114.14518059181897,
+        "width": 289.93161755563847,
+        "height": 713.5695635956731
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "47ce3a76-9f85-4186-b107-76ef020117d1",
+      "modelBbox": {
+        "x": 1631.6130486137013,
+        "y": 147.92362147208752,
+        "width": 496.8245679472834,
+        "height": 647.4201168718139
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "a9cf679b-02b0-4dfa-b45f-6de6a0ceab4c",
+      "modelBbox": {
+        "x": 2265.6625326370754,
+        "y": 104.29313533507397,
+        "width": 401.11898545318945,
+        "height": 681.1985577520825
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "56ac3fe8-1791-4862-a063-7499a191145f",
+      "modelBbox": {
+        "x": 2327.589674250901,
+        "y": 898.7902135397239,
+        "width": 488.3799577272166,
+        "height": 648.8275519084918
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "c76aac68-b85f-479f-9308-441e666cd452",
+      "modelBbox": {
+        "x": 1812.468450826806,
+        "y": 1630.6564326122093,
+        "width": 848.683327116747,
+        "height": 722.0141738157404
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "ed10cc85-6a9e-430c-8524-0c972d439a57",
+      "modelBbox": {
+        "x": 1773.0602697998258,
+        "y": 1057.8303726843217,
+        "width": 433.48999129677964,
+        "height": 468.6758672137264
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "cfe3f01c-9d1d-42be-a210-4fc22c209054",
+      "modelBbox": {
+        "x": 1305.0881201044385,
+        "y": 1101.4608588213353,
+        "width": 430.6751212234242,
+        "height": 524.9732686808404
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "31f632ee-b899-4c8a-821d-a6dbef3355cd",
+      "modelBbox": {
+        "x": 1144.6405259231628,
+        "y": 1718.6211224045753,
+        "width": 547.4922292676863,
+        "height": 689.6431679721497
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "43614844-819a-4014-892e-8fc48f86b16d",
+      "modelBbox": {
+        "x": 549.2955054084297,
+        "y": 1918.476897612831,
+        "width": 488.37995772721604,
+        "height": 484.1576526171823
+      },
+      "classLabel": "deathwatch"
+    },
+    {
+      "id": "8a91694f-0ed7-443c-9ec3-6cfd5a8795ec",
+      "modelBbox": {
+        "x": 546.480635335074,
+        "y": 923.4203266815865,
+        "width": 567.1963197811762,
+        "height": 786.7561855029218
+      },
+      "classLabel": "deathwatch"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:41:11.615Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

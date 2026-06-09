@@ -1,0 +1,70 @@
+{
+  "imageId": "black_templars_dakkadakka_dakka_1038484",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/dakkadakka/dakka_1038484.jpg",
+  "faction": "space_marines",
+  "source": "dakkadakka",
+  "width": 1461,
+  "height": 1182,
+  "annotations": [
+    {
+      "id": "dino_0_1773085414551",
+      "modelBbox": {
+        "x": 98.7,
+        "y": 89.7,
+        "width": 453.54800456100344,
+        "height": 844.4310397662485
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.442
+    },
+    {
+      "id": "dino_1_1773085414551",
+      "modelBbox": {
+        "x": 430.6368301026226,
+        "y": 207.5,
+        "width": 503.8631698973774,
+        "height": 924.8739131984037
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.437
+    },
+    {
+      "id": "dino_2_1773085414551",
+      "modelBbox": {
+        "x": 845.4475484606613,
+        "y": 170.9,
+        "width": 416.4766248574687,
+        "height": 829.8672997434436
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.43
+    },
+    {
+      "id": "dino_3_1773085414551",
+      "modelBbox": {
+        "x": 102.7,
+        "y": 89.6,
+        "width": 354.59133409350056,
+        "height": 622.9654753420753
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.355
+    },
+    {
+      "id": "dino_4_1773085414551",
+      "modelBbox": {
+        "x": 1028.6972633979476,
+        "y": 116.5,
+        "width": 389.60273660205246,
+        "height": 677.6948938141392
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.351
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T19:44:05.432Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

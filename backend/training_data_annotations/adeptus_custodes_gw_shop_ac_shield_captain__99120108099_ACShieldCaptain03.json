@@ -1,0 +1,25 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_ac_shield_captain__99120108099_ACShieldCaptain03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/ac_shield_captain__99120108099_ACShieldCaptain03.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778672812266",
+      "modelBbox": {
+        "x": 706.6255530532526,
+        "y": 754.4501090536312,
+        "width": 769.3877551020407,
+        "height": 820.4082021907884
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "shield-captain"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T11:47:21.372Z",
+  "annotatedBy": "sinan"
+}

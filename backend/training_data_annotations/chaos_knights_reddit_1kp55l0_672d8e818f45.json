@@ -1,0 +1,75 @@
+{
+  "imageId": "chaos_knights_reddit_1kp55l0_672d8e818f45",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/reddit/1kp55l0_672d8e818f45.jpg",
+  "faction": "chaos_knights",
+  "source": "reddit",
+  "width": 2758,
+  "height": 1292,
+  "annotations": [
+    {
+      "id": "3e1129e5-3fb7-418f-89a9-41c02305f4ec",
+      "modelBbox": {
+        "x": 34.67645778938208,
+        "y": 483.09149260226286,
+        "width": 521.2184508268059,
+        "height": 592.5430809399479
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "fc98eb67-d69b-4781-a005-5a13aa164585",
+      "modelBbox": {
+        "x": 480.45539599651875,
+        "y": 314.38130983463884,
+        "width": 566.4821583986075,
+        "height": 740.6788511749348
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "818fbcef-6100-4489-a294-47fa9b0fca0a",
+      "modelBbox": {
+        "x": 1058.5963881636208,
+        "y": 385.7059399477807,
+        "width": 470.468233246301,
+        "height": 722.8476936466493
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "69b2ccb5-50ba-4576-9945-10521b8e2717",
+      "modelBbox": {
+        "x": 1097.0019582245432,
+        "y": 81.20463446475196,
+        "width": 681.6988685813751,
+        "height": 754.3951261966928
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "d6cbada2-0746-468f-826a-7f66d8750a33",
+      "modelBbox": {
+        "x": 1797.9036118363795,
+        "y": 118.23857702349869,
+        "width": 652.8946910356833,
+        "height": 759.881636205396
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "b72b4fac-3c4e-4562-a500-03ee5ba0a345",
+      "modelBbox": {
+        "x": 2213.5067449956487,
+        "y": 498.1793951261967,
+        "width": 497.90078328981735,
+        "height": 651.5230635335075
+      },
+      "classLabel": "chaos_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:47:23.175Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

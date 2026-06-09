@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_blitza_bommer_ebay_287137644333_10",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_blitza_bommer_ebay_287137644333_10.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_1_1773588847088",
+      "modelBbox": {
+        "x": 99.42987457240594,
+        "y": 119.92588369441278,
+        "width": 1368.3010262257699,
+        "height": 1395.6670467502852
+      },
+      "classLabel": "orks",
+      "confidence": 0.419
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T15:34:20.082Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

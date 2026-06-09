@@ -1,0 +1,146 @@
+{
+  "imageId": "chaos_knights_dakkadakka_dakka_961672",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_961672.jpg",
+  "faction": "chaos_knights",
+  "source": "dakkadakka",
+  "width": 1944,
+  "height": 2592,
+  "annotations": [
+    {
+      "id": "pseudo-a2d42dbb45f1",
+      "modelBbox": {
+        "x": 124.82,
+        "y": 994.25,
+        "width": 1129.1,
+        "height": 969.61
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.7707,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1ccecfde8584",
+      "modelBbox": {
+        "x": 697.84,
+        "y": 1346.29,
+        "width": 906.48,
+        "height": 617.46
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.5322,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a082ac527c4c",
+      "modelBbox": {
+        "x": 454.93,
+        "y": 421.05,
+        "width": 798.18,
+        "height": 823.77
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.4696,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0ec682d04c11",
+      "modelBbox": {
+        "x": 695.63,
+        "y": 994.32,
+        "width": 1192.97,
+        "height": 970.13
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.3892,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-49b7974abf16",
+      "modelBbox": {
+        "x": 696.76,
+        "y": 1347.27,
+        "width": 148.0,
+        "height": 614.59
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.3804,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c73761ce7487",
+      "modelBbox": {
+        "x": 696.19,
+        "y": 419.98,
+        "width": 996.6,
+        "height": 822.45
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.2662,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e6d7f5be9a6c",
+      "modelBbox": {
+        "x": 727.37,
+        "y": 477.3,
+        "width": 235.44,
+        "height": 677.55
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.2558,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-87504cda7758",
+      "modelBbox": {
+        "x": 1449.79,
+        "y": 1344.54,
+        "width": 154.55,
+        "height": 208.68
+      },
+      "classLabel": "chaos_knights",
+      "pseudoScore": 0.2528,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

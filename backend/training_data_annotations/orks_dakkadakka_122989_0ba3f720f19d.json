@@ -1,0 +1,25 @@
+{
+  "imageId": "orks_dakkadakka_122989_0ba3f720f19d",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/122989_0ba3f720f19d.jpg",
+  "faction": "orks",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "5c8058b9-ca98-4ce7-b28f-d8743759d354",
+      "modelBbox": {
+        "x": 106.56471465870945,
+        "y": 9.548675867213726,
+        "width": 558.597538232003,
+        "height": 576.5013054830287
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:43:46.243Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,64 @@
+{
+  "imageId": "chaos_knights_dakkadakka_dakka_477657",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/dakkadakka/dakka_477657.jpg",
+  "faction": "chaos_knights",
+  "source": "dakkadakka",
+  "width": 1280,
+  "height": 720,
+  "annotations": [
+    {
+      "id": "pseudo-8b474702dd10",
+      "modelBbox": {
+        "x": 966.4299926757812,
+        "y": 242.38999938964844,
+        "width": 263.1400146484375,
+        "height": 343.64172892667807
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "pseudo-ba7ef86cd19b",
+      "modelBbox": {
+        "x": 748.9417970964428,
+        "y": 228.0399932861328,
+        "width": 238.81079156923192,
+        "height": 320.38026739626525
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "pseudo-299002a1805e",
+      "modelBbox": {
+        "x": 20.360000610351562,
+        "y": 202.44000244140625,
+        "width": 285.30640918273235,
+        "height": 377.9076958827152
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "pseudo-d28ced051167",
+      "modelBbox": {
+        "x": 502.31040072278915,
+        "y": 246.97000122070312,
+        "width": 317.0168839019983,
+        "height": 336.280191434484
+      },
+      "classLabel": "chaos_knights"
+    },
+    {
+      "id": "pseudo-c28057733337",
+      "modelBbox": {
+        "x": 310.74577487244903,
+        "y": 226.4499969482422,
+        "width": 242.35827664399096,
+        "height": 332.128993892886
+      },
+      "classLabel": "chaos_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:36:14.771Z",
+  "annotatedBy": "sinan"
+}

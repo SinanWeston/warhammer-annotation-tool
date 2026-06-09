@@ -1,0 +1,36 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_aleya_valerian_stock__99120108031_AleyaValerianStock",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/aleya_valerian_stock__99120108031_AleyaValerianStock.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778672976110",
+      "modelBbox": {
+        "x": 898.4622877471301,
+        "y": 1008.4183595618423,
+        "width": 346.9387755102042,
+        "height": 597.5056940195512
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "aleya"
+    },
+    {
+      "id": "25d68ba3-2b1f-4af0-aa92-1631c51862c2",
+      "modelBbox": {
+        "x": 451.523512236926,
+        "y": 705.470525001993,
+        "width": 426.530612244898,
+        "height": 927.6360648018973
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "valerian"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T11:50:17.270Z",
+  "annotatedBy": "sinan"
+}

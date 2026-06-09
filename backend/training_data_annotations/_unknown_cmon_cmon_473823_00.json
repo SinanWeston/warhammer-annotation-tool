@@ -1,0 +1,24 @@
+{
+  "imageId": "_unknown_cmon_cmon_473823_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_473823_00.jpg",
+  "faction": "_unknown",
+  "source": "cmon",
+  "width": 1440,
+  "height": 1440,
+  "annotations": [
+    {
+      "id": "pseudo-5ecf5e696d77",
+      "modelBbox": {
+        "x": 267.0636939368771,
+        "y": 593.547772680375,
+        "width": 653.9822710779737,
+        "height": 954.1650954282338
+      },
+      "classLabel": "_unknown"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:29:31.766Z",
+  "annotatedBy": "sinan"
+}

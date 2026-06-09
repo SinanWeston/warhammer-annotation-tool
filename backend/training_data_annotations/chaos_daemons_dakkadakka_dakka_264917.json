@@ -1,0 +1,50 @@
+{
+  "imageId": "chaos_daemons_dakkadakka_dakka_264917",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_264917.jpg",
+  "faction": "chaos_daemons",
+  "source": "dakkadakka",
+  "width": 640,
+  "height": 480,
+  "annotations": [
+    {
+      "id": "pseudo-57d2e33dd212",
+      "modelBbox": {
+        "x": 78.09,
+        "y": 5.43,
+        "width": 193.58,
+        "height": 465.9
+      },
+      "classLabel": "chaos_daemons",
+      "pseudoScore": 0.9061,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d77f3f26c7dc",
+      "modelBbox": {
+        "x": 299.54,
+        "y": 114.23,
+        "width": 149.13,
+        "height": 343.63
+      },
+      "classLabel": "chaos_daemons",
+      "pseudoScore": 0.9024,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

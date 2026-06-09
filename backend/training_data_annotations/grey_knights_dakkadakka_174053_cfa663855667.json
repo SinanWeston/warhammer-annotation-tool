@@ -1,0 +1,75 @@
+{
+  "imageId": "grey_knights_dakkadakka_174053_cfa663855667",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/174053_cfa663855667.jpg",
+  "faction": "grey_knights",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "9ea7f383-e26c-4ba2-a1b3-c749d1535014",
+      "modelBbox": {
+        "x": 75.32318784253795,
+        "y": 28.79426644182125,
+        "width": 205.7335581787521,
+        "height": 313.6593591905565
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "6b91ffa3-e789-492c-8dc0-c21aa00d9ce8",
+      "modelBbox": {
+        "x": 146.14949475653458,
+        "y": 205.52276559865095,
+        "width": 186.84654300168637,
+        "height": 221.9224283305228
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "1487e8ec-6b4d-4c04-95bc-6bdc7c2a6356",
+      "modelBbox": {
+        "x": 189.9943514175801,
+        "y": 119.18212478920742,
+        "width": 311.63575042158516,
+        "height": 221.9224283305228
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "4e6f9709-a6f4-431f-874b-c3c996915148",
+      "modelBbox": {
+        "x": 283.75489104658516,
+        "y": 261.5092748735245,
+        "width": 246.20573355817874,
+        "height": 253.62563237774026
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "ab21ae3c-7879-49f9-ab4c-5811bb72d741",
+      "modelBbox": {
+        "x": 551.5457848071248,
+        "y": 19.350758853288365,
+        "width": 202.36087689713315,
+        "height": 321.07925801011805
+      },
+      "classLabel": "grey_knights"
+    },
+    {
+      "id": "e0729a73-3ea3-4df9-8fe7-3863e415c77d",
+      "modelBbox": {
+        "x": 479.37040538048063,
+        "y": 215.6408094435076,
+        "width": 203.03541315345706,
+        "height": 228.66779089376055
+      },
+      "classLabel": "grey_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T10:47:07.408Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

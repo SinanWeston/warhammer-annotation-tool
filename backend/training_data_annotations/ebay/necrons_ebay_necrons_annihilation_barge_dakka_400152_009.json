@@ -1,0 +1,141 @@
+{
+  "imageId": "necrons_ebay_necrons_annihilation_barge_dakka_400152_009",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_annihilation_barge_dakka_400152_009.jpg",
+  "faction": "necrons",
+  "source": "ebay",
+  "width": 4000,
+  "height": 3000,
+  "annotations": [
+    {
+      "id": "dino_0_1773543760551",
+      "modelBbox": {
+        "x": 1523.3,
+        "y": 1235.1,
+        "width": 479.3,
+        "height": 879.2
+      },
+      "classLabel": "necrons",
+      "confidence": 0.685
+    },
+    {
+      "id": "dino_1_1773543760551",
+      "modelBbox": {
+        "x": 2468.2630178639297,
+        "y": 1300.0760167236792,
+        "width": 786.0129228430261,
+        "height": 766.2485746864309
+      },
+      "classLabel": "necrons",
+      "confidence": 0.66
+    },
+    {
+      "id": "dino_2_1773543760551",
+      "modelBbox": {
+        "x": 1030.0266058532877,
+        "y": 1354.7,
+        "width": 743.4435575826681,
+        "height": 775.5
+      },
+      "classLabel": "necrons",
+      "confidence": 0.557
+    },
+    {
+      "id": "dino_3_1773543760551",
+      "modelBbox": {
+        "x": 1432.9152413530978,
+        "y": 1014.6,
+        "width": 442.4173318129988,
+        "height": 697.4866590649943
+      },
+      "classLabel": "necrons",
+      "confidence": 0.411
+    },
+    {
+      "id": "dino_5_1773543760551",
+      "modelBbox": {
+        "x": 928.1641961231471,
+        "y": 1169.327251995439,
+        "width": 582.2881033827443,
+        "height": 790.5739262637779
+      },
+      "classLabel": "necrons",
+      "confidence": 0.29
+    },
+    {
+      "id": "dino_8_1773543760551",
+      "modelBbox": {
+        "x": 949.4488787533256,
+        "y": 1016.8,
+        "width": 539.7187381223871,
+        "height": 750.0187001140249
+      },
+      "classLabel": "necrons",
+      "confidence": 0.266
+    },
+    {
+      "id": "bdf5ebb2-cb82-4570-b275-64d7c57ed53a",
+      "modelBbox": {
+        "x": 1525.6556442417332,
+        "y": 1262.0676548840745,
+        "width": 437.85632839224627,
+        "height": 627.8981375902699
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "3cfed8d4-5e50-4265-a5fe-89cc10a307d3",
+      "modelBbox": {
+        "x": 2529.0763968072974,
+        "y": 1082.6681870011403,
+        "width": 825.5416191562144,
+        "height": 790.5739262637778
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "25a068c3-d82e-43fe-a2ba-679180ac82b5",
+      "modelBbox": {
+        "x": 2374.00228050171,
+        "y": 921.5127328012162,
+        "width": 819.4602812618778,
+        "height": 720.6385404789056
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "0a93d72b-5d7c-41ff-ab19-70fd1ea80eba",
+      "modelBbox": {
+        "x": 1913.3409350057013,
+        "y": 921.5127328012162,
+        "width": 658.3048270619538,
+        "height": 709.996199163816
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "e3c86b2e-4f93-4376-b509-20bed9e66a39",
+      "modelBbox": {
+        "x": 1957.4306347396428,
+        "y": 1102.4325351577347,
+        "width": 693.2725199543897,
+        "height": 719.1182060053211
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "53e870f7-decb-4dab-bab0-eeda0551e810",
+      "modelBbox": {
+        "x": 1984.7966552641583,
+        "y": 1293.9946788293423,
+        "width": 652.2234891676167,
+        "height": 781.451919422273
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T03:09:56.266Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

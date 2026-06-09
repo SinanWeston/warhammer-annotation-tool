@@ -1,0 +1,36 @@
+{
+  "imageId": "space_marines_ebay_space_marines_ancient_dakka_1071550_007",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_ancient_dakka_1071550_007.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 925,
+  "height": 629,
+  "annotations": [
+    {
+      "id": "dino_0_1773600237751",
+      "modelBbox": {
+        "x": 502.4,
+        "y": 27,
+        "width": 375,
+        "height": 576.7
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.313
+    },
+    {
+      "id": "5b65689f-28e6-40c1-b8c1-4b2e921ca6a2",
+      "modelBbox": {
+        "x": 76.46807297605473,
+        "y": 4.993497006841506,
+        "width": 284.77765108323837,
+        "height": 591.7046750285062
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:44:05.831Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

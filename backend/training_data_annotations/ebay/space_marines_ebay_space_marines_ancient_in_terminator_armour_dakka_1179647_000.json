@@ -1,0 +1,26 @@
+{
+  "imageId": "space_marines_ebay_space_marines_ancient_in_terminator_armour_dakka_1179647_000",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_ancient_in_terminator_armour_dakka_1179647_000.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1304,
+  "height": 1872,
+  "annotations": [
+    {
+      "id": "dino_0_1773600774925",
+      "modelBbox": {
+        "x": 156.12314709236034,
+        "y": 11.105188141391107,
+        "width": 1097.3226909920184,
+        "height": 1846.7137970353479
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.275
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:53:19.255Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

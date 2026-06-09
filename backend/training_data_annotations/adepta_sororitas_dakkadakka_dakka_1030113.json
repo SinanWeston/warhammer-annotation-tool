@@ -1,0 +1,48 @@
+{
+  "imageId": "adepta_sororitas_dakkadakka_dakka_1030113",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1030113.jpeg",
+  "faction": "adepta_sororitas",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 580,
+  "annotations": [
+    {
+      "id": "dino_0_1773087292293",
+      "modelBbox": {
+        "x": 552.4,
+        "y": 123.8,
+        "width": 234.82919042189297,
+        "height": 352.2072215887495
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.517
+    },
+    {
+      "id": "dino_1_1773087292293",
+      "modelBbox": {
+        "x": 3.9,
+        "y": 175.5,
+        "width": 291.5,
+        "height": 337.6033827442038
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.461
+    },
+    {
+      "id": "dino_2_1773087292293",
+      "modelBbox": {
+        "x": 321.39870771569747,
+        "y": 98.8,
+        "width": 205.90129228430254,
+        "height": 378.4234891676169
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.459
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:15:16.901Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

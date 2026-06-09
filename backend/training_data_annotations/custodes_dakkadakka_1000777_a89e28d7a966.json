@@ -1,0 +1,23 @@
+{
+  "imageId": "custodes_dakkadakka_1000777_a89e28d7a966",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1000777_a89e28d7a966.jpg",
+  "faction": "custodes",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "0a96bc58-d10a-4d9d-8a3c-09643a281d42",
+      "modelBbox": {
+        "x": 5.017103762827823,
+        "y": 69.39851767388826,
+        "width": 792.702394526796,
+        "height": 522.6909920182441
+      },
+      "classLabel": "custodes"
+    }
+  ],
+  "annotatedAt": "2026-02-07T16:25:39.087Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

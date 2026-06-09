@@ -1,0 +1,55 @@
+{
+  "imageId": "space_marines_ebay_space_marines_assault_squad_ebay_166923166789_17",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_assault_squad_ebay_166923166789_17.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1200,
+  "annotations": [
+    {
+      "id": "dino_0_1773606281552",
+      "modelBbox": {
+        "x": 900.7,
+        "y": 156.4139110604333,
+        "width": 687.6,
+        "height": 729.2860889395668
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_1_1773606281552",
+      "modelBbox": {
+        "x": 654.047890535918,
+        "y": 275,
+        "width": 477.9931584948688,
+        "height": 744.3557582668187
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "87098b32-6351-408b-b93d-436079aaa6c6",
+      "modelBbox": {
+        "x": 561.0034207525656,
+        "y": 271.351197263398,
+        "width": 337.51425313568984,
+        "height": 494.41277080957815
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "2a6cd3b5-4202-4727-bfd0-d8a70caab822",
+      "modelBbox": {
+        "x": 119.49828962371723,
+        "y": 300.5416191562144,
+        "width": 481.6419612314709,
+        "height": 479.81755986316995
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:25:04.034Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

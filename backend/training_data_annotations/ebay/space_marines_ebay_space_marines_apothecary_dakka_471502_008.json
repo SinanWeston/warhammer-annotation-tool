@@ -1,0 +1,103 @@
+{
+  "imageId": "space_marines_ebay_space_marines_apothecary_dakka_471502_008",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_apothecary_dakka_471502_008.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 864,
+  "height": 975,
+  "annotations": [
+    {
+      "id": "dino_0_1773601270392",
+      "modelBbox": {
+        "x": 445.7,
+        "y": 578.4,
+        "width": 236.3,
+        "height": 393.5
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.891
+    },
+    {
+      "id": "dino_2_1773601270392",
+      "modelBbox": {
+        "x": 18.6,
+        "y": 575.5,
+        "width": 117.8,
+        "height": 197.4
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.582
+    },
+    {
+      "id": "dino_4_1773601270392",
+      "modelBbox": {
+        "x": 182.6,
+        "y": 580.9925883694413,
+        "width": 236.3,
+        "height": 384.21892816419626
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.417
+    },
+    {
+      "id": "dino_5_1773601270392",
+      "modelBbox": {
+        "x": 725.2,
+        "y": 578.5,
+        "width": 110.8,
+        "height": 192.7
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.34
+    },
+    {
+      "id": "dino_6_1773601270392",
+      "modelBbox": {
+        "x": 10.6,
+        "y": 781.9686431014824,
+        "width": 145.5,
+        "height": 191.73135689851762
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.284
+    },
+    {
+      "id": "dino_10_1773601270392",
+      "modelBbox": {
+        "x": 724.5974914481186,
+        "y": 773.1020524515394,
+        "width": 130.90250855188134,
+        "height": 201.09794754846058
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.222
+    },
+    {
+      "id": "dino_11_1773601270392",
+      "modelBbox": {
+        "x": 112.9,
+        "y": 28.3,
+        "width": 322.4,
+        "height": 476.8
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.221
+    },
+    {
+      "id": "dino_12_1773601270392",
+      "modelBbox": {
+        "x": 447.3,
+        "y": 34.9,
+        "width": 309.9,
+        "height": 509.6
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.219
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T19:02:59.482Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

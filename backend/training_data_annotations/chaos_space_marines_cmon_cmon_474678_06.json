@@ -1,0 +1,24 @@
+{
+  "imageId": "chaos_space_marines_cmon_cmon_474678_06",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/cmon/cmon_474678_06.jpg",
+  "faction": "chaos_space_marines",
+  "source": "cmon",
+  "width": 1280,
+  "height": 957,
+  "annotations": [
+    {
+      "id": "pseudo-cc3c487c06bd",
+      "modelBbox": {
+        "x": 36.599998474121094,
+        "y": 47.7958984375,
+        "width": 1173.5133624952666,
+        "height": 880.3265306122449
+      },
+      "classLabel": "chaos_space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T10:38:56.511Z",
+  "annotatedBy": "sinan"
+}

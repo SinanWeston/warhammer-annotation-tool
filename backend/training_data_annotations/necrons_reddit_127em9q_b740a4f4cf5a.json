@@ -1,0 +1,25 @@
+{
+  "imageId": "necrons_reddit_127em9q_b740a4f4cf5a",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/127em9q_b740a4f4cf5a.jpg",
+  "faction": "necrons",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "757a430d-1abe-408c-bb1d-d72a99ef32c5",
+      "modelBbox": {
+        "x": 299.0443864229765,
+        "y": 818.8825065274151,
+        "width": 2436.3446475195824,
+        "height": 2291.968668407311
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:48:20.290Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

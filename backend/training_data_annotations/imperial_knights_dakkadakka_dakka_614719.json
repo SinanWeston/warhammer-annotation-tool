@@ -1,0 +1,13 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_614719",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_614719.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 3264,
+  "height": 2448,
+  "annotations": [],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-08T16:20:59.342Z",
+  "annotatedBy": "sinan"
+}

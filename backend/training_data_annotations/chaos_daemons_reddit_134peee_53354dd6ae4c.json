@@ -1,0 +1,25 @@
+{
+  "imageId": "chaos_daemons_reddit_134peee_53354dd6ae4c",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/reddit/134peee_53354dd6ae4c.jpg",
+  "faction": "chaos_daemons",
+  "source": "reddit",
+  "width": 2752,
+  "height": 2541,
+  "annotations": [
+    {
+      "id": "a6b7aa18-4689-4bdf-91b3-398d99166059",
+      "modelBbox": {
+        "x": 89.43215507411631,
+        "y": 184.30672748004562,
+        "width": 2557.445838084379,
+        "height": 2334.6499429874575
+      },
+      "classLabel": "chaos_daemons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:50:17.039Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

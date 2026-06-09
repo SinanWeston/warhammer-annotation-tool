@@ -1,0 +1,98 @@
+{
+  "imageId": "black_templars_reddit_vldoi2_453e8a48741f",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/reddit/vldoi2_453e8a48741f.jpg",
+  "faction": "black_templars",
+  "source": "reddit",
+  "width": 2802,
+  "height": 2802,
+  "annotations": [
+    {
+      "id": "pseudo-af94bd2f8d81",
+      "modelBbox": {
+        "x": 1078.32,
+        "y": 1075.69,
+        "width": 1343.76,
+        "height": 1324.63
+      },
+      "classLabel": "black_templars",
+      "pseudoScore": 0.7897,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bf62a5a38d41",
+      "modelBbox": {
+        "x": 1074.37,
+        "y": 178.91,
+        "width": 948.23,
+        "height": 1167.13
+      },
+      "classLabel": "black_templars",
+      "pseudoScore": 0.7598,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2e570eed0426",
+      "modelBbox": {
+        "x": 467.21,
+        "y": 20.42,
+        "width": 886.39,
+        "height": 1322.97
+      },
+      "classLabel": "black_templars",
+      "pseudoScore": 0.6965,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4a5436bbf29b",
+      "modelBbox": {
+        "x": 734.77,
+        "y": 1082.06,
+        "width": 620.17,
+        "height": 1337.72
+      },
+      "classLabel": "black_templars",
+      "pseudoScore": 0.6687,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2218798699d8",
+      "modelBbox": {
+        "x": 1452.75,
+        "y": 1455.15,
+        "width": 1105.23,
+        "height": 834.48
+      },
+      "classLabel": "black_templars",
+      "pseudoScore": 0.4531,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

@@ -1,0 +1,99 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_1093378",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_1093378.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 3524,
+  "height": 5286,
+  "annotations": [
+    {
+      "id": "dino_4_1772986180114",
+      "modelBbox": {
+        "x": 1401.973582552416,
+        "y": 4164.9,
+        "width": 798.026417447584,
+        "height": 1037.407597013992
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.347
+    },
+    {
+      "id": "dino_6_1772986180114",
+      "modelBbox": {
+        "x": 2306.2490767532013,
+        "y": 4125.6947723440135,
+        "width": 646.2647554806074,
+        "height": 846.8296795952788
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.342
+    },
+    {
+      "id": "dino_9_1772986180114",
+      "modelBbox": {
+        "x": 2502.357002554213,
+        "y": 4317.7,
+        "width": 843.4429974457868,
+        "height": 957.4052361370939
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.259
+    },
+    {
+      "id": "dino_3_1772986180114",
+      "modelBbox": {
+        "x": 772.5463743676222,
+        "y": 3933.053642594593,
+        "width": 759.1536256323778,
+        "height": 1031.0522765598655
+      },
+      "classLabel": "imperial_knights",
+      "confidence": 0.373
+    },
+    {
+      "id": "2d1710a4-25e3-47ef-bf07-0b0f1b7d2429",
+      "modelBbox": {
+        "x": 701.2344013490725,
+        "y": 3803.8006914984717,
+        "width": 638.8364249578414,
+        "height": 777.4984738123158
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "9205a62e-230b-4dc3-af07-96a8cff400ca",
+      "modelBbox": {
+        "x": 2953.9994983383617,
+        "y": 3875.607765648055,
+        "width": 329.8178752107924,
+        "height": 499.183811129848
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "ecade665-7f6d-40a6-9eba-5418e9fb05de",
+      "modelBbox": {
+        "x": 1982.3738659606213,
+        "y": 3946.919738666605,
+        "width": 304.5615514333897,
+        "height": 579.4097807757166
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "b5b768a3-7221-4b61-b11a-ae3309597bfc",
+      "modelBbox": {
+        "x": 2300.306412334989,
+        "y": 3796.372360975706,
+        "width": 677.4637436762223,
+        "height": 751.7470489038787
+      },
+      "classLabel": "imperial_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-08T16:13:19.630Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

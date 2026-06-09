@@ -1,0 +1,258 @@
+{
+  "imageId": "space_marines_isolation_space_marines_aggressor_squad_ebay_236614096466_08",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/isolation/space_marines_aggressor_squad_ebay_236614096466_08.jpg",
+  "faction": "space_marines",
+  "source": "isolation",
+  "width": 1125,
+  "height": 1314,
+  "annotations": [
+    {
+      "id": "pseudo-d185c90e42b0",
+      "modelBbox": {
+        "x": 483.37,
+        "y": 515.39,
+        "width": 462.91,
+        "height": 635.71
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7785,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9175ba9778c2",
+      "modelBbox": {
+        "x": 204.28,
+        "y": 674.55,
+        "width": 438.05,
+        "height": 586.44
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7599,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-db9ab0696b63",
+      "modelBbox": {
+        "x": 353.99,
+        "y": 12.71,
+        "width": 289.48,
+        "height": 628.46
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7468,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3053c25612cf",
+      "modelBbox": {
+        "x": 483.39,
+        "y": 14.55,
+        "width": 251.54,
+        "height": 625.86
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.655,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3373b2ea230b",
+      "modelBbox": {
+        "x": 318.51,
+        "y": 512.36,
+        "width": 327.72,
+        "height": 533.79
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.481,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-94a9dfe28b04",
+      "modelBbox": {
+        "x": 484.82,
+        "y": 930.77,
+        "width": 453.75,
+        "height": 289.87
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.453,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-57e3e6003518",
+      "modelBbox": {
+        "x": 527.37,
+        "y": 399.59,
+        "width": 116.66,
+        "height": 189.35
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.434,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-25c90dde60fb",
+      "modelBbox": {
+        "x": 483.03,
+        "y": 398.96,
+        "width": 250.52,
+        "height": 241.25
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.4298,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-96616f16af29",
+      "modelBbox": {
+        "x": 484.15,
+        "y": 673.76,
+        "width": 325.37,
+        "height": 345.92
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.4098,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d6949ca0d9d8",
+      "modelBbox": {
+        "x": 204.64,
+        "y": 994.23,
+        "width": 434.81,
+        "height": 267.43
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.402,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5600f4db8dd7",
+      "modelBbox": {
+        "x": 360.38,
+        "y": 401.11,
+        "width": 284.06,
+        "height": 240.02
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.362,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-efe4768df2ae",
+      "modelBbox": {
+        "x": 345.75,
+        "y": 766.49,
+        "width": 301.8,
+        "height": 385.16
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.3573,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8a07bd5d0944",
+      "modelBbox": {
+        "x": 392.99,
+        "y": 994.85,
+        "width": 250.52,
+        "height": 157.21
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.3406,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1e76f355f42d",
+      "modelBbox": {
+        "x": 484.23,
+        "y": 13.28,
+        "width": 100.42,
+        "height": 316.98
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.3211,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6fa1b4154938",
+      "modelBbox": {
+        "x": 542.15,
+        "y": 769.0,
+        "width": 102.71,
+        "height": 228.05
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.2991,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

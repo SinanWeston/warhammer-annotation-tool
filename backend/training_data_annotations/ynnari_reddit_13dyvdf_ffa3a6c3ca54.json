@@ -1,0 +1,25 @@
+{
+  "imageId": "ynnari_reddit_13dyvdf_ffa3a6c3ca54",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/13dyvdf_ffa3a6c3ca54.jpg",
+  "faction": "ynnari",
+  "source": "reddit",
+  "width": 3000,
+  "height": 4000,
+  "annotations": [
+    {
+      "id": "6f510e16-4229-4115-af89-272e7c4d41b8",
+      "modelBbox": {
+        "x": 578.1071835803876,
+        "y": 292.3674458380844,
+        "width": 2353.4777651083236,
+        "height": 3222.3489167616876
+      },
+      "classLabel": "ynnari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-04T21:35:47.977Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,135 @@
+{
+  "imageId": "custodes_dakkadakka_1069936_13b7678f1b44",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/1069936_13b7678f1b44.jpg",
+  "faction": "custodes",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 766,
+  "annotations": [
+    {
+      "id": "93c26484-a020-4d41-82c1-49e7eace652d",
+      "modelBbox": {
+        "x": 13.262466119260203,
+        "y": 82.85430908203125,
+        "width": 220.4081632653061,
+        "height": 271.0204081632653
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "4d21a193-f340-4f99-aa20-28fd6b41c8fa",
+      "modelBbox": {
+        "x": 184.69103754783163,
+        "y": 44.48696214325574,
+        "width": 177.1428571428571,
+        "height": 237.55102040816323
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "b14a5283-0454-489a-978f-878480754d97",
+      "modelBbox": {
+        "x": 285.0992008131377,
+        "y": 102.44614581672512,
+        "width": 177.14285714285717,
+        "height": 273.46938775510205
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "908385bd-2a93-49f7-979e-45fb26b3a48d",
+      "modelBbox": {
+        "x": 390.4053232621173,
+        "y": 46.119615204480226,
+        "width": 170.61224489795921,
+        "height": 243.26530612244898
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "ace6e07c-1525-4f1d-b4e9-a16da44c7e68",
+      "modelBbox": {
+        "x": 531.6298130580357,
+        "y": 104.07879887794961,
+        "width": 197.55102040816325,
+        "height": 255.5102040816326
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "41751a69-5860-4176-9562-e87eb4cf5fdc",
+      "modelBbox": {
+        "x": 580.6094048947704,
+        "y": 28.16043153101084,
+        "width": 168.9795918367347,
+        "height": 233.46938775510205
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "5f532116-5372-441d-8fe8-342a2ece850c",
+      "modelBbox": {
+        "x": 15.711445711096937,
+        "y": 447.7522682657047,
+        "width": 214.6938775510204,
+        "height": 290.6122448979592
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "19ab776f-87b7-4f74-ad08-c3eb7581ae2d",
+      "modelBbox": {
+        "x": 180.6094048947704,
+        "y": 431.4257376534598,
+        "width": 166.53061224489792,
+        "height": 236.73469387755097
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "79d81b41-fd95-475f-bbdd-6426e9aa4306",
+      "modelBbox": {
+        "x": 292.44613958864795,
+        "y": 470.6094111228475,
+        "width": 186.93877551020404,
+        "height": 279.1836734693877
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "99757af5-034d-4cab-b9ac-84194b5231aa",
+      "modelBbox": {
+        "x": 343.0583844866071,
+        "y": 407.7522682657047,
+        "width": 198.36734693877554,
+        "height": 271.83673469387753
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "9de589e1-79ff-40df-961e-72208cb4dc94",
+      "modelBbox": {
+        "x": 526.7318538743622,
+        "y": 477.1400233677455,
+        "width": 196.73469387755108,
+        "height": 273.469387755102
+      },
+      "classLabel": "custodes"
+    },
+    {
+      "id": "aa7b073a-c228-475a-9047-5e916f751f8e",
+      "modelBbox": {
+        "x": 597.7522620376275,
+        "y": 413.4665539799904,
+        "width": 151.8367346938776,
+        "height": 247.34693877551013
+      },
+      "classLabel": "custodes"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T15:04:25.590Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

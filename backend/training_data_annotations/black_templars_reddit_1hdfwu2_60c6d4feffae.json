@@ -1,0 +1,24 @@
+{
+  "imageId": "black_templars_reddit_1hdfwu2_60c6d4feffae",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/black_templars/reddit/1hdfwu2_60c6d4feffae.jpg",
+  "faction": "black_templars",
+  "source": "reddit",
+  "width": 3072,
+  "height": 3072,
+  "annotations": [
+    {
+      "id": "pseudo-5fe1ea102cc1",
+      "modelBbox": {
+        "x": 1042.0571673530626,
+        "y": 371.7422049389898,
+        "width": 5071.34679179999,
+        "height": 6089.950634597424
+      },
+      "classLabel": "black_templars"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:34:28.746Z",
+  "annotatedBy": "sinan"
+}

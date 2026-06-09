@@ -1,0 +1,135 @@
+{
+  "imageId": "tyranids_reddit_13oxa8b_5f1025e3c195",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/13oxa8b_5f1025e3c195.jpg",
+  "faction": "tyranids",
+  "source": "reddit",
+  "width": 4080,
+  "height": 3072,
+  "annotations": [
+    {
+      "id": "7ac76032-a86f-48d6-9e2f-736ae57d676e",
+      "modelBbox": {
+        "x": 2417.5065274151434,
+        "y": 427.6314807907497,
+        "width": 770.0410294666171,
+        "height": 1540.0820589332338
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "ccdb446a-add3-421b-b327-6a4f9ae0d7a3",
+      "modelBbox": {
+        "x": 1973.135024244685,
+        "y": 817.2174561730698,
+        "width": 849.1756807161507,
+        "height": 1798.7914957105559
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "b0b58698-0b83-4168-a355-3e0c878b7d90",
+      "modelBbox": {
+        "x": 1136.1339052592316,
+        "y": 1444.207385303991,
+        "width": 1028.7504662439387,
+        "height": 1619.2167101827677
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "eead86c4-bb71-4bf7-8867-3884ba63d7c9",
+      "modelBbox": {
+        "x": 501.75680716150686,
+        "y": 1405.14733308467,
+        "width": 1053.099589705334,
+        "height": 598.5826184259606
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "f55eb728-02d9-47e9-9e90-ca409a616bba",
+      "modelBbox": {
+        "x": 1029.3211488250652,
+        "y": 1127.1615069004101,
+        "width": 1004.4013427825439,
+        "height": 468.720626631854
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "46c0dc29-3dbe-41c9-b2a0-147a6fca6691",
+      "modelBbox": {
+        "x": 1571.089145841104,
+        "y": 916.1357702349869,
+        "width": 639.1644908616188,
+        "height": 531.6225289071242
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "aa6cc3e4-4822-41c5-af50-c80c86644921",
+      "modelBbox": {
+        "x": 964.390152928012,
+        "y": 784.2446848190974,
+        "width": 734.531891085416,
+        "height": 428.13875419619524
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "9b41833b-a2f9-4419-b63f-b162fb35ecad",
+      "modelBbox": {
+        "x": 315.0801939574785,
+        "y": 1050.0559492726595,
+        "width": 799.4628869824692,
+        "height": 440.313315926893
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "bbcd980d-5bee-4d7c-9867-60511280a6e2",
+      "modelBbox": {
+        "x": 171.01454681089146,
+        "y": 790.3319656844461,
+        "width": 746.7064528161133,
+        "height": 377.41141365162264
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "17c5eb3d-65db-4f9c-a6f2-091763634fd4",
+      "modelBbox": {
+        "x": 520.0186497575531,
+        "y": 526.5497948526669,
+        "width": 840.0447594181277,
+        "height": 558.0007459903021
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "73d21653-e2ba-4d47-a30a-fd80028ca01c",
+      "modelBbox": {
+        "x": 848.7318164863857,
+        "y": 339.8731816486386,
+        "width": 681.7754569190602,
+        "height": 407.84781797836627
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "aee73508-0fa8-44f5-98b7-beff387167d4",
+      "modelBbox": {
+        "x": 1672.5438269302501,
+        "y": 303.3494964565461,
+        "width": 706.1245803804547,
+        "height": 468.7206266318537
+      },
+      "classLabel": "tyranids"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:18:12.449Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

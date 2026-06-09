@@ -1,0 +1,103 @@
+{
+  "imageId": "drukhari_dakkadakka_dakka_1034785",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1034785.jpg",
+  "faction": "drukhari",
+  "source": "dakkadakka",
+  "width": 5184,
+  "height": 3888,
+  "annotations": [
+    {
+      "id": "dino_1_1772903577166",
+      "modelBbox": {
+        "x": 2395.9,
+        "y": 1912.3,
+        "width": 1461,
+        "height": 1960.4015177065767
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.449,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_2_1772903577166",
+      "modelBbox": {
+        "x": 3395.2,
+        "y": 1022.3,
+        "width": 1698.5,
+        "height": 2522.576897133221
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.383,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_3_1772903577166",
+      "modelBbox": {
+        "x": 881.4838019076728,
+        "y": 819.9,
+        "width": 1455.5413153456998,
+        "height": 2449.604215851602
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.374,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_5_1772903577166",
+      "modelBbox": {
+        "x": 1775.4,
+        "y": 396.8,
+        "width": 1735.1,
+        "height": 3327.287689713322
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.282,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_6_1772903577166",
+      "modelBbox": {
+        "x": 186.49560629215853,
+        "y": 1516.735244519393,
+        "width": 1315.6694772344015,
+        "height": 2303.5143338954467
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.282,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_7_1772903577166",
+      "modelBbox": {
+        "x": 5.5,
+        "y": 1410.8,
+        "width": 849.7578322618044,
+        "height": 2016.060033726813
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.275,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "5832c2d9-34c0-47c5-a00b-0150d8c50f7d",
+      "modelBbox": {
+        "x": 4000.917280380481,
+        "y": 1805.220910623946,
+        "width": 1153.9426644182126,
+        "height": 2041.2546374367626
+      },
+      "classLabel": "drukhari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-07T17:13:58.412Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

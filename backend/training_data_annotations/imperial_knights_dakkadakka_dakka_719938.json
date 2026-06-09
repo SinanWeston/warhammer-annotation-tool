@@ -1,0 +1,82 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_719938",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_719938.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 2448,
+  "height": 3264,
+  "annotations": [
+    {
+      "id": "pseudo-fb96fe64f11e",
+      "modelBbox": {
+        "x": 877.1,
+        "y": 1254.84,
+        "width": 1493.65,
+        "height": 1560.17
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6863,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7982273dcec6",
+      "modelBbox": {
+        "x": 391.62,
+        "y": 104.41,
+        "width": 1179.16,
+        "height": 1461.7
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.6779,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-92ffe96a0e62",
+      "modelBbox": {
+        "x": 262.48,
+        "y": 1255.07,
+        "width": 1317.3,
+        "height": 1557.19
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.4148,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bdc7f52243fb",
+      "modelBbox": {
+        "x": 873.98,
+        "y": 105.77,
+        "width": 1494.46,
+        "height": 1461.27
+      },
+      "classLabel": "imperial_knights",
+      "pseudoScore": 0.3824,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

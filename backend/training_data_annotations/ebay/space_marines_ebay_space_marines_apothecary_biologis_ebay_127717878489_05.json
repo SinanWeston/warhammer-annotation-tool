@@ -1,0 +1,26 @@
+{
+  "imageId": "space_marines_ebay_space_marines_apothecary_biologis_ebay_127717878489_05",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_apothecary_biologis_ebay_127717878489_05.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1080,
+  "height": 1152,
+  "annotations": [
+    {
+      "id": "dino_1_1773601084569",
+      "modelBbox": {
+        "x": 102.212086659065,
+        "y": 55.99344355758267,
+        "width": 783.2155074116306,
+        "height": 1091.0832383124289
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.42
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:58:17.310Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

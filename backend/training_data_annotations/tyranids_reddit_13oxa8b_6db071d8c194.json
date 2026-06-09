@@ -1,0 +1,155 @@
+{
+  "imageId": "tyranids_reddit_13oxa8b_6db071d8c194",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/13oxa8b_6db071d8c194.jpg",
+  "faction": "tyranids",
+  "source": "reddit",
+  "width": 4080,
+  "height": 3072,
+  "annotations": [
+    {
+      "id": "b25418fa-c0ac-4b0c-914c-05af867055cb",
+      "modelBbox": {
+        "x": 399.5729205520328,
+        "y": 1453.3383066020142,
+        "width": 989.1831406191718,
+        "height": 824.8265572547557
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "a1199081-0ac0-4242-aee4-e9694c402c57",
+      "modelBbox": {
+        "x": 338.70011189854534,
+        "y": 1212.8907124207385,
+        "width": 903.9612085042893,
+        "height": 486.9824692279001
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "75f09ba1-be0a-4f0c-8640-9da47455834e",
+      "modelBbox": {
+        "x": 910.9045132413279,
+        "y": 966.3558373741141,
+        "width": 900.9175680716149,
+        "height": 693.9500186497576
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "7f6442cf-bffd-4734-a0fb-d5035557af3d",
+      "modelBbox": {
+        "x": 807.4207385303991,
+        "y": 677.2099962700485,
+        "width": 1034.8377471092876,
+        "height": 550.8989183140619
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "2a886387-c1be-4381-a0e4-bbf33728c381",
+      "modelBbox": {
+        "x": 1489.196195449459,
+        "y": 808.0865348750466,
+        "width": 837.0011189854531,
+        "height": 410.8914584110406
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "8b1f0536-e172-4bd9-8221-4f2b8460cf1d",
+      "modelBbox": {
+        "x": 1595.7236105930624,
+        "y": 1304.1999254009697,
+        "width": 873.5248041775458,
+        "height": 788.302872062663
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "f4cef884-59eb-443d-b903-3041050f6112",
+      "modelBbox": {
+        "x": 1559.1999254009697,
+        "y": 1091.1450951137635,
+        "width": 1086.579634464752,
+        "height": 444.3715031704587
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "30612d01-bdc7-43fb-955a-0a3f767d464b",
+      "modelBbox": {
+        "x": 1197.006713912719,
+        "y": 1532.472957851548,
+        "width": 614.8153674002237,
+        "height": 812.6519955240583
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "f43b5eaa-cbf8-497b-9f79-d7e92bf7b25b",
+      "modelBbox": {
+        "x": 2180.1025736665424,
+        "y": 1520.2983961208504,
+        "width": 1205.2816113390527,
+        "height": 700.0372995151063
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "eb8b49af-8490-4c96-9f66-1f8529637b0e",
+      "modelBbox": {
+        "x": 2679.2596046251397,
+        "y": 1194.6288698246922,
+        "width": 1156.5833644162626,
+        "height": 693.9500186497576
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "44bcafab-9f48-4598-9ea6-056b442d90c2",
+      "modelBbox": {
+        "x": 2234.888101454681,
+        "y": 917.6575904513242,
+        "width": 1047.012308839985,
+        "height": 435.24058187243565
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "46d5b3e7-3a59-441f-ad04-5f4d514e09aa",
+      "modelBbox": {
+        "x": 1638.3345766505035,
+        "y": 713.733681462141,
+        "width": 696.9936590824318,
+        "height": 480.89518836255115
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "8938d4fa-6869-4c6f-a2ea-aab1c583cb2f",
+      "modelBbox": {
+        "x": 2788.8306602014172,
+        "y": 3.0436404326743753,
+        "width": 797.4337933606866,
+        "height": 760.9101081685939
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "408f510a-738c-48f2-8166-1119b9d7c97c",
+      "modelBbox": {
+        "x": 910.9045132413279,
+        "y": 3.0436404326743753,
+        "width": 791.3465124953376,
+        "height": 645.2517717269676
+      },
+      "classLabel": "tyranids"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:19:30.871Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

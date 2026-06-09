@@ -1,0 +1,25 @@
+{
+  "imageId": "space_marines_reddit_1041c7c_5ab529a7c896",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1041c7c_5ab529a7c896.jpg",
+  "faction": "space_marines",
+  "source": "reddit",
+  "width": 1886,
+  "height": 2515,
+  "annotations": [
+    {
+      "id": "10cac2d7-30d0-4ad4-8a7a-f5dae4af2e95",
+      "modelBbox": {
+        "x": 453.8253450205147,
+        "y": 54.870570682581125,
+        "width": 1069.272659455427,
+        "height": 2374.9108541588957
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T10:45:02.124Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

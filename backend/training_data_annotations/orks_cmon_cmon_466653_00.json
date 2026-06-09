@@ -1,0 +1,35 @@
+{
+  "imageId": "orks_cmon_cmon_466653_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/cmon/cmon_466653_00.jpg",
+  "faction": "orks",
+  "source": "cmon",
+  "width": 2105,
+  "height": 1781,
+  "annotations": [
+    {
+      "id": "migrated-466653-v0-b0",
+      "modelBbox": {
+        "x": 37.0,
+        "y": 38.0,
+        "width": 2032.0,
+        "height": 1714.0
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "migrated-466653-v0-b1",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 1.0,
+        "width": 2087.0,
+        "height": 1780.0
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-18T13:05:53Z",
+  "annotatedBy": "weston",
+  "migratedFrom": "data/labels.csv"
+}

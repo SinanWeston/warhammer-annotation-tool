@@ -1,0 +1,26 @@
+{
+  "imageId": "chaos_daemons_dakkadakka_dakka_1043028",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1043028.jpg",
+  "faction": "chaos_daemons",
+  "source": "dakkadakka",
+  "width": 3096,
+  "height": 4768,
+  "annotations": [
+    {
+      "id": "dino_0_1773088946750",
+      "modelBbox": {
+        "x": 10.590649942987458,
+        "y": 19.30587229190422,
+        "width": 3003.6093500570123,
+        "height": 4688.127708095782
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.61
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:42:42.215Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

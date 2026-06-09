@@ -1,0 +1,70 @@
+{
+  "imageId": "chaos_daemons_dakkadakka_dakka_1034560",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/dakkadakka/dakka_1034560.jpg",
+  "faction": "chaos_daemons",
+  "source": "dakkadakka",
+  "width": 4734,
+  "height": 1863,
+  "annotations": [
+    {
+      "id": "dino_0_1773088858639",
+      "modelBbox": {
+        "x": 206.8,
+        "y": 478.5,
+        "width": 863.6,
+        "height": 891.6227907639682
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.666
+    },
+    {
+      "id": "dino_1_1773088858639",
+      "modelBbox": {
+        "x": 3624,
+        "y": 492.8,
+        "width": 940.864310148233,
+        "height": 855.7310005701253
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.575
+    },
+    {
+      "id": "dino_2_1773088858639",
+      "modelBbox": {
+        "x": 2931.0855188141395,
+        "y": 532.1,
+        "width": 986.0250855188135,
+        "height": 1118.7160632839227
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.55
+    },
+    {
+      "id": "dino_3_1773088858639",
+      "modelBbox": {
+        "x": 1804.7137970353479,
+        "y": 452.9,
+        "width": 1108.3785632839222,
+        "height": 1287.8818557582667
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.481
+    },
+    {
+      "id": "dino_4_1773088858639",
+      "modelBbox": {
+        "x": 1004.5,
+        "y": 168.4,
+        "width": 929.7645381984036,
+        "height": 1349.266690421893
+      },
+      "classLabel": "chaos_daemons",
+      "confidence": 0.423
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:41:46.116Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

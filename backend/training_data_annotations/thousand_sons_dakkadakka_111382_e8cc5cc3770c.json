@@ -1,0 +1,75 @@
+{
+  "imageId": "thousand_sons_dakkadakka_111382_e8cc5cc3770c",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/111382_e8cc5cc3770c.jpg",
+  "faction": "thousand_sons",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "c11ddeb3-3005-4012-899b-8d0f6d1ce8d9",
+      "modelBbox": {
+        "x": 28.75792614696009,
+        "y": 250.0963570806913,
+        "width": 183.81201044386424,
+        "height": 270.147954743255
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "85f1f5c0-a26a-4961-9390-befe47cb1fef",
+      "modelBbox": {
+        "x": 123.44896183016287,
+        "y": 182.06204152679348,
+        "width": 124.92850926271292,
+        "height": 218.02809896804675
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "95483017-baca-4c85-aef2-afd3a367afc5",
+      "modelBbox": {
+        "x": 631.9159517592939,
+        "y": 199.96580877781923,
+        "width": 148.40233743627994,
+        "height": 277.70732313813255
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "a8eb9d58-bedb-4f24-808c-88f68f864320",
+      "modelBbox": {
+        "x": 498.2344896183016,
+        "y": 169.33047370384185,
+        "width": 139.25152306353357,
+        "height": 236.32972771353974
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "1a5d4e26-5e03-4aec-8a2d-586dac4c1fd5",
+      "modelBbox": {
+        "x": 440.94243441501925,
+        "y": 236.96692776327242,
+        "width": 148.0044759418128,
+        "height": 299.1918438393634
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "22c6ac27-7ac3-4bf7-95e7-3d0cd60788bd",
+      "modelBbox": {
+        "x": 261.30796966306104,
+        "y": 33.460773343279875,
+        "width": 197.73716275021758,
+        "height": 433.2711674748229
+      },
+      "classLabel": "thousand_sons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:23:16.594Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

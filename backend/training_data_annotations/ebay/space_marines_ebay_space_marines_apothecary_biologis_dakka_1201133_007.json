@@ -1,0 +1,26 @@
+{
+  "imageId": "space_marines_ebay_space_marines_apothecary_biologis_dakka_1201133_007",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_apothecary_biologis_dakka_1201133_007.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 4880,
+  "height": 3680,
+  "annotations": [
+    {
+      "id": "dino_0_1773601022852",
+      "modelBbox": {
+        "x": 1510.7411630558722,
+        "y": 432.5470353477765,
+        "width": 1925.290763968073,
+        "height": 3078.1529646522235
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.472
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:57:12.005Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

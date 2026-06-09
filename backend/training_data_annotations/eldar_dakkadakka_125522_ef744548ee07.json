@@ -1,0 +1,25 @@
+{
+  "imageId": "eldar_dakkadakka_125522_ef744548ee07",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/eldar/dakkadakka/125522_ef744548ee07.jpg",
+  "faction": "eldar",
+  "source": "dakkadakka",
+  "width": 300,
+  "height": 400,
+  "annotations": [
+    {
+      "id": "090c15ed-ba39-484f-8443-64f2f188dc57",
+      "modelBbox": {
+        "x": 13.620318977200256,
+        "y": 12.208753313337054,
+        "width": 262.65306122448976,
+        "height": 376.53061224489795
+      },
+      "classLabel": "eldar"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T15:39:17.404Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

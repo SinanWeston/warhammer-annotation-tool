@@ -1,0 +1,255 @@
+{
+  "imageId": "space_marines_ebay_space_marines_assault_squad_dakka_785941_001",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_assault_squad_dakka_785941_001.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1024,
+  "height": 1024,
+  "annotations": [
+    {
+      "id": "dino_0_1773605807027",
+      "modelBbox": {
+        "x": 31.525655644241734,
+        "y": 61.28772329912581,
+        "width": 260.76776890916,
+        "height": 254.54047890535918
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_1_1773605807027",
+      "modelBbox": {
+        "x": 57.99163816039528,
+        "y": 480.1,
+        "width": 169.10836183960473,
+        "height": 198.46784492588375
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_2_1773605807027",
+      "modelBbox": {
+        "x": 434.5,
+        "y": 469.3,
+        "width": 212.74895477004947,
+        "height": 206.93261117445843
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_3_1773605807027",
+      "modelBbox": {
+        "x": 483.4,
+        "y": 29.9,
+        "width": 175.6,
+        "height": 217.6
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_4_1773605807027",
+      "modelBbox": {
+        "x": 564.4,
+        "y": 793.9,
+        "width": 185.1,
+        "height": 208.48692512352727
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_5_1773605807027",
+      "modelBbox": {
+        "x": 275.4,
+        "y": 345.7,
+        "width": 130.2,
+        "height": 171.5
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_6_1773605807027",
+      "modelBbox": {
+        "x": 265.9,
+        "y": 479.5,
+        "width": 137.4,
+        "height": 202.3
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_7_1773605807027",
+      "modelBbox": {
+        "x": 596.4,
+        "y": 130.5663245914101,
+        "width": 202,
+        "height": 228.0336754085899
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_8_1773605807027",
+      "modelBbox": {
+        "x": 184.1,
+        "y": 400.1,
+        "width": 149.2,
+        "height": 191.2
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_9_1773605807027",
+      "modelBbox": {
+        "x": 718.862789813759,
+        "y": 343.8,
+        "width": 274.23721018624093,
+        "height": 320.75644241733175
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_10_1773605807027",
+      "modelBbox": {
+        "x": 486.1178259217028,
+        "y": 678.3,
+        "width": 185.08217407829721,
+        "height": 220.55822881033825
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_11_1773605807027",
+      "modelBbox": {
+        "x": 121.04294944887876,
+        "y": 348.9,
+        "width": 135.15705055112124,
+        "height": 167.8
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_12_1773605807027",
+      "modelBbox": {
+        "x": 354.5,
+        "y": 403.8,
+        "width": 177.9,
+        "height": 189.2
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_13_1773605807027",
+      "modelBbox": {
+        "x": 654.9,
+        "y": 28.4,
+        "width": 193.95746864310146,
+        "height": 215.03595591030026
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_14_1773605807027",
+      "modelBbox": {
+        "x": 22.963131889015585,
+        "y": 691.0224249334854,
+        "width": 304.35879893576583,
+        "height": 330.7775750665146
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_15_1773605807027",
+      "modelBbox": {
+        "x": 668.7,
+        "y": 681.4,
+        "width": 175.9,
+        "height": 213.6
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_16_1773605807027",
+      "modelBbox": {
+        "x": 352.2310908399848,
+        "y": 135.23679209426075,
+        "width": 238.193842645382,
+        "height": 203.16533637400227
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_17_1773605807027",
+      "modelBbox": {
+        "x": 0.1,
+        "y": 405.4,
+        "width": 134.7,
+        "height": 197.9
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_18_1773605807027",
+      "modelBbox": {
+        "x": 345.22538958570885,
+        "y": 779.7613074876473,
+        "width": 185.26187761307477,
+        "height": 237.93869251235267
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_19_1773605807027",
+      "modelBbox": {
+        "x": 538.4,
+        "y": 364.1,
+        "width": 164.9,
+        "height": 255.8
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_21_1773605807027",
+      "modelBbox": {
+        "x": 787.3629798555683,
+        "y": 711.3,
+        "width": 234.43702014443176,
+        "height": 287.9732801216267
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "dino_23_1773605807027",
+      "modelBbox": {
+        "x": 538.4,
+        "y": 364.7,
+        "width": 165.8,
+        "height": 255.4
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "be68c1a9-2de6-466b-a8f7-2530384db854",
+      "modelBbox": {
+        "x": 800.595971113645,
+        "y": 146.9129608513873,
+        "width": 213.28468263017874,
+        "height": 189.15393386545043
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "35b4aa52-da87-467a-99a2-b98d022458b4",
+      "modelBbox": {
+        "x": 452.6461421512733,
+        "y": 350.85670847586465,
+        "width": 163.4663625997719,
+        "height": 151.7901938426454
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:19:31.714Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

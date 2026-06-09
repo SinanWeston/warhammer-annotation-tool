@@ -1,0 +1,162 @@
+{
+  "imageId": "imperial_guard_reddit_1fnn24r_340ef97548b5",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/1fnn24r_340ef97548b5.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 2104,
+  "height": 1763,
+  "annotations": [
+    {
+      "id": "pseudo-8425747a974f",
+      "modelBbox": {
+        "x": 1231.83,
+        "y": 246.4,
+        "width": 587.85,
+        "height": 763.75
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.928,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2646db85a5b7",
+      "modelBbox": {
+        "x": 61.29,
+        "y": 98.96,
+        "width": 801.22,
+        "height": 913.46
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.869,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cd8da7e73b3a",
+      "modelBbox": {
+        "x": 1225.37,
+        "y": 748.87,
+        "width": 595.55,
+        "height": 652.13
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.763,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5032bb411166",
+      "modelBbox": {
+        "x": 97.08,
+        "y": 751.9,
+        "width": 854.07,
+        "height": 900.97
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.7302,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-afee900a8b99",
+      "modelBbox": {
+        "x": 806.23,
+        "y": 1254.51,
+        "width": 143.58,
+        "height": 333.03
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4997,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f5b0b08c87e5",
+      "modelBbox": {
+        "x": 1350.89,
+        "y": 652.45,
+        "width": 476.48,
+        "height": 348.98
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4534,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-54c7244af6d8",
+      "modelBbox": {
+        "x": 588.72,
+        "y": 752.39,
+        "width": 203.7,
+        "height": 679.62
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.4104,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4a52ad4f5455",
+      "modelBbox": {
+        "x": 97.23,
+        "y": 749.94,
+        "width": 651.17,
+        "height": 582.57
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2793,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9402eb9ce143",
+      "modelBbox": {
+        "x": 663.85,
+        "y": 223.79,
+        "width": 200.54,
+        "height": 786.33
+      },
+      "classLabel": "imperial_guard",
+      "pseudoScore": 0.2582,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

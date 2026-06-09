@@ -1,0 +1,136 @@
+{
+  "imageId": "drukhari_dakkadakka_dakka_1034787",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/dakkadakka/dakka_1034787.jpg",
+  "faction": "drukhari",
+  "source": "dakkadakka",
+  "width": 3888,
+  "height": 5184,
+  "annotations": [
+    {
+      "id": "dino_1_1772903644327",
+      "modelBbox": {
+        "x": 1283.9796305201307,
+        "y": 1592.1,
+        "width": 1335.5203694798693,
+        "height": 2596.405918866265
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.378,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_2_1772903644327",
+      "modelBbox": {
+        "x": 2349.2,
+        "y": 1957.7,
+        "width": 1399.3,
+        "height": 1984.9374534362485
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.344,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_3_1772903644327",
+      "modelBbox": {
+        "x": 234.94084468539208,
+        "y": 2669.8,
+        "width": 1065.4300168634065,
+        "height": 1774.4091229134829
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.332,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_4_1772903644327",
+      "modelBbox": {
+        "x": 329.6,
+        "y": 1783.1,
+        "width": 1164.1873876870784,
+        "height": 1946.4514500635673
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.331,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_6_1772903644327",
+      "modelBbox": {
+        "x": 2165.6,
+        "y": 2959.9,
+        "width": 939.4,
+        "height": 1210
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.317,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_7_1772903644327",
+      "modelBbox": {
+        "x": 2037.1,
+        "y": 2494.8,
+        "width": 1191.6,
+        "height": 2025
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.296,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "dino_8_1772903644327",
+      "modelBbox": {
+        "x": 2418.252817703942,
+        "y": 1215.7,
+        "width": 1463.1471822960577,
+        "height": 1335.9
+      },
+      "classLabel": "drukhari",
+      "confidence": 0.261,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "025e74c7-4ff9-4cbf-9ffe-7c3d6e134902",
+      "modelBbox": {
+        "x": 5.463610284043002,
+        "y": 2431.3659525930784,
+        "width": 547.4671163575042,
+        "height": 1642.4013490725124
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "5daf4d1e-6f41-401c-a634-614f4e6fa52a",
+      "modelBbox": {
+        "x": 3034.5631043818507,
+        "y": 2628.060724937092,
+        "width": 845.7875210792581,
+        "height": 1675.183811129848
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "25ac97c5-4490-42af-9586-e0c0f529e17b",
+      "modelBbox": {
+        "x": 3342.7182477208053,
+        "y": 2359.24453606694,
+        "width": 527.7976391231032,
+        "height": 1232.6205733558181
+      },
+      "classLabel": "drukhari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-07T17:15:29.657Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

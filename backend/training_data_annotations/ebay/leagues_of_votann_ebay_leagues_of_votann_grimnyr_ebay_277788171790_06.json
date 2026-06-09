@@ -1,0 +1,47 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_grimnyr_ebay_277788171790_06",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_grimnyr_ebay_277788171790_06.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773607447403",
+      "modelBbox": {
+        "x": 519.042189281642,
+        "y": 388.11288483466365,
+        "width": 620.2964652223488,
+        "height": 859.2930444697832
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.403
+    },
+    {
+      "id": "dino_1_1773607447403",
+      "modelBbox": {
+        "x": 48.346636259977195,
+        "y": 437.37172177879137,
+        "width": 428.73432155074113,
+        "height": 775.3705815279361
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.299
+    },
+    {
+      "id": "836e2f0e-d70c-43b1-b641-a7c493b0e246",
+      "modelBbox": {
+        "x": 1155.7582668187001,
+        "y": 313.31242873432154,
+        "width": 379.47548460661346,
+        "height": 903.078677309008
+      },
+      "classLabel": "leagues_of_votann"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:44:26.838Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

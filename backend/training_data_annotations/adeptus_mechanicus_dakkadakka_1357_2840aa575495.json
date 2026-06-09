@@ -1,0 +1,48 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_1357_2840aa575495",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1357_2840aa575495.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 568,
+  "height": 758,
+  "annotations": [
+    {
+      "id": "0f5c77a6-52b3-4442-8fdc-5148196205b2",
+      "modelBbox": {
+        "x": 54.76739576690051,
+        "y": 34.602417988679846,
+        "width": 435.8530612244898,
+        "height": 651.461224489796
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [
+    {
+      "id": "pred_0_1770560716428",
+      "modelBbox": {
+        "x": 12.55716609954834,
+        "y": 7.653618812561035,
+        "width": 492.4742670059204,
+        "height": 661.351019859314
+      },
+      "classLabel": "death_guard",
+      "confidence": 0.8547078371047974
+    },
+    {
+      "id": "pred_1_1770560716428",
+      "modelBbox": {
+        "x": 98.23059844970703,
+        "y": 43.005828857421875,
+        "width": 140.83991241455078,
+        "height": 202.26414489746094
+      },
+      "classLabel": "death_guard",
+      "confidence": 0.3146052956581116
+    }
+  ],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-08T14:26:01.836Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

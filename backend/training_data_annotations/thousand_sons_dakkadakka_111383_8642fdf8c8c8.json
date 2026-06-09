@@ -1,0 +1,55 @@
+{
+  "imageId": "thousand_sons_dakkadakka_111383_8642fdf8c8c8",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/111383_8642fdf8c8c8.jpg",
+  "faction": "thousand_sons",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "d1290f20-eea2-4792-bde2-cdc183ef98a2",
+      "modelBbox": {
+        "x": 37.76575904513241,
+        "y": 319.64285714285717,
+        "width": 253.63670272286458,
+        "height": 273.33084669899296
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "8cb5e4bf-b5c7-46a3-ac8b-dcb9951f579c",
+      "modelBbox": {
+        "x": 121.31667288325252,
+        "y": 197.3004475941813,
+        "width": 156.35956732562477,
+        "height": 236.3297277135397
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "b45ecadf-0c19-4652-a19f-622ee6695ccc",
+      "modelBbox": {
+        "x": 232.02163371876168,
+        "y": 34.37616560984707,
+        "width": 365.8336441626259,
+        "height": 512.0477433793361
+      },
+      "classLabel": "thousand_sons"
+    },
+    {
+      "id": "535eac8e-f1c8-4368-9fd2-519f28467ea3",
+      "modelBbox": {
+        "x": 608.597538232003,
+        "y": 200.28440880268556,
+        "width": 174.26333457665055,
+        "height": 314.5095113763522
+      },
+      "classLabel": "thousand_sons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:23:39.087Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

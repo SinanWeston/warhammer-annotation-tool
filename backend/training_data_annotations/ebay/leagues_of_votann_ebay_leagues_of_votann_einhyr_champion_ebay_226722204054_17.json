@@ -1,0 +1,26 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_einhyr_champion_ebay_226722204054_17",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_einhyr_champion_ebay_226722204054_17.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1066,
+  "annotations": [
+    {
+      "id": "dino_0_1773607321188",
+      "modelBbox": {
+        "x": 364.4,
+        "y": 67.4,
+        "width": 570,
+        "height": 712.5
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.767
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:42:02.095Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

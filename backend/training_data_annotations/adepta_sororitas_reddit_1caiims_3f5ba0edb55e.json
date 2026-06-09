@@ -1,0 +1,45 @@
+{
+  "imageId": "adepta_sororitas_reddit_1caiims_3f5ba0edb55e",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/1caiims_3f5ba0edb55e.jpg",
+  "faction": "adepta_sororitas",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "c64c8f40-9223-4bc0-91e6-35bcc90e9d5b",
+      "modelBbox": {
+        "x": 558.5952109464082,
+        "y": 293.018244013683,
+        "width": 1305.6875712656783,
+        "height": 2661.947548460661
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "fc714a73-59ef-40a8-93c0-f0b8a7e979c8",
+      "modelBbox": {
+        "x": 2296.446978335234,
+        "y": 17.168757126567844,
+        "width": 1406.8323831242874,
+        "height": 2960.784492588369
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "284f5137-a29f-42e3-bc8a-3ba9a30b4c33",
+      "modelBbox": {
+        "x": 1248.218928164196,
+        "y": 72.33865450399088,
+        "width": 988.460661345496,
+        "height": 2271.1607753705816
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:21:43.026Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

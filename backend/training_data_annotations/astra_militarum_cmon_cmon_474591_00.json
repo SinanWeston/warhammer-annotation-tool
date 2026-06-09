@@ -1,0 +1,226 @@
+{
+  "imageId": "astra_militarum_cmon_cmon_474591_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/astra_militarum/cmon/cmon_474591_00.jpg",
+  "faction": "astra_militarum",
+  "source": "cmon",
+  "width": 2000,
+  "height": 2000,
+  "annotations": [
+    {
+      "id": "pseudo-48a19e1e7dd5",
+      "modelBbox": {
+        "x": 499.46,
+        "y": 1035.85,
+        "width": 460.71,
+        "height": 476.28
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.7622,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0d5d5856ffc2",
+      "modelBbox": {
+        "x": 147.14,
+        "y": 767.91,
+        "width": 816.39,
+        "height": 740.81
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.6631,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c3a95be47a48",
+      "modelBbox": {
+        "x": 765.66,
+        "y": 1038.84,
+        "width": 916.61,
+        "height": 297.57
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.612,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9043aeb02510",
+      "modelBbox": {
+        "x": 1038.69,
+        "y": 768.56,
+        "width": 642.48,
+        "height": 512.26
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.5868,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0af198a9a071",
+      "modelBbox": {
+        "x": 763.02,
+        "y": 1039.92,
+        "width": 920.23,
+        "height": 865.02
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.4422,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-390e35c463ac",
+      "modelBbox": {
+        "x": 167.41,
+        "y": 239.02,
+        "width": 800.15,
+        "height": 724.05
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.4402,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cd51cb8e028a",
+      "modelBbox": {
+        "x": 1039.21,
+        "y": 1518.33,
+        "width": 185.73,
+        "height": 210.36
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.4302,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ad83a8039903",
+      "modelBbox": {
+        "x": 744.48,
+        "y": 1116.95,
+        "width": 221.65,
+        "height": 727.95
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.3986,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-17b7549b5660",
+      "modelBbox": {
+        "x": 1252.87,
+        "y": 1039.93,
+        "width": 429.24,
+        "height": 239.84
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.358,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9eaf1acb4a92",
+      "modelBbox": {
+        "x": 744.25,
+        "y": 1542.18,
+        "width": 220.87,
+        "height": 300.82
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.3477,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-18c689dfee86",
+      "modelBbox": {
+        "x": 1037.77,
+        "y": 1518.44,
+        "width": 238.01,
+        "height": 375.93
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.3353,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4b16d1ad5220",
+      "modelBbox": {
+        "x": 1036.47,
+        "y": 103.73,
+        "width": 558.89,
+        "height": 855.39
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.3183,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5107c9d8a788",
+      "modelBbox": {
+        "x": 765.12,
+        "y": 1039.98,
+        "width": 325.13,
+        "height": 288.08
+      },
+      "classLabel": "astra_militarum",
+      "pseudoScore": 0.2824,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

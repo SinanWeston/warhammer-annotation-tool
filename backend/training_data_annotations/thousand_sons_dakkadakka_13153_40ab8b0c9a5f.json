@@ -1,0 +1,25 @@
+{
+  "imageId": "thousand_sons_dakkadakka_13153_40ab8b0c9a5f",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/13153_40ab8b0c9a5f.jpg",
+  "faction": "thousand_sons",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "065baca9-fa21-4eee-b27d-fa3d22e1fc8b",
+      "modelBbox": {
+        "x": 208.44834017157777,
+        "y": 29.60182767624021,
+        "width": 433.8679597165237,
+        "height": 563.3718761656099
+      },
+      "classLabel": "thousand_sons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:29:05.202Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,35 @@
+{
+  "imageId": "necrons_ebay_necrons_anrakyr_the_traveller_dakka_435249_004",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/ebay/necrons_anrakyr_the_traveller_dakka_435249_004.jpg",
+  "faction": "necrons",
+  "source": "ebay",
+  "width": 876,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "8a46a1a3-21d4-4811-8352-ec9942c797b5",
+      "modelBbox": {
+        "x": 552.8688711516534,
+        "y": 43.684506841505126,
+        "width": 306.64994298745717,
+        "height": 517.4093500570125
+      },
+      "classLabel": "necrons"
+    },
+    {
+      "id": "8e4e8773-3169-4fe1-95a1-6274f99f0dac",
+      "modelBbox": {
+        "x": 3.4960091220068414,
+        "y": 19.711872862029647,
+        "width": 495.4344355758266,
+        "height": 557.363740022805
+      },
+      "classLabel": "necrons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T03:18:09.630Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

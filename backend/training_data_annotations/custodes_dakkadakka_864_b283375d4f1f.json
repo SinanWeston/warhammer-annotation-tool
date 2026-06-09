@@ -1,0 +1,242 @@
+{
+  "imageId": "custodes_dakkadakka_864_b283375d4f1f",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/custodes/dakkadakka/864_b283375d4f1f.jpg",
+  "faction": "custodes",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 917,
+  "annotations": [
+    {
+      "id": "pseudo-8ace02828c07",
+      "modelBbox": {
+        "x": 476.1,
+        "y": 743.21,
+        "width": 115.68,
+        "height": 145.87
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.9029,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-36ebc6910dc6",
+      "modelBbox": {
+        "x": 552.64,
+        "y": 675.21,
+        "width": 115.94,
+        "height": 140.37
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.8642,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f4175895f5e6",
+      "modelBbox": {
+        "x": 58.17,
+        "y": 542.85,
+        "width": 87.72,
+        "height": 117.91
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.8548,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ff43dc87e0fc",
+      "modelBbox": {
+        "x": 2.37,
+        "y": 601.17,
+        "width": 106.36,
+        "height": 138.59
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.8433,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-fd6e3d20f981",
+      "modelBbox": {
+        "x": 96.25,
+        "y": 671.19,
+        "width": 103.6,
+        "height": 133.36
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.8373,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d58cb3d44e25",
+      "modelBbox": {
+        "x": 319.79,
+        "y": 651.17,
+        "width": 114.7,
+        "height": 217.08
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.8231,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5706af7e7355",
+      "modelBbox": {
+        "x": 387.31,
+        "y": 88.46,
+        "width": 134.03,
+        "height": 175.76
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.7995,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5731b7b41ff1",
+      "modelBbox": {
+        "x": 195.53,
+        "y": 601.67,
+        "width": 122.1,
+        "height": 265.5
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.7882,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f4ccc33515f9",
+      "modelBbox": {
+        "x": 363.1,
+        "y": 485.59,
+        "width": 78.75,
+        "height": 75.31
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.7601,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8e486e5d01a3",
+      "modelBbox": {
+        "x": 239.87,
+        "y": 449.0,
+        "width": 64.45,
+        "height": 74.13
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.7479,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a90c5cf9502d",
+      "modelBbox": {
+        "x": 271.81,
+        "y": 158.9,
+        "width": 104.14,
+        "height": 83.81
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.6596,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-75b5f15bc23e",
+      "modelBbox": {
+        "x": 144.97,
+        "y": 96.17,
+        "width": 514.54,
+        "height": 662.19
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.5952,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4f92f55f6201",
+      "modelBbox": {
+        "x": 70.13,
+        "y": 0.7,
+        "width": 440.76,
+        "height": 196.19
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.5733,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9d5778a36bb3",
+      "modelBbox": {
+        "x": 308.59,
+        "y": 818.56,
+        "width": 101.02,
+        "height": 48.68
+      },
+      "classLabel": "custodes",
+      "pseudoScore": 0.3782,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

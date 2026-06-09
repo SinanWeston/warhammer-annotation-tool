@@ -1,0 +1,33 @@
+{
+  "imageId": "imperial_guard_reddit_114rkcn_5c2699f0ea8d",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/114rkcn_5c2699f0ea8d.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "018ce522-ca69-4825-b377-e356b32853ce",
+      "modelBbox": {
+        "x": 1025.978529575893,
+        "y": 533.1214290618897,
+        "width": 1024.457142857143,
+        "height": 2277.257142857143
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "33a57838-7b39-4c7c-ba15-45ca513ce258",
+      "modelBbox": {
+        "x": 32.378529575892856,
+        "y": 1088.5500004904611,
+        "width": 1080,
+        "height": 2005.7142857142858
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T19:08:52.681Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

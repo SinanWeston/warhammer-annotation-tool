@@ -1,0 +1,13 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_17432_e5b1d976e549",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/17432_e5b1d976e549.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 594,
+  "annotations": [],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:02:24.351Z",
+  "annotatedBy": "sinan"
+}

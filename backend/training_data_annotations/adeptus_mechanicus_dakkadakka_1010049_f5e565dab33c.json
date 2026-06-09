@@ -1,0 +1,157 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_1010049_f5e565dab33c",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/1010049_f5e565dab33c.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 463,
+  "annotations": [
+    {
+      "id": "92fb6f83-c2b8-4edb-8d27-846de1f7891f",
+      "modelBbox": {
+        "x": 12.28570556640625,
+        "y": 184.5178565979004,
+        "width": 115,
+        "height": 150
+      },
+      "baseBbox": {
+        "x": 26.28570556640625,
+        "y": 299.5178565979004,
+        "width": 100,
+        "height": 34
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "d30e68c8-3fd4-4e57-a5f4-25d60c5c7dd8",
+      "modelBbox": {
+        "x": 90.28570556640625,
+        "y": 139.66071319580078,
+        "width": 114,
+        "height": 223.4017791748047
+      },
+      "baseBbox": {
+        "x": 97.28570556640625,
+        "y": 320.2321434020996,
+        "width": 105,
+        "height": 41
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "84ae9187-5e4f-45e1-a2ee-9df31d8ab103",
+      "modelBbox": {
+        "x": 157.28570556640625,
+        "y": 190.66071319580078,
+        "width": 133,
+        "height": 212
+      },
+      "baseBbox": {
+        "x": 162.28570556640625,
+        "y": 345.2321434020996,
+        "width": 117,
+        "height": 54
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "14f3bef1-d7bc-46f2-89b2-3efca188f7d8",
+      "modelBbox": {
+        "x": 268.28570556640625,
+        "y": 118.66071319580078,
+        "width": 110,
+        "height": 226
+      },
+      "baseBbox": {
+        "x": 272.28570556640625,
+        "y": 302.2321434020996,
+        "width": 105,
+        "height": 39
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "d2725099-4d48-4282-b272-c0fbbade9988",
+      "modelBbox": {
+        "x": 334.28570556640625,
+        "y": 167.08928298950195,
+        "width": 118,
+        "height": 232.11606979370117
+      },
+      "baseBbox": {
+        "x": 339.28570556640625,
+        "y": 346.6607151031494,
+        "width": 111,
+        "height": 51
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "43417437-8f2b-4527-8598-f6e4799a3e88",
+      "modelBbox": {
+        "x": 427.28570556640625,
+        "y": 189.6607151031494,
+        "width": 90,
+        "height": 160.5446424484253
+      },
+      "baseBbox": {
+        "x": 427.28570556640625,
+        "y": 310.08928298950195,
+        "width": 89,
+        "height": 39
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "9b647eef-34c5-4a98-958d-f7abaf49c16a",
+      "modelBbox": {
+        "x": 501.28570556640625,
+        "y": 194.08928298950195,
+        "width": 137,
+        "height": 185.11606979370117
+      },
+      "baseBbox": {
+        "x": 501.28570556640625,
+        "y": 332.6607151031494,
+        "width": 112,
+        "height": 45
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "3a11b500-78b0-43fd-beb3-44f546680792",
+      "modelBbox": {
+        "x": 569.2857055664062,
+        "y": 191.51785278320312,
+        "width": 120,
+        "height": 170.11607360839844
+      },
+      "baseBbox": {
+        "x": 569.2857055664062,
+        "y": 312.5178527832031,
+        "width": 102,
+        "height": 43
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "ab68d1d7-54e7-48ef-9df3-275a3de7b03d",
+      "modelBbox": {
+        "x": 684.2857055664062,
+        "y": 195.51785278320312,
+        "width": 113,
+        "height": 180.11607360839844
+      },
+      "baseBbox": {
+        "x": 689.2857055664062,
+        "y": 327.0892868041992,
+        "width": 104,
+        "height": 46
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "annotatedAt": "2025-12-15T15:26:10.323Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

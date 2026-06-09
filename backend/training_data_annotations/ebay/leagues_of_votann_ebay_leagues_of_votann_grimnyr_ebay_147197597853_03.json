@@ -1,0 +1,37 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_grimnyr_ebay_147197597853_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_grimnyr_ebay_147197597853_03.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1200,
+  "height": 1192,
+  "annotations": [
+    {
+      "id": "dino_0_1773607379634",
+      "modelBbox": {
+        "x": 364.2,
+        "y": 274.1,
+        "width": 377.6,
+        "height": 445.1
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.544
+    },
+    {
+      "id": "dino_1_1773607379634",
+      "modelBbox": {
+        "x": 748.4,
+        "y": 291.8,
+        "width": 374.4,
+        "height": 349.7
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.39
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:43:00.733Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

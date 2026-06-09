@@ -1,0 +1,770 @@
+{
+  "imageId": "tyranids_dakkadakka_85693_c982ceeb42b3",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/dakkadakka/85693_c982ceeb42b3.jpg",
+  "faction": "tyranids",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "pseudo-49b1c20458d0",
+      "modelBbox": {
+        "x": 348.47,
+        "y": 447.9,
+        "width": 93.26,
+        "height": 71.45
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8751,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1e42bfd58fd1",
+      "modelBbox": {
+        "x": 326.96,
+        "y": 324.1,
+        "width": 71.87,
+        "height": 69.14
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.866,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6d7a4434ab06",
+      "modelBbox": {
+        "x": 351.05,
+        "y": 372.48,
+        "width": 93.55,
+        "height": 79.04
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8616,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a104dccf9b62",
+      "modelBbox": {
+        "x": 354.76,
+        "y": 502.35,
+        "width": 94.74,
+        "height": 88.28
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8602,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-94e5490cdaea",
+      "modelBbox": {
+        "x": 357.55,
+        "y": 224.67,
+        "width": 57.06,
+        "height": 62.03
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8565,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5bdc8ee54389",
+      "modelBbox": {
+        "x": 407.22,
+        "y": 139.94,
+        "width": 57.8,
+        "height": 59.09
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8538,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ba3f8be96a6c",
+      "modelBbox": {
+        "x": 447.7,
+        "y": 185.98,
+        "width": 70.28,
+        "height": 59.51
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8461,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-868a1bce3b9f",
+      "modelBbox": {
+        "x": 147.17,
+        "y": 190.82,
+        "width": 115.25,
+        "height": 70.64
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8354,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bdb2d7bfdf7d",
+      "modelBbox": {
+        "x": 537.04,
+        "y": 469.41,
+        "width": 91.7,
+        "height": 65.1
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8324,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d07a1a8d5bf3",
+      "modelBbox": {
+        "x": 211.72,
+        "y": 445.65,
+        "width": 94.92,
+        "height": 68.38
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8267,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9f34babc1a8f",
+      "modelBbox": {
+        "x": 382.7,
+        "y": 282.92,
+        "width": 62.3,
+        "height": 57.7
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8265,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-85e14f4f2728",
+      "modelBbox": {
+        "x": 123.55,
+        "y": 431.97,
+        "width": 69.66,
+        "height": 91.49
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.821,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5bbdba4adac3",
+      "modelBbox": {
+        "x": 127.39,
+        "y": 292.62,
+        "width": 64.13,
+        "height": 65.07
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8137,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0f3577da7920",
+      "modelBbox": {
+        "x": 610.58,
+        "y": 456.36,
+        "width": 104.77,
+        "height": 60.15
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8081,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2e4f4f5d3750",
+      "modelBbox": {
+        "x": 484.34,
+        "y": 291.12,
+        "width": 77.21,
+        "height": 43.74
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.8036,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-66bffe1ef08c",
+      "modelBbox": {
+        "x": 139.77,
+        "y": 334.61,
+        "width": 70.29,
+        "height": 94.42
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7871,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-47303c658264",
+      "modelBbox": {
+        "x": 366.61,
+        "y": 185.1,
+        "width": 54.4,
+        "height": 51.78
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7777,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4531e6b49d42",
+      "modelBbox": {
+        "x": 523.17,
+        "y": 420.69,
+        "width": 92.0,
+        "height": 56.76
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7623,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2952ae624b97",
+      "modelBbox": {
+        "x": 672.54,
+        "y": 403.43,
+        "width": 94.02,
+        "height": 50.53
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7574,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7d2f516fc56f",
+      "modelBbox": {
+        "x": 236.6,
+        "y": 356.18,
+        "width": 69.42,
+        "height": 94.44
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.74,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4faf71effc58",
+      "modelBbox": {
+        "x": 250.49,
+        "y": 289.04,
+        "width": 78.31,
+        "height": 67.9
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7198,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-70497c32d949",
+      "modelBbox": {
+        "x": 476.67,
+        "y": 325.73,
+        "width": 81.07,
+        "height": 52.5
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7148,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-308e249e9199",
+      "modelBbox": {
+        "x": 164.45,
+        "y": 122.7,
+        "width": 77.62,
+        "height": 62.77
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.7096,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-425390e43fdf",
+      "modelBbox": {
+        "x": 214.68,
+        "y": 318.11,
+        "width": 65.11,
+        "height": 66.53
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6893,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-04c87d34c61c",
+      "modelBbox": {
+        "x": 661.02,
+        "y": 359.93,
+        "width": 87.72,
+        "height": 51.28
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6678,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-55437907938f",
+      "modelBbox": {
+        "x": 610.01,
+        "y": 414.48,
+        "width": 79.19,
+        "height": 52.7
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6421,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-846ee36f3ad7",
+      "modelBbox": {
+        "x": 262.18,
+        "y": 69.81,
+        "width": 66.09,
+        "height": 47.32
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6381,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ffa8ca7a8297",
+      "modelBbox": {
+        "x": 556.14,
+        "y": 267.17,
+        "width": 78.83,
+        "height": 39.24
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6265,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b8c5d8bfabc5",
+      "modelBbox": {
+        "x": 448.38,
+        "y": 77.42,
+        "width": 56.8,
+        "height": 49.96
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6252,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-77bfb7ba8ea0",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 223.33,
+        "width": 75.37,
+        "height": 301.01
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6151,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-08f1ef26c079",
+      "modelBbox": {
+        "x": 196.78,
+        "y": 91.66,
+        "width": 87.66,
+        "height": 58.77
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6151,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c620c9359584",
+      "modelBbox": {
+        "x": 522.36,
+        "y": 388.72,
+        "width": 87.73,
+        "height": 37.53
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.6141,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0db6135824c2",
+      "modelBbox": {
+        "x": 589.85,
+        "y": 381.41,
+        "width": 82.57,
+        "height": 47.62
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.5815,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1e865081ed19",
+      "modelBbox": {
+        "x": 720.1,
+        "y": 186.15,
+        "width": 79.9,
+        "height": 73.34
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.5594,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7183782a739c",
+      "modelBbox": {
+        "x": 525.61,
+        "y": 355.09,
+        "width": 90.59,
+        "height": 35.5
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.5492,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-de0fb415e3d0",
+      "modelBbox": {
+        "x": 521.29,
+        "y": 86.5,
+        "width": 223.27,
+        "height": 133.37
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.5345,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bf329aa014de",
+      "modelBbox": {
+        "x": 716.34,
+        "y": 306.17,
+        "width": 83.66,
+        "height": 109.32
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.5192,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-35666860158d",
+      "modelBbox": {
+        "x": 533.41,
+        "y": 320.9,
+        "width": 88.8,
+        "height": 34.56
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.4853,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7c502ce07eb6",
+      "modelBbox": {
+        "x": 583.19,
+        "y": 344.8,
+        "width": 78.26,
+        "height": 40.73
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.4773,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-29884ab48465",
+      "modelBbox": {
+        "x": 636.57,
+        "y": 310.77,
+        "width": 75.6,
+        "height": 39.9
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.4735,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f0e69c2ee482",
+      "modelBbox": {
+        "x": 611.13,
+        "y": 322.0,
+        "width": 72.21,
+        "height": 39.89
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.4361,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c9ff6750b1e4",
+      "modelBbox": {
+        "x": 252.54,
+        "y": 356.07,
+        "width": 52.95,
+        "height": 48.44
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.3677,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-27f7d94017b4",
+      "modelBbox": {
+        "x": 92.97,
+        "y": 330.91,
+        "width": 253.5,
+        "height": 255.0
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.3633,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-aacfdc76bff4",
+      "modelBbox": {
+        "x": 473.42,
+        "y": 253.18,
+        "width": 290.25,
+        "height": 278.07
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.3169,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-645c258fe8a0",
+      "modelBbox": {
+        "x": 536.77,
+        "y": 328.92,
+        "width": 71.47,
+        "height": 37.34
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.3066,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-589c69570059",
+      "modelBbox": {
+        "x": 83.8,
+        "y": 76.48,
+        "width": 270.69,
+        "height": 248.96
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.2987,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7bd87086f027",
+      "modelBbox": {
+        "x": 215.22,
+        "y": 298.63,
+        "width": 100.75,
+        "height": 83.45
+      },
+      "classLabel": "tyranids",
+      "pseudoScore": 0.2706,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

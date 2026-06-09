@@ -1,0 +1,115 @@
+{
+  "imageId": "imperial_guard_reddit_12gas6q_e2afd66dbaec",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/12gas6q_e2afd66dbaec.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4000,
+  "height": 1868,
+  "annotations": [
+    {
+      "id": "0f3a7cff-9632-41be-9f26-1210a641acca",
+      "modelBbox": {
+        "x": 142.15777694889965,
+        "y": 409.5486758672137,
+        "width": 516.2252890712421,
+        "height": 698.2469227900037
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "8590329c-cf61-4fc4-89ef-b77b11e261bb",
+      "modelBbox": {
+        "x": 334.6232748974263,
+        "y": 636.3297277135397,
+        "width": 590.8243192838493,
+        "height": 654.9794852666915
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "c9751dda-d34e-42f0-9809-a457ee92feda",
+      "modelBbox": {
+        "x": 638.9873181648638,
+        "y": 351.3614323013801,
+        "width": 592.3162998881014,
+        "height": 745.9903021260723
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "94df5783-3817-4388-9d32-5bf8eeee61bb",
+      "modelBbox": {
+        "x": 970.2070123088399,
+        "y": 551.2868332711674,
+        "width": 456.54606490115634,
+        "height": 744.4983215218202
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "d0af8371-1c52-40ab-a0b1-3837a390215c",
+      "modelBbox": {
+        "x": 1352.9000372995151,
+        "y": 419.99254009697876,
+        "width": 447.59418127564345,
+        "height": 689.2950391644908
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "e4ef4072-2f93-4999-be8b-6d9f8cfc4c56",
+      "modelBbox": {
+        "x": 1648.3121969414397,
+        "y": 527.4151436031332,
+        "width": 540.0969787392764,
+        "height": 762.4020887728459
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "3f8e35cb-40c2-41fe-bd65-9da7f76cece9",
+      "modelBbox": {
+        "x": 2031.751212234241,
+        "y": 385.6769861991794,
+        "width": 444.6102200671389,
+        "height": 720.6266318537859
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "0faf9ba2-e8bb-46cd-bbe5-5180bdb6a88a",
+      "modelBbox": {
+        "x": 2361.478925773965,
+        "y": 524.4311823946289,
+        "width": 487.87765759045124,
+        "height": 775.8299142111152
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "83b7f8bc-4ff2-4488-a301-468e60a0be6a",
+      "modelBbox": {
+        "x": 2719.5542707944796,
+        "y": 393.13688922044014,
+        "width": 466.98992913092115,
+        "height": 737.0384185005595
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "15d7c5c3-a8d0-4b2e-acbe-643fe4004c6d",
+      "modelBbox": {
+        "x": 3095.53338306602,
+        "y": 515.479298769116,
+        "width": 578.8884744498318,
+        "height": 771.3539723983588
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T10:34:07.643Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

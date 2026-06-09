@@ -1,0 +1,25 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_1142488",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_1142488.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "8da6078e-390d-4ff1-afe6-318f876ef2d2",
+      "modelBbox": {
+        "x": 151.28478406935076,
+        "y": 96.89038785834738,
+        "width": 2672.134907251265,
+        "height": 3850.1180438448564
+      },
+      "classLabel": "imperial_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-08T16:16:10.081Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

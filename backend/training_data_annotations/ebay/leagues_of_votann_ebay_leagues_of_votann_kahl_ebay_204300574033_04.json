@@ -1,0 +1,26 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_kahl_ebay_204300574033_04",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_kahl_ebay_204300574033_04.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1066,
+  "annotations": [
+    {
+      "id": "dino_0_1773607629284",
+      "modelBbox": {
+        "x": 415.0513112884835,
+        "y": 223.91676168757127,
+        "width": 889.5486887115164,
+        "height": 793.0832383124288
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.399
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:47:15.250Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

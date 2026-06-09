@@ -1,0 +1,125 @@
+{
+  "imageId": "orks_dakkadakka_11837_aecd0ab20ce2",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/11837_aecd0ab20ce2.jpg",
+  "faction": "orks",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 775,
+  "annotations": [
+    {
+      "id": "34ac3f56-ed77-4a54-a278-6ecdd16233ae",
+      "modelBbox": {
+        "x": 70.5893323386796,
+        "y": 492.86646773591946,
+        "width": 287.65386049981356,
+        "height": 245.28161133905263
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "a41b441c-06ca-448c-9ab0-5ff975b94db9",
+      "modelBbox": {
+        "x": 327.2099962700485,
+        "y": 483.31779186870574,
+        "width": 146.21409921671017,
+        "height": 165.31145095113766
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "8e95ca3e-fb16-414e-a8e8-9bd19b21404b",
+      "modelBbox": {
+        "x": 444.77806788511754,
+        "y": 540.0130548302873,
+        "width": 148.60126818351358,
+        "height": 198.13502424468481
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "ace14b81-0098-4fe1-9084-5f761661c596",
+      "modelBbox": {
+        "x": 646.1954494591571,
+        "y": 493.46325997762034,
+        "width": 132.4878776575904,
+        "height": 228.5714285714286
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "c5d9a55b-1170-41de-9c2c-b1a13d8ecc9b",
+      "modelBbox": {
+        "x": 522.0626631853786,
+        "y": 442.1391271913465,
+        "width": 138.4558000745991,
+        "height": 176.05371130175314
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "6e1ef705-6226-478b-9a89-438e1a85977c",
+      "modelBbox": {
+        "x": 641.4211115255501,
+        "y": 382.45990302126074,
+        "width": 149.19806042521452,
+        "height": 181.4248414770608
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "9c749bb1-9d1c-4d70-9faf-81dac1acc6e1",
+      "modelBbox": {
+        "x": 569.2092502797464,
+        "y": 268.4725848563969,
+        "width": 154.56919060052223,
+        "height": 225.58746736292426
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "46413e7a-fc4d-48e8-9231-a69c4a16dc72",
+      "modelBbox": {
+        "x": 22.249160760910108,
+        "y": 443.9295039164491,
+        "width": 134.8750466243939,
+        "height": 176.05371130175308
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "e39f77d0-81c9-44e8-952a-2da005043e19",
+      "modelBbox": {
+        "x": 10.313315926892951,
+        "y": 280.40842969041404,
+        "width": 162.92428198433421,
+        "height": 226.18425960462514
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "3bab8356-d74e-4d6e-9e6d-372f17571eaf",
+      "modelBbox": {
+        "x": 172.64080566952632,
+        "y": 322.1838866094741,
+        "width": 142.0365535248042,
+        "height": 152.18202163371876
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "32e0c333-33ba-4864-9bcc-f1d437409c65",
+      "modelBbox": {
+        "x": 206.06117120477435,
+        "y": 15.432674375233123,
+        "width": 420.1417381574039,
+        "height": 547.2584856396868
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T18:04:08.701Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

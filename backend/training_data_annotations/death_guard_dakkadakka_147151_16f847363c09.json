@@ -1,0 +1,24 @@
+{
+  "imageId": "death_guard_dakkadakka_147151_16f847363c09",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/147151_16f847363c09.jpg",
+  "faction": "astra_militarum",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "350123e8-7bae-474d-9fb2-9f7af0b23295",
+      "modelBbox": {
+        "x": 154.48695591517856,
+        "y": 13.333329181281886,
+        "width": 543.6734693877551,
+        "height": 573.8775510204081
+      },
+      "classLabel": "astra_militarum"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:12:38.549Z",
+  "annotatedBy": "sinan"
+}

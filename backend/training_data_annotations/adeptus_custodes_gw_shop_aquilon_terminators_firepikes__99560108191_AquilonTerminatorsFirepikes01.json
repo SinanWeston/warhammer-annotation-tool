@@ -1,0 +1,46 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_aquilon_terminators_firepikes__99560108191_AquilonTerminatorsFirepikes01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/aquilon_terminators_firepikes__99560108191_AquilonTerminatorsFirepikes01.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778673629647",
+      "modelBbox": {
+        "x": 343.36024693080356,
+        "y": 637.8967907963967,
+        "width": 1169.387755102041,
+        "height": 1268.0272627849968
+      },
+      "classLabel": "adeptus_custodes"
+    },
+    {
+      "id": "d786b7dd-8547-4213-8aae-e9a004d727be",
+      "modelBbox": {
+        "x": 47.4418795838648,
+        "y": 233.81515814333545,
+        "width": 916.3265306122449,
+        "height": 889.746311732701
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "aquilon_custodians"
+    },
+    {
+      "id": "cbfc869a-95d6-448a-b34c-6e40d6b48f7d",
+      "modelBbox": {
+        "x": 959.6867775430485,
+        "y": 266.46821936782527,
+        "width": 981.6326530612246,
+        "height": 993.8279443857623
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "aquilon_custodians"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T12:01:42.464Z",
+  "annotatedBy": "sinan"
+}

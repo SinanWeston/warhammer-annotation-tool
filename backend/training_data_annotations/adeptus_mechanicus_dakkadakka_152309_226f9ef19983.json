@@ -1,0 +1,68 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_152309_226f9ef19983",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/152309_226f9ef19983.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 436,
+  "annotations": [
+    {
+      "id": "6487fffc-6dd1-43d6-8874-7ca6da13bd98",
+      "modelBbox": {
+        "x": 55.66952629615815,
+        "y": 118.58914584110407,
+        "width": 196.9414397612831,
+        "height": 253.63670272286458
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "49c943c7-6b2f-4345-a712-7f620c14f8d8",
+      "modelBbox": {
+        "x": 560.2058055598209,
+        "y": 111.18272374223822,
+        "width": 195.53722272198672,
+        "height": 251.0037957741839
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "9abf288d-2e6d-4310-9e5c-0ace8b12a2d8",
+      "modelBbox": {
+        "x": 319.90916471027003,
+        "y": 114.69326634047856,
+        "width": 176.93134695131283,
+        "height": 251.70590429383202
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [
+    {
+      "id": "pred_1_1772467789067",
+      "modelBbox": {
+        "x": 53.23312759399414,
+        "y": 115.665283203125,
+        "width": 191.40395736694336,
+        "height": 256.7747802734375
+      },
+      "classLabel": "imperial_guard",
+      "confidence": 0.45504456758499146
+    },
+    {
+      "id": "pred_2_1772467789067",
+      "modelBbox": {
+        "x": 317.2441101074219,
+        "y": 110.44872283935547,
+        "width": 174.51507568359375,
+        "height": 256.1268997192383
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.25029611587524414
+    }
+  ],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T16:10:38.731Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

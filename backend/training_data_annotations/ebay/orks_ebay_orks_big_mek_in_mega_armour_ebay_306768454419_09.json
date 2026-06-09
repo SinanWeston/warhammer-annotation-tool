@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_in_mega_armour_ebay_306768454419_09",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_in_mega_armour_ebay_306768454419_09.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773584921854",
+      "modelBbox": {
+        "x": 61.11744583808438,
+        "y": 72.49144811858609,
+        "width": 1417.5598631698974,
+        "height": 1430.3306727480046
+      },
+      "classLabel": "orks",
+      "confidence": 0.329
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:28:56.144Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

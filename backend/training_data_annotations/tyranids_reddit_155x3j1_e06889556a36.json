@@ -1,0 +1,85 @@
+{
+  "imageId": "tyranids_reddit_155x3j1_e06889556a36",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/155x3j1_e06889556a36.jpg",
+  "faction": "tyranids",
+  "source": "reddit",
+  "width": 4000,
+  "height": 2252,
+  "annotations": [
+    {
+      "id": "4da33efd-2ce9-4f2f-b3e5-bdaaa281b64d",
+      "modelBbox": {
+        "x": 30.678851174934724,
+        "y": 1244.3118239462888,
+        "width": 960.8355091383812,
+        "height": 704.2148452070121
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "8e5ad609-264b-49cf-848b-124f76df6d4d",
+      "modelBbox": {
+        "x": 448.43342036553526,
+        "y": 984.7071988064155,
+        "width": 978.7392763894068,
+        "height": 704.2148452070122
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "91b53d3b-fb30-411a-9585-4f7a9f4a5c0b",
+      "modelBbox": {
+        "x": 1107.8888474449832,
+        "y": 1381.574039537486,
+        "width": 835.509138381201,
+        "height": 680.343155538978
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "f8ce2de6-1094-45d1-b4f9-a12038fbb5bc",
+      "modelBbox": {
+        "x": 1492.8198433420366,
+        "y": 945.9157030958597,
+        "width": 719.1346512495338,
+        "height": 638.567698619918
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "67462191-a8af-49cc-838c-880e4ca53397",
+      "modelBbox": {
+        "x": 1961.30175307721,
+        "y": 1127.9373368146214,
+        "width": 737.0384185005596,
+        "height": 734.0544572920551
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "2b09e7ca-1f9c-4c7d-a946-617d8371998b",
+      "modelBbox": {
+        "x": 2599.8694516971277,
+        "y": 1062.290190227527,
+        "width": 930.9958970533385,
+        "height": 447.59418127564345
+      },
+      "classLabel": "tyranids"
+    },
+    {
+      "id": "4c187f51-2d16-46a1-b1b6-13f45769ca09",
+      "modelBbox": {
+        "x": 2453.6553524804176,
+        "y": 1336.8146214099218,
+        "width": 1127.9373368146216,
+        "height": 689.2950391644908
+      },
+      "classLabel": "tyranids"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:39:30.694Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

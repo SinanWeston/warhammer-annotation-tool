@@ -1,0 +1,85 @@
+{
+  "imageId": "imperial_knights_dakkadakka_dakka_1093382",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/dakkadakka/dakka_1093382.jpg",
+  "faction": "imperial_knights",
+  "source": "dakkadakka",
+  "width": 4000,
+  "height": 6000,
+  "annotations": [
+    {
+      "id": "125d9b88-8b8c-41ab-8c82-ed2209010508",
+      "modelBbox": {
+        "x": 2988.460220262747,
+        "y": 3132.6257315742487,
+        "width": 958.2382700128956,
+        "height": 1059.4187084614623
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "302189ca-6ec5-4056-b855-780488a71a81",
+      "modelBbox": {
+        "x": 1417.4629370103466,
+        "y": 3679.03316469927,
+        "width": 2225.9696458684657,
+        "height": 2287.802136031478
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "63a1f306-f1db-47dd-8278-7fe798e2c189",
+      "modelBbox": {
+        "x": 696.083827927382,
+        "y": 3164.699269252389,
+        "width": 761.6638560989321,
+        "height": 1287.2400224845424
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "9d40f868-ee7f-42b9-aaad-16c61f16426a",
+      "modelBbox": {
+        "x": 1256.3237774030354,
+        "y": 3375.4918493535697,
+        "width": 1489.6008993816754,
+        "height": 2046.0933108487916
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "7c299c8a-819f-4a53-95aa-83457c2bb5c3",
+      "modelBbox": {
+        "x": 2096.683530073075,
+        "y": 3162.8256717915615,
+        "width": 1236.6498032602585,
+        "height": 1753.794266441822
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "71ab6b3d-2073-4da7-9d30-320c4ac69dfc",
+      "modelBbox": {
+        "x": 1441.8212478920743,
+        "y": 2799.325463743676,
+        "width": 1222.5969645868465,
+        "height": 1315.3456998313663
+      },
+      "classLabel": "imperial_knights"
+    },
+    {
+      "id": "a8d53887-7efa-47bf-8240-e3be5a69e7ab",
+      "modelBbox": {
+        "x": 1413.7155705452503,
+        "y": 2529.5109612141655,
+        "width": 1053.9629005059026,
+        "height": 1093.310848791456
+      },
+      "classLabel": "imperial_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-08T16:15:31.398Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

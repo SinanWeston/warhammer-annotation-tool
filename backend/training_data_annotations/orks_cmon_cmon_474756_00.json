@@ -1,0 +1,306 @@
+{
+  "imageId": "orks_cmon_cmon_474756_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/cmon/cmon_474756_00.jpg",
+  "faction": "orks",
+  "source": "cmon",
+  "width": 2124,
+  "height": 2124,
+  "annotations": [
+    {
+      "id": "pseudo-c3425c641d52",
+      "modelBbox": {
+        "x": 1105.44,
+        "y": 815.73,
+        "width": 591.98,
+        "height": 521.91
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.8739,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5ea77349f1bc",
+      "modelBbox": {
+        "x": 24.43,
+        "y": 877.13,
+        "width": 1003.19,
+        "height": 658.14
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.8461,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-909caf26d752",
+      "modelBbox": {
+        "x": 1103.86,
+        "y": 1104.96,
+        "width": 595.52,
+        "height": 231.17
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.8152,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f1a3437c4e5e",
+      "modelBbox": {
+        "x": 699.2,
+        "y": 1105.89,
+        "width": 323.62,
+        "height": 416.87
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.7743,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-69f736c31dcb",
+      "modelBbox": {
+        "x": 815.6,
+        "y": 816.79,
+        "width": 378.8,
+        "height": 656.38
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.7593,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b60a80876864",
+      "modelBbox": {
+        "x": 883.31,
+        "y": 308.77,
+        "width": 805.3,
+        "height": 711.16
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.7557,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c991d9018130",
+      "modelBbox": {
+        "x": 815.25,
+        "y": 875.63,
+        "width": 166.23,
+        "height": 143.38
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.6101,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6efb7913c419",
+      "modelBbox": {
+        "x": 26.12,
+        "y": 672.06,
+        "width": 990.78,
+        "height": 352.2
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.6082,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d0f01517e91f",
+      "modelBbox": {
+        "x": 817.53,
+        "y": 1106.43,
+        "width": 879.53,
+        "height": 368.48
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.4585,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a991538fd89d",
+      "modelBbox": {
+        "x": 664.85,
+        "y": 1106.89,
+        "width": 364.38,
+        "height": 885.38
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.4579,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-07af69ee71ef",
+      "modelBbox": {
+        "x": 1104.74,
+        "y": 1105.26,
+        "width": 651.62,
+        "height": 512.44
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.4563,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-46e8999b919e",
+      "modelBbox": {
+        "x": 882.09,
+        "y": 669.26,
+        "width": 137.3,
+        "height": 200.7
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.4133,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bd24a0691e77",
+      "modelBbox": {
+        "x": 1103.94,
+        "y": 815.57,
+        "width": 93.91,
+        "height": 368.36
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.3757,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cf1c56f420d9",
+      "modelBbox": {
+        "x": 824.3,
+        "y": 1111.43,
+        "width": 1000.43,
+        "height": 905.33
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.3405,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f906252a8d7a",
+      "modelBbox": {
+        "x": 21.54,
+        "y": 878.02,
+        "width": 963.69,
+        "height": 145.77
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.2921,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2adf00fec981",
+      "modelBbox": {
+        "x": 1109.62,
+        "y": 566.12,
+        "width": 574.75,
+        "height": 455.73
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.2873,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ede6764c6ad3",
+      "modelBbox": {
+        "x": 476.6,
+        "y": 927.17,
+        "width": 303.95,
+        "height": 98.64
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.2685,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ab965148b0b0",
+      "modelBbox": {
+        "x": 825.37,
+        "y": 1294.51,
+        "width": 933.84,
+        "height": 314.98
+      },
+      "classLabel": "orks",
+      "pseudoScore": 0.2611,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

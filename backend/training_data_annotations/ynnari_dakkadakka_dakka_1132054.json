@@ -1,0 +1,242 @@
+{
+  "imageId": "ynnari_dakkadakka_dakka_1132054",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/dakkadakka/dakka_1132054.jpg",
+  "faction": "ynnari",
+  "source": "dakkadakka",
+  "width": 3024,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "pseudo-48fdba66759d",
+      "modelBbox": {
+        "x": 1927.55,
+        "y": 1159.19,
+        "width": 689.45,
+        "height": 1026.17
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.9338,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-29e3fcb8f176",
+      "modelBbox": {
+        "x": 1271.82,
+        "y": 1201.55,
+        "width": 660.02,
+        "height": 1124.19
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.9315,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9ec0730a9d71",
+      "modelBbox": {
+        "x": 54.18,
+        "y": 1162.77,
+        "width": 1234.91,
+        "height": 1000.49
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8882,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d96421c89b7e",
+      "modelBbox": {
+        "x": 1159.08,
+        "y": 1580.98,
+        "width": 124.35,
+        "height": 543.18
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8682,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6fb9ca6cd0df",
+      "modelBbox": {
+        "x": 1568.22,
+        "y": 1571.34,
+        "width": 367.14,
+        "height": 755.55
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8578,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-dcab7d3816a8",
+      "modelBbox": {
+        "x": 2017.51,
+        "y": 1567.75,
+        "width": 703.51,
+        "height": 619.02
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8568,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-3d2fd48fc851",
+      "modelBbox": {
+        "x": 1582.26,
+        "y": 1201.24,
+        "width": 326.69,
+        "height": 255.83
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8556,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ff3711038461",
+      "modelBbox": {
+        "x": 1272.09,
+        "y": 1417.7,
+        "width": 190.63,
+        "height": 871.67
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8323,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-20a8188d77bd",
+      "modelBbox": {
+        "x": 1882.36,
+        "y": 949.44,
+        "width": 1026.76,
+        "height": 507.61
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.8047,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-36ab18cd9475",
+      "modelBbox": {
+        "x": 655.91,
+        "y": 1149.18,
+        "width": 368.98,
+        "height": 303.54
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.7694,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8b748be70793",
+      "modelBbox": {
+        "x": 2100.55,
+        "y": 1053.0,
+        "width": 407.92,
+        "height": 404.63
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.4672,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cf1df8acc5a9",
+      "modelBbox": {
+        "x": 653.83,
+        "y": 1149.59,
+        "width": 794.01,
+        "height": 304.29
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.4246,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a835fc25a32c",
+      "modelBbox": {
+        "x": 1882.36,
+        "y": 950.04,
+        "width": 191.16,
+        "height": 508.38
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.2968,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cc514ab723ce",
+      "modelBbox": {
+        "x": 670.71,
+        "y": 1570.94,
+        "width": 615.54,
+        "height": 590.46
+      },
+      "classLabel": "ynnari",
+      "pseudoScore": 0.2896,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

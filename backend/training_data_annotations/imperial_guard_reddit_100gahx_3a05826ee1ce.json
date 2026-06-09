@@ -1,0 +1,113 @@
+{
+  "imageId": "imperial_guard_reddit_100gahx_3a05826ee1ce",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/100gahx_3a05826ee1ce.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 1440,
+  "height": 1440,
+  "annotations": [
+    {
+      "id": "9b38c633-66e9-4dad-8edf-9e6bb8ebfaca",
+      "modelBbox": {
+        "x": 47.93621950733418,
+        "y": 278.1607117944834,
+        "width": 219.6734693877551,
+        "height": 244.65306122448976
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "edb286b1-0a7d-495c-9fa7-071a849d9a33",
+      "modelBbox": {
+        "x": 195.60968889508928,
+        "y": 212.03826281489157,
+        "width": 230.69387755102042,
+        "height": 349.71428571428567
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "0507ca9b-2d5f-4bc8-900a-390f2a3c0b9a",
+      "modelBbox": {
+        "x": 269.81377052774235,
+        "y": 198.0790791414222,
+        "width": 178.53061224489795,
+        "height": 282.85714285714283
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "60843ee2-e7b1-4189-aa41-d828062ccf82",
+      "modelBbox": {
+        "x": 418.22193379304844,
+        "y": 195.87499750876913,
+        "width": 188.81632653061223,
+        "height": 329.87755102040813
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "2b35bf62-3d31-4bdd-bbce-04a6bf622762",
+      "modelBbox": {
+        "x": 558.5484644052933,
+        "y": 267.1403036312181,
+        "width": 210.1224489795918,
+        "height": 293.8775510204082
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "61fcc0f8-c204-4d17-bee9-541ae8d52457",
+      "modelBbox": {
+        "x": 577.6505052216198,
+        "y": 208.36479342713648,
+        "width": 166.77551020408168,
+        "height": 263.7551020408163
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "fb110571-30ad-4e0d-98e5-a7ced3cbe19f",
+      "modelBbox": {
+        "x": 758.9566338986766,
+        "y": 233.34438526387117,
+        "width": 166.0408163265306,
+        "height": 285.7959183673469
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "236bf2ab-d3d9-4392-a0f0-2b5638ccc6b0",
+      "modelBbox": {
+        "x": 910.3035726741869,
+        "y": 255.38520159040178,
+        "width": 204.24489795918362,
+        "height": 295.3469387755102
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "f5fc64f8-abb8-4c27-9a93-9bff6dd6dc18",
+      "modelBbox": {
+        "x": 831.6913277762277,
+        "y": 162.0790791414222,
+        "width": 234.36734693877554,
+        "height": 318.1224489795918
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "9bd9980c-1abf-412b-a391-9f1e1c0785fe",
+      "modelBbox": {
+        "x": 1069.6505201690052,
+        "y": 231.87499750876913,
+        "width": 335.75510204081615,
+        "height": 294.6122448979592
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T18:08:40.956Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

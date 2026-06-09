@@ -1,0 +1,170 @@
+{
+  "imageId": "tau_empire_dakkadakka_dakka_1051127",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tau_empire/dakkadakka/dakka_1051127.jpg",
+  "faction": "tau_empire",
+  "source": "dakkadakka",
+  "width": 4608,
+  "height": 3456,
+  "annotations": [
+    {
+      "id": "dino_1_1773091351030",
+      "modelBbox": {
+        "x": 1330.3,
+        "y": 1314.9,
+        "width": 559.8,
+        "height": 1102.7
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.475
+    },
+    {
+      "id": "dino_3_1773091351030",
+      "modelBbox": {
+        "x": 1999.3,
+        "y": 1648.5,
+        "width": 616.6,
+        "height": 1149.3
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.445
+    },
+    {
+      "id": "dino_4_1773091351030",
+      "modelBbox": {
+        "x": 2729.5,
+        "y": 1703.6,
+        "width": 678.9,
+        "height": 1217.9
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.395
+    },
+    {
+      "id": "dino_5_1773091351030",
+      "modelBbox": {
+        "x": 519.2,
+        "y": 1012.3,
+        "width": 389.8,
+        "height": 943.7
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.39
+    },
+    {
+      "id": "dino_6_1773091351030",
+      "modelBbox": {
+        "x": 1085.2,
+        "y": 864.7,
+        "width": 326.1,
+        "height": 844.5
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.36
+    },
+    {
+      "id": "dino_7_1773091351030",
+      "modelBbox": {
+        "x": 1785.2,
+        "y": 1214.4,
+        "width": 479.2,
+        "height": 904.1
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.347
+    },
+    {
+      "id": "dino_8_1773091351030",
+      "modelBbox": {
+        "x": 3203.6,
+        "y": 1252.4,
+        "width": 478.4,
+        "height": 1198.5
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.346
+    },
+    {
+      "id": "dino_9_1773091351030",
+      "modelBbox": {
+        "x": 2399.1,
+        "y": 1347.6,
+        "width": 435,
+        "height": 1010.7
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.338
+    },
+    {
+      "id": "dino_10_1773091351030",
+      "modelBbox": {
+        "x": 1159.2,
+        "y": 1012,
+        "width": 394.4,
+        "height": 1043.3
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.336
+    },
+    {
+      "id": "dino_11_1773091351030",
+      "modelBbox": {
+        "x": 2749.2,
+        "y": 1014,
+        "width": 450.3,
+        "height": 1049.5
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.335
+    },
+    {
+      "id": "dino_12_1773091351030",
+      "modelBbox": {
+        "x": 1769.9,
+        "y": 888.1,
+        "width": 374.2,
+        "height": 886.8
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.319
+    },
+    {
+      "id": "dino_13_1773091351030",
+      "modelBbox": {
+        "x": 2381.6,
+        "y": 883.5,
+        "width": 364.6,
+        "height": 485.4
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.267
+    },
+    {
+      "id": "dino_14_1773091351030",
+      "modelBbox": {
+        "x": 3135.6,
+        "y": 870.4,
+        "width": 431.2,
+        "height": 875.6
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.256
+    }
+  ],
+  "rejectedPredictions": [
+    {
+      "id": "dino_2_1773091351030",
+      "modelBbox": {
+        "x": 634.8,
+        "y": 1342.1,
+        "width": 593.3,
+        "height": 1000.8
+      },
+      "classLabel": "tau_empire",
+      "confidence": 0.45
+    }
+  ],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:23:01.363Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

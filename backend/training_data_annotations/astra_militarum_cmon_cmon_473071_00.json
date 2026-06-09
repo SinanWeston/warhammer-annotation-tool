@@ -1,0 +1,74 @@
+{
+  "imageId": "astra_militarum_cmon_cmon_473071_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/astra_militarum/cmon/cmon_473071_00.jpg",
+  "faction": "astra_militarum",
+  "source": "cmon",
+  "width": 1630,
+  "height": 2000,
+  "annotations": [
+    {
+      "id": "pseudo-4e07c08ad8b5",
+      "modelBbox": {
+        "x": 1036.7058927311134,
+        "y": 297.6776295074828,
+        "width": 492.6287568434373,
+        "height": 900.0515434981194
+      },
+      "classLabel": "astra_militarum"
+    },
+    {
+      "id": "pseudo-644fdaf770c0",
+      "modelBbox": {
+        "x": 208.44607411240244,
+        "y": 455.7273460182431,
+        "width": 784.9883737608413,
+        "height": 750.3202331195045
+      },
+      "classLabel": "astra_militarum"
+    },
+    {
+      "id": "84d88105-2e6b-4c74-875b-bc358ddf3ed1",
+      "modelBbox": {
+        "x": 1098.767706838595,
+        "y": 309.28649380823384,
+        "width": 301.60544217687084,
+        "height": 485.6734693877551
+      },
+      "classLabel": "astra_militarum"
+    },
+    {
+      "id": "45b8e6e1-c041-4251-b2dc-5855e4055bb3",
+      "modelBbox": {
+        "x": 226.47743484600872,
+        "y": 1305.397627434763,
+        "width": 391.421768707483,
+        "height": 508.08139432530834
+      },
+      "classLabel": "astra_militarum"
+    },
+    {
+      "id": "1d93a370-ce7a-4408-9430-06f18001a4d7",
+      "modelBbox": {
+        "x": 644.511448451451,
+        "y": 1205.601709067416,
+        "width": 332.65306122448976,
+        "height": 603.2108843537414
+      },
+      "classLabel": "astra_militarum"
+    },
+    {
+      "id": "8fbd4bc9-dc95-4c97-abde-dbe31e843d08",
+      "modelBbox": {
+        "x": 994.2899971267803,
+        "y": 1293.2003485231985,
+        "width": 307.14965986394566,
+        "height": 502.5371766382334
+      },
+      "classLabel": "astra_militarum"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:33:50.497Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,24 @@
+{
+  "imageId": "deathwatch_reddit_1lfjt6j_50f55c9e753a",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/deathwatch/reddit/1lfjt6j_50f55c9e753a.jpg",
+  "faction": "space_marines",
+  "source": "reddit",
+  "width": 5042,
+  "height": 5042,
+  "annotations": [
+    {
+      "id": "c0a9f647-c044-4afb-8dba-781c081d1cf0",
+      "modelBbox": {
+        "x": 1206.4427731883768,
+        "y": 80.0316762496014,
+        "width": 2582.7387755102045,
+        "height": 4887.65306122449
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:25:36.577Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,114 @@
+{
+  "imageId": "imperial_agents_reddit_1qbo89w_8e61d7b10dc9",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_agents/reddit/1qbo89w_8e61d7b10dc9.jpg",
+  "faction": "imperial_agents",
+  "source": "reddit",
+  "width": 2160,
+  "height": 2701,
+  "annotations": [
+    {
+      "id": "pseudo-aa6bce32e46a",
+      "modelBbox": {
+        "x": 861.26,
+        "y": 1402.24,
+        "width": 878.8,
+        "height": 614.86
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.9109,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-234d8ecc2c24",
+      "modelBbox": {
+        "x": 602.9,
+        "y": 1037.79,
+        "width": 695.58,
+        "height": 813.85
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.9002,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4003422a79e9",
+      "modelBbox": {
+        "x": 728.45,
+        "y": 1404.61,
+        "width": 568.03,
+        "height": 453.17
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.8902,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4b7791c12973",
+      "modelBbox": {
+        "x": 860.98,
+        "y": 446.68,
+        "width": 767.95,
+        "height": 848.37
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.3943,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0003440fd4de",
+      "modelBbox": {
+        "x": 599.98,
+        "y": 446.45,
+        "width": 703.17,
+        "height": 847.45
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.326,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-84ad886fdbba",
+      "modelBbox": {
+        "x": 862.36,
+        "y": 1578.3,
+        "width": 1131.27,
+        "height": 754.86
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.2719,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

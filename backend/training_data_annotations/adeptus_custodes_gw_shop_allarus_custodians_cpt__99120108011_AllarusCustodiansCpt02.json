@@ -1,0 +1,25 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_allarus_custodians_cpt__99120108011_AllarusCustodiansCpt02",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/allarus_custodians_cpt__99120108011_AllarusCustodiansCpt02.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778673352876",
+      "modelBbox": {
+        "x": 427.0337163185587,
+        "y": 103,
+        "width": 1148.9795918367347,
+        "height": 1850.0895778111048
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "allarus_custodians"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T11:56:24.607Z",
+  "annotatedBy": "sinan"
+}

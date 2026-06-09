@@ -1,0 +1,26 @@
+{
+  "imageId": "adepta_sororitas_ebay_adepta_sororitas_canoness_ebay_157525425639_12",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/ebay/adepta_sororitas_canoness_ebay_157525425639_12.jpg",
+  "faction": "adepta_sororitas",
+  "source": "ebay",
+  "width": 1000,
+  "height": 750,
+  "annotations": [
+    {
+      "id": "dino_0_1776604214153",
+      "modelBbox": {
+        "x": 359.79753495641836,
+        "y": 158.2067879920237,
+        "width": 559.6529284164858,
+        "height": 591.7932120079763
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.59
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-19T13:10:35.456Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

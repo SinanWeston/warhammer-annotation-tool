@@ -1,0 +1,92 @@
+{
+  "imageId": "genestealer_cult_dakkadakka_19423_53da857abc76",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/genestealer_cult/dakkadakka/19423_53da857abc76.jpg",
+  "faction": "genestealer_cult",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 244,
+  "annotations": [
+    {
+      "id": "dino_0_1773090162043",
+      "modelBbox": {
+        "x": 687.7,
+        "y": 85.5,
+        "width": 97.6,
+        "height": 146.7
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.603
+    },
+    {
+      "id": "dino_1_1773090162043",
+      "modelBbox": {
+        "x": 8,
+        "y": 98.3,
+        "width": 147.1,
+        "height": 140.8
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.596
+    },
+    {
+      "id": "dino_2_1773090162043",
+      "modelBbox": {
+        "x": 282.8,
+        "y": 110,
+        "width": 100.8,
+        "height": 130.1
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.534
+    },
+    {
+      "id": "dino_3_1773090162043",
+      "modelBbox": {
+        "x": 188.3,
+        "y": 95.5,
+        "width": 129.6,
+        "height": 126
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.509
+    },
+    {
+      "id": "dino_4_1773090162043",
+      "modelBbox": {
+        "x": 388.2,
+        "y": 4.703534777651086,
+        "width": 159.42447738502477,
+        "height": 215.99646522234892
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.496
+    },
+    {
+      "id": "dino_5_1773090162043",
+      "modelBbox": {
+        "x": 590.9,
+        "y": 93,
+        "width": 92.5,
+        "height": 122.8
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.495
+    },
+    {
+      "id": "dino_6_1773090162043",
+      "modelBbox": {
+        "x": 494.5,
+        "y": 114.8,
+        "width": 92.6,
+        "height": 121.3
+      },
+      "classLabel": "genestealer_cult",
+      "confidence": 0.468
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T21:02:57.489Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

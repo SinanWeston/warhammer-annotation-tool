@@ -1,0 +1,70 @@
+{
+  "imageId": "leagues_of_votann_ebay_leagues_of_votann_brokhyr_iron_master_ebay_326806970886_09",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/leagues_of_votann/ebay/leagues_of_votann_brokhyr_iron_master_ebay_326806970886_09.jpg",
+  "faction": "leagues_of_votann",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1066,
+  "annotations": [
+    {
+      "id": "dino_0_1773607016467",
+      "modelBbox": {
+        "x": 610.8,
+        "y": 246.3,
+        "width": 320.5568985176739,
+        "height": 488.9
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.735
+    },
+    {
+      "id": "dino_1_1773607016467",
+      "modelBbox": {
+        "x": 908.4,
+        "y": 185.60433295324972,
+        "width": 448,
+        "height": 686.4956670467502
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.618
+    },
+    {
+      "id": "dino_2_1773607016467",
+      "modelBbox": {
+        "x": 1320.2,
+        "y": 255.5,
+        "width": 269.5,
+        "height": 467.6
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.506
+    },
+    {
+      "id": "dino_5_1773607016467",
+      "modelBbox": {
+        "x": 124.9714937286203,
+        "y": 380.81527936145955,
+        "width": 488.9395667046751,
+        "height": 504.38472063854044
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.268
+    },
+    {
+      "id": "dino_7_1773607016467",
+      "modelBbox": {
+        "x": 26.8,
+        "y": 229.6,
+        "width": 343.1,
+        "height": 514.5
+      },
+      "classLabel": "leagues_of_votann",
+      "confidence": 0.207
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T20:37:16.672Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

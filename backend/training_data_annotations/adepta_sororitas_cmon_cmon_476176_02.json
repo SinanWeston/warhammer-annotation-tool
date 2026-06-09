@@ -1,0 +1,24 @@
+{
+  "imageId": "adepta_sororitas_cmon_cmon_476176_02",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/cmon/cmon_476176_02.jpg",
+  "faction": "adepta_sororitas",
+  "source": "cmon",
+  "width": 700,
+  "height": 700,
+  "annotations": [
+    {
+      "id": "pseudo-d2091f118f8f",
+      "modelBbox": {
+        "x": 126.70999908447266,
+        "y": 44.06999969482422,
+        "width": 424.1099853515625,
+        "height": 551.4299926757812
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-21T20:31:20.147Z",
+  "annotatedBy": "sinan"
+}

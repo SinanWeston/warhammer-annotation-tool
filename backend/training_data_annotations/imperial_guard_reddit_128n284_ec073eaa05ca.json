@@ -1,0 +1,24 @@
+{
+  "imageId": "imperial_guard_reddit_128n284_ec073eaa05ca",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/128n284_ec073eaa05ca.jpg",
+  "faction": "death_guard",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "70ce9f72-93b5-40f9-85e8-148214c830fe",
+      "modelBbox": {
+        "x": 402,
+        "y": 394,
+        "width": 2221,
+        "height": 3338
+      },
+      "classLabel": "death_guard",
+      "originalPrediction": false
+    }
+  ],
+  "annotatedAt": "2026-02-22T15:38:10.036Z",
+  "annotatedBy": "mobile-annotator",
+  "legacy_no_unit": true
+}

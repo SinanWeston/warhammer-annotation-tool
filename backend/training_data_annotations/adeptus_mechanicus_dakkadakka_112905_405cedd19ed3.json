@@ -1,0 +1,44 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_112905_405cedd19ed3",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/112905_405cedd19ed3.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 640,
+  "height": 480,
+  "annotations": [
+    {
+      "id": "013b6d5f-ced0-474f-9ad0-93cdada8fe51",
+      "modelBbox": {
+        "x": 69.38548309948979,
+        "y": 42.192741549744895,
+        "width": 210.93877551020407,
+        "height": 307.5918367346939
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "6231ef1d-f220-4418-a7a2-8e513b6d5a16",
+      "modelBbox": {
+        "x": 199.3446667729592,
+        "y": 172.8049864477041,
+        "width": 182.20408163265304,
+        "height": 274.2857142857143
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "449e2ea1-5d00-4a1d-82aa-b28b119c3e09",
+      "modelBbox": {
+        "x": 324.732421875,
+        "y": 29.13151705994898,
+        "width": 193.9591836734694,
+        "height": 345.46938775510205
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-12T14:38:41.056Z",
+  "annotatedBy": "sinan"
+}

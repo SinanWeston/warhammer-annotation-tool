@@ -1,0 +1,1058 @@
+{
+  "imageId": "necrons_reddit_16970ph_5c8d986c0d70",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/necrons/reddit/16970ph_5c8d986c0d70.jpg",
+  "faction": "necrons",
+  "source": "reddit",
+  "width": 582,
+  "height": 640,
+  "annotations": [
+    {
+      "id": "pseudo-ce40484f6796",
+      "modelBbox": {
+        "x": 311.6,
+        "y": 522.83,
+        "width": 93.97,
+        "height": 110.66
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.5105,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-650b37b52db1",
+      "modelBbox": {
+        "x": 192.2,
+        "y": 128.78,
+        "width": 99.52,
+        "height": 124.01
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.5069,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e40622aeb54f",
+      "modelBbox": {
+        "x": 403.09,
+        "y": 511.43,
+        "width": 99.38,
+        "height": 116.89
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.5023,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ac916fa5ad02",
+      "modelBbox": {
+        "x": 504.59,
+        "y": 501.67,
+        "width": 77.25,
+        "height": 108.66
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4912,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-34fe1ee6d6ce",
+      "modelBbox": {
+        "x": 218.19,
+        "y": 523.38,
+        "width": 93.49,
+        "height": 102.89
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4893,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1856f044d870",
+      "modelBbox": {
+        "x": 128.57,
+        "y": 142.52,
+        "width": 66.68,
+        "height": 88.26
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4871,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4e82334e4dfa",
+      "modelBbox": {
+        "x": 166.77,
+        "y": 309.31,
+        "width": 69.37,
+        "height": 86.8
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4579,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-fa821c26c2ec",
+      "modelBbox": {
+        "x": 296.1,
+        "y": 92.02,
+        "width": 95.17,
+        "height": 147.42
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4529,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-813e16557400",
+      "modelBbox": {
+        "x": 169.49,
+        "y": 451.9,
+        "width": 83.07,
+        "height": 97.24
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4396,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9e7c100ef82a",
+      "modelBbox": {
+        "x": 431.99,
+        "y": 282.43,
+        "width": 53.4,
+        "height": 63.26
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4396,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-d5d868f84b54",
+      "modelBbox": {
+        "x": 506.62,
+        "y": 359.75,
+        "width": 74.02,
+        "height": 85.41
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4357,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-03039bb5147e",
+      "modelBbox": {
+        "x": 391.85,
+        "y": 451.13,
+        "width": 84.31,
+        "height": 88.52
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.434,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9e138a27b39e",
+      "modelBbox": {
+        "x": 249.43,
+        "y": 444.89,
+        "width": 63.48,
+        "height": 85.0
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4321,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-513b747677f4",
+      "modelBbox": {
+        "x": 81.24,
+        "y": 315.54,
+        "width": 86.82,
+        "height": 96.68
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4312,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-99a511b8fd81",
+      "modelBbox": {
+        "x": 197.95,
+        "y": 391.17,
+        "width": 75.81,
+        "height": 71.05
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4305,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-fc965df3d413",
+      "modelBbox": {
+        "x": 410.2,
+        "y": 88.71,
+        "width": 111.28,
+        "height": 173.25
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.429,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-87e60deb97a6",
+      "modelBbox": {
+        "x": 484.81,
+        "y": 445.64,
+        "width": 81.09,
+        "height": 79.52
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4257,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4abdce735811",
+      "modelBbox": {
+        "x": 424.51,
+        "y": 340.28,
+        "width": 62.38,
+        "height": 73.68
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4232,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-552b460a9ccc",
+      "modelBbox": {
+        "x": 321.8,
+        "y": 454.16,
+        "width": 70.66,
+        "height": 78.58
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4222,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1601c1e7c019",
+      "modelBbox": {
+        "x": 477.44,
+        "y": 84.95,
+        "width": 85.51,
+        "height": 62.54
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4215,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-11a8891cb2b8",
+      "modelBbox": {
+        "x": 25.26,
+        "y": 46.22,
+        "width": 118.5,
+        "height": 156.72
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4158,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-27f020b89c49",
+      "modelBbox": {
+        "x": 366.27,
+        "y": 335.44,
+        "width": 67.02,
+        "height": 63.94
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.415,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8eae0dd6fbc1",
+      "modelBbox": {
+        "x": 315.95,
+        "y": 256.29,
+        "width": 43.01,
+        "height": 65.83
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4111,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-059ddd23089b",
+      "modelBbox": {
+        "x": 466.46,
+        "y": 238.92,
+        "width": 72.99,
+        "height": 67.07
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4075,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-c572e378be15",
+      "modelBbox": {
+        "x": 94.22,
+        "y": 35.62,
+        "width": 249.57,
+        "height": 91.26
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.4022,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0ff8f98d405d",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 124.97,
+        "width": 25.89,
+        "height": 81.16
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3999,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-2be180a571da",
+      "modelBbox": {
+        "x": 489.5,
+        "y": 282.77,
+        "width": 55.07,
+        "height": 56.88
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3969,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f75cc764f7a8",
+      "modelBbox": {
+        "x": 278.1,
+        "y": 387.42,
+        "width": 69.48,
+        "height": 75.62
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3927,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-66586060075a",
+      "modelBbox": {
+        "x": 346.88,
+        "y": 36.18,
+        "width": 146.08,
+        "height": 58.18
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3903,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4743d9864768",
+      "modelBbox": {
+        "x": 316.17,
+        "y": 296.95,
+        "width": 50.51,
+        "height": 64.22
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3864,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-cd7ed3d076a2",
+      "modelBbox": {
+        "x": 411.67,
+        "y": 391.7,
+        "width": 82.9,
+        "height": 87.83
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3833,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-974bc788fe33",
+      "modelBbox": {
+        "x": 147.82,
+        "y": 215.79,
+        "width": 55.29,
+        "height": 55.99
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3814,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9092aff24791",
+      "modelBbox": {
+        "x": 246.68,
+        "y": 306.78,
+        "width": 58.7,
+        "height": 62.97
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3808,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ebbd543327ba",
+      "modelBbox": {
+        "x": 312.49,
+        "y": 342.68,
+        "width": 67.68,
+        "height": 76.83
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3796,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-bda8fe654f40",
+      "modelBbox": {
+        "x": 315.26,
+        "y": 151.99,
+        "width": 110.02,
+        "height": 140.16
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3795,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e777f674269f",
+      "modelBbox": {
+        "x": 360.22,
+        "y": 394.38,
+        "width": 55.54,
+        "height": 63.18
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3788,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ca02e84115e3",
+      "modelBbox": {
+        "x": 11.7,
+        "y": 332.04,
+        "width": 73.54,
+        "height": 95.59
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3753,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ed7fcaa8870f",
+      "modelBbox": {
+        "x": 150.18,
+        "y": 262.28,
+        "width": 64.07,
+        "height": 72.5
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.374,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f801cfc90536",
+      "modelBbox": {
+        "x": 558.55,
+        "y": 427.17,
+        "width": 23.45,
+        "height": 80.19
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3723,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-7975192554ba",
+      "modelBbox": {
+        "x": 494.43,
+        "y": 318.3,
+        "width": 56.33,
+        "height": 73.13
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3717,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-161993a62fbc",
+      "modelBbox": {
+        "x": 114.24,
+        "y": 588.85,
+        "width": 39.39,
+        "height": 51.15
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3707,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ba0ba570b2ef",
+      "modelBbox": {
+        "x": 242.16,
+        "y": 247.28,
+        "width": 77.85,
+        "height": 87.02
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3707,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-28882dcf7453",
+      "modelBbox": {
+        "x": 423.21,
+        "y": 249.73,
+        "width": 48.88,
+        "height": 45.83
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3659,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-42b85b65c2f9",
+      "modelBbox": {
+        "x": 365.42,
+        "y": 273.53,
+        "width": 62.22,
+        "height": 74.61
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3577,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6116bdc0d5c0",
+      "modelBbox": {
+        "x": 519.96,
+        "y": 127.97,
+        "width": 62.04,
+        "height": 131.27
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3555,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-96c773b5a762",
+      "modelBbox": {
+        "x": 246.5,
+        "y": 347.37,
+        "width": 61.46,
+        "height": 58.29
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3545,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-eb33afd52bbc",
+      "modelBbox": {
+        "x": 19.91,
+        "y": 240.52,
+        "width": 67.72,
+        "height": 74.79
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3506,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-5268fc5fec0e",
+      "modelBbox": {
+        "x": 69.23,
+        "y": 596.21,
+        "width": 45.01,
+        "height": 43.79
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3445,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-62ee892ed804",
+      "modelBbox": {
+        "x": 9.52,
+        "y": 554.17,
+        "width": 39.4,
+        "height": 55.1
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3367,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-1ef881ddfeaa",
+      "modelBbox": {
+        "x": 416.77,
+        "y": 95.17,
+        "width": 43.9,
+        "height": 71.53
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3336,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-9b53f478e261",
+      "modelBbox": {
+        "x": 25.08,
+        "y": 140.8,
+        "width": 94.15,
+        "height": 64.37
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3312,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-f7bee2e860d8",
+      "modelBbox": {
+        "x": 529.26,
+        "y": 185.47,
+        "width": 52.74,
+        "height": 75.27
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3303,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-67c0ccb216c7",
+      "modelBbox": {
+        "x": 77.54,
+        "y": 234.78,
+        "width": 72.04,
+        "height": 52.76
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3301,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-e9af6b9ad550",
+      "modelBbox": {
+        "x": 44.97,
+        "y": 554.95,
+        "width": 41.4,
+        "height": 52.88
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3279,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b58097523010",
+      "modelBbox": {
+        "x": 253.38,
+        "y": 241.64,
+        "width": 60.8,
+        "height": 40.32
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3265,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6a07cab056fa",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 424.9,
+        "width": 170.12,
+        "height": 212.71
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3131,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-aa6d4dac7da9",
+      "modelBbox": {
+        "x": 88.95,
+        "y": 282.77,
+        "width": 69.69,
+        "height": 70.36
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3118,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6ae39994c613",
+      "modelBbox": {
+        "x": 7.91,
+        "y": 293.17,
+        "width": 77.26,
+        "height": 74.16
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3039,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-adb3f403a721",
+      "modelBbox": {
+        "x": 89.48,
+        "y": 265.02,
+        "width": 63.22,
+        "height": 50.41
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3027,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-31876de268ba",
+      "modelBbox": {
+        "x": 86.42,
+        "y": 544.19,
+        "width": 37.76,
+        "height": 57.81
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.3021,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6dafaec01209",
+      "modelBbox": {
+        "x": 124.41,
+        "y": 544.81,
+        "width": 35.67,
+        "height": 55.13
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.2988,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-fc25b0b4592d",
+      "modelBbox": {
+        "x": 53.62,
+        "y": 525.03,
+        "width": 39.9,
+        "height": 47.97
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.2869,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-39033db3dc27",
+      "modelBbox": {
+        "x": 37.18,
+        "y": 202.22,
+        "width": 86.86,
+        "height": 40.58
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.2791,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-018301a73961",
+      "modelBbox": {
+        "x": 372.18,
+        "y": 264.29,
+        "width": 64.24,
+        "height": 46.09
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.2758,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-344c54f7bf10",
+      "modelBbox": {
+        "x": 89.99,
+        "y": 510.04,
+        "width": 40.4,
+        "height": 49.18
+      },
+      "classLabel": "necrons",
+      "pseudoScore": 0.2641,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

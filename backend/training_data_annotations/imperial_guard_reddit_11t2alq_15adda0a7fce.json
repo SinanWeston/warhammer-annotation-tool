@@ -1,0 +1,73 @@
+{
+  "imageId": "imperial_guard_reddit_11t2alq_15adda0a7fce",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_guard/reddit/11t2alq_15adda0a7fce.jpg",
+  "faction": "imperial_guard",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "9b058475-2dc4-425a-a7ab-21198a4043ca",
+      "modelBbox": {
+        "x": 1658.564271763393,
+        "y": 717.3643014090402,
+        "width": 312.6857142857141,
+        "height": 547.1999999999999
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "cf4baf25-f9c7-4b79-b89c-7810ae43063d",
+      "modelBbox": {
+        "x": 1214.2214146205358,
+        "y": 853.1357299804688,
+        "width": 444.34285714285716,
+        "height": 726.1714285714286
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "41ab9e7e-8399-4f22-b6c1-5a8945a18255",
+      "modelBbox": {
+        "x": 1031.1357003348214,
+        "y": 744.1071585518973,
+        "width": 351.7714285714285,
+        "height": 538.9714285714285
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "3bdb4178-63df-4fcd-860a-f11536d46452",
+      "modelBbox": {
+        "x": 216.50712890625,
+        "y": 793.478587123326,
+        "width": 409.37142857142857,
+        "height": 573.9428571428571
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "662086be-83b5-42db-ae8b-e0969e9ce4a4",
+      "modelBbox": {
+        "x": 1703.8214146205357,
+        "y": 1198.7357299804687,
+        "width": 532.8,
+        "height": 728.2285714285715
+      },
+      "classLabel": "imperial_guard"
+    },
+    {
+      "id": "bfaee800-5264-4c00-a0e3-130f3ec647f5",
+      "modelBbox": {
+        "x": 2016.50712890625,
+        "y": 694.7357299804687,
+        "width": 366.1714285714286,
+        "height": 516.3428571428572
+      },
+      "classLabel": "imperial_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T19:41:55.125Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

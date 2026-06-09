@@ -1,0 +1,85 @@
+{
+  "imageId": "orks_dakkadakka_108811_da85490710f3",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/dakkadakka/108811_da85490710f3.jpg",
+  "faction": "orks",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 321,
+  "annotations": [
+    {
+      "id": "5e0e87b4-a300-49e8-bed3-6ddcd76f8cc4",
+      "modelBbox": {
+        "x": 10.910108168593808,
+        "y": 114.50018649757554,
+        "width": 136.66542334949645,
+        "height": 108.01939574785528
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "6f384ffd-0007-4d16-99be-e80c8b4bb3ae",
+      "modelBbox": {
+        "x": 285.4345393509885,
+        "y": 135.98470719880643,
+        "width": 84.14770607982092,
+        "height": 124.13278627377846
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "c5092bce-ccfa-4d26-9130-2ca8ad7219a9",
+      "modelBbox": {
+        "x": 107.59045132413279,
+        "y": 64.96643043640432,
+        "width": 230.95859753823203,
+        "height": 140.24617679970163
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "9460206a-30cb-4833-89bb-0122b13f53ac",
+      "modelBbox": {
+        "x": 354.66243938828796,
+        "y": 169.40507273405447,
+        "width": 91.9060052219321,
+        "height": 101.45468108914585
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "a6c4b15e-da85-4bcc-bea7-dd19fb530670",
+      "modelBbox": {
+        "x": 426.87430063409175,
+        "y": 152.69488996643045,
+        "width": 94.29317418873558,
+        "height": 102.0514733308467
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "20218d8c-fd93-4c0a-8c24-40560de56a49",
+      "modelBbox": {
+        "x": 524.1514360313316,
+        "y": 80.48302872062663,
+        "width": 179.63446475195826,
+        "height": 145.61730697500934
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "b88786cc-c062-46d4-acab-993abf42084e",
+      "modelBbox": {
+        "x": 683.4949645654607,
+        "y": 138.37187616560985,
+        "width": 106.22901902275271,
+        "height": 119.95524058187246
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T17:49:53.821Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

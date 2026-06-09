@@ -1,0 +1,25 @@
+{
+  "imageId": "chaos_knights_reddit_17ztboj_025d588808ec",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_knights/reddit/17ztboj_025d588808ec.jpg",
+  "faction": "chaos_knights",
+  "source": "reddit",
+  "width": 2746,
+  "height": 3320,
+  "annotations": [
+    {
+      "id": "003d71dc-7ce3-48b9-baf7-85270b1fff61",
+      "modelBbox": {
+        "x": 275.07371316672885,
+        "y": 598.5749953375606,
+        "width": 1874.367773218948,
+        "height": 1935.8224543080937
+      },
+      "classLabel": "chaos_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T11:41:46.292Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

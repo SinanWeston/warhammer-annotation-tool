@@ -1,0 +1,130 @@
+{
+  "imageId": "space_marines_reddit_1muy1id_ccf437e1eba3",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1muy1id_ccf437e1eba3.jpg",
+  "faction": "space_marines",
+  "source": "reddit",
+  "width": 4032,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "pseudo-d10170bd46a6",
+      "modelBbox": {
+        "x": 1546.44,
+        "y": 880.8,
+        "width": 1489.39,
+        "height": 1056.76
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.8584,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8c96f999b74b",
+      "modelBbox": {
+        "x": 2087.38,
+        "y": 1106.21,
+        "width": 947.72,
+        "height": 1753.56
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7551,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a08c765802a3",
+      "modelBbox": {
+        "x": 829.15,
+        "y": 915.13,
+        "width": 1121.45,
+        "height": 1021.66
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7347,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-0e64eaaca9e0",
+      "modelBbox": {
+        "x": 848.48,
+        "y": 1084.29,
+        "width": 1091.64,
+        "height": 1559.69
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.7322,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ad3d73fcf874",
+      "modelBbox": {
+        "x": 1544.46,
+        "y": 1087.77,
+        "width": 1021.81,
+        "height": 1738.69
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.5411,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-10620c80e546",
+      "modelBbox": {
+        "x": 825.83,
+        "y": 927.07,
+        "width": 613.07,
+        "height": 835.64
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.4725,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-27df81fa5127",
+      "modelBbox": {
+        "x": 2091.78,
+        "y": 1115.47,
+        "width": 467.69,
+        "height": 1712.23
+      },
+      "classLabel": "space_marines",
+      "pseudoScore": 0.3688,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

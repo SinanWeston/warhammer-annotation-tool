@@ -1,0 +1,53 @@
+{
+  "imageId": "death_guard_dakkadakka_1216381_cffefb068d97",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/death_guard/dakkadakka/1216381_cffefb068d97.jpg",
+  "faction": "death_guard",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 799,
+  "annotations": [
+    {
+      "id": "7dc6c67b-ff9a-417b-97a0-e3ad18777714",
+      "modelBbox": {
+        "x": 188.8255416191562,
+        "y": 428.7818320030407,
+        "width": 197.03534777651086,
+        "height": 305.8912960851387
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "7896040a-eaf3-4098-bf33-a787163f0fbe",
+      "modelBbox": {
+        "x": 461.26947928544286,
+        "y": 469.52679589509694,
+        "width": 195.21094640820974,
+        "height": 268.79513492968454
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "9652d5a1-cac4-481b-8a48-f60b9388775e",
+      "modelBbox": {
+        "x": 211.9346256176359,
+        "y": 194.04218928164198,
+        "width": 228.65830482706195,
+        "height": 338.7305207145572
+      },
+      "classLabel": "death_guard"
+    },
+    {
+      "id": "602a082b-c27e-48ce-8957-e044a890842a",
+      "modelBbox": {
+        "x": 424.7814519194223,
+        "y": 368.57658684910683,
+        "width": 251.15925503610794,
+        "height": 184.26453819840373
+      },
+      "classLabel": "death_guard"
+    }
+  ],
+  "annotatedAt": "2026-02-07T17:44:03.071Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

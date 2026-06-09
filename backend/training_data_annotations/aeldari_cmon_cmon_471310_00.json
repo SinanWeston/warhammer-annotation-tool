@@ -1,0 +1,35 @@
+{
+  "imageId": "aeldari_cmon_cmon_471310_00",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/aeldari/cmon/cmon_471310_00.jpg",
+  "faction": "aeldari",
+  "source": "cmon",
+  "width": 1440,
+  "height": 1440,
+  "annotations": [
+    {
+      "id": "migrated-471310-v0-b0",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1421.0,
+        "height": 1440.0
+      },
+      "classLabel": "aeldari"
+    },
+    {
+      "id": "migrated-471310-v0-b1",
+      "modelBbox": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1430.0,
+        "height": 1440.0
+      },
+      "classLabel": "aeldari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-18T12:57:33Z",
+  "annotatedBy": "weston",
+  "migratedFrom": "data/labels.csv"
+}

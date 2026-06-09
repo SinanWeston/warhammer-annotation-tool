@@ -1,0 +1,25 @@
+{
+  "imageId": "tyranids_reddit_13bnnqg_6223ac0a28e4",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/tyranids/reddit/13bnnqg_6223ac0a28e4.jpg",
+  "faction": "tyranids",
+  "source": "reddit",
+  "width": 4000,
+  "height": 3000,
+  "annotations": [
+    {
+      "id": "d8671cfe-15f9-4805-969a-877cfc8ab774",
+      "modelBbox": {
+        "x": 472.3051100335696,
+        "y": 205.89332338679597,
+        "width": 3025.736665423349,
+        "height": 2264.8265572547557
+      },
+      "classLabel": "tyranids"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-02T00:12:00.075Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

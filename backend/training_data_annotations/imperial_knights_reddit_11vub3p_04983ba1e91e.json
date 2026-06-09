@@ -1,0 +1,25 @@
+{
+  "imageId": "imperial_knights_reddit_11vub3p_04983ba1e91e",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_knights/reddit/11vub3p_04983ba1e91e.jpg",
+  "faction": "imperial_knights",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "098806cc-9eae-4777-be54-894c6afdeae8",
+      "modelBbox": {
+        "x": 34.84643925221332,
+        "y": 1030.097807757167,
+        "width": 2965.355817875211,
+        "height": 2613.490725126476
+      },
+      "classLabel": "imperial_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-08T16:23:37.505Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

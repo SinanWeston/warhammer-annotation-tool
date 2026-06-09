@@ -1,0 +1,24 @@
+{
+  "imageId": "_unknown_cmon_cmon_471145_02",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471145_02.jpg",
+  "faction": "chaos_daemons",
+  "source": "cmon",
+  "width": 563,
+  "height": 779,
+  "annotations": [
+    {
+      "id": "fcb6df17-b8b5-4479-90fd-77e3b6b89199",
+      "modelBbox": {
+        "x": 9.444388786089739,
+        "y": 3.256688358640636,
+        "width": 550.3803326102675,
+        "height": 773.463485177151
+      },
+      "classLabel": "chaos_daemons"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T10:36:02.213Z",
+  "annotatedBy": "sinan"
+}

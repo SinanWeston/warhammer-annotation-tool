@@ -1,0 +1,53 @@
+{
+  "imageId": "thousand_sons_dakkadakka_13163_522e5d444aec",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/thousand_sons/dakkadakka/13163_522e5d444aec.jpg",
+  "faction": "thousand_sons",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "pred_0_1772656172246",
+      "modelBbox": {
+        "x": 124.06654357910156,
+        "y": 3.8089752197265625,
+        "width": 532.2274017333984,
+        "height": 587.7854461669922
+      },
+      "classLabel": "thousand_sons",
+      "confidence": 0.8195428848266602,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    },
+    {
+      "id": "pred_1_1772656172246",
+      "modelBbox": {
+        "x": 580.03857421875,
+        "y": 0,
+        "width": 219.034912109375,
+        "height": 211.35498046875
+      },
+      "classLabel": "thousand_sons",
+      "confidence": 0.8021695613861084,
+      "validationAction": "accepted",
+      "originalPrediction": true
+    }
+  ],
+  "rejectedPredictions": [
+    {
+      "id": "pred_2_1772656172246",
+      "modelBbox": {
+        "x": 126.43455505371094,
+        "y": 2.860260009765625,
+        "width": 531.7761383056641,
+        "height": 586.1675109863281
+      },
+      "classLabel": "death_guard",
+      "confidence": 0.567653477191925
+    }
+  ],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-04T20:29:54.440Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

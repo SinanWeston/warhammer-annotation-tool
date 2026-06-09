@@ -1,0 +1,24 @@
+{
+  "imageId": "deathwatch_dakkadakka_dakka_290944",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/deathwatch/dakkadakka/dakka_290944.jpg",
+  "faction": "deathwatch",
+  "source": "dakkadakka",
+  "width": 407,
+  "height": 416,
+  "annotations": [
+    {
+      "id": "pseudo-4e4e9260c6bc",
+      "modelBbox": {
+        "x": 19.18000030517578,
+        "y": 37.040000915527344,
+        "width": 370.3500061035156,
+        "height": 333.649553369016
+      },
+      "classLabel": "deathwatch"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:19:31.308Z",
+  "annotatedBy": "sinan"
+}

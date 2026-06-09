@@ -1,0 +1,26 @@
+{
+  "imageId": "orks_ebay_orks_boss_snikrot_ebay_145855070619_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_boss_snikrot_ebay_145855070619_03.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_0_1773589316897",
+      "modelBbox": {
+        "x": 363.96807297605477,
+        "y": 234.86316989737745,
+        "width": 1007.0695553021665,
+        "height": 1180.387685290764
+      },
+      "classLabel": "orks",
+      "confidence": 0.789
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T15:45:10.088Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

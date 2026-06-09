@@ -1,0 +1,146 @@
+{
+  "imageId": "imperial_agents_ebay_imperial_agents_aquila_kill_team_ebay_336317144607_16",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/imperial_agents/ebay/imperial_agents_aquila_kill_team_ebay_336317144607_16.jpg",
+  "faction": "imperial_agents",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1200,
+  "annotations": [
+    {
+      "id": "pseudo-3ef05f47926a",
+      "modelBbox": {
+        "x": 1132.93,
+        "y": 550.23,
+        "width": 160.52,
+        "height": 233.03
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.9198,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-30e9ad6aaddc",
+      "modelBbox": {
+        "x": 928.17,
+        "y": 547.63,
+        "width": 174.75,
+        "height": 199.3
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.8909,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6bf8c41d4e68",
+      "modelBbox": {
+        "x": 386.13,
+        "y": 556.32,
+        "width": 157.65,
+        "height": 201.74
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.882,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-aedf8ad86ea2",
+      "modelBbox": {
+        "x": 614.43,
+        "y": 547.03,
+        "width": 83.1,
+        "height": 218.83
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.8755,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-8984cb06c141",
+      "modelBbox": {
+        "x": 675.34,
+        "y": 545.05,
+        "width": 213.01,
+        "height": 217.37
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.8685,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-a1a466f8a2fa",
+      "modelBbox": {
+        "x": 830.1,
+        "y": 547.87,
+        "width": 58.7,
+        "height": 180.46
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.853,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-4236d8cf14b9",
+      "modelBbox": {
+        "x": 673.73,
+        "y": 584.64,
+        "width": 97.17,
+        "height": 181.65
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.728,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-ac8b1c851d2e",
+      "modelBbox": {
+        "x": 559.99,
+        "y": 546.3,
+        "width": 162.5,
+        "height": 256.28
+      },
+      "classLabel": "imperial_agents",
+      "pseudoScore": 0.6857,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}

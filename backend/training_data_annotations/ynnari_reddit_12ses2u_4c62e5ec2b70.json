@@ -1,0 +1,45 @@
+{
+  "imageId": "ynnari_reddit_12ses2u_4c62e5ec2b70",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/reddit/12ses2u_4c62e5ec2b70.jpg",
+  "faction": "ynnari",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "633b3cad-5422-427c-90fe-c62a843cd8be",
+      "modelBbox": {
+        "x": 334.46750285062717,
+        "y": 963.6413911060433,
+        "width": 2399.890535917902,
+        "height": 2855.042189281642
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "c5e4b3d2-eaba-41e6-a197-30f4378911e1",
+      "modelBbox": {
+        "x": 270.67730900798176,
+        "y": 871.4580957810718,
+        "width": 634.4538198403649,
+        "height": 1206.841505131129
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "f29458fc-e86d-4dbe-8cf6-91885f8d5284",
+      "modelBbox": {
+        "x": 1425.7970353477765,
+        "y": 764.5664196123147,
+        "width": 610.3169897377425,
+        "height": 1217.1858608893958
+      },
+      "classLabel": "ynnari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-04T21:06:54.454Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

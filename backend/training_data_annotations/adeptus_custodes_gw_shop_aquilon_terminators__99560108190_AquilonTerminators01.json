@@ -1,0 +1,47 @@
+{
+  "imageId": "adeptus_custodes_gw_shop_aquilon_terminators__99560108190_AquilonTerminators01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_custodes/gw_shop/aquilon_terminators__99560108190_AquilonTerminators01.jpg",
+  "faction": "adeptus_custodes",
+  "source": "gw_shop",
+  "width": 2000,
+  "height": 2065,
+  "annotations": [
+    {
+      "id": "gw_prefill_1778673483582",
+      "modelBbox": {
+        "x": 351.523512236926,
+        "y": 865.1076959103955,
+        "width": 853.0612244897959,
+        "height": 985.4875837053571
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "aquilon_custodians"
+    },
+    {
+      "id": "a571bb33-e134-4d8a-80a7-f7cb6e283097",
+      "modelBbox": {
+        "x": 1016.8296346859056,
+        "y": 397.7111660704321,
+        "width": 755.1020408163265,
+        "height": 877.6006114726164
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "aquilon_custodians"
+    },
+    {
+      "id": "aefc4364-48e2-468e-b1c4-9992b94f71fd",
+      "modelBbox": {
+        "x": 237.23779795121175,
+        "y": 218.3956846898916,
+        "width": 659.1836734693877,
+        "height": 814.2361076510683
+      },
+      "classLabel": "adeptus_custodes",
+      "unit_slug": "aquilon_custodians"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T12:00:29.491Z",
+  "annotatedBy": "sinan"
+}

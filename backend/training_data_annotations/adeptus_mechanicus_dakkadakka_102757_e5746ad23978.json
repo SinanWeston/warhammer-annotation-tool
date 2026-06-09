@@ -1,0 +1,87 @@
+{
+  "imageId": "adeptus_mechanicus_dakkadakka_102757_e5746ad23978",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adeptus_mechanicus/dakkadakka/102757_e5746ad23978.jpg",
+  "faction": "adeptus_mechanicus",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "3bd8c3ac-7bb3-438d-9cd5-fbe42f78e6b5",
+      "modelBbox": {
+        "x": 237,
+        "y": 313.20000076293945,
+        "width": 141,
+        "height": 173
+      },
+      "baseBbox": {
+        "x": 245,
+        "y": 424.1999969482422,
+        "width": 126,
+        "height": 57
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "c3ed6e1e-3ac1-46b6-9f8f-4e5aa4f74bc1",
+      "modelBbox": {
+        "x": 3,
+        "y": 302.20000076293945,
+        "width": 171,
+        "height": 174
+      },
+      "baseBbox": {
+        "x": 25,
+        "y": 429.1999969482422,
+        "width": 142,
+        "height": 45
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "1ef2a112-68e3-4326-81a4-0c7264ce59e7",
+      "modelBbox": {
+        "x": 441,
+        "y": 307.20000076293945,
+        "width": 141,
+        "height": 167
+      },
+      "baseBbox": {
+        "x": 447,
+        "y": 421.1999969482422,
+        "width": 128,
+        "height": 51
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "2db8d613-6744-45bc-ac6e-9e09ce5078c4",
+      "modelBbox": {
+        "x": 671,
+        "y": 212.20000076293945,
+        "width": 128,
+        "height": 256
+      },
+      "baseBbox": {
+        "x": 675,
+        "y": 417.1999969482422,
+        "width": 124,
+        "height": 48
+      },
+      "classLabel": "adeptus_mechanicus"
+    },
+    {
+      "id": "af59cf9a-26ae-427f-a87c-9844e5602aea",
+      "modelBbox": {
+        "x": 346,
+        "y": 65.20000076293945,
+        "width": 248,
+        "height": 338
+      },
+      "classLabel": "adeptus_mechanicus"
+    }
+  ],
+  "annotatedAt": "2025-12-15T15:32:11.058Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

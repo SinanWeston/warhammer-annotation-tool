@@ -1,0 +1,25 @@
+{
+  "imageId": "grey_knights_dakkadakka_174066_9c84fbd9fd2a",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/grey_knights/dakkadakka/174066_9c84fbd9fd2a.jpg",
+  "faction": "grey_knights",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "47ac0c94-3120-440f-866c-930a6499c43d",
+      "modelBbox": {
+        "x": 59.13431769076729,
+        "y": 24.072512647554806,
+        "width": 654.3001686340641,
+        "height": 512.6475548060708
+      },
+      "classLabel": "grey_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-02-15T10:47:37.250Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

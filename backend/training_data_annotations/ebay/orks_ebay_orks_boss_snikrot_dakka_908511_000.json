@@ -1,0 +1,55 @@
+{
+  "imageId": "orks_ebay_orks_boss_snikrot_dakka_908511_000",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_boss_snikrot_dakka_908511_000.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1400,
+  "height": 1754,
+  "annotations": [
+    {
+      "id": "dino_1_1773588974258",
+      "modelBbox": {
+        "x": 54.4,
+        "y": 1060.7,
+        "width": 649.5,
+        "height": 644.4
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "dino_2_1773588974258",
+      "modelBbox": {
+        "x": 817,
+        "y": 1078.7,
+        "width": 477.4,
+        "height": 641.3185290763969
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "dino_4_1773588974258",
+      "modelBbox": {
+        "x": 16.8,
+        "y": 298.7,
+        "width": 673.3,
+        "height": 662.9
+      },
+      "classLabel": "orks"
+    },
+    {
+      "id": "dino_5_1773588974258",
+      "modelBbox": {
+        "x": 807.7,
+        "y": 311.5,
+        "width": 564.8,
+        "height": 678
+      },
+      "classLabel": "orks"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T15:36:30.477Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

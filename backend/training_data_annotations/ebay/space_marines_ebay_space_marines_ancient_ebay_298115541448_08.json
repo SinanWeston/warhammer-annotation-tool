@@ -1,0 +1,26 @@
+{
+  "imageId": "space_marines_ebay_space_marines_ancient_ebay_298115541448_08",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_ancient_ebay_298115541448_08.jpg",
+  "faction": "space_marines",
+  "source": "ebay",
+  "width": 1272,
+  "height": 1600,
+  "annotations": [
+    {
+      "id": "dino_1_1773600643100",
+      "modelBbox": {
+        "x": 262.1078351523049,
+        "y": 126.2,
+        "width": 598.8076233914318,
+        "height": 1358.8726909920183
+      },
+      "classLabel": "space_marines",
+      "confidence": 0.218
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T18:51:30.152Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,91 @@
+{
+  "imageId": "adepta_sororitas_dakkadakka_dakka_1030112",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/dakkadakka/dakka_1030112.jpg",
+  "faction": "adepta_sororitas",
+  "source": "dakkadakka",
+  "width": 4160,
+  "height": 3120,
+  "annotations": [
+    {
+      "id": "dino_0_1773086081002",
+      "modelBbox": {
+        "x": 2262.6225769669327,
+        "y": 1159.8,
+        "width": 720.6774230330674,
+        "height": 1132.0244013683011
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.582
+    },
+    {
+      "id": "dino_1_1773086081002",
+      "modelBbox": {
+        "x": 1031.5,
+        "y": 1069.6,
+        "width": 639.7732801216266,
+        "height": 1102.057164576207
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.568
+    },
+    {
+      "id": "dino_2_1773086081002",
+      "modelBbox": {
+        "x": 1525.6,
+        "y": 1366.8,
+        "width": 1047.6,
+        "height": 1389.8818700114027
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.51
+    },
+    {
+      "id": "dino_3_1773086081002",
+      "modelBbox": {
+        "x": 2995.6,
+        "y": 1146.9,
+        "width": 777.6,
+        "height": 1027.9194602812618
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.483
+    },
+    {
+      "id": "dino_4_1773086081002",
+      "modelBbox": {
+        "x": 3440.3,
+        "y": 1070,
+        "width": 571.0721018624096,
+        "height": 937.217787913341
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.457
+    },
+    {
+      "id": "dino_5_1773086081002",
+      "modelBbox": {
+        "x": 87.2,
+        "y": 1387.407829722539,
+        "width": 863.0698593690612,
+        "height": 1128.9395667046756
+      },
+      "classLabel": "adepta_sororitas",
+      "confidence": 0.415
+    },
+    {
+      "id": "e1afdb6f-66f5-4e49-80e1-e054cd0352b6",
+      "modelBbox": {
+        "x": 99.61231470923603,
+        "y": 1055.3667806917522,
+        "width": 676.731280881794,
+        "height": 948.6887115165337
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T19:55:25.595Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

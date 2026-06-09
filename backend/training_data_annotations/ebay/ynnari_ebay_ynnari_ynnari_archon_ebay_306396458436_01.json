@@ -1,0 +1,125 @@
+{
+  "imageId": "ynnari_ebay_ynnari_ynnari_archon_ebay_306396458436_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/ebay/ynnari_ynnari_archon_ebay_306396458436_01.jpg",
+  "faction": "ynnari",
+  "source": "ebay",
+  "width": 1600,
+  "height": 784,
+  "annotations": [
+    {
+      "id": "0cf75258-9f5b-4d78-8a57-cc0c10f91465",
+      "modelBbox": {
+        "x": 53.81984036488028,
+        "y": 145.1824401368301,
+        "width": 281.56594450779176,
+        "height": 348.460661345496
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "331d80a9-a621-4981-bf2d-1048be991da6",
+      "modelBbox": {
+        "x": 348.1565944507792,
+        "y": 185.92740402888634,
+        "width": 360.0152033447359,
+        "height": 314.40516913721024
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "40ea0957-4494-498d-8926-af2624f6b1b8",
+      "modelBbox": {
+        "x": 604.1809198023566,
+        "y": 109.30254656024326,
+        "width": 361.8396047130368,
+        "height": 398.3276320790575
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "c22faeae-126c-46ab-aa30-5c87c2fbde08",
+      "modelBbox": {
+        "x": 798.7837324211326,
+        "y": 86.19346256176358,
+        "width": 396.5032307107564,
+        "height": 428.73432155074124
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "63f2e031-d40b-4e12-afce-45f8f42041a4",
+      "modelBbox": {
+        "x": 1122.310908399848,
+        "y": 207.212086659065,
+        "width": 246.29418472063867,
+        "height": 313.7970353477765
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "1dc8b3ee-b8b1-4031-82c0-55f6ca81083b",
+      "modelBbox": {
+        "x": 1236.0319270239454,
+        "y": 366.54313949068796,
+        "width": 260.88939566704676,
+        "height": 370.96161155454206
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "bf411777-0335-4b71-9120-cfbea0aae298",
+      "modelBbox": {
+        "x": 1374.6864310148233,
+        "y": 259.51159255036106,
+        "width": 181.22386925123533,
+        "height": 264.5381984036489
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "858efb18-1040-46b5-99c0-6b92e619ceee",
+      "modelBbox": {
+        "x": 981.2238692512354,
+        "y": 417.01824401368305,
+        "width": 256.6324591410108,
+        "height": 315.62143671607754
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "b45b8696-07c7-45fe-9f17-8f0c3e7d1625",
+      "modelBbox": {
+        "x": 654.6560243253516,
+        "y": 395.7335613835044,
+        "width": 297.3774230330673,
+        "height": 335.0817179779552
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "0b76baed-f615-4d1a-85fc-2a78a55d01fd",
+      "modelBbox": {
+        "x": 400.4561003420753,
+        "y": 394.517293804637,
+        "width": 287.64728240212855,
+        "height": 343.59559103002664
+      },
+      "classLabel": "ynnari"
+    },
+    {
+      "id": "0d287735-6b16-422a-94a2-8b9911abbfdb",
+      "modelBbox": {
+        "x": 129.83656404408973,
+        "y": 389.04408969973395,
+        "width": 282.782212086659,
+        "height": 346.02812618776136
+      },
+      "classLabel": "ynnari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T11:36:13.299Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

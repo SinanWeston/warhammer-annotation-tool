@@ -1,0 +1,25 @@
+{
+  "imageId": "adepta_sororitas_reddit_18ngl8p_d984e192b03e",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/18ngl8p_d984e192b03e.jpg",
+  "faction": "adepta_sororitas",
+  "source": "reddit",
+  "width": 4000,
+  "height": 3000,
+  "annotations": [
+    {
+      "id": "367881a6-5fe8-49a9-9fac-636d4a7069fb",
+      "modelBbox": {
+        "x": 1543.1394906879514,
+        "y": 1039.1011022424932,
+        "width": 1030.7867730900798,
+        "height": 1441.2770809578105
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:15:29.066Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

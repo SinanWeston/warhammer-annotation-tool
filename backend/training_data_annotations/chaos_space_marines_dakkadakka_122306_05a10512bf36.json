@@ -1,0 +1,43 @@
+{
+  "imageId": "chaos_space_marines_dakkadakka_122306_05a10512bf36",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_space_marines/dakkadakka/122306_05a10512bf36.jpg",
+  "faction": "chaos_space_marines",
+  "source": "dakkadakka",
+  "width": 800,
+  "height": 600,
+  "annotations": [
+    {
+      "id": "1576e017-c315-49d3-bc73-628c41c48530",
+      "modelBbox": {
+        "x": 535.9179019384264,
+        "y": 175.2137970353478,
+        "width": 256.32839224629424,
+        "height": 280.0456100342075
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "2ec03996-4a12-4446-9aab-d7a04f41b760",
+      "modelBbox": {
+        "x": 7.753705815279361,
+        "y": 169.7405929304447,
+        "width": 296.46522234891677,
+        "height": 269.09920182440135
+      },
+      "classLabel": "chaos_space_marines"
+    },
+    {
+      "id": "48b74db9-2b4b-468b-8d12-be488c2001da",
+      "modelBbox": {
+        "x": 230.33067274800456,
+        "y": 167.00399087799317,
+        "width": 342.07525655644247,
+        "height": 318.3580387685291
+      },
+      "classLabel": "chaos_space_marines"
+    }
+  ],
+  "annotatedAt": "2026-02-07T16:20:36.210Z",
+  "annotatedBy": "user",
+  "legacy_no_unit": true
+}

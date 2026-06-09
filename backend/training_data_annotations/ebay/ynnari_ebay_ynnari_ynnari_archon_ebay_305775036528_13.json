@@ -1,0 +1,25 @@
+{
+  "imageId": "ynnari_ebay_ynnari_ynnari_archon_ebay_305775036528_13",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/ynnari/ebay/ynnari_ynnari_archon_ebay_305775036528_13.jpg",
+  "faction": "ynnari",
+  "source": "ebay",
+  "width": 1600,
+  "height": 1038,
+  "annotations": [
+    {
+      "id": "07cc5ac6-f68f-44da-b3cb-b48ed7a361e8",
+      "modelBbox": {
+        "x": 571.0376282782213,
+        "y": 169.95438996579247,
+        "width": 389.20562523755234,
+        "height": 768.6811098441658
+      },
+      "classLabel": "ynnari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T11:34:39.062Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

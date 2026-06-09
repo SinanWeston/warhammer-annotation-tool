@@ -1,0 +1,74 @@
+{
+  "imageId": "drukhari_cmon_cmon_473581_03",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/drukhari/cmon/cmon_473581_03.jpg",
+  "faction": "drukhari",
+  "source": "cmon",
+  "width": 1000,
+  "height": 700,
+  "annotations": [
+    {
+      "id": "pseudo-39d4166754b1",
+      "modelBbox": {
+        "x": 6.239999771118164,
+        "y": 227.97000122070312,
+        "width": 196.75,
+        "height": 302.30999755859375
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-8755db5c5cd5",
+      "modelBbox": {
+        "x": 675.3400268554688,
+        "y": 209.27000427246094,
+        "width": 210.38999938964844,
+        "height": 308.92999267578125
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-62df84ac9b20",
+      "modelBbox": {
+        "x": 199.6199951171875,
+        "y": 215.52999877929688,
+        "width": 173.60000610351562,
+        "height": 281.05999755859375
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-064d94647116",
+      "modelBbox": {
+        "x": 356.8399963378906,
+        "y": 211.99000549316406,
+        "width": 172.8699951171875,
+        "height": 312.7699890136719
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-16a3f54d3945",
+      "modelBbox": {
+        "x": 506.9100036621094,
+        "y": 209.60000610351562,
+        "width": 188.49000549316406,
+        "height": 282.84259581565857
+      },
+      "classLabel": "drukhari"
+    },
+    {
+      "id": "pseudo-e71f582dfbc5",
+      "modelBbox": {
+        "x": 849.5800170898438,
+        "y": 291.9100036621094,
+        "width": 141.0399932861328,
+        "height": 188.5500030517578
+      },
+      "classLabel": "drukhari"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:21:19.445Z",
+  "annotatedBy": "sinan"
+}

@@ -1,0 +1,355 @@
+{
+  "imageId": "adepta_sororitas_reddit_1fh5qn6_0ceda53446cc",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/adepta_sororitas/reddit/1fh5qn6_0ceda53446cc.jpg",
+  "faction": "adepta_sororitas",
+  "source": "reddit",
+  "width": 3024,
+  "height": 3024,
+  "annotations": [
+    {
+      "id": "b3b79e80-30ec-4bd4-a964-03b11375c996",
+      "modelBbox": {
+        "x": 8.189281641961232,
+        "y": 1585.9055729760548,
+        "width": 554.2850627137971,
+        "height": 436.1870011402509
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "85ad79ee-940e-48c4-8678-b175c82c90dc",
+      "modelBbox": {
+        "x": 387.4823261117446,
+        "y": 1286.7812856328392,
+        "width": 607.7309007981755,
+        "height": 482.73660205245164
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "1c116068-2b70-474d-af83-25ff4d9b96bf",
+      "modelBbox": {
+        "x": 901.2519954389966,
+        "y": 1397.9831100342076,
+        "width": 347.3979475484607,
+        "height": 358.6043329532497
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "2899ea35-14dd-48a0-82a9-c1b19e309fd5",
+      "modelBbox": {
+        "x": 1224.5131128848348,
+        "y": 1324.7105900798176,
+        "width": 154.30330672748005,
+        "height": 322.3990877993158
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "9aed9ca7-cc29-42c0-8ef0-fbed6cfec77c",
+      "modelBbox": {
+        "x": 1331.404789053592,
+        "y": 1284.1951966932725,
+        "width": 140.51083238312413,
+        "height": 273.2633979475486
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "47596008-f88f-4a6a-9c28-be2725256fdc",
+      "modelBbox": {
+        "x": 1413.2976054732042,
+        "y": 1351.4335091220069,
+        "width": 212.92132269099193,
+        "height": 320.6750285062715
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "b75c22e4-91b8-440c-bedd-1e064e84f230",
+      "modelBbox": {
+        "x": 1509.8449258836945,
+        "y": 1253.1621294184722,
+        "width": 151.71721778791334,
+        "height": 297.4002280501709
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "397f3e50-8974-4731-8448-c2631532504c",
+      "modelBbox": {
+        "x": 1581.39338654504,
+        "y": 1359.191775940707,
+        "width": 155.16533637400244,
+        "height": 319.8129988597491
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "f61b2202-ffea-4f5e-bf80-62553fa1ed05",
+      "modelBbox": {
+        "x": 1682.2508551881415,
+        "y": 1412.6376140250857,
+        "width": 338.7776510832382,
+        "height": 326.70923603192705
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "0347d677-737e-439b-b896-b61121f54d4e",
+      "modelBbox": {
+        "x": 1924.4811858608896,
+        "y": 1252.3000997719498,
+        "width": 623.2474344355755,
+        "height": 480.15051311288494
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "d74ce366-e748-411c-8b4e-d796189c3894",
+      "modelBbox": {
+        "x": 2614.9669327251995,
+        "y": 1672.1085376282783,
+        "width": 326.70923603192705,
+        "height": 381.0171037628277
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "1452e481-d668-469d-8cf0-dc9c3105ad44",
+      "modelBbox": {
+        "x": 2314.1185860889395,
+        "y": 1566.0788911060433,
+        "width": 318.088939566705,
+        "height": 334.46750285062717
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "31d25d88-e901-49f8-8586-51632d244113",
+      "modelBbox": {
+        "x": 2308.946408209806,
+        "y": 1700.555515963512,
+        "width": 381.8791334093503,
+        "height": 417.2223489167616
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "0a6ce5a4-caa3-4758-85fa-c35f562ef559",
+      "modelBbox": {
+        "x": 2139.988597491448,
+        "y": 1792.7926881413912,
+        "width": 169.8198403648803,
+        "height": 217.23147092360318
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "a4f64b44-be01-4f3a-b0f8-8b6d2e1d58fc",
+      "modelBbox": {
+        "x": 2108.0935005701253,
+        "y": 1686.7630416191562,
+        "width": 145.683010262258,
+        "height": 207.74914481185874
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "fa232d39-66ec-4804-835c-23a0597db14f",
+      "modelBbox": {
+        "x": 1977.064994298746,
+        "y": 1785.8964509692132,
+        "width": 170.68187001140245,
+        "height": 221.54161915621444
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "469933b4-203d-4a1e-8206-138fe525d97a",
+      "modelBbox": {
+        "x": 1952.066134549601,
+        "y": 1694.5213084378563,
+        "width": 141.3728620296465,
+        "height": 196.54275940706975
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "67761f26-7d1d-4efa-aa44-194c31907529",
+      "modelBbox": {
+        "x": 1797.762827822121,
+        "y": 1694.5213084378563,
+        "width": 145.68301026225777,
+        "height": 197.4047890535919
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "1b811340-f284-49b4-ad75-dee064f22824",
+      "modelBbox": {
+        "x": 1820.1755986316991,
+        "y": 1792.7926881413912,
+        "width": 151.71721778791334,
+        "height": 214.64538198403648
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "2e1f1de6-364a-4af1-8ad1-982703a1b1ca",
+      "modelBbox": {
+        "x": 1654.6659064994299,
+        "y": 1779.8622434435576,
+        "width": 156.88939566704676,
+        "height": 223.26567844925876
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "e2edcc14-4edb-41ca-b634-00a487455c96",
+      "modelBbox": {
+        "x": 1630.5290763968073,
+        "y": 1681.5908637400228,
+        "width": 153.4412770809579,
+        "height": 208.6111744583809
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "0c044490-a757-4e52-98ec-cc1904bf49ac",
+      "modelBbox": {
+        "x": 1495.1904218928164,
+        "y": 1794.5167474344357,
+        "width": 145.68301026225777,
+        "height": 211.19726339794738
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "48021bf2-4df8-49de-9e3d-c078a14c3ebb",
+      "modelBbox": {
+        "x": 1467.605473204105,
+        "y": 1694.5213084378563,
+        "width": 158.61345496009108,
+        "height": 204.30102622576987
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "d9085b68-7cf3-4fc6-89a0-a5482d0ecad5",
+      "modelBbox": {
+        "x": 1384.8506271379704,
+        "y": 1562.6307725199545,
+        "width": 143.09692132269106,
+        "height": 215.50741163055864
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "e61845c7-037d-4647-ae61-40ced9b32663",
+      "modelBbox": {
+        "x": 1262.442417331813,
+        "y": 1691.9352194982896,
+        "width": 156.88939566704676,
+        "height": 203.4389965792475
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "96239c06-c275-4de6-8be9-6a36eec36d64",
+      "modelBbox": {
+        "x": 1122.793614595211,
+        "y": 1693.6592787913341,
+        "width": 134.47662485746855,
+        "height": 198.26681870011407
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "9be5229c-4435-4b59-9e82-375386b8997e",
+      "modelBbox": {
+        "x": 1247.7879133409351,
+        "y": 1792.7926881413912,
+        "width": 163.7856328392245,
+        "height": 216.36944127708102
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "948f6124-05ad-4ffd-bd4e-7e4f3e91c436",
+      "modelBbox": {
+        "x": 1075.3819840364881,
+        "y": 1768.6558580387687,
+        "width": 167.23375142531359,
+        "height": 243.09236031927026
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "eec2a2d9-3e04-4904-b9d5-a80845014127",
+      "modelBbox": {
+        "x": 946.939566704675,
+        "y": 1725.5543757126568,
+        "width": 158.6134549600912,
+        "height": 157.75142531356914
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "d9b8aa26-3d68-469f-95b3-6f2edc351bfd",
+      "modelBbox": {
+        "x": 803.8426453819841,
+        "y": 1687.6250712656786,
+        "width": 147.4070695553022,
+        "height": 213.78335233751432
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "66e4da18-c166-463c-898e-eb31d70d23af",
+      "modelBbox": {
+        "x": 600.4036488027366,
+        "y": 1710.899871721779,
+        "width": 174.9920182440137,
+        "height": 197.40478905359168
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "1d908cfd-2797-4594-af6e-e7257230fd0c",
+      "modelBbox": {
+        "x": 586.6111744583809,
+        "y": 1811.7573403648803,
+        "width": 164.64766248574688,
+        "height": 219.8175598631699
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "10077ca5-2635-45d4-a1f5-9894dd7dda91",
+      "modelBbox": {
+        "x": 757.2930444697834,
+        "y": 1783.3103620296465,
+        "width": 154.30330672748005,
+        "height": 241.36830102622594
+      },
+      "classLabel": "adepta_sororitas"
+    },
+    {
+      "id": "c4d13d56-98f3-45bb-a395-24ac3d5aad7d",
+      "modelBbox": {
+        "x": 919.3546180159635,
+        "y": 1792.7926881413912,
+        "width": 156.88939566704676,
+        "height": 231.02394526795888
+      },
+      "classLabel": "adepta_sororitas"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-09T20:27:50.867Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

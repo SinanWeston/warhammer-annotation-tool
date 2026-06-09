@@ -1,0 +1,24 @@
+{
+  "imageId": "dark_angels_reddit_1ltnzbf_6d26f6d09d2e",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/dark_angels/reddit/1ltnzbf_6d26f6d09d2e.png",
+  "faction": "space_marines",
+  "source": "reddit",
+  "width": 1500,
+  "height": 1500,
+  "annotations": [
+    {
+      "id": "5630ed60-28a2-408c-952c-4c6b4daa09a3",
+      "modelBbox": {
+        "x": 447.8706048459423,
+        "y": 598.0725658183195,
+        "width": 411.22448979591826,
+        "height": 702.0408163265307
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:01:41.774Z",
+  "annotatedBy": "sinan"
+}

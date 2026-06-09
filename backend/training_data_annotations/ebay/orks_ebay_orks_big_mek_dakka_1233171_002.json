@@ -1,0 +1,59 @@
+{
+  "imageId": "orks_ebay_orks_big_mek_dakka_1233171_002",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/orks/ebay/orks_big_mek_dakka_1233171_002.jpg",
+  "faction": "orks",
+  "source": "ebay",
+  "width": 1625,
+  "height": 451,
+  "annotations": [
+    {
+      "id": "dino_0_1773583966830",
+      "modelBbox": {
+        "x": 11.7,
+        "y": 26.1,
+        "width": 379.5,
+        "height": 388.4
+      },
+      "classLabel": "orks",
+      "confidence": 0.983
+    },
+    {
+      "id": "dino_1_1773583966830",
+      "modelBbox": {
+        "x": 876.6,
+        "y": 27.2,
+        "width": 322.3,
+        "height": 383.3
+      },
+      "classLabel": "orks",
+      "confidence": 0.938
+    },
+    {
+      "id": "dino_2_1773583966830",
+      "modelBbox": {
+        "x": 394.8,
+        "y": 25.8,
+        "width": 472.9,
+        "height": 385.4
+      },
+      "classLabel": "orks",
+      "confidence": 0.688
+    },
+    {
+      "id": "dino_4_1773583966830",
+      "modelBbox": {
+        "x": 1199.2,
+        "y": 24.7,
+        "width": 413.4,
+        "height": 404.6823938141391
+      },
+      "classLabel": "orks",
+      "confidence": 0.475
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-03-15T14:12:56.380Z",
+  "annotatedBy": "sinan",
+  "legacy_no_unit": true
+}

@@ -1,0 +1,24 @@
+{
+  "imageId": "_unknown_cmon_cmon_471192_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/_unknown/cmon/cmon_471192_01.jpg",
+  "faction": "chaos_knights",
+  "source": "cmon",
+  "width": 1054,
+  "height": 1434,
+  "annotations": [
+    {
+      "id": "migrated-471192-v1-b0",
+      "modelBbox": {
+        "x": 15,
+        "y": 255,
+        "width": 1035,
+        "height": 998
+      },
+      "classLabel": "chaos_knights"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-05-13T10:29:36.654Z",
+  "annotatedBy": "sinan"
+}

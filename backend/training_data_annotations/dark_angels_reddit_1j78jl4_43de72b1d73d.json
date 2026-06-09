@@ -1,0 +1,54 @@
+{
+  "imageId": "dark_angels_reddit_1j78jl4_43de72b1d73d",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/dark_angels/reddit/1j78jl4_43de72b1d73d.jpg",
+  "faction": "space_marines",
+  "source": "reddit",
+  "width": 3024,
+  "height": 4032,
+  "annotations": [
+    {
+      "id": "06c4fb0a-3986-494a-b77e-a4234491f37f",
+      "modelBbox": {
+        "x": 1699.9606619698661,
+        "y": 1457.860724748884,
+        "width": 913.3714285714286,
+        "height": 1417.75715070452
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "86c48c1a-fbb7-4b05-a3da-0495a6ae5c8a",
+      "modelBbox": {
+        "x": 1271.0463762555803,
+        "y": 1141.4464233398437,
+        "width": 780.6857142857145,
+        "height": 1269.9000156947548
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "ce9ee30f-839b-40a9-a3cb-e074ef5291f8",
+      "modelBbox": {
+        "x": 195.160693359375,
+        "y": 995.0035730634416,
+        "width": 962.742857142857,
+        "height": 1396.157135990688
+      },
+      "classLabel": "space_marines"
+    },
+    {
+      "id": "479795fb-180b-4b09-802a-32c6a7f854cd",
+      "modelBbox": {
+        "x": 201.33212193080357,
+        "y": 1014.9321376255581,
+        "width": 589.3714285714286,
+        "height": 970.5857211521694
+      },
+      "classLabel": "space_marines"
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-24T11:00:11.542Z",
+  "annotatedBy": "sinan"
+}

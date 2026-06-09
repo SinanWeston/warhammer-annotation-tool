@@ -1,0 +1,82 @@
+{
+  "imageId": "chaos_daemons_cmon_cmon_474275_01",
+  "imagePath": "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/chaos_daemons/cmon/cmon_474275_01.jpg",
+  "faction": "chaos_daemons",
+  "source": "cmon",
+  "width": 1216,
+  "height": 998,
+  "annotations": [
+    {
+      "id": "pseudo-af5022f5d305",
+      "modelBbox": {
+        "x": 573.36,
+        "y": 357.34,
+        "width": 584.37,
+        "height": 621.96
+      },
+      "classLabel": "chaos_daemons",
+      "pseudoScore": 0.7411,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-b4f49bf8806b",
+      "modelBbox": {
+        "x": 84.23,
+        "y": 355.19,
+        "width": 561.73,
+        "height": 622.52
+      },
+      "classLabel": "chaos_daemons",
+      "pseudoScore": 0.6174,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-872d28503081",
+      "modelBbox": {
+        "x": 584.08,
+        "y": 1.41,
+        "width": 574.69,
+        "height": 636.4
+      },
+      "classLabel": "chaos_daemons",
+      "pseudoScore": 0.3292,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    },
+    {
+      "id": "pseudo-6d701b1e3d89",
+      "modelBbox": {
+        "x": 364.59,
+        "y": 355.06,
+        "width": 283.4,
+        "height": 619.77
+      },
+      "classLabel": "chaos_daemons",
+      "pseudoScore": 0.325,
+      "supporters": [
+        "sam3"
+      ],
+      "agreement_count": 1,
+      "refinement_iou": 1.0
+    }
+  ],
+  "rejectedPredictions": [],
+  "redrawnPredictions": [],
+  "annotatedAt": "2026-04-25T21:57:38+00:00",
+  "annotatedBy": "pseudo-ensemble-review-v1",
+  "detectors_used": [
+    "sam3"
+  ],
+  "pseudoLabelled": true
+}
