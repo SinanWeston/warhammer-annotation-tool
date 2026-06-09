@@ -24,10 +24,16 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
   gallery audit (`docs/benchmarks/2026-06-05-tier2-probe-gallery-audit.md`).
 
 ## 🔄 Now
+- ⬜ ⚠️ **Run `scripts/curation/fix_gold_pool_contamination.py`** — 7 gold_v2 DG
+  images sit in the gallery pool (eval images inside the retrieval index / probe
+  training set). Then re-run `eval_gold_domain_retrieval.py` + `eval_compounded_t2t3.py`.
 - 🔄 Label the **gold density round** (`wh40k_gold_v6`, 26 crowded scenes) → `pull v6`
   + `merge` so the crowded bucket (currently 5 imgs) can support the count metric.
-- ⬜ **Add SM gold images** (currently only **7 images** / 55 boxes — too thin to judge
-  the weakest faction; target ≥25 imgs) — fold into the v6 CVAT round or a v7.
+- ⬜ **Add SM gold images** (currently only **7 images** / 55 boxes; target ≥25) —
+  v7 candidates ready (`data/gold/gold_v7_sm_candidates.json`):
+  `select_gold_v7_sm.py --apply` → `gold_to_cvat.py push v7`.
+- 🔄 **Local CPU embed** of the un-embedded 5,469 (warhammer_community + roboflow) —
+  `embed_local_cpu.py`, attach-only, resumable.
 - ⚠️ **GATE (2026-06-09 review):** do NOT run the SAM 3 prompt/threshold sweep until
   v6 is merged — its selection criterion is *crowded-bucket recall*, currently
   measured on 5 images (i.e. selecting hyperparameters on noise).
@@ -49,13 +55,23 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
 7. ⬜ **F3** — self-relabel @ conf 0.3, disagreement set → annotator review.
 8. ⬜ **F4** — RF-DETR-Medium v2 (cloud) + RF-DETR-Nano (edge); target mAP@50 0.82–0.88.
 
-## ⬜ Tier 2 — faction classifier (~20 classes)
+## ⬜ Tier 2 — faction classifier (THE pipeline chokepoint as of 2026-06-09)
 - 🔄 DINOv2 linear probe **prototyped** (v1 faction top-1 0.68 on gold crops; beats
-  KNN-vote +12pp). Tyranids 0.91, Necrons 0.70, **SM 0.47** (weak link), DG untestable.
+  KNN-vote +12pp). Compounded with Tier 3 on real crops: **0.089** (20-way) /
+  **0.228** (v1-restricted) — see `docs/benchmarks/2026-06-09-review-experiments.md`.
+- ⬜ **v1-restrict the production probe** — free, doubles the pipeline; SM faction
+  top-1 goes 0.39 → 0.94 (the old "SM 0.47" was 20-way class-space bleed, not SM
+  being hard).
+- ⬜ **Fix DG routing** (0.27 even v1-restricted; 189 product-shot training crops vs
+  2,914 SM) — real-photo DG crops + class rebalancing. Tier 3's best faction is
+  currently the one Tier 2 can't route to.
 - ⬜ **Calibrate a confidence threshold** for the "unknown" path — out_of_scope crops are
   confidently misclassified (empirically required, not optional).
-- ⬜ Diversify the SM gallery (it's all `dup`-tagged near-dups — likely why SM is low).
-- ⬜ Exit bar: faction top-1 ≥ 90% (or rely on top-3 + Tier 3 to discriminate).
+- ⬜ Decomposition (2026-06-09): unit-grouped in-domain split = 0.600 → the gallery
+  (label noise + homogeneity), NOT domain shift, caps the ceiling. Gallery QA pays
+  Tier 2 and Tier 3 at once.
+- ⬜ Exit bar: faction top-1 ≥ 90% (or rely on top-3 + Tier 3 to discriminate) —
+  unreachable on the current gallery; re-measure after v1-restrict + DG fix.
 
 ## ⬜ Tier 3 — unit retrieval (~900 classes, open-set)
 - ✅ Gallery **depth** solved 4/4 (SM/Necrons/Tyranids median 30 crops/unit, ~0
