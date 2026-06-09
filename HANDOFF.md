@@ -16,14 +16,14 @@ FiftyOne's MongoDB (`wh40k_pile`, **66,370 images**), NOT git — rebuilt via
 - **Gold eval set** `data/gold/gold_v2.json` — 89 imgs / 283 boxes, every v1 faction ≥40. The trusted measuring stick.
 - **Tier 1 measuring infra** — `eval/gold.py` (count-MAE × density + per-faction recall), `eval/boxconv.py`, `eval/triage.py`, `scripts/phaseF/score_gold.py`. 157 tests green.
 - **Junk filter** → `data/phaseF/autolabel_images.txt` = ~30.4k clean SAM 3 input.
-- **Death Guard gallery: 0 → 189 crops / 29 units, VALIDATED as the *best* v1 faction** (88.7% scoped Tier-3 top-3 — `docs/benchmarks/2026-06-06-dg-gallery-retrieval.md`). Built by *ingesting* gw_shop+CMON already on disk — no scraping. DG is no longer a blocker.
+- **Death Guard gallery: 0 → 189 crops / 29 units** (88.7% scoped Tier-3 top-3 — `docs/benchmarks/2026-06-06-dg-gallery-retrieval.md`). Built by *ingesting* gw_shop+CMON already on disk — no scraping. DG depth is no longer a blocker. ⚠️ **Caveat (2026-06-09 review):** that 88.7% is *leave-one-out over the gallery itself* (catalog self-retrieval, dup-inflated) — see the gold-domain re-eval `docs/benchmarks/2026-06-09-tier3-gold-domain-retrieval.md` for the deployment-domain number.
 - **Tier 2 faction probe** prototyped (DINOv2 linear probe, 0.68 v1 top-1; SM weak at 0.47).
 - **Codebase cleanup** (2026-06-05/06): removed dead Grounding-DINO/OWLv2 ensemble + the DINO-proposal feature, `yolo_env`→`fiftyone_env` everywhere, reconciled STRATEGY/CLAUDE/README, deleted dead scripts + `warhammer-analyzer/`. `TODO.md` is now the live roadmap.
 - **New source online:** `warhammer_community` (robots-allowed HTTP) — +5,155 detection images, all factions, **un-embedded**.
 
 **The single most important next step:** the **SAM 3 Tier 1 run on Colab** — prompt/threshold sweep (decisions locked in §5.1) → auto-label the ~30.4k → triage → train RF-DETR. Everything's prepped; it needs a GPU session.
 
-**Other live threads:** (a) the 5,155 warhammer_community images need a **Colab DINOv2 embed batch** before dedup/gallery use; (b) finish labeling **v6** density round (`wh40k_gold_v6` in CVAT) → `pull v6` + `merge`; (c) **Space Marines** is the real Tier-3 weak link (0.697, all-`dup` gallery) — diversify it.
+**Other live threads:** (a) the 5,155 warhammer_community images need a **Colab DINOv2 embed batch** before dedup/gallery use; (b) finish labeling **v6** density round (`wh40k_gold_v6` in CVAT) → `pull v6` + `merge` — **the SAM 3 sweep is gated on this** (its selection criterion, crowded-bucket recall, currently rests on 5 images); (c) **Tier 3 reality check (2026-06-09):** the gold-domain bench (`docs/benchmarks/2026-06-09-tier3-gold-domain-retrieval.md`) shows real-scene scoped top-3 = **0.52 overall** — SM 0.20 / Tyranids 0.24 / Necrons 0.46 / **DG 0.93**. DG's *curated* gallery works; the three weak-labeled isolation galleries don't. Highest-leverage Tier 3 work = replicate the DG gallery recipe (product-labeled gw_shop/CMON crops) for SM/Tyranids/Necrons + `weak_unit` label QA — not depth, not backbone.
 
 **Gotchas that bite:** check disk before scraping (ingestion ≠ acquisition — burned 3× today); browser scrapers (CMON/eBay) die unattended; an image isn't usable until embedded (Colab); `fiftyone_env` is CPU-only.
 
@@ -47,8 +47,9 @@ Phone app. Architecture: detect → faction → retrieve → optional VLM. v1 = 
 Active data-centric rebuild. The pile (`wh40k_pile` in FiftyOne MongoDB) is **66,370
 images** across 8 sources, deduped, role-split into gallery/detection/holdout pools,
 provenance-stamped. v1 factions locked: **space_marines, necrons, tyranids, death_guard**.
-**Gallery depth solved 4/4** — every v1 faction (incl. Death Guard, seeded 0→189 from
-on-disk gw_shop+CMON and validated as the best-retrieving v1 faction). **Gold eval set**
+**Gallery depth solved 3/4 by the LOO bench** — DG/Necrons/Tyranids clear the 0.80
+top-3 bar; **Space Marines fails it (0.697)** with a 100%-dup gallery. (And note the
+LOO bench is self-retrieval — the gold-domain eval is the honest number.) **Gold eval set**
 `data/gold/gold_v2.json` — 89 imgs / 283 boxes, every v1 faction ≥40 (`gold_v1.json`
 35/124 frozen as baseline). **Tier 1 measuring infra built** (eval harness, box
 reconciliation, triage, junk filter → 30.4k clean SAM 3 input). **Tier 2** faction probe
@@ -67,7 +68,7 @@ yolo_env, DINO-proposal feature, dead scripts, warhammer-analyzer). Newest sourc
 - The dataset lives in FiftyOne's MongoDB (NOT git). The curation scripts rebuild it.
 
 ## 3. The dataset `wh40k_pile` (FiftyOne)
-- **61,215 samples**. Fields: `weak_faction`, `source`, `weak_unit`, `corpus` (td1/td2/roboflow),
+- **66,370 samples** (60,901 embedded; the un-embedded 5,469 = warhammer_community 5,155 + roboflow 314). Fields: `weak_faction`, `source`, `weak_unit`, `corpus` (td1/td2/roboflow),
   `pool`, `faction_v1`, `embedding` (DINOv2-large), provenance (`source_url`, `source_platform`,
   `caption_title`, `scrape_date`, `file_hash`, `license_status`, `product_safe`, `realism_tier`,
   `finish_state`, `label_source`, `label_confidence`), `ground_truth` (gold boxes).

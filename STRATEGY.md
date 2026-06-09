@@ -34,13 +34,12 @@ Evidence points to a mid-40% mAP50 plateau even with significantly more annotati
 
 Every TCG card scanner that scaled past ~1K classes hit this wall and pivoted away from monolithic classification heads. Ximilar (15+ TCGs, 97%+ accuracy commercial) explicitly abandoned CNN classifiers in favour of embedding retrieval. That pattern — `YOLO + CLIP` / `detector + embedding retrieval against a catalog` — is the published blueprint we will adopt.
 
-The benchmark closest to our regime is iNaturalist-2021 (10K fine-grained species, thin per-class data):
+The benchmark closest to our regime is iNaturalist-2021 (10K fine-grained species, thin per-class data). Frozen-backbone linear evals from the DINOv2 paper (arXiv 2304.07193, Table 7 — all linear probes, apples-to-apples):
 
-- Full softmax training: ~60–65% top-1 with heroic effort.
-- DINOv2 frozen features + linear probe: **81.1%**.
-- DINOv2 V-measure: **0.908** (vs 0.719 CLIP, 0.708 ResNet-18).
+- DINOv2 ViT-g/14: **85.7%** top-1
+- OpenCLIP ViT-G/14: 76.0% · iBOT ViT-L/16: 74.6% · DINO ViT-B/8: 68.3% · MAE: 32.3%
 
-We will not out-engineer that 20+ point gap with more YOLO epochs.
+(Corrected 2026-06-09: an earlier revision claimed "81.1% vs ~60–65% full softmax" — the 81.1 was mis-transcribed and the softmax baseline could not be sourced; the paper's comparison is frozen-vs-frozen.) The honest claim: frozen DINOv2 features beat every other frozen backbone by 10–50 points on exactly our regime, at near-zero training cost. We will not out-engineer that gap with more YOLO epochs.
 
 ## 3. Target architecture
 
@@ -92,8 +91,8 @@ The original framing ("Zero training. Foundation models suffice.") held up at th
 Concrete pipeline for building the Tier 1 detector:
 
 1. **Freeze a 200-image eval set** stratified by bbox density (single / sparse / medium / crowded), never trained on. (→ Phase C.)
-2. **Auto-label the ~30.6k clean detection-pool images** (34.7k pool minus the junk filter → `data/phaseF/autolabel_images.txt`) with **SAM 3 detection + optional SAM 2 mask refinement**. The original multi-detector ensemble (SAM 3 + Grounding DINO + OWLv2 + agreement voting) was **dropped 2026-04-25** — Phase C bench showed SAM 3 beating the alternatives 3× and the weaker votes only hurt precision (DINO/OWLv2 code removed 2026-06-05). Class-agnostic NMS @ IoU 0.5, SAHI for images > 1200 px long edge; prompt/threshold locked in `HANDOFF.md` §5.1. (~16–30 GPU-hours on a T4.) Implementation: `scripts/phaseF/autolabel_ensemble.py`, modules under `src/photoanalyzer/detect/ensemble/`. Then bucket output via `scripts/phaseF/triage_pseudolabels.py` (zero-box → review).
-3. **Train RF-DETR-Medium v1** on the union of 1,500 gold annotations (oversampled 5–10×) + ~15,600 auto-accept pseudo-labels. Expected mAP@50 on the frozen eval: 0.70–0.78.
+2. **Auto-label the ~30.4k clean detection-pool images** (30,444; 34.7k pool minus the junk filter → `data/phaseF/autolabel_images.txt`) with **SAM 3 detection + optional SAM 2 mask refinement**. The original multi-detector ensemble (SAM 3 + Grounding DINO + OWLv2 + agreement voting) was **dropped 2026-04-25** — Phase C bench showed SAM 3 beating the alternatives 3× and the weaker votes only hurt precision (DINO/OWLv2 code removed 2026-06-05). Class-agnostic NMS @ IoU 0.5, SAHI for images > 1200 px long edge; prompt/threshold locked in `HANDOFF.md` §5.1. (~16–30 GPU-hours on a T4.) Implementation: `scripts/phaseF/autolabel_ensemble.py`, modules under `src/photoanalyzer/detect/ensemble/`. Then bucket output via `scripts/phaseF/triage_pseudolabels.py` (zero-box → review).
+3. **Train RF-DETR-Medium v1** on auto-accept pseudo-labels (~15,600 expected) plus the hand-labeled legacy annotation corpus as a high-trust slice (~1,065 images — *legacy* annotations, useful as box supervision even though their class labels are untrusted). **gold_v2 (89 imgs / 283 boxes) is the eval set and is never trained on** — `autolabel_ensemble.py` excludes annotated IDs at load time; keep it that way. (Corrected 2026-06-09: an earlier revision said "1,500 gold annotations oversampled" — that conflated the legacy annotation corpus with the gold eval set.) Expected mAP@50 vs gold_v2: 0.70–0.78.
 4. **Self-relabel at confidence 0.3.** Compare v1 predictions to the original pseudo-labels; images where they disagree — plus the ensemble's single-supporter review tier — become the active-learning pool (~1,000–3,000 images, ~5–12 human-hours in the desktop annotator).
 5. **Train RF-DETR-Medium v2** (cloud, quality-max) and **RF-DETR-Nano** (edge, mobile) on the cleaned union. Target mAP@50 on the frozen eval: **0.82–0.88**. Both are Apache-2.0; no knowledge-distillation loss, "poor man's distillation" via shared dataset.
 
@@ -101,7 +100,7 @@ License stack is deliberately all-Apache-2.0 **for the shipped inference path**.
 
 | Component | License | Role | Why chosen |
 |---|---|---|---|
-| SAM 3 | SAM License (Meta) | Offline pseudo-labeller (primary) | Corrected 2026-04-24: the current SAM 3 license permits commercial use, has no competing-foundation-models clause, and does not force share-alike on outputs. Used offline only; the shipped detector is RF-DETR-Medium. More than doubles OWLv2 / DINO-X on SA-Co exhaustive detection (arXiv 2511.16719). |
+| SAM 3 | SAM License (Meta) — **gated, terms unverified** | Offline pseudo-labeller (primary) | Re-corrected 2026-06-09: the HF model is gated ("other" license); commercial-use terms could NOT be verified from public pages — the 2026-04-24 "permits commercial use" claim is unsourced until someone reads the license text behind the gate. Posture unchanged and safe regardless: SAM 3 runs offline only, its weights are never shipped; the shipped detector is RF-DETR-Medium (Apache-2.0). More than doubles OWLv2 / DINO-X on SA-Co exhaustive detection (arXiv 2511.16719). |
 | ~~Grounding DINO base~~ | Apache-2.0 | **DROPPED 2026-04-25** | Was an ensemble member; Phase C bench showed it only hurt precision vs SAM 3 alone. Code removed 2026-06-05. |
 | ~~OWLv2 image-guided~~ | Apache-2.0 | **DROPPED 2026-04-25** | Was the visual-prompt ensemble member. Removed with Grounding DINO. |
 | SAM 2 hiera-large | Apache-2.0 | Mask refinement | Ungated on HF; tightens every candidate box to the silhouette via mask-to-bbox, filters false positives whose refined IoU with the candidate < 0.3. |

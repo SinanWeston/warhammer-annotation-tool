@@ -9,7 +9,8 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
 ---
 
 ## ✅ Foundation (done)
-- ✅ Curate the pile — 61k images, DINOv2-embedded, deduped, role-split (gallery /
+- ✅ Curate the pile — 66.4k images (60.9k DINOv2-embedded; warhammer_community +
+  roboflow still un-embedded), deduped, role-split (gallery /
   detection / holdout), provenance-stamped, v1 factions locked (SM / Necrons /
   Tyranids / Death Guard)
 - ✅ **Gold eval set** — `data/gold/gold_v2.json`, 89 imgs / 283 boxes, every v1
@@ -25,7 +26,13 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
 ## 🔄 Now
 - 🔄 Label the **gold density round** (`wh40k_gold_v6`, 26 crowded scenes) → `pull v6`
   + `merge` so the crowded bucket (currently 5 imgs) can support the count metric.
-- ⚠️ Confirm the **SAM 3 license** is accepted on huggingface.co/facebook/sam3.
+- ⬜ **Add SM gold images** (currently only **7 images** / 55 boxes — too thin to judge
+  the weakest faction; target ≥25 imgs) — fold into the v6 CVAT round or a v7.
+- ⚠️ **GATE (2026-06-09 review):** do NOT run the SAM 3 prompt/threshold sweep until
+  v6 is merged — its selection criterion is *crowded-bucket recall*, currently
+  measured on 5 images (i.e. selecting hyperparameters on noise).
+- ⚠️ Confirm the **SAM 3 license** is accepted on huggingface.co/facebook/sam3 (and
+  read the actual license text — commercial-use terms are unverified, see STRATEGY §3.1).
 
 ## ⬜ Tier 1 — class-agnostic detector (active build)
 1. ⬜ **SAM 3 prompt-validation sweep** — prompt {`miniature`/`painted miniature`/
@@ -51,15 +58,22 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
 - ⬜ Exit bar: faction top-1 ≥ 90% (or rely on top-3 + Tier 3 to discriminate).
 
 ## ⬜ Tier 3 — unit retrieval (~900 classes, open-set)
-- ✅ Gallery depth solved for SM/Necrons/Tyranids (median 30 crops/unit, ~0 singletons —
-  the old Phase 3a "78% singleton" problem is obsolete).
-- ⚠️ **Death Guard gallery = 0 crops** + DG holdout exhausted → **GW scrape required**
-  (Cloudflare WAF, needs user at keyboard). Queued for before Tier 3. The single Tier 3
-  data blocker.
-- ⬜ Gallery **label** QA — `weak_unit` labels are unverified (separate from depth).
+- ✅ Gallery **depth** solved 4/4 (SM/Necrons/Tyranids median 30 crops/unit, ~0
+  singletons; DG seeded 0→189 crops / 29 units from on-disk gw_shop+CMON on
+  2026-06-06 — no scrape needed after all).
+- ⚠️ Depth ≠ retrieval: the 2026-06-06 numbers were **leave-one-out self-retrieval**
+  (dup-inflated). The honest gold-domain bench
+  (`docs/benchmarks/2026-06-09-tier3-gold-domain-retrieval.md`): scoped top-3
+  **0.52 overall** — SM 0.20 / Tyranids 0.24 / Necrons 0.46 / **DG 0.93**. Only the
+  curated DG gallery passes the bar.
+- ⬜ **Replicate the DG gallery recipe for SM/Tyranids/Necrons** (product-labeled
+  gw_shop/CMON crops, curated) + `weak_unit` label QA — the highest-leverage Tier 3
+  work; a 73-point gap (DG 0.93 vs SM 0.20) says gallery quality, not embedding
+  power, is the bottleneck.
 - ⬜ DINOv3-L (or SigLIP 2) frozen embeddings + cosine k-NN scoped by Tier 2 faction.
 - ⬜ Calibrate the "I don't recognise this" threshold (~0.81 from Phase 1).
-- ⬜ Exit bar: unit top-3 ≥ 80% within-faction (currently ~74.5%).
+- ⬜ Exit bar: unit top-3 ≥ 80% within-faction **measured on the gold-domain bench,
+  not LOO** (currently 0.52 overall, 1/4 factions pass).
 
 ## ⬜ Tier 4 — VLM disambiguation (opt-in)
 - ⬜ Claude/Gemini "which of these 3?" fallback when Tier 3 top-1 confidence < 0.6.
