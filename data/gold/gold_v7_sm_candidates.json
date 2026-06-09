@@ -1,0 +1,31 @@
+{
+  "profile": "v7",
+  "faction": "space_marines",
+  "filepaths": [
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1nhcji1_09fa233fb377.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/blood_angels/reddit/1kurm14_7f458a39dcc8.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1l4sp1v_d1825d127ce2.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1klr0s0_aeae1dfe1080.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1o1vdxd_b87f5774b9b9.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/dark_angels/reddit/1nyydh5_808c873d77cf.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1kjvamp_95465410c572.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/reddit/1dsoia9_6f46ddcb1aad.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_captain_in_gravis_armour_dakka_887621_003.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_deathwing_command_squad_dakka_454786_000.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_deathwing_terminator_squad_dakka_274760_011.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_stormtalon_gunship_dakka_638215_004.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_apothecary_biologis_dakka_1226076_003.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_impulsor_dakka_1141799_007.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_inceptor_squad_dakka_935353_000.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/ebay/space_marines_gladiator_reaper_ebay_227251064911_20.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/cmon/cmon_475673_03.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/cmon/cmon_475578_01.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/cmon/cmon_473923_01.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/cmon/cmon_475727_00.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/gw_shop/ultramarines_cato_sicarius__99120101452_UltramarinesCatoSicarius4.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/gw_shop/eye_of_terror_battalion_sonsof_dorn__99120101287_EyeOfTerrorBattalionSonsofDorn04.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/dark_angels/dakkadakka/dakka_1049242.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/dakkadakka/87333_9502ed6d257d.jpg",
+    "/home/sinan/Active/Projects/photoanalyzer/backend/training_data/space_marines/dakkadakka/7779_0f5c3bd7ecbe.jpg"
+  ]
+}

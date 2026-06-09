@@ -37,6 +37,10 @@ PROFILES = {
     "v4": {"tag": "gold_v4", "key": "gold_v4", "task": "wh40k_gold_v4"},
     "v5": {"tag": "gold_v5", "key": "gold_v5", "task": "wh40k_gold_v5"},
     "v6": {"tag": "gold_v6", "key": "gold_v6", "task": "wh40k_gold_v6"},
+    # v7: Space Marines fill — gold has only 7 SM images / 55 boxes (2026-06-09
+    # review: too thin to judge the weakest faction). Candidates via
+    # select_gold_v7_sm.py --apply, then push v7.
+    "v7": {"tag": "gold_v7", "key": "gold_v7", "task": "wh40k_gold_v7"},
 }
 ENV = Path(__file__).resolve().parents[2] / ".env"
 

@@ -78,13 +78,19 @@ def main() -> None:
 
     ds = fo.load_dataset("wh40k_pile")
 
+    # NEVER promote gold eval images into the gallery (2026-06-09: an earlier run
+    # of this script swept 7 gold_v2 DG images into the gallery pool, clobbering
+    # the deliberate 06-05 pool="gold" re-pooling).
+    gold_fps = {im["filepath"]
+                for im in json.loads(Path("data/gold/gold_v2.json").read_text())["images"]}
+
     # 1. gw_shop DG → gallery (unit from filename slug before '__')
     gw = ds.match((F("weak_faction") == "death_guard") & (F("source") == "gw_shop"))
     gw = gw.select_fields(["filepath", "faction_v1", "weak_unit", "pool"])
     n_gw = 0
     for s in gw:
         bn = os.path.basename(s.filepath)
-        if "__" not in bn:
+        if "__" not in bn or s.filepath in gold_fps or s.pool == "gold":
             continue
         s["weak_unit"] = bn.split("__")[0]
         s["faction_v1"] = "death_guard"
@@ -100,6 +106,8 @@ def main() -> None:
     for s in cm:
         m = re.search(r"cmon_(\d+)_", os.path.basename(s.filepath))
         if not m or m.group(1) not in id_unit or s.embedding is None:
+            continue
+        if s.filepath in gold_fps or s.pool == "gold":
             continue
         s["faction_v1"] = "death_guard"
         s["weak_faction"] = "death_guard"
