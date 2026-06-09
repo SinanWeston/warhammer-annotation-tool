@@ -175,12 +175,15 @@ def process_one(ensemble, job: ImageJob, original_dims: dict | None) -> dict:
     }
 
 
-def write_manifest(n_done: int) -> None:
+def write_manifest(n_done: int, n_err: int = 0) -> None:
     # Minimal manifest — enough to see progress; deeper stats in F1.7 bench.
+    # n_images_failed MUST be recorded: a downstream reader that only sees
+    # n_images_processed would treat a partial run as complete.
     manifest = {
         "version": 2,
         "mode": "sam3",
         "n_images_processed": n_done,
+        "n_images_failed": n_err,
     }
     MANIFEST_PATH.write_text(json.dumps(manifest, indent=2))
 
@@ -265,11 +268,11 @@ def main() -> int:
                     job.image_id, e, traceback.format_exc(limit=3),
                 )
             if n_done and n_done % 50 == 0:
-                write_manifest(n_done)
+                write_manifest(n_done, n_err)
     except KeyboardInterrupt:
         print("\nInterrupted; writing final manifest.")
 
-    write_manifest(n_done)
+    write_manifest(n_done, n_err)
     elapsed = time.monotonic() - t0
     print(f"\nDone in {elapsed:.1f}s  ({n_done} processed, {n_err} errors)")
     if n_err:

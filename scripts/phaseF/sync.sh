@@ -84,6 +84,27 @@ case "$cmd" in
         echo "==> Downloading"
         rm -f "$OUTPUTS_LOCAL"
         "$RCLONE" copy --progress "${RCLONE_REMOTE}:${DRIVE_OUTPUTS}" "$HOME/Downloads/"
+
+        # Stale-cache tripwire: Drive has served old outputs before. If this tar
+        # is byte-identical to the previous pull, it's almost certainly NOT the
+        # run you just did.
+        sha_file="$HOME/.cache/photoanalyzer_f1_last_pull.sha256"
+        new_sha=$(sha256sum "$OUTPUTS_LOCAL" | cut -d' ' -f1)
+        if [[ -f "$sha_file" ]] && [[ "$(cat "$sha_file")" == "$new_sha" ]]; then
+            echo
+            echo "⚠⚠ WARNING: outputs tar is IDENTICAL to the previous pull."
+            echo "   If you expected fresh results, this is the stale-Drive-cache bug —"
+            echo "   wait ~60s and re-run pull, or check the Colab run actually finished."
+            echo
+        fi
+        mkdir -p "$(dirname "$sha_file")" && echo "$new_sha" > "$sha_file"
+
+        # Validate the archive BEFORE extracting into the repo — a truncated
+        # download must not leave a half-written data/pseudo_labels/ tree.
+        if ! tar -tf "$OUTPUTS_LOCAL" >/dev/null 2>&1; then
+            echo "✗ $OUTPUTS_LOCAL is corrupt/truncated — NOT extracting. Re-run pull." >&2
+            exit 1
+        fi
         echo "==> Extracting into repo root"
         cd "$REPO_ROOT"
         tar -xf "$OUTPUTS_LOCAL"
