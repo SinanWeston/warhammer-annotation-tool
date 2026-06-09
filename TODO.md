@@ -59,9 +59,11 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
 - 🔄 DINOv2 linear probe **prototyped** (v1 faction top-1 0.68 on gold crops; beats
   KNN-vote +12pp). Compounded with Tier 3 on real crops: **0.089** (20-way) /
   **0.228** (v1-restricted) — see `docs/benchmarks/2026-06-09-review-experiments.md`.
-- ⬜ **v1-restrict the production probe** — free, doubles the pipeline; SM faction
-  top-1 goes 0.39 → 0.94 (the old "SM 0.47" was 20-way class-space bleed, not SM
-  being hard).
+- ✅ **v1-restrict the production probe** (2026-06-09) — `photoanalyzer.classify.
+  FactionProbe`, v1-restricted by default (set from `taxonomy.V1_FACTIONS`),
+  artifact via `scripts/phase2/train_faction_probe.py` → `models/tier2_faction_
+  probe.joblib`. SM faction top-1 0.39 → 0.94 (the old "SM 0.47" was 20-way
+  class-space bleed, not SM being hard). 7 unit tests.
 - ⬜ **Fix DG routing** (0.27 even v1-restricted; 189 product-shot training crops vs
   2,914 SM) — real-photo DG crops + class rebalancing. Tier 3's best faction is
   currently the one Tier 2 can't route to.

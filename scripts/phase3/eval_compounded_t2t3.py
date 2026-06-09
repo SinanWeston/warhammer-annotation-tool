@@ -20,14 +20,16 @@ from pathlib import Path
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 from eval_gold_domain_retrieval import V1, embed_crops, load_queries  # noqa: E402
+from photoanalyzer.classify import FactionProbe  # noqa: E402
+
+PROBE_ARTIFACT = Path("models/tier2_faction_probe.joblib")
 
 
 def main() -> None:
     import fiftyone as fo
     from fiftyone import ViewField as F
-    from sklearn.linear_model import LogisticRegression
-    from sklearn.preprocessing import StandardScaler
 
     ds = fo.load_dataset("wh40k_pile")
     gal = ds.match((F("pool") == "gallery") & (F("embedding") != None))  # noqa: E711
@@ -37,25 +39,28 @@ def main() -> None:
     gfac = np.array([str(x) for x in gfac])
     gunit = np.array([str(x) for x in gunit])
 
-    # Tier 2: the production probe recipe (2026-06-05 benchmark)
-    scaler = StandardScaler().fit(G)
-    clf = LogisticRegression(max_iter=3000, C=1.0).fit(scaler.transform(G), gfac)
-    print(f"tier 2 probe trained on {len(gfac)} gallery crops")
+    # Tier 2: the PRODUCTION probe (photoanalyzer.classify.FactionProbe).
+    # Use the saved artifact when present so this evals what production ships;
+    # otherwise train in-place with the same recipe.
+    if PROBE_ARTIFACT.exists():
+        probe = FactionProbe.load(PROBE_ARTIFACT)
+        print(f"tier 2 probe loaded from {PROBE_ARTIFACT}")
+    else:
+        probe = FactionProbe().fit(G, gfac)
+        print(f"tier 2 probe trained in-place on {len(gfac)} gallery crops "
+              f"(no {PROBE_ARTIFACT}; run scripts/phase2/train_faction_probe.py)")
 
     queries = load_queries()
     imgs = [q.pop("_crop") for q in queries]
     Q = embed_crops(imgs).astype(np.float32)
     Q /= np.linalg.norm(Q, axis=1, keepdims=True) + 1e-9
 
-    proba = clf.predict_proba(scaler.transform(Q))
-    pred_fac = clf.classes_[np.argmax(proba, axis=1)]
-    # v1-restricted variant: the v1 product only routes to its 4 factions —
-    # argmax over the v1 columns only (kills e.g. DG→chaos_space_marines bleed)
-    v1_cols = [i for i, c in enumerate(clf.classes_) if c in V1]
-    pred_fac_v1 = np.array(clf.classes_)[v1_cols][np.argmax(proba[:, v1_cols], axis=1)]
+    pred_fac = np.array([p.faction for p in probe.predict(Q, restrict=None)])
+    # production default: v1-restricted routing
+    pred_fac_v1 = np.array([p.faction for p in probe.predict(Q)])
 
     for variant, preds in (("20-way probe", pred_fac),
-                           ("v1-restricted probe", pred_fac_v1)):
+                           ("v1-restricted probe (production)", pred_fac_v1)):
         run_variant(variant, queries, Q, preds, gfac, gunit, G)
 
 

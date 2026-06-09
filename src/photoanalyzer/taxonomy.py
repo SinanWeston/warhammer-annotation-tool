@@ -23,6 +23,15 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 UNITS_JSON_PATH = REPO_ROOT / "scripts" / "data" / "units.json"
 CHARACTERS_JSON_PATH = REPO_ROOT / "scripts" / "data" / "characters.json"
 
+# ── v1 product scope ───────────────────────────────────────────────────────
+# The four factions the v1 scanner recognises (locked 2026-06-04). The
+# production Tier 2 probe restricts its predictions to this set — measured at
+# +0.30 faction top-1 over 20-way argmax on real crops
+# (docs/benchmarks/2026-06-09-review-experiments.md).
+V1_FACTIONS: tuple[str, ...] = (
+    "space_marines", "necrons", "tyranids", "death_guard",
+)
+
 
 # ── faction aliases ────────────────────────────────────────────────────────
 # Map non-canonical strings → canonical faction slug.
