@@ -23,6 +23,7 @@ import numpy as np
 from ..taxonomy import V1_FACTIONS
 
 EMBED_MODEL = "facebook/dinov2-large"
+UNKNOWN_LABEL = "unknown"
 
 
 @dataclass(frozen=True)
@@ -39,14 +40,23 @@ class FactionProbe:
         self._clf = None
 
     # ── training ────────────────────────────────────────────────────────────
-    def fit(self, X: np.ndarray, y: Sequence[str]) -> "FactionProbe":
+    def fit(
+        self,
+        X: np.ndarray,
+        y: Sequence[str],
+        class_weight: str | dict | None = None,
+    ) -> "FactionProbe":
+        """`class_weight` passes through to LogisticRegression — "balanced"
+        counters the gallery's class imbalance (e.g. 182 DG vs 2,914 SM crops).
+        """
         from sklearn.linear_model import LogisticRegression
         from sklearn.preprocessing import StandardScaler
 
         X = np.asarray(X, dtype=np.float32)
         y = np.asarray([str(v) for v in y])
         self._scaler = StandardScaler().fit(X)
-        self._clf = LogisticRegression(max_iter=3000, C=1.0).fit(
+        self._clf = LogisticRegression(
+            max_iter=3000, C=1.0, class_weight=class_weight).fit(
             self._scaler.transform(X), y)
         return self
 
@@ -66,9 +76,13 @@ class FactionProbe:
         self,
         X: np.ndarray,
         restrict: Iterable[str] | None = V1_FACTIONS,
+        unknown_threshold: float | None = None,
     ) -> list[FactionPrediction]:
         """Predict a faction per row. `restrict` limits the candidate set
         (default: the v1 factions); pass None for unrestricted 20-way argmax.
+        With `unknown_threshold`, rows whose renormalized confidence falls
+        below it come back as UNKNOWN_LABEL (the open-set path — out_of_scope
+        crops are otherwise confidently misclassified).
         """
         proba = self.predict_proba(X)
         classes = np.asarray(self._clf.classes_)
@@ -87,9 +101,13 @@ class FactionProbe:
         denom[denom == 0] = 1.0
         sub = sub / denom
         best = np.argmax(sub, axis=1)
-        return [FactionPrediction(faction=str(classes[cols[b]]),
-                                  confidence=float(sub[i, b]))
-                for i, b in enumerate(best)]
+        out = []
+        for i, b in enumerate(best):
+            faction, conf = str(classes[cols[b]]), float(sub[i, b])
+            if unknown_threshold is not None and conf < unknown_threshold:
+                faction = UNKNOWN_LABEL
+            out.append(FactionPrediction(faction=faction, confidence=conf))
+        return out
 
     # ── persistence ─────────────────────────────────────────────────────────
     def save(self, path: str | Path) -> None:

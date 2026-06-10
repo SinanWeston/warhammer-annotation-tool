@@ -85,3 +85,20 @@ def test_save_load_roundtrip(fitted, tmp_path):
 def test_unfitted_raises():
     with pytest.raises(RuntimeError, match="not fitted"):
         FactionProbe().predict(np.zeros((1, DIM)))
+
+
+def test_class_weight_balanced_accepted(fitted):
+    X, y, _ = _synthetic(CLASSES)
+    probe = FactionProbe().fit(X, y, class_weight="balanced")
+    assert set(probe.classes) == set(CLASSES)
+
+
+def test_unknown_threshold_rejects_low_confidence(fitted):
+    probe, means = fitted
+    # midpoint between two v1 cluster means → genuinely ambiguous crop
+    x = ((means["necrons"] + means["tyranids"]) / 2)[None, :]
+    sure = probe.predict(x, unknown_threshold=None)[0]
+    gated = probe.predict(x, unknown_threshold=0.99)[0]
+    assert sure.faction in V1_FACTIONS
+    assert gated.faction == "unknown"
+    assert gated.confidence == sure.confidence  # confidence still reported
