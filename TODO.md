@@ -64,11 +64,16 @@ Legend: ✅ done · 🔄 in-flight · ⬜ todo · ⚠️ decision/blocker
   artifact via `scripts/phase2/train_faction_probe.py` → `models/tier2_faction_
   probe.joblib`. SM faction top-1 0.39 → 0.94 (the old "SM 0.47" was 20-way
   class-space bleed, not SM being hard). 7 unit tests.
-- ⬜ **Fix DG routing** (0.27 even v1-restricted; 189 product-shot training crops vs
-  2,914 SM) — real-photo DG crops + class rebalancing. Tier 3's best faction is
-  currently the one Tier 2 can't route to.
-- ⬜ **Calibrate a confidence threshold** for the "unknown" path — out_of_scope crops are
-  confidently misclassified (empirically required, not optional).
+- ⚠️ **DG routing is blocked on Tier 1, not tuning** (2026-06-10): class weighting
+  does nothing (DG confusion byte-identical across weightings — 26/37 real DG
+  crops → SM). It's a domain problem (gw_shop/CMON training crops vs tabletop);
+  the fix is real-photo DG crops from the SAM 3 autolabel run. See
+  `docs/benchmarks/2026-06-10-tier2-dg-routing-unknown-threshold.md`.
+- ⚠️ **"Unknown" gate: mechanism built, operating point deferred** (2026-06-10):
+  `FactionProbe.predict(unknown_threshold=...)` + calibration harness exist, but
+  no signal separates non-v1 minis on the current gallery (softmax AUC 0.65,
+  scoped-cosine AUC 0.64; need ~0.9). Re-sweep after gallery curation + gold
+  v6/v7 merge.
 - ⬜ Decomposition (2026-06-09): unit-grouped in-domain split = 0.600 → the gallery
   (label noise + homogeneity), NOT domain shift, caps the ceiling. Gallery QA pays
   Tier 2 and Tier 3 at once.

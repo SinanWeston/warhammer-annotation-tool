@@ -141,6 +141,7 @@ scripts/phase3/*.before-sync
 # Phase F exemplars + crops — derived (build_exemplar_set.py, extract_cmon_crops.py)
 data/exemplars/
 data/crops/
+data/embeddings/
 
 # Wahapedia raw scrape dump — regenerable from scripts/build_units_json_from_wahapedia.py
 scripts/data/wahapedia_raw/
